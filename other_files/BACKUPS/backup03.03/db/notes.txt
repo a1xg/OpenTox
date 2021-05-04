@@ -1,0 +1,18 @@
+cosmetic_ingridients.csv https://www.kaggle.com/abdelrahmanashraf/cosmetic-ingredient-database
+food_ingredients_datafiniti_db.csv https://www.kaggle.com/datafiniti/food-ingredient-lists
+cosmetics_data.csv  https://www.kaggle.com/kingabzpro/cosmetics-datasets?select=cosmetics.csv
+indirect-additives https://www.kaggle.com/fda/indirect-food-additives?select=indirect-additives.csv
+EUCOSMETICS_Decision_7664_category  https://zenodo.org/record/3959386#.YD5VB2gzZPY
+FoodSubstances https://www.cfsanappsexternal.fda.gov/scripts/fdcc/index.cfm?set=FoodSubstances
+
+
+
+
+
+
+
+
+
+
+
+

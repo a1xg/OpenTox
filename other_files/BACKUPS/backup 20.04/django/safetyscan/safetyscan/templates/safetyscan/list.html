@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="features">
+        <h1>Первые 10 веществ из базы</h1>
+        {% for el in data %}
+            {{ el }}<br>
+        {% endfor %}
+    </div>
+{% endblock %}
