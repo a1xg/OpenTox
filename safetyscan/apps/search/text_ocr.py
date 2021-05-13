@@ -20,7 +20,7 @@ class ImageOCR:
         self.text = [] # выходной список словарей с распознанным текстом в формате {'lang':'text'}
         self.boxes = []
 
-    def _decodeImage(self):
+    def decodeImage(self):
         '''Декодирует изображение из формата base64 в numpy массив'''
         self.img = cv2.imdecode(np.fromstring(self.img, np.uint8), cv2.IMREAD_UNCHANGED)
 
@@ -101,6 +101,8 @@ class ImageOCR:
         threshold1 = cv2.threshold(gradX, 0, 255, cv2.THRESH_BINARY | cv2.THRESH_OTSU)[1]
         threshold2 = cv2.morphologyEx(threshold1, cv2.MORPH_CLOSE, sqKernel)
         text_mask = cv2.erode(threshold2, None, iterations=4)
+        #cv2.imshow('test', text_mask)
+        #cv2.waitKey(0)
         # remove the edge of the image, so that in the future there
         # would be no outlines recognition outside the image
         border = int(image.shape[1] * 0.05)
@@ -232,7 +234,6 @@ class ImageOCR:
         :self.lang: the language of the text in the image
 
          """
-        self._decodeImage()
         self._imagePreprocessing()
         font_size, num_lines = self._measureStrings()
         mask_img = self._getTextMask(self.img, font_size, num_lines)
@@ -245,6 +246,8 @@ class ImageOCR:
             return False
 
         for image in binary_images:
+            #cv2.imshow('binary', image)
+            #cv2.waitKey(0)
             if lang_detect == True:
 
                 default_config = ('-l ' + text_lang + '+eng --oem 1 --psm 6')
@@ -272,6 +275,7 @@ class ImageOCR:
             (x,y,w,h) = box
             cv2.rectangle(img_with_boxes, (x, y), ((x + w), (y + h)), (255, 255, 0), 10)
         img_with_boxes = self._resizeImage(img_with_boxes, max_resolution)
-
+        #cv2.imshow('r', img_with_boxes)
+        #cv2.waitKey(0)
         return img_with_boxes
 

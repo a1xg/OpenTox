@@ -35,17 +35,17 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'django.contrib.contenttypes',
+    'grappelli',
+    'django.contrib.admin',
     'search',
     'django_json_widget',
     'django.contrib.postgres',
-    'grappelli',
-    'django.contrib.admin',
     'django.contrib.auth',
-    'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'debug_toolbar',
+    'debug_toolbar'
 ]
 
 MIDDLEWARE = [

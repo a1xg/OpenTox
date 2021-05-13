@@ -5,12 +5,11 @@ from django.contrib.postgres.indexes import GinIndex, BTreeIndex, GistIndex
 class Ingredients(models.Model):
     '''Таблица ингридиентов'''
     # TODO вынести поле main_name из jsonb
-    main_name = models.CharField(max_length=300, blank=True, null=True, db_index=True)
     data = models.JSONField(blank=True, null=True, db_index=True)
     safety = models.ForeignKey('Safety', models.DO_NOTHING, blank=True, null=True)
 
     def __str__(self):
-        return self.main_name
+        return self.data['mainName']
 
     class Meta:
         managed = True
@@ -22,8 +21,8 @@ class Ingredients(models.Model):
             GinIndex(fields=["data"], name="enumber_gin_idx",),
             GinIndex(fields=["data"], name="colourindex_gin_idx",),
             GinIndex(fields=["data"], name="synonyms_eng_gin_idx",),
-            BTreeIndex(fields=["main_name"], name="main_name_btree_idx",),
-            GinIndex(fields=["main_name"], name="trgm_main_name_gin_idx", opclasses=['gin_trgm_ops'],),
+            #BTreeIndex(fields=["main_name"], name="main_name_btree_idx",),
+            #GinIndex(fields=["main_name"], name="trgm_main_name_gin_idx", opclasses=['gin_trgm_ops'],),
          ]
 
 
