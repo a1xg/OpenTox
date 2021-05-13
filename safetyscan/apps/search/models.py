@@ -11,6 +11,22 @@ class Ingredients(models.Model):
     def __str__(self):
         return self.data['mainName']
 
+    def cas_numbers(self):
+        return self.data.get('casNumbers')
+
+    def ec_numbers(self):
+        return self.data.get('ecNumbers')
+
+    def e_number(self):
+        return self.data.get('eNumber')
+
+    def safety_id(self):
+        return self.safety
+
+    def pubchem_cid(self):
+        return self.data.get('pubchemCID')
+
+
     class Meta:
         managed = True
         db_table = 'ingredients'
