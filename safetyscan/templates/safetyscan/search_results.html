@@ -6,18 +6,25 @@
             <h3>Найдено {{ result_count }} компонентов</h3>
             {% for el in results %}
                 <div class="alert alert-warning">
-                    <p>Название: {{ el.data.mainName }}</p>
+                    <p>Ingredient main_name: {{ el.data.mainName }}:
+                        <a href="http://127.0.0.1:8000/admin/search/ingredients/{{ el.id }}/change/">{{ el.id }}</a> </p>
+                    <p>Safety substance {{ el.safety.substance.substanceNames }}:
+                        <a href="http://127.0.0.1:8000/admin/search/safety/{{ el.safety.id }}/change/">{{ el.safety.id }}</a> </p>
                     <!--<p>ID: {{ el.id }}</p>
                     <p>Синонимы {{ el.data.synonyms.eng }}</p>
                     <p>Е номер: {{ el.data.eNumber }}</p>
                     <p>EC номер: {{ el.data.ecNumbers }}</p>
                     <p>CAS номер: {{ el.data.casNumbers }}</p>
-                    <p>Назначение: {{ el.data.functions }}</p>
-                    <p>CL inventory ID: <a href="https://echa.europa.eu/information-on-chemicals/cl-inventory-database/-/discli/details/{{ el.safety.cl_inventory_id }}">{{ el.safety.cl_inventory_id }}</a></p>
-                    <p>GHS Classification {{ el.safety.ghs_class.GHSAndNotifiers }}</p>
-                    <p> {{ el.safety.nfpa_osha_class.hazardClassAndCategory }}</p>-->
+                    <p>Назначение: {{ el.data.functions }}</p>-->
+
+                    <p>CL inventory ID:
+                        <a href="https://echa.europa.eu/information-on-chemicals/cl-inventory-database/-/discli/details/{{ el.safety.cl_inventory_id }}">{{ el.safety.cl_inventory_id }}</a></p>
+                    <!--<p>GHS Classification {{ el.safety.ghs_class.GHSAndNotifiers }}</p>
+                    <p> {{ el.safety.nfpa_osha_class.hazardClassAndCategory }}</p>
                     <p>Pubchem CID: <a href="https://pubchem.ncbi.nlm.nih.gov/compound/{{el.data.pubchemCID}}"> {{ el.data.pubchemCID }} </a></p>
+                    -->
                 </div>
+
             {% endfor %}
 
             {% else %}

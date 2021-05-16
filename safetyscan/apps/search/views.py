@@ -4,8 +4,7 @@ from .services import DBSearch
 from .forms import UploadImageForm, TextRequestForm
 from .text_ocr import ImageOCR
 
-# TODO написать обработчик GHS данных
-#  написать фронт по симпатичнее
+# TODO написать фронт по симпатичнее
 
 def search(request):
     upload_image_form = UploadImageForm(request.POST, request.FILES)

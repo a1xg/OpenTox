@@ -4,9 +4,9 @@ from django.contrib.postgres.indexes import GinIndex, BTreeIndex, GistIndex
 
 class Ingredients(models.Model):
     '''Таблица ингридиентов'''
-    # TODO вынести поле main_name из jsonb
-    data = models.JSONField(blank=True, null=True, db_index=True)
     safety = models.ForeignKey('Safety', models.DO_NOTHING, blank=True, null=True)
+    data = models.JSONField(blank=True, null=True, db_index=True)
+
 
     def __str__(self):
         return self.data['mainName']
@@ -26,6 +26,9 @@ class Ingredients(models.Model):
     def pubchem_cid(self):
         return self.data.get('pubchemCID')
 
+    def functions(self):
+        return  self.data.get('functions')
+
 
     class Meta:
         managed = True
@@ -33,7 +36,6 @@ class Ingredients(models.Model):
         verbose_name = 'Ингредиент'
         verbose_name_plural = 'Ингредиенты'
         indexes = [
-            # FIXME индекс синонимов используется в запросе, а индексы Е,CI номеров нет, что замедляет запросы
             GinIndex(fields=["data"], name="enumber_gin_idx",),
             GinIndex(fields=["data"], name="colourindex_gin_idx",),
             GinIndex(fields=["data"], name="synonyms_eng_gin_idx",),
@@ -50,12 +52,14 @@ class Safety(models.Model):
     ec_number = models.CharField(max_length=10, blank=True, null=True)
     cl_inventory_id = models.IntegerField(blank=True, null=True)
     total_notifications = models.IntegerField(blank=True, null=True)
-    ghs_class = models.JSONField(blank=True, null=True)
-    nfpa_osha_class = models.JSONField(blank=True, null=True)
-    sourse = models.CharField(max_length=20, blank=True, null=True)
+    hazard_statement_codes = models.JSONField(blank=True, null=True)
+    hazard_class_and_categories = models.JSONField(blank=True, null=True)
+    sourse = models.CharField(max_length=100, blank=True, null=True)
+    hazard_data =  models.JSONField(blank=True, null=True)
 
     def __str__(self):
         return str(self.substance["substanceNames"][0])
+
 
     class Meta:
         managed = True
