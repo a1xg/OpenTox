@@ -11,4 +11,4 @@ class TextRequestForm(forms.Form):
         'rows': 4,
         'cols': 60,
         'placeholder': 'Введите компоненты через запятую'
-    }), max_length=500)
+    }), max_length=3000)

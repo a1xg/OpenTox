@@ -216,7 +216,7 @@ def save_csv(dir, df, prefix):
     newdir = f'{folder}/{prefix}{filename}'
     df.to_csv(newdir, index = False, encoding='utf-8')
 
-dir = '../db/COSING_Ingredients_and_EUCOSMETICS_combine.csv'
+dir = '../other_files/db/COSING_Ingredients_and_EUCOSMETICS_combine.csv'
 df = read_csv(dir)
 new_colnames = ('inchikey','GHS_codes', 'synonyms','pubchem_CID','pubchem_SID', 'colour_index', 'CAS_No','EC_No')
 colnames = ('name','CAS_No','EC_No','other_names')

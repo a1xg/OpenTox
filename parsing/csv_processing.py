@@ -116,7 +116,7 @@ def df_join(dir:str):
     df_array = [read_csv(dir) for dir in filenames]
     joined_df = pd.concat(df_array)
     print(joined_df)
-    save_csv("../db/cl_inventory/joined_cl_inventory.csv", joined_df, prefix='')
+    save_csv("../other_files/db/cl_inventory/joined_cl_inventory.csv", joined_df, prefix='')
 
 def checkNaN(df, colname:str):
         print('Not NaN:', df[colname].count(), 'total',len(df))
@@ -150,7 +150,7 @@ def replaceNaN(dir):
     df = df.astype(str)
     save_csv(dir=dir, df=df, prefix='new_')
 
-replaceNaN('../db/to_import_postgres.csv')
+replaceNaN('../other_files/db/to_import_postgres.csv')
 
 #extractItemFromSet('../db/extract_ci_drop_duplicates_COSING_EUCOSMETICS_Foodsubstance_pubchem_combine.csv')
 #  приделать Е номера

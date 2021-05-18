@@ -16,7 +16,7 @@ import re
 class IngredientsAdmin(admin.ModelAdmin):
     actions = ('drop_keyword','concatenate_objects',)
     raw_id_fields = ('safety',)
-    list_display = ('__str__','id','safety_id','pubchem_cid','cas_numbers','ec_numbers','e_number','functions',)
+    list_display = ('__str__','id','safety_id','pubchem_cid','cas_numbers','ec_numbers','e_number','functions','colour_index')
     search_fields = (
         'data__synonyms__eng__contains',
         'data__casNumbers__contains',
@@ -46,7 +46,7 @@ class SafetyAdmin(admin.ModelAdmin):
     formfield_overrides = {
         models.JSONField: {'widget': JSONEditorWidget},
     }
-    list_display = ('__str__', 'id', 'cas_number', 'ec_number',)
+    list_display = ('__str__', 'id', 'cl_inventory_id', 'sourse', 'cas_number', 'ec_number')
     search_fields = (
         # FIXME настроить поиск по полям кодов опасности и классов
         'substance__substanceNames__contains',

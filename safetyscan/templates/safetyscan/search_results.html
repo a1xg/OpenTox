@@ -19,9 +19,12 @@
 
                     <p>CL inventory ID:
                         <a href="https://echa.europa.eu/information-on-chemicals/cl-inventory-database/-/discli/details/{{ el.safety.cl_inventory_id }}">{{ el.safety.cl_inventory_id }}</a></p>
-                    <!--<p>GHS Classification {{ el.safety.ghs_class.GHSAndNotifiers }}</p>
-                    <p> {{ el.safety.nfpa_osha_class.hazardClassAndCategory }}</p>
-                    <p>Pubchem CID: <a href="https://pubchem.ncbi.nlm.nih.gov/compound/{{el.data.pubchemCID}}"> {{ el.data.pubchemCID }} </a></p>
+                    {% if el.safety.hazard_statement_codes %}
+                        {% for json in el.safety.hazard_class_and_categories.hazardClassAndCategory %}
+                            <p>Hazard codes {{ json.class }} {{ json.category }}</p>
+                        {% endfor %}
+                    {% endif %}
+                    <!--<p>Pubchem CID: <a href="https://pubchem.ncbi.nlm.nih.gov/compound/{{el.data.pubchemCID}}"> {{ el.data.pubchemCID }} </a></p>
                     -->
                 </div>
 

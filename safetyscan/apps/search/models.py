@@ -29,6 +29,9 @@ class Ingredients(models.Model):
     def functions(self):
         return  self.data.get('functions')
 
+    def colour_index(self):
+        return  self.data.get('colourIndex')
+
 
     class Meta:
         managed = True
