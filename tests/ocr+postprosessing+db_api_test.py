@@ -54,9 +54,9 @@ def write_csv(dict):
 
 # Общий тест объединяющий распознавание и постпроцессинг
 
-file_dir = glob.glob('../images_full/*.jpg')
+file_dir = glob.glob('images_full/*.jpg')
 file_dir.sort()
-validation_dict = read_csv(dir='../images_crop/csv/right_answers.csv')
+validation_dict = read_csv(dir='images_crop/csv/right_answers.csv')
 
 all_words = []
 all_enum = []

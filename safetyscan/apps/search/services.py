@@ -69,7 +69,7 @@ class DBSearch:
                 string = re.sub(self._re_mask['colourIndex'], '', string)
 
             # оставшиеся ключевые слова очищаем от лишних символов и пробелов разделяем по запятой
-            cleared_string = TextPostprocessing(input_string=string).stringFilter()
+            cleared_string = TextPostprocessing().stringFilter(input_string=string)
             keyword_list = cleared_string.split(',')
             keyword_list = [keyword for keyword in keyword_list if len(keyword) > 0]
             text_block.writeItem(key='keywords', data=keyword_list)

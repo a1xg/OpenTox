@@ -1,11 +1,11 @@
+import re
 import numpy as np
 import cv2
-import re
 import pytesseract
 import pycountry
 from langdetect import detect, DetectorFactory
-# Tesseract location if environment variable is not working correctly
-# Tesseract version 5.0.0-alpha.20200328
+
+# Absolute path to tesseract.exe file if environment variable is not working correctly
 pytesseract.pytesseract.tesseract_cmd = 'D:/Program/Tesseract-OCR/tesseract.exe'
 
 # TODO
@@ -13,6 +13,7 @@ pytesseract.pytesseract.tesseract_cmd = 'D:/Program/Tesseract-OCR/tesseract.exe'
 #  сделать обработку return False
 #  сделать проверку распознаваемого языка в списке доступных Tesseract в ином случае вернуть False
 #  Сделать обработку исключения langdetect в случае картинки без текста
+
 class ImageOCR:
     def __init__(self, img):
         self.img = img
@@ -30,11 +31,11 @@ class ImageOCR:
         normalised_img = clahe.apply(grayscale)
         self.img = normalised_img
 
-    def _resizeImage(self, image, max_resolution:int) -> np.ndarray:
+    def _resizeImage(self, image:np.ndarray, max_resolution:int) -> np.ndarray:
         """ The method resizes the image to the maximum allowed
         maintaining the original proportions regardless of vertical or
-        horizontal orientation, for example if the maximum dimension
-        set as 1000 pixels, then 1000x800 or 800x1000 can be obtained
+        horizontal orientation, for example: from image 2000x1600px or 1600x2000px, if the maximum dimension
+        set as 1000 pixels, then 1000x800 or 800x1000 can be obtained.
         """
         max_dim = max(image.shape[0:2])
         scale_coef = max_dim / max_resolution
@@ -50,7 +51,7 @@ class ImageOCR:
         num_lines = []
         font_size = []
         # slices of the image along the X axis relative to the width of the image, to enhance
-        # counting accuracy for images with distorted perspective.
+        # counting accuracy for images with distorted perspective or with imperfect horizontal lines.
         slices = ((0.35, 0.45), (0.5, 0.6), (0.65, 0.75))
         height, width = self.img.shape[0:2]
         for slice in slices:
@@ -58,6 +59,8 @@ class ImageOCR:
             newW = width*slice[1] - width*slice[0]
             crop = self.img[0:height, int(newX):int(newX+newW)]
             crop = self._getTextMask(crop, font_size=0, num_lines=0)
+
+            # Reduce the 2D array along the X axis to a 1D array
             hist = cv2.reduce(crop, 1, cv2.REDUCE_AVG).reshape(-1)
             th = 2
             H, W = crop.shape[:2]
@@ -72,7 +75,7 @@ class ImageOCR:
 
         return (mean_font_size, mean_num_lines)
 
-    def _getTextMask(self, image, font_size:int, num_lines:int) -> np.ndarray:
+    def _getTextMask(self, image:np.ndarray, font_size:int, num_lines:int) -> np.ndarray:
         """
         The method searches the image for a text block and creates
         mask to use it to find outlines bounding the text and crop the excess part of the image.
@@ -88,16 +91,16 @@ class ImageOCR:
             None
         # Apply filters to the image
         imgBlur = cv2.GaussianBlur(image, (3, 3), 0) # 3Х3
-        rectKernel = cv2.getStructuringElement(cv2.MORPH_RECT, rect_kernel_size)
-        sqKernel = cv2.getStructuringElement(cv2.MORPH_RECT, sq_kernel_size)  
-        blackhat = cv2.morphologyEx(imgBlur, cv2.MORPH_BLACKHAT, rectKernel)
-        gradX = cv2.Sobel(blackhat, ddepth=cv2.CV_32F, dx=1, dy=0, ksize=-1)
+        kernel1 = cv2.getStructuringElement(cv2.MORPH_RECT, rect_kernel_size)
+        kernel2 = cv2.getStructuringElement(cv2.MORPH_RECT, sq_kernel_size)  
+        blackHat = cv2.morphologyEx(imgBlur, cv2.MORPH_BLACKHAT, kernel1)
+        gradX = cv2.Sobel(blackHat, ddepth=cv2.CV_32F, dx=1, dy=0, ksize=-1)
         gradX = np.absolute(gradX)
         (minVal, maxVal) = (np.min(gradX), np.max(gradX))
         gradX = (255 * ((gradX - minVal) / (maxVal - minVal))).astype("uint8")
-        gradX = cv2.morphologyEx(gradX, cv2.MORPH_CLOSE, rectKernel)
+        gradX = cv2.morphologyEx(gradX, cv2.MORPH_CLOSE, kernel1)
         threshold1 = cv2.threshold(gradX, 0, 255, cv2.THRESH_BINARY | cv2.THRESH_OTSU)[1]
-        threshold2 = cv2.morphologyEx(threshold1, cv2.MORPH_CLOSE, sqKernel)
+        threshold2 = cv2.morphologyEx(threshold1, cv2.MORPH_CLOSE, kernel2)
         text_mask = cv2.erode(threshold2, None, iterations=4)
 
         # remove the edge of the image, so that in the future there
@@ -108,7 +111,7 @@ class ImageOCR:
 
         return text_mask
 
-    def _getBinaryImages(self, image, font_size, new_font_size:int) -> list:
+    def _getBinaryImages(self, image:np.ndarray, font_size, new_font_size:int) -> list:
         '''The method crops the text area of interest in the image, brings the 
         resolution of the cropped area to the new standard maximum resolution.
         '''
@@ -151,7 +154,7 @@ class ImageOCR:
         # return an array of binary images, if any.
         return binary_images if len(binary_images) > 0 else False
 
-    def _findBoxes(self, mask_img, quantity:int) -> list:
+    def _findBoxes(self, mask_img:np.ndarray, quantity:int) -> None:
         """
         The method accepts a binary image mask that selects text blocks.
         The quantity parameter is intended to limit the number of boxes, remove duplicates and very small boxes.
@@ -183,6 +186,7 @@ class ImageOCR:
                 new_W, new_H = (x2 - x1), (y2 - y1)
 
                 self._boxes.append([x1, y1, new_W, new_H])
+
         self._boxes = self._findLargestBoxes(quantity=quantity) if len(self._boxes) > quantity else self._boxes
 
     def _findLargestBoxes(self, quantity:int) -> list:
@@ -194,7 +198,7 @@ class ImageOCR:
         bigest_boxes = [boxes_array[i].tolist() for i in max_areas_indises]
         return bigest_boxes
 
-    def _imageCropper(self, image, crop_coef:float) -> np.ndarray:
+    def _imageCropper(self, image:np.ndarray, crop_coef:float) -> np.ndarray:
         """The method crops the image proportionally to the crop ratio (floating point numbers from 0 to 1)
         relative to the center of the image."""
         x, y, h, w = 0, 0, image.shape[0], image.shape[1]
@@ -204,7 +208,7 @@ class ImageOCR:
         cropped_img = image[int(new_y):int(new_y+new_h), int(new_x):int(new_x+new_w)]
         return cropped_img
 
-    def _recognizeText(self, conf:str, image) -> str:
+    def _recognizeText(self, conf:str, image:np.ndarray) -> str:
         """Text recognition method"""
         return pytesseract.image_to_string(image, config=conf)
 
@@ -218,21 +222,19 @@ class ImageOCR:
         alpha_3_lang_code = langdict.alpha_3
         return alpha_3_lang_code
 
-    def getText(self, text_lang:str, lang_detect:bool, crop:bool, set_font:int) -> list:
-        """If the language recognition flag is active, then we do a trial
-        text recognition in the language passed to the method + English.
-        We define exactly the language and repeat the refined, monolingual
-        text recognition.
-        The method assigns 2 attributes:
-        :self.text: recognized text
-        :self.lang: the language of the text in the image
-
+    def getText(self, text_lang, crop:bool, set_font:int) -> list:
+        """text_lang The language must be specified in alpha-3 format,
+        if the language is unknown, then the text_lang parameter must be set to False.
+        If the language is not specified, then it will be recognized automatically,
+        but it will take more time, since text recognition needs to be done twice.
+        The crop parameter is set to True if the text needs to be cropped,
+         and False if the block of text has already been cut from the photo.
          """
         self._imagePreprocessing()
         font_size, num_lines = self._measureStrings()
         mask_img = self._getTextMask(self.img, font_size, num_lines)
         if crop == True:
-            self._findBoxes(mask_img=mask_img, quantity=2)
+            self._findBoxes(mask_img=mask_img, quantity=3)
             binary_images = self._getBinaryImages(self.img, font_size, set_font)
         else:
             binary_images = self._getBinaryImages(self.img, font_size, set_font)
@@ -240,7 +242,7 @@ class ImageOCR:
             return False
         # Loop through images prepared for OCR
         for image in binary_images:
-            if lang_detect == True:
+            if text_lang == False:
                 # If the image language is unknown, then the tesseract will
                 # make primary recognition in several languages, low quality
                 default_config = ('-l rus+deu+eng --oem 1 --psm 6')
@@ -249,6 +251,7 @@ class ImageOCR:
                 multilang_recog_text = self._recognizeText(default_config, sample_image)
                 # Detect language
                 recognized_lang = self._detectLang(multilang_recog_text)
+                print(f'recognized language: {recognized_lang}')
                 # After the exact definition of the language, we make repeated
                 # recognition with the exact indication of the language
                 custom_config = (f'-l {recognized_lang} --oem 1 --psm 6')
@@ -263,13 +266,13 @@ class ImageOCR:
         return self.text
 
     def drawBoxes(self, max_resolution) -> np.ndarray:
-        """The method of drawing of recognized texts and bounding rectangles of the image_to_text"""
-        # TODO можно задать индекс бокса в self._boxes в котором были найдены компоненты и отрисовывать только его
+        """Method for drawing bounding rectangles"""
         img_with_boxes = self.img
         for box in self._boxes:
             (x,y,w,h) = box
             cv2.rectangle(img_with_boxes, (x, y), ((x + w), (y + h)), (255, 255, 0), 10)
-        img_with_boxes = self._resizeImage(img_with_boxes, max_resolution)
+
+        img_with_boxes = self._resizeImage(img_with_boxes, max_resolution) if max_resolution != False else img_with_boxes
 
         return img_with_boxes
 

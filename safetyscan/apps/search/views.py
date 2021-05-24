@@ -2,39 +2,60 @@ from django.shortcuts import render
 from .models import Ingredients
 from .services import DBSearch
 from .forms import UploadImageForm, TextRequestForm
-from .text_ocr import ImageOCR
+from .ocr import ImageOCR
 
-# TODO написать фронт по симпатичнее
+# TODO сделать автоматическое срабатывание кнопки поиск, после того, как изображение было выбрано и нажато OK
+#  прикрутить стили от input к textarea
+#  сделать страницу детальной информации
 
-def search(request):
-    upload_image_form = UploadImageForm(request.POST, request.FILES)
-    text_form = TextRequestForm(request.POST)
+def index(request):
+    '''Новый дизайн главной страницы'''
+    upload_image_form = UploadImageForm()
+    text_form = TextRequestForm()
     data = {
         'title':'Форма поиска',
         'upload_image_form':upload_image_form,
         'text_form':text_form
     }
+    return render(request, 'index.html', data)
 
-    if request.method == 'POST' and upload_image_form.is_valid():
-        # Распознаем текст и получаем на выходе словари
-        ocr = ImageOCR(img=request.FILES['image'].read())
-        ocr.decodeImage()
-        text_from_img = ocr.getText(text_lang='eng', lang_detect=0, crop=1, set_font=40)
-        img = ocr.drawBoxes(max_resolution=700)
-        #ocr.drawBoxes(max_resolution=700)
-        print(f'Text from image {text_from_img}')
-        search = DBSearch(data=text_from_img)
-        results = search.getData()
-        data.update(results)
-        print('-'*20)
-
-    if request.method == 'POST' and text_form.is_valid():
-        text = request.POST.get('text')
-        lang = 'eng'
-        search = DBSearch(data=[{lang:text}])
-        results = search.getData()
-        data.update(results)
-        print('_'*20)
+def text_search(request):
+    if request.method == 'POST':
+        data = {}
+        text_form = TextRequestForm(request.POST)
+        print('text_search_new', text_form)
+        if text_form.is_valid():
+            text = request.POST.get('text')
+            lang = 'eng'
+            search = DBSearch(data=[{lang:text}])
+            results = search.getData()
+            print(results)
+            print('_'*20)
+            data['title'] = 'Форма поиска'
+            data['text_form'] = TextRequestForm(request.POST)
+            data['upload_image_form'] = UploadImageForm()
+            data['result_count'] = len(results)
+            data.update(results)
+        else:
+            print('NOT VALID')
 
     return render(request, 'safetyscan/search_results.html', data)
 
+def search_by_image(request):
+    if request.method == 'POST':
+        upload_image_form = UploadImageForm(request.POST, request.FILES)
+        if upload_image_form.is_valid():
+            # Распознаем текст и получаем на выходе словари
+            ocr = ImageOCR(img=request.FILES['image'].read())
+            ocr.decodeImage()
+            text_from_img = ocr.getText(text_lang='eng', crop=1, set_font=40)
+            search = DBSearch(data=text_from_img)
+            results = search.getData()
+            data = {'title':'Форма поиска',
+                    'text_form': TextRequestForm(),
+                    'upload_image_form': UploadImageForm(),
+                    'result_count':len(results)
+                    }
+            data.update(results)
+
+    return render(request, 'safetyscan/search_results.html', data)
