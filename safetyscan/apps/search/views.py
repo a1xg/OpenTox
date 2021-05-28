@@ -1,61 +1,63 @@
 from django.shortcuts import render
-from .models import Ingredients
-from .services import DBSearch
+from django.views.generic import DetailView
+from .models import Ingredient
+from .database import DBSearch
 from .forms import UploadImageForm, TextRequestForm
 from .ocr import ImageOCR
 
-# TODO сделать автоматическое срабатывание кнопки поиск, после того, как изображение было выбрано и нажато OK
-#  прикрутить стили от input к textarea
-#  сделать страницу детальной информации
+# TODO прикрутить стили от input к textarea
 
 def index(request):
-    '''Новый дизайн главной страницы'''
+    '''Главная страница'''
     upload_image_form = UploadImageForm()
     text_form = TextRequestForm()
     data = {
-        'title':'Форма поиска',
+        'title':'Search form',
         'upload_image_form':upload_image_form,
         'text_form':text_form
     }
     return render(request, 'index.html', data)
 
 def text_search(request):
+    data = {}
     if request.method == 'POST':
-        data = {}
         text_form = TextRequestForm(request.POST)
         print('text_search_new', text_form)
         if text_form.is_valid():
             text = request.POST.get('text')
             lang = 'eng'
             search = DBSearch(data=[{lang:text}])
-            results = search.getData()
-            print(results)
-            print('_'*20)
-            data['title'] = 'Форма поиска'
+            data['title'] = 'Search results'
             data['text_form'] = TextRequestForm(request.POST)
             data['upload_image_form'] = UploadImageForm()
-            data['result_count'] = len(results)
-            data.update(results)
+            data['results'] = search.getData()
         else:
             print('NOT VALID')
-
     return render(request, 'safetyscan/search_results.html', data)
 
 def search_by_image(request):
+    data = {}
     if request.method == 'POST':
         upload_image_form = UploadImageForm(request.POST, request.FILES)
         if upload_image_form.is_valid():
             # Распознаем текст и получаем на выходе словари
             ocr = ImageOCR(img=request.FILES['image'].read())
             ocr.decodeImage()
-            text_from_img = ocr.getText(text_lang='eng', crop=1, set_font=40)
+            text_from_img = ocr.getText(text_lang='eng', crop=True, set_font=40)
             search = DBSearch(data=text_from_img)
-            results = search.getData()
-            data = {'title':'Форма поиска',
-                    'text_form': TextRequestForm(),
-                    'upload_image_form': UploadImageForm(),
-                    'result_count':len(results)
-                    }
-            data.update(results)
-
+            data['title'] = 'Search results'
+            data['text_form'] = TextRequestForm()
+            data['upload_image_form'] = UploadImageForm()
+            data['results']= search.getData()
+        else:
+            print('NOT VALID')
     return render(request, 'safetyscan/search_results.html', data)
+
+def details_info(request):
+    return render(request, 'safetyscan/ingredient_details.html', {'':''})
+
+class IngredientDetailView(DetailView):
+    model = Ingredient
+    template_name = 'safetyscan/ingredient_details.html'
+    context_object_name = 'ingredient'
+

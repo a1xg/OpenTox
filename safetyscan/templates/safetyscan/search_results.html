@@ -1,37 +1,186 @@
 {% extends 'index.html' %}
-{% block title %}{{ title }}{% endblock %}
-{% block search_results %}
-    <div class="features">
-        {% if results %}
-            <h3>Найдено {{ result_count }} компонентов</h3>
-            {% for el in results %}
-                <div class="alert alert-warning">
-                    <p>Ingredient main_name: {{ el.data.mainName }}:
-                        <a href="http://127.0.0.1:8000/admin/search/ingredients/{{ el.id }}/change/">{{ el.id }}</a> </p>
-                    <p>Safety substance {{ el.safety.substance.substanceNames }}:
-                        <a href="http://127.0.0.1:8000/admin/search/safety/{{ el.safety.id }}/change/">{{ el.safety.id }}</a> </p>
-                    <!--<p>ID: {{ el.id }}</p>
-                    <p>Синонимы {{ el.data.synonyms.eng }}</p>
-                    <p>Е номер: {{ el.data.eNumber }}</p>
-                    <p>EC номер: {{ el.data.ecNumbers }}</p>
-                    <p>CAS номер: {{ el.data.casNumbers }}</p>
-                    <p>Назначение: {{ el.data.functions }}</p>-->
-
-                    <p>CL inventory ID:
-                        <a href="https://echa.europa.eu/information-on-chemicals/cl-inventory-database/-/discli/details/{{ el.safety.cl_inventory_id }}">{{ el.safety.cl_inventory_id }}</a></p>
-                    {% if el.safety.hazard_statement_codes %}
-                        {% for json in el.safety.hazard_class_and_categories.hazardClassAndCategory %}
-                            <p>Hazard codes {{ json.class }} {{ json.category }}</p>
-                        {% endfor %}
-                    {% endif %}
-                    <!--<p>Pubchem CID: <a href="https://pubchem.ncbi.nlm.nih.gov/compound/{{el.data.pubchemCID}}"> {{ el.data.pubchemCID }} </a></p>
-                    -->
-                </div>
-
-            {% endfor %}
-
-            {% else %}
-                <p> </p>
-        {% endif %}
-    </div>
+{% block title %}
+{{ title }}
 {% endblock %}
+
+{% block content %}
+<div class="row">
+      <div class="col-12">
+            <div class="card card-margin">
+                {% if results %}
+                <div class="card-body">
+                    <div class="row search-body">
+                        <div class="col-lg-12">
+                            <div class="search-result">
+                                <!--Заголовок результатов поиска-->
+                                <div class="result-header">
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                            <div class="records">Showing: <b>1-{{ results|length }}</b> of results</div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <div class="result-actions">
+                                                <div class="e-number">
+                                                    <p class="m-0">E number</p>
+                                                    <!--<span>Sort By:</span>
+                                                    <select class="form-control border-0" id="exampleOption">
+                                                        <option value="1">Relevance</option>
+                                                    </select>-->
+                                                </div>
+                                                <div class="result-sorting">
+                                                    <p class="m-0">GHS classification</p>
+                                                    <!--<span>Sort By:</span>
+                                                    <select class="form-control border-0" id="exampleOption">
+                                                        <option value="1">Relevance</option>
+                                                    </select>-->
+                                                </div>
+                                                <div class="result-views">
+                                                    <button type="button" class="btn btn-soft-base btn-icon">
+                                                        <svg
+                                                            xmlns="http://www.w3.org/2000/svg"
+                                                            width="24"
+                                                            height="24"
+                                                            viewBox="0 0 24 24"
+                                                            fill="none"
+                                                            stroke="currentColor"
+                                                            stroke-width="2"
+                                                            stroke-linecap="round"
+                                                            stroke-linejoin="round"
+                                                            class="feather feather-list"
+                                                        >
+                                                            <line x1="8" y1="6" x2="21" y2="6"></line>
+                                                            <line x1="8" y1="12" x2="21" y2="12"></line>
+                                                            <line x1="8" y1="18" x2="21" y2="18"></line>
+                                                            <line x1="3" y1="6" x2="3" y2="6"></line>
+                                                            <line x1="3" y1="12" x2="3" y2="12"></line>
+                                                            <line x1="3" y1="18" x2="3" y2="18"></line>
+                                                        </svg>
+                                                    </button>
+                                                    <button type="button" class="btn btn-soft-base btn-icon">
+                                                        <svg
+                                                            xmlns="http://www.w3.org/2000/svg"
+                                                            width="24"
+                                                            height="24"
+                                                            viewBox="0 0 24 24"
+                                                            fill="none"
+                                                            stroke="currentColor"
+                                                            stroke-width="2"
+                                                            stroke-linecap="round"
+                                                            stroke-linejoin="round"
+                                                            class="feather feather-grid"
+                                                        >
+                                                            <rect x="3" y="3" width="7" height="7"></rect>
+                                                            <rect x="14" y="3" width="7" height="7"></rect>
+                                                            <rect x="14" y="14" width="7" height="7"></rect>
+                                                            <rect x="3" y="14" width="7" height="7"></rect>
+                                                        </svg>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="result-body">
+                                    <div class="table-responsive">
+                                        <table class="table widget-26">
+                                            <tbody>
+                                                <!-- Типовая строка таблицы поисковой выдачи -->
+                                                {% for el in results %}
+                                                <tr>
+                                                    <td>
+                                                        <div class="widget-26-job-emp-img">
+                                                            <img src="http://iconsetc.com/icons-watermarks/flat-square-white-on-black/bfa/bfa_flask/bfa_flask_flat-square-white-on-black_128x128.png" alt="Ingredient" />
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <div class="widget-26-job-title">
+                                                            <a href="{% url 'ingredient' el.id %}">{{ el.data.mainName }}</a>
+                                                            <p class="m-0">
+                                                                {% for func in el.data.functions %}
+                                                                <span class="text-muted time">{{ func }},</span>
+                                                                {% endfor %}
+                                                            </p>
+                                                        </div>
+                                                    </td>
+                                                    <!--<td>
+                                                        <div class="widget-26-job-info">
+                                                            <p class="type m-0">Full-Time</p>
+                                                            <p class="text-muted m-0">in <span class="location">London, UK</span></p>
+                                                        </div>
+                                                    </td>-->
+                                                    <td>
+                                                        <div class="widget-26-job-salary">{{ el.data.eNumber }}</div>
+                                                    </td>
+                                                    <td>
+
+
+                                                            {% if el.safety.hazard_data.hazardData %}
+                                                                {% for hazard in el.safety.hazard_data.hazardData %}
+                                                                    {% if hazard.confirmedStatus %}
+                                                                    <div class="widget-26-job-category bg-soft-base">
+                                                                        <i class="indicator bg-base"></i>
+                                                                        <span>{{ hazard.hazardAbbreviation }} {{ hazard.hazardCategory }}</span>
+                                                                    </div>
+                                                                    {% endif %}
+                                                                {% endfor %}
+                                                            {% endif %}
+
+                                                    </td>
+                                                    <td>
+                                                        <div class="widget-26-job-starred">
+                                                            <a href="#">
+                                                                <svg
+                                                                    xmlns="http://www.w3.org/2000/svg"
+                                                                    width="24"
+                                                                    height="24"
+                                                                    viewBox="0 0 24 24"
+                                                                    fill="none"
+                                                                    stroke="currentColor"
+                                                                    stroke-width="2"
+                                                                    stroke-linecap="round"
+                                                                    stroke-linejoin="round"
+                                                                    class="feather feather-star"
+                                                                >
+                                                                    <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+                                                                </svg>
+                                                            </a>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            {% endfor %}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <nav class="d-flex justify-content-center">
+                        <ul class="pagination pagination-base pagination-boxed pagination-square mb-0">
+                            <li class="page-item">
+                                <a class="page-link no-border" href="#">
+                                    <span aria-hidden="true">«</span>
+                                    <span class="sr-only">Previous</span>
+                                </a>
+                            </li>
+                            <li class="page-item active"><a class="page-link no-border" href="#">1</a></li>
+                            <li class="page-item"><a class="page-link no-border" href="#">2</a></li>
+                            <li class="page-item"><a class="page-link no-border" href="#">3</a></li>
+                            <li class="page-item"><a class="page-link no-border" href="#">4</a></li>
+                            <li class="page-item">
+                                <a class="page-link no-border" href="#">
+                                    <span aria-hidden="true">»</span>
+                                    <span class="sr-only">Next</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+                {% else %}
+                    <p>Ничего не найдено</p>
+                {% endif %}
+            </div>
+      </div>
+</div>
+{% endblock %}
+

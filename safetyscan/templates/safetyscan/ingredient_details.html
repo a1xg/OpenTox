@@ -1,0 +1,36 @@
+{% extends 'index.html' %}
+{% block title %}
+{{ ingredient.data.mainName }}
+{% endblock %}
+{% block content %}
+
+    <div class="alert alert-warning">
+        <h7>{{ ingredient.data.mainName }} </h7>
+        {% if ingredient.safety.hazard_data %}
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th scope="col">Hazard Class</th>
+                <th scope="col">Hazard Category</th>
+                <th scope="col">Hazard Statement Code</th>
+                <th class="col">Number of Notifiers</th>
+                <th class="col">Confirmation Status</th>
+            </tr>
+            </thead>
+            <tbody>
+
+            {% for json in ingredient.safety.hazard_data.hazardData %}
+            <tr>
+                <td>{{ json.hazardAbbreviation }}</td>
+                <td>{{ json.hazardCategory }}</td>
+                <td>{{ json.code }}</td>
+                <td>{{ json.numberOfNotifiers }}</td>
+                <td>{{ json.confirmedStatus }}</td>
+            </tr>
+            {% endfor %}
+            </tbody>
+            <h7>Total notifications: {{ ingredient.safety.hazard_data.totalNotification }} </h7>
+        </table>
+        {% endif %}
+    </div>
+{% endblock %}

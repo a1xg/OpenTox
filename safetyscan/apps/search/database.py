@@ -1,15 +1,15 @@
 from django.contrib.postgres.search import SearchQuery, SearchVector, TrigramSimilarity
-from .models import Safety, Ingredients
-from django.db.models import Q
+from .models import Safety, Ingredient
+from django.db.models import Q, F
 from .text_postprocessing import TextPostprocessing
 import re
 # Примеры запросов к полям jsonb
-# Запрос слова из массива JSONB Ingredients.objects.filter(data__synonyms__eng__contains='dimethyl caproamide')
-# Запрос слова из поля JSONB Ingredients.objects.filter(data__inchiKey='HNXNKTMIVROLTK-UHFFFAOYSA-N')
-# Запрос к реляционным полям Ingredients.objects.filter(main_name='propylparaben')
-# Запрос по триграммам(выдает кучу результатов без ранжирования) Ingredients.objects.filter(main_name__trigram_similar="paraben")
+# Запрос слова из массива JSONB Ingredient.objects.filter(data__synonyms__eng__contains='dimethyl caproamide')
+# Запрос слова из поля JSONB Ingredient.objects.filter(data__inchiKey='HNXNKTMIVROLTK-UHFFFAOYSA-N')
+# Запрос к реляционным полям Ingredient.objects.filter(main_name='propylparaben')
+# Запрос по триграммам(выдает кучу результатов без ранжирования) Ingredient.objects.filter(main_name__trigram_similar="paraben")
 # Неточный поиск по триграммам с ранжированием результата
-# Ingredients.objects.annotate(similarity=TrigramSimilarity('main_name', 'propyiparaben'),).filter(similarity__gt=0.01).order_by('-similarity')
+# Ingredient.objects.annotate(similarity=TrigramSimilarity('main_name', 'propyiparaben'),).filter(similarity__gt=0.01).order_by('-similarity')
 #
 
 class TextBlock:
@@ -81,7 +81,6 @@ class DBSearch:
         '''Обращаемся к базе и возвращаем найденное'''
         # составляем комбинированный SQL запрос
         # пока поддерживаются только точные совпадения на английском и без пробелов в начале и конце текста
-
         query = Q()
         if text_block.getItem('keywords'):
             for word in text_block.getItem('keywords'):
@@ -93,7 +92,7 @@ class DBSearch:
             for ci in text_block.getItem('colour_index'):
                 query = query | Q(data__colourIndex__contains=[ci])
 
-        results = Ingredients.objects.select_related('safety').filter(query)
+        results = Ingredient.objects.select_related('safety').filter(query)
 
         text_block.writeItem(key='results', data=results)
         text_block.writeItem(key='matches_number', data=len(results))
@@ -102,22 +101,14 @@ class DBSearch:
         '''Перебираем текстовые блоки'''
         self._buildTextBlock()
         [self._requestDB(block) for block in self._text_blocks]
-        ingredients_block = self._selectIngredientsBlock()
-        data = {
-            'results':ingredients_block.getItem('results'),
-            'result_count':ingredients_block.getItem('matches_number')
-        }
-        print(f'Keywords list {ingredients_block.getItem("keywords")}')
-        return data
+        ingredients_block = self._selectIngredientBlock()
+        results = ingredients_block.getItem('results')
+        results.update(request_statistics=F('request_statistics') + 1) # update view counter to all ingredients
+        return results
 
-    def _selectIngredientsBlock(self):
+    def _selectIngredientBlock(self):
         '''Выбираем блок текста, по которому нашли больше всего совпадений в базе'''
         result_count = [block.getItem('matches_number') for block in self._text_blocks]
         max_matches_idx = result_count.index(max(result_count))
-
-        for block in self._text_blocks:
-            print(block.getItem('results'))
-
-
         return self._text_blocks[max_matches_idx]
 

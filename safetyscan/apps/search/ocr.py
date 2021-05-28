@@ -243,6 +243,7 @@ class ImageOCR:
         # Loop through images prepared for OCR
         for image in binary_images:
             if text_lang == False:
+
                 # If the image language is unknown, then the tesseract will
                 # make primary recognition in several languages, low quality
                 default_config = ('-l rus+deu+eng --oem 1 --psm 6')
