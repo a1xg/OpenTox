@@ -4,25 +4,24 @@ from django_json_widget.widgets import JSONEditorWidget
 from django.contrib.admin.views.main import ChangeList
 from .models import *
 import re
+import json
 
 # TODO прикрутить форму добавления ключевого слова и языка
-#  возможно поле GHS кодов нужно будет слить в один json  с классами и категориями опасности
 #  доработать удаление ключевого слова на разных языках
 #  написать модуль оценки опасности
-#  в БД добавить поле со счетчиком запросов, написать метод обновления счетчиков при запросе.
 #  поле otherNames слить с synonyms->eng
 
 class IngredientAdmin(admin.ModelAdmin):
     actions = ('drop_keyword','concatenate_objects',)
-    raw_id_fields = ('safety',)
-    list_display = ('__str__','id','safety_id','pubchem_cid','cas_numbers','ec_numbers','e_number','functions','colour_index')
+    raw_id_fields = ('hazard',)
+    list_display = ('__str__','id','hazard_id','pubchem_cid','cas_numbers','ec_numbers','e_number','functions','colour_index')
     search_fields = (
         'data__synonyms__eng__contains',
         'data__casNumbers__contains',
         'data__ecNumbers__contains',
         'data__eNumber__contains',
         'data__colourIndex__contains',
-        'safety__id'
+        'hazard'
     )
     formfield_overrides = {
         models.JSONField: {'widget': JSONEditorWidget},
@@ -40,7 +39,7 @@ class IngredientAdmin(admin.ModelAdmin):
         pass
 
 
-class SafetyAdmin(admin.ModelAdmin):
+class HazardAdmin(admin.ModelAdmin):
     actions = ['drop_keyword']
     formfield_overrides = {
         models.JSONField: {'widget': JSONEditorWidget},
@@ -64,11 +63,12 @@ class GHSAdmin(admin.ModelAdmin):
     list_display = ('id', 'abbreviation', 'hazard_category', 'hazard_code', 'description')
 
 
-class Safety_GHSAdmin(admin.ModelAdmin):
-    list_display = ('id', 'substance', 'number_of_notifiers', 'confirmed_status')
+class Hazard_GHSAdmin(admin.ModelAdmin):
+    raw_id_fields = ('hazard','ghs')
+    list_display = ('id','hazard','ghs','number_of_notifiers', 'confirmed_status')
 
 admin.site.register(Ingredient, IngredientAdmin)
-admin.site.register(Safety, SafetyAdmin)
+admin.site.register(Hazard, HazardAdmin)
 admin.site.register(GHS, GHSAdmin)
-admin.site.register(Safety_GHS, Safety_GHSAdmin)
+admin.site.register(Hazard_GHS, Hazard_GHSAdmin)
 

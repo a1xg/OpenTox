@@ -1,5 +1,5 @@
 from django.contrib.postgres.search import SearchQuery, SearchVector, TrigramSimilarity
-from .models import Safety, Ingredient
+from .models import Hazard, Ingredient
 from django.db.models import Q, F
 from .text_postprocessing import TextPostprocessing
 import re
@@ -92,7 +92,7 @@ class DBSearch:
             for ci in text_block.getItem('colour_index'):
                 query = query | Q(data__colourIndex__contains=[ci])
 
-        results = Ingredient.objects.select_related('safety').filter(query)
+        results = Ingredient.objects.select_related('hazard').filter(query)
 
         text_block.writeItem(key='results', data=results)
         text_block.writeItem(key='matches_number', data=len(results))
