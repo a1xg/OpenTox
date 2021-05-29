@@ -6,7 +6,7 @@
 
     <div class="alert alert-warning">
         <h7>{{ ingredient.data.mainName }} </h7>
-        {% if ingredient.safety.hazard_data %}
+        {% if ingredient.hazard.hazard_data %}
         <table class="table table-striped">
             <thead>
             <tr>
@@ -19,7 +19,7 @@
             </thead>
             <tbody>
 
-            {% for json in ingredient.safety.hazard_data.hazardData %}
+            {% for json in ingredient.hazard.hazard_data.hazardData %}
             <tr>
                 <td>{{ json.hazardAbbreviation }}</td>
                 <td>{{ json.hazardCategory }}</td>
@@ -29,7 +29,7 @@
             </tr>
             {% endfor %}
             </tbody>
-            <h7>Total notifications: {{ ingredient.safety.hazard_data.totalNotification }} </h7>
+            <h7>Total notifications: {{ ingredient.hazard.hazard_data.totalNotification }} </h7>
         </table>
         {% endif %}
     </div>

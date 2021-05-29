@@ -114,12 +114,12 @@
                                                     <td>
 
 
-                                                            {% if el.safety.hazard_data.hazardData %}
-                                                                {% for hazard in el.safety.hazard_data.hazardData %}
-                                                                    {% if hazard.confirmedStatus %}
+                                                            {% if el.hazard.hazard_data.hazardData %}
+                                                                {% for haz in el.hazard.hazard_data.hazardData %}
+                                                                    {% if haz.confirmedStatus %}
                                                                     <div class="widget-26-job-category bg-soft-base">
                                                                         <i class="indicator bg-base"></i>
-                                                                        <span>{{ hazard.hazardAbbreviation }} {{ hazard.hazardCategory }}</span>
+                                                                        <span>{{ haz.hazardAbbreviation }} {{ haz.hazardCategory }}</span>
                                                                     </div>
                                                                     {% endif %}
                                                                 {% endfor %}
