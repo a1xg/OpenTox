@@ -60,7 +60,7 @@ class HazardAdmin(admin.ModelAdmin):
 
 
 class GHSAdmin(admin.ModelAdmin):
-    list_display = ('id', 'abbreviation', 'hazard_category', 'hazard_code', 'description')
+    list_display = ('id', 'abbreviation', 'hazard_category', 'code', 'description')
 
 
 class Hazard_GHSAdmin(admin.ModelAdmin):

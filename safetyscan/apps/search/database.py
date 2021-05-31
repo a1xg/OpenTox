@@ -91,8 +91,13 @@ class DBSearch:
         if text_block.getItem('colour_index'):
             for ci in text_block.getItem('colour_index'):
                 query = query | Q(data__colourIndex__contains=[ci])
+        # todo приджойнить hazard<hazard_ghs>ghs табоицы
 
-        results = Ingredients.objects.select_related('hazard').filter(query)
+        results = Ingredients.objects.filter(query).select_related('hazard') #.prefetch_related('hazard__haz') # 'hazard'
+
+
+
+
 
         text_block.writeItem(key='results', data=results)
         text_block.writeItem(key='matches_number', data=len(results))

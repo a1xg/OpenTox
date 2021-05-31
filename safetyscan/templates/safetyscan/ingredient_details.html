@@ -1,12 +1,12 @@
 {% extends 'index.html' %}
 {% block title %}
-{{ ingredient.data.mainName }}
+{{ ingredients.data.mainName }}
 {% endblock %}
 {% block content %}
 
     <div class="alert alert-warning">
-        <h7>{{ ingredient.data.mainName }} </h7>
-        {% if ingredient.hazard.hazard_data %}
+        <h7>{{ ingredients.data.mainName }} </h7>
+        {% if ingredients.hazard.hazard_data %}
         <table class="table table-striped">
             <thead>
             <tr>
@@ -19,7 +19,7 @@
             </thead>
             <tbody>
 
-            {% for json in ingredient.hazard.hazard_data.hazardData %}
+            {% for json in ingredients.hazard.hazard_data.hazardData %}
             <tr>
                 <td>{{ json.hazardAbbreviation }}</td>
                 <td>{{ json.hazardCategory }}</td>
@@ -29,7 +29,7 @@
             </tr>
             {% endfor %}
             </tbody>
-            <h7>Total notifications: {{ ingredient.hazard.hazard_data.totalNotification }} </h7>
+            <h7>Total notifications: {{ ingredients.hazard.hazard_data.totalNotification }} </h7>
         </table>
         {% endif %}
     </div>

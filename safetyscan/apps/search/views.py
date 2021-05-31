@@ -1,11 +1,10 @@
 from django.shortcuts import render
 from django.views.generic import DetailView
-from .models import Ingredient
+from .models import Ingredients
 from .database import DBSearch
 from .forms import UploadImageForm, TextRequestForm
 from .ocr import ImageOCR
 
-# TODO прикрутить стили от input к textarea
 
 def index(request):
     '''Главная страница'''
@@ -22,7 +21,6 @@ def text_search(request):
     data = {}
     if request.method == 'POST':
         text_form = TextRequestForm(request.POST)
-        print('text_search_new', text_form)
         if text_form.is_valid():
             text = request.POST.get('text')
             lang = 'eng'
@@ -31,6 +29,11 @@ def text_search(request):
             data['text_form'] = TextRequestForm(request.POST)
             data['upload_image_form'] = UploadImageForm()
             data['results'] = search.getData()
+            for r in data['results']:
+                print(r)
+
+
+
         else:
             print('NOT VALID')
     return render(request, 'safetyscan/search_results.html', data)
@@ -56,8 +59,8 @@ def search_by_image(request):
 def details_info(request):
     return render(request, 'safetyscan/ingredient_details.html', {'':''})
 
-class IngredientDetailView(DetailView):
-    model = Ingredient
+class IngredientsDetailView(DetailView):
+    model = Ingredients
     template_name = 'safetyscan/ingredient_details.html'
-    context_object_name = 'ingredient'
+    context_object_name = 'ingredients'
 

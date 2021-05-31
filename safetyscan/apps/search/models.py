@@ -5,7 +5,7 @@ from django.contrib.postgres.indexes import GinIndex, BTreeIndex, GistIndex
 # TODO подгружать в модель hazard связанные GHS записи
 #  отрефакторить модели
 
-class Ingredient(models.Model):
+class Ingredients(models.Model):
     '''Таблица ингридиентов'''
     id = models.BigAutoField(primary_key=True)
     hazard = models.ForeignKey('Hazard', models.DO_NOTHING, blank=True, null=True)
@@ -55,7 +55,7 @@ class GHS(models.Model):
     hazard_class = models.CharField(max_length=100, blank=True, null=True)
     abbreviation = models.CharField(max_length=20, blank=True, null=True)
     hazard_category = models.CharField(max_length=20, blank=True, null=True)
-    hazard_code = models.CharField(max_length=20, blank=True, null=True)
+    code = models.CharField(max_length=20, blank=True, null=True)
     description = models.TextField(blank=True, null=True)
 
     def __str__(self):
