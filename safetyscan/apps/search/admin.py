@@ -11,10 +11,10 @@ import json
 #  написать модуль оценки опасности
 #  поле otherNames слить с synonyms->eng
 
-class IngredientAdmin(admin.ModelAdmin):
+class IngredientsAdmin(admin.ModelAdmin):
     actions = ('drop_keyword','concatenate_objects',)
     raw_id_fields = ('hazard',)
-    list_display = ('__str__','id','hazard_id','pubchem_cid','cas_numbers','ec_numbers','e_number','functions','colour_index')
+    list_display = ('__str__','id','hazard_id','request_statistics','pubchem_cid','cas_numbers','ec_numbers','e_number','functions','colour_index')
     search_fields = (
         'data__synonyms__eng__contains',
         'data__casNumbers__contains',
@@ -67,7 +67,7 @@ class Hazard_GHSAdmin(admin.ModelAdmin):
     raw_id_fields = ('hazard','ghs')
     list_display = ('id','hazard','ghs','number_of_notifiers', 'confirmed_status')
 
-admin.site.register(Ingredient, IngredientAdmin)
+admin.site.register(Ingredients, IngredientsAdmin)
 admin.site.register(Hazard, HazardAdmin)
 admin.site.register(GHS, GHSAdmin)
 admin.site.register(Hazard_GHS, Hazard_GHSAdmin)
