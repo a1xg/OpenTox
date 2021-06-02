@@ -1,16 +1,12 @@
 from django.db import models
 from django.contrib.postgres.indexes import GinIndex, BTreeIndex, GistIndex
 
-
-# TODO подгружать в модель hazard связанные GHS записи
-#  отрефакторить модели
-
 class Ingredients(models.Model):
     '''Таблица ингридиентов'''
     id = models.BigAutoField(primary_key=True)
     hazard = models.ForeignKey('Hazard', models.DO_NOTHING, blank=True, null=True)
     data = models.JSONField(blank=True, null=True, db_index=True)
-    request_statistics = models.IntegerField(blank=True, null=True)
+    request_statistics = models.IntegerField(blank=True, null=False)
 
     def __str__(self):
         return self.data['mainName']

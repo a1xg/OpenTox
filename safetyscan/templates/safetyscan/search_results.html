@@ -112,19 +112,14 @@
                                                         <div class="widget-26-job-salary">{{ el.data.eNumber }}</div>
                                                     </td>
                                                     <td>
-
-
-                                                            {% if el.hazard.hazard_data.hazardData %}
-                                                                {% for haz in el.hazard.hazard_data.hazardData %}
-                                                                    {% if haz.confirmedStatus %}
+                                                            {% if el.hazard %}
+                                                                {% for h in el.hazard.hazard_ghs_set.all %}
                                                                     <div class="widget-26-job-category bg-soft-base">
                                                                         <i class="indicator bg-base"></i>
-                                                                        <span>{{ haz.hazardAbbreviation }} {{ haz.hazardCategory }}</span>
+                                                                        <span>{{ h.ghs.abbreviation }} {{ h.ghs.hazard_category }}</span>
                                                                     </div>
-                                                                    {% endif %}
                                                                 {% endfor %}
                                                             {% endif %}
-
                                                     </td>
                                                     <td>
                                                         <div class="widget-26-job-starred">

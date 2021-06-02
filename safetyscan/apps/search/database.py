@@ -1,6 +1,6 @@
 from django.contrib.postgres.search import SearchQuery, SearchVector, TrigramSimilarity
 from .models import *
-from django.db.models import Q, F, Prefetch
+from django.db.models import Q, F, Prefetch, Count
 from .text_postprocessing import TextPostprocessing
 import re
 # Примеры запросов к полям jsonb
@@ -17,19 +17,11 @@ class TextBlock:
     def __init__(self, lang:str, text:str):
         self.lang = lang # язык текста
         self.text = text # ненормализованный текст
-        self._data = {
-            'e_numbers':        [],     # присутствующие в тексте Е номера
-            'colour_index':     [],     # присутствующие в текста номера Colour Index
-            'keywords':         [],     # Все ключевые слова, кроме номеров
-            'results':          [],     # объекты результатов поиска
-            'matches_number':   int     # количеств найденных базе ключевых слов
-        }
-
-    def getItem(self, key:str):
-        return self._data[key]
-
-    def writeItem(self, key:str, data:str):
-        self._data[key] = data
+        self.e_numbers = []             # присутствующие в тексте Е номера
+        self.colour_index = []          # присутствующие в текста номера Colour Index
+        self.keywords = []              # Все ключевые слова, кроме номеров
+        self.results = []               # объекты результатов поиска
+        self.count = int                # количеств найденных базе ключевых слов
 
 
 class DBSearch:
@@ -58,21 +50,21 @@ class DBSearch:
             e_numbers = re.findall(self._re_mask['eNumber'], string)
             if e_numbers:
                 enums = ['E' + re.search(r'(\d{3}[\d\w]|\d{3})', num).group() for num in e_numbers]
-                text_block.writeItem(key='e_numbers', data=enums)
+                text_block.e_numbers = enums
                 string = re.sub(self._re_mask['eNumber'], '', string)
 
             # Ищем colour index номера и приводим их в порядок, если найдены, то удаляем их из основной строки
             ci_numbers = re.findall(self._re_mask['colourIndex'], string)
             if ci_numbers:
                 ci_nums = ['CI ' + re.search(r'\d{5}', num).group() for num in ci_numbers]
-                text_block.writeItem(key='colour_index', data=ci_nums)
+                text_block.colour_index = ci_nums
                 string = re.sub(self._re_mask['colourIndex'], '', string)
 
             # оставшиеся ключевые слова очищаем от лишних символов и пробелов разделяем по запятой
             cleared_string = TextPostprocessing().stringFilter(input_string=string)
             keyword_list = cleared_string.split(',')
             keyword_list = [keyword for keyword in keyword_list if len(keyword) > 0]
-            text_block.writeItem(key='keywords', data=keyword_list)
+            text_block.keywords = keyword_list
             self._text_blocks.append(text_block)
 
     # TODO доработать запросы по типу нескольких сит: все что не нашлось по
@@ -82,36 +74,32 @@ class DBSearch:
         # составляем комбинированный SQL запрос
         # пока поддерживаются только точные совпадения на английском и без пробелов в начале и конце текста
         query = Q()
-        if text_block.getItem('keywords'):
-            for word in text_block.getItem('keywords'):
+        if text_block.keywords:
+            for word in text_block.keywords:
                 query = query | Q(data__synonyms__eng__contains=[word])
-        if text_block.getItem('e_numbers'):
-            for e in text_block.getItem('e_numbers'):
+        if text_block.e_numbers:
+            for e in text_block.e_numbers:
                 query = query | Q(data__eNumber__contains=e)
-        if text_block.getItem('colour_index'):
-            for ci in text_block.getItem('colour_index'):
+        if text_block.colour_index:
+            for ci in text_block.colour_index:
                 query = query | Q(data__colourIndex__contains=[ci])
 
-        results = Ingredients.objects.filter(query).select_related('hazard')
-        # запрос находит связанные с ключевым словом записи в соединительной таблице Hazard_ghs и так-же ghs
-        #ing = Ingredients.objects.filter(query).select_related('hazard').prefetch_related('hazard__hazard_ghs_set','hazard__hazard_ghs_set__ghs')
-        # распаковка print(ing[0].hazard.hazard_ghs_set.all()[0].ghs.abbreviation)
-        # TODO написать сериализатор для удобной упаковки результата поиска
-        text_block.writeItem(key='results', data=results)
-        text_block.writeItem(key='matches_number', data=len(results))
+        results = Ingredients.objects.filter(query).select_related('hazard').prefetch_related('hazard__hazard_ghs_set__ghs')
+        text_block.results = results
+        text_block.count = results.count()
 
     def getData(self):
         '''Перебираем текстовые блоки'''
         self._buildTextBlock()
         [self._requestDB(block) for block in self._text_blocks]
         ingredients_block = self._selectIngredientBlock()
-        results = ingredients_block.getItem('results')
-        results.update(request_statistics=F('request_statistics') + 1) # update view counter to all ingredients
-        return results
+        results_pk = list(ingredients_block.results.values_list('pk', flat=True))
+        Ingredients.objects.filter(pk__in=results_pk).update(request_statistics=F('request_statistics') + 1)
+        return ingredients_block.results
 
     def _selectIngredientBlock(self):
         '''Выбираем блок текста, по которому нашли больше всего совпадений в базе'''
-        result_count = [block.getItem('matches_number') for block in self._text_blocks]
+        result_count = [block.count for block in self._text_blocks]
         max_matches_idx = result_count.index(max(result_count))
         return self._text_blocks[max_matches_idx]
 

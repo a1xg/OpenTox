@@ -31,9 +31,6 @@ def text_search(request):
             data['results'] = search.getData()
             for r in data['results']:
                 print(r)
-
-
-
         else:
             print('NOT VALID')
     return render(request, 'safetyscan/search_results.html', data)
