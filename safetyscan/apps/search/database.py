@@ -1,6 +1,6 @@
 from django.contrib.postgres.search import SearchQuery, SearchVector, TrigramSimilarity
-from .models import Hazard, Ingredients
-from django.db.models import Q, F
+from .models import *
+from django.db.models import Q, F, Prefetch
 from .text_postprocessing import TextPostprocessing
 import re
 # Примеры запросов к полям jsonb
@@ -91,14 +91,12 @@ class DBSearch:
         if text_block.getItem('colour_index'):
             for ci in text_block.getItem('colour_index'):
                 query = query | Q(data__colourIndex__contains=[ci])
-        # todo приджойнить hazard<hazard_ghs>ghs табоицы
 
-        results = Ingredients.objects.filter(query).select_related('hazard') #.prefetch_related('hazard__haz') # 'hazard'
-
-
-
-
-
+        results = Ingredients.objects.filter(query).select_related('hazard')
+        # запрос находит связанные с ключевым словом записи в соединительной таблице Hazard_ghs и так-же ghs
+        #ing = Ingredients.objects.filter(query).select_related('hazard').prefetch_related('hazard__hazard_ghs_set','hazard__hazard_ghs_set__ghs')
+        # распаковка print(ing[0].hazard.hazard_ghs_set.all()[0].ghs.abbreviation)
+        # TODO написать сериализатор для удобной упаковки результата поиска
         text_block.writeItem(key='results', data=results)
         text_block.writeItem(key='matches_number', data=len(results))
 

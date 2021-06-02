@@ -36,7 +36,6 @@ class Ingredients(models.Model):
     def colour_index(self):
         return  self.data.get('colourIndex')
 
-
     class Meta:
         managed = True
         db_table = 'ingredients'
@@ -50,6 +49,7 @@ class Ingredients(models.Model):
             #GinIndex(fields=["main_name"], name="trgm_main_name_gin_idx", opclasses=['gin_trgm_ops'],),
          ]
 
+
 class GHS(models.Model):
     id = models.BigAutoField(primary_key=True)
     hazard_class = models.CharField(max_length=100, blank=True, null=True)
@@ -62,6 +62,7 @@ class GHS(models.Model):
         return f'{self.abbreviation} {self.hazard_category}'
 
     class Meta:
+        #default_related_name = 'ghs'
         managed = True
         db_table = 'ghs'
         verbose_name = 'GHS'
@@ -78,12 +79,13 @@ class Hazard(models.Model):
     total_notifications = models.IntegerField(blank=True, null=True)
     sourse = models.CharField(max_length=100, blank=True, null=True)
     hazard_data =  models.JSONField(blank=True, null=True)
-    ghs_data = models.ManyToManyField(GHS, through='Hazard_GHS') # тестовое поле
+    ghs_data = models.ManyToManyField(GHS, through='Hazard_GHS')
 
     def __str__(self):
         return str(self.substance["substanceNames"][0])
 
     class Meta:
+        #default_related_name = 'hazard'
         managed = True
         db_table = 'hazard'
         verbose_name = 'Карточка опасности'
@@ -101,6 +103,7 @@ class Hazard_GHS(models.Model):
         return str(self.id)
 
     class Meta:
+        #default_related_name = 'hazard_ghs'
         managed = True
         db_table = 'hazard_ghs'
         verbose_name = 'Уведомление GHS связанное с веществом'
