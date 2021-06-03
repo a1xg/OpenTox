@@ -1,12 +1,12 @@
 {% extends 'index.html' %}
 {% block title %}
-{{ ingredients.data.mainName }}
+{{ ingredients.main_name }}
 {% endblock %}
-{% block content %}
 
+{% block content %}
+    {% if ingredients.hazard %}
     <div class="alert alert-warning">
-        <h7>{{ ingredients.data.mainName }} </h7>
-        {% if ingredients.hazard.hazard_data %}
+        <h7>{{ ingredients.main_name }} </h7>
         <table class="table table-striped">
             <thead>
             <tr>
@@ -19,18 +19,24 @@
             </thead>
             <tbody>
 
-            {% for json in ingredients.hazard.hazard_data.hazardData %}
+            {% for item in ingredients.hazard.hazard_ghs_set.all %}
             <tr>
-                <td>{{ json.hazardAbbreviation }}</td>
-                <td>{{ json.hazardCategory }}</td>
-                <td>{{ json.code }}</td>
-                <td>{{ json.numberOfNotifiers }}</td>
-                <td>{{ json.confirmedStatus }}</td>
+                <td>{{ item.ghs.abbreviation }}</td>
+                <td>{{ item.ghs.hazard_category }}</td>
+                <td>{{ item.ghs.code }}</td>
+                <td>{{ item.number_of_notifiers	}}</td>
+                <td>{{ item.confirmed_status }}</td>
             </tr>
             {% endfor %}
             </tbody>
-            <h7>Total notifications: {{ ingredients.hazard.hazard_data.totalNotification }} </h7>
         </table>
-        {% endif %}
+        <h7>Total notifications: {{ ingredients.hazard.total_notifications }} </h7>
+        <p>Sourse: <a href="https://echa.europa.eu/information-on-chemicals/cl-inventory-database/-/discli/details/{{ ingredients.hazard.cl_inventory_id }}">European Chemicals Agency (ECHA)</a></p>
     </div>
+    {% endif %}
+    {% if ingredients.description %}
+    <div class="alert alert-warning">
+            <p>{{ ingredients.description }}</p>
+    </div>
+    {% endif %}
 {% endblock %}

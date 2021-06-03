@@ -4,12 +4,14 @@ from django.contrib.postgres.indexes import GinIndex, BTreeIndex, GistIndex
 class Ingredients(models.Model):
     '''Таблица ингридиентов'''
     id = models.BigAutoField(primary_key=True)
-    hazard = models.ForeignKey('Hazard', models.DO_NOTHING, blank=True, null=True)
-    data = models.JSONField(blank=True, null=True, db_index=True)
+    main_name = models.CharField(max_length=300, blank=True, null=False)
+    hazard = models.ForeignKey('Hazard', models.DO_NOTHING, blank=True, null=False)
+    data = models.JSONField(blank=True, null=True, db_index=False)
     request_statistics = models.IntegerField(blank=True, null=False)
+    description = models.TextField(blank=True, null=True)
 
     def __str__(self):
-        return self.data['mainName']
+        return self.main_name
 
     def hazard_id(self):
         return str(self.hazard)
@@ -41,18 +43,18 @@ class Ingredients(models.Model):
             GinIndex(fields=["data"], name="enumber_gin_idx",),
             GinIndex(fields=["data"], name="colourindex_gin_idx",),
             GinIndex(fields=["data"], name="synonyms_eng_gin_idx",),
-            #BTreeIndex(fields=["main_name"], name="main_name_btree_idx",),
+            BTreeIndex(fields=["main_name"], name="main_name_btree_idx",),
             #GinIndex(fields=["main_name"], name="trgm_main_name_gin_idx", opclasses=['gin_trgm_ops'],),
          ]
 
 
 class GHS(models.Model):
     id = models.BigAutoField(primary_key=True)
-    hazard_class = models.CharField(max_length=100, blank=True, null=True)
-    abbreviation = models.CharField(max_length=20, blank=True, null=True)
-    hazard_category = models.CharField(max_length=20, blank=True, null=True)
-    code = models.CharField(max_length=20, blank=True, null=True)
-    description = models.TextField(blank=True, null=True)
+    hazard_class = models.CharField(max_length=100, blank=True, null=False)
+    abbreviation = models.CharField(max_length=20, blank=True, null=False)
+    hazard_category = models.CharField(max_length=20, blank=True, null=False)
+    code = models.CharField(max_length=20, blank=True, null=False)
+    description = models.TextField(blank=True, null=False)
 
     def __str__(self):
         return f'{self.abbreviation} {self.hazard_category}'
@@ -68,10 +70,10 @@ class GHS(models.Model):
 class Hazard(models.Model):
     '''Таблица безопасности ингридиентов'''
     id = models.BigAutoField(primary_key=True)
-    substance = models.JSONField(blank=True, null=True)
+    substance = models.JSONField(blank=True, null=False)
     cas_number = models.CharField(max_length=12, blank=True, null=True)
     ec_number = models.CharField(max_length=10, blank=True, null=True)
-    cl_inventory_id = models.IntegerField(blank=True, null=True)
+    cl_inventory_id = models.IntegerField(blank=True, null=False)
     total_notifications = models.IntegerField(blank=True, null=True)
     sourse = models.CharField(max_length=100, blank=True, null=True)
     hazard_data =  models.JSONField(blank=True, null=True)

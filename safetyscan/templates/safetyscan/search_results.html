@@ -94,7 +94,7 @@
                                                     </td>
                                                     <td>
                                                         <div class="widget-26-job-title">
-                                                            <a href="{% url 'ingredient' el.id %}">{{ el.data.mainName }}</a>
+                                                            <a href="{% url 'ingredient' el.id %}">{{ el.main_name }}</a>
                                                             <p class="m-0">
                                                                 {% for func in el.data.functions %}
                                                                 <span class="text-muted time">{{ func }},</span>
@@ -114,10 +114,12 @@
                                                     <td>
                                                             {% if el.hazard %}
                                                                 {% for h in el.hazard.hazard_ghs_set.all %}
+                                                                    {% if h.confirmed_status %}
                                                                     <div class="widget-26-job-category bg-soft-base">
                                                                         <i class="indicator bg-base"></i>
                                                                         <span>{{ h.ghs.abbreviation }} {{ h.ghs.hazard_category }}</span>
                                                                     </div>
+                                                                    {% endif %}
                                                                 {% endfor %}
                                                             {% endif %}
                                                     </td>

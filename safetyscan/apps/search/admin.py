@@ -9,19 +9,18 @@ import json
 # TODO прикрутить форму добавления ключевого слова и языка
 #  доработать удаление ключевого слова на разных языках
 #  написать модуль оценки опасности
-#  поле otherNames слить с synonyms->eng
 
 class IngredientsAdmin(admin.ModelAdmin):
     actions = ('drop_keyword','concatenate_objects',)
     raw_id_fields = ('hazard',)
-    list_display = ('__str__','id','hazard_id','request_statistics','pubchem_cid','cas_numbers','ec_numbers','e_number','functions','colour_index')
+    list_display = ('main_name','description','id','hazard_id','request_statistics','pubchem_cid','cas_numbers','ec_numbers','e_number','functions','colour_index')
     search_fields = (
+        'main_name',
         'data__synonyms__eng__contains',
         'data__casNumbers__contains',
         'data__ecNumbers__contains',
         'data__eNumber__contains',
-        'data__colourIndex__contains',
-        'hazard'
+        'data__colourIndex__contains'
     )
     formfield_overrides = {
         models.JSONField: {'widget': JSONEditorWidget},

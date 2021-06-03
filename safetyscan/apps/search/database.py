@@ -83,7 +83,7 @@ class DBSearch:
         if text_block.colour_index:
             for ci in text_block.colour_index:
                 query = query | Q(data__colourIndex__contains=[ci])
-
+        # TODO попробовать не извлекать все те поля таблиц, которые не будут отображаться на сайте
         results = Ingredients.objects.filter(query).select_related('hazard').prefetch_related('hazard__hazard_ghs_set__ghs')
         text_block.results = results
         text_block.count = results.count()
@@ -93,9 +93,10 @@ class DBSearch:
         self._buildTextBlock()
         [self._requestDB(block) for block in self._text_blocks]
         ingredients_block = self._selectIngredientBlock()
-        results_pk = list(ingredients_block.results.values_list('pk', flat=True))
+        results_pk = ingredients_block.results.values_list('pk', flat=True)
         Ingredients.objects.filter(pk__in=results_pk).update(request_statistics=F('request_statistics') + 1)
-        return ingredients_block.results
+        queryset = self.modificator(queryset=ingredients_block.results)
+        return queryset #ingredients_block.results
 
     def _selectIngredientBlock(self):
         '''Выбираем блок текста, по которому нашли больше всего совпадений в базе'''
@@ -103,3 +104,8 @@ class DBSearch:
         max_matches_idx = result_count.index(max(result_count))
         return self._text_blocks[max_matches_idx]
 
+    def modificator(self, queryset):
+
+        for item in queryset:
+            item.testparam = 500
+        return  queryset
