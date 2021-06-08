@@ -1,13 +1,13 @@
 from django import forms
 
-
+# TODO в текстовую форму добавить django-taggit или что то аналогичное
 class UploadImageForm(forms.Form):
     image = forms.FileField(
         widget=forms.FileInput(
             attrs={
                 'onchange': 'submit();',
                 'placeholder': 'Select product photo',
-                #'class': 'search-form'
+                'class': 'search-form'
             }
         ),
         label=''

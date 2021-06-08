@@ -8,7 +8,7 @@ import json
 
 # TODO прикрутить форму добавления ключевого слова и языка
 #  доработать удаление ключевого слова на разных языках
-#  написать модуль оценки опасности
+
 
 class IngredientsAdmin(admin.ModelAdmin):
     actions = ('drop_keyword','concatenate_objects',)
@@ -33,7 +33,7 @@ class IngredientsAdmin(admin.ModelAdmin):
             obj.data['synonyms']['eng'].remove(keyword)
             obj.save()
 
-    @admin.action(description='Объединить выбранные ингредиенты')
+    @admin.action(description='Объединить выбранные ингредиенты (Не реализовано)')
     def concatenate_objects(self, request, queryset):
         pass
 
@@ -59,7 +59,7 @@ class HazardAdmin(admin.ModelAdmin):
 
 
 class GHSAdmin(admin.ModelAdmin):
-    list_display = ('id', 'abbreviation', 'hazard_category', 'code', 'description')
+    list_display = ('id', 'abbreviation', 'hazard_category', 'code', 'description','hazard_class','hazard_subclass','hazard_scale_score')
 
 
 class Hazard_GHSAdmin(admin.ModelAdmin):

@@ -4,9 +4,9 @@
 {% endblock %}
 
 {% block content %}
-    {% if ingredients.hazard %}
+    {% if ingredient.hazard %}
     <div class="alert alert-warning">
-        <h7>{{ ingredients.main_name }} </h7>
+        <h7>{{ ingredient.main_name }} </h7>
         <table class="table table-striped">
             <thead>
             <tr>
@@ -19,7 +19,7 @@
             </thead>
             <tbody>
 
-            {% for item in ingredients.hazard.hazard_ghs_set.all %}
+            {% for item in ingredient.hazard.hazard_ghs_set.all %}
             <tr>
                 <td>{{ item.ghs.abbreviation }}</td>
                 <td>{{ item.ghs.hazard_category }}</td>
@@ -30,13 +30,13 @@
             {% endfor %}
             </tbody>
         </table>
-        <h7>Total notifications: {{ ingredients.hazard.total_notifications }} </h7>
+        <h7>Total notifications: {{ ingredient.hazard.total_notifications }} </h7>
         <p>Sourse: <a href="https://echa.europa.eu/information-on-chemicals/cl-inventory-database/-/discli/details/{{ ingredients.hazard.cl_inventory_id }}">European Chemicals Agency (ECHA)</a></p>
     </div>
     {% endif %}
-    {% if ingredients.description %}
+    {% if ingredient.description %}
     <div class="alert alert-warning">
-            <p>{{ ingredients.description }}</p>
+            <p>{{ ingredient.description }}</p>
     </div>
     {% endif %}
 {% endblock %}

@@ -1,8 +1,9 @@
+import re
 from django.contrib.postgres.search import SearchQuery, SearchVector, TrigramSimilarity
 from .models import *
 from django.db.models import Q, F, Prefetch, Count
 from .text_postprocessing import TextPostprocessing
-import re
+from .serializers import *
 # Примеры запросов к полям jsonb
 # Запрос слова из массива JSONB Ingredient.objects.filter(data__synonyms__eng__contains='dimethyl caproamide')
 # Запрос слова из поля JSONB Ingredient.objects.filter(data__inchiKey='HNXNKTMIVROLTK-UHFFFAOYSA-N')
@@ -10,7 +11,9 @@ import re
 # Запрос по триграммам(выдает кучу результатов без ранжирования) Ingredient.objects.filter(main_name__trigram_similar="paraben")
 # Неточный поиск по триграммам с ранжированием результата
 # Ingredient.objects.annotate(similarity=TrigramSimilarity('main_name', 'propyiparaben'),).filter(similarity__gt=0.01).order_by('-similarity')
-#
+# TODO написать совместные тесты модулей ocr, postprocessing, DBsearch
+#  попробовать выгрузить дамп ключевых слов в текстовый файл и создать пользовательский словарь Tesseract
+#  написать модуль оценки опасности
 
 class TextBlock:
     '''Класс текстового блока'''
@@ -62,6 +65,7 @@ class DBSearch:
 
             # оставшиеся ключевые слова очищаем от лишних символов и пробелов разделяем по запятой
             cleared_string = TextPostprocessing().stringFilter(input_string=string)
+            print(f'Cleared text {cleared_string}\n-----------------')
             keyword_list = cleared_string.split(',')
             keyword_list = [keyword for keyword in keyword_list if len(keyword) > 0]
             text_block.keywords = keyword_list
@@ -83,7 +87,7 @@ class DBSearch:
         if text_block.colour_index:
             for ci in text_block.colour_index:
                 query = query | Q(data__colourIndex__contains=[ci])
-        # TODO попробовать не извлекать все те поля таблиц, которые не будут отображаться на сайте
+
         results = Ingredients.objects.filter(query).select_related('hazard').prefetch_related('hazard__hazard_ghs_set__ghs')
         text_block.results = results
         text_block.count = results.count()
@@ -95,8 +99,8 @@ class DBSearch:
         ingredients_block = self._selectIngredientBlock()
         results_pk = ingredients_block.results.values_list('pk', flat=True)
         Ingredients.objects.filter(pk__in=results_pk).update(request_statistics=F('request_statistics') + 1)
-        queryset = self.modificator(queryset=ingredients_block.results)
-        return queryset #ingredients_block.results
+
+        return ingredients_block.results
 
     def _selectIngredientBlock(self):
         '''Выбираем блок текста, по которому нашли больше всего совпадений в базе'''
@@ -104,8 +108,33 @@ class DBSearch:
         max_matches_idx = result_count.index(max(result_count))
         return self._text_blocks[max_matches_idx]
 
-    def modificator(self, queryset):
+    def hazard_estimator(self, queryset):
+        haz_cls =[
+            'REPRODUCTIVE_TOXICITY',        # токсичность для репродуктивной системы
+            'CARCINOGENICITY',              # канцерогенность
+            'ACUTE_TOXICITY',               # общая токсичность
+            'SKIN_CORROSION_IRRITATION',    # раздражает глаза
+            'RESPIRATORY_SKIN_SENSITISERS', # аллерген
+            'ASPIRATION_TOXICITY',          # токсично при вдыхании
+            'MUTAGENICITY',                 # мутаген
+            'EYE_DAMAGE_IRRITATION',        # раздражает глаза
+            'TARGET_ORGAN_TOXICITY'         # токсичность для органов
+        ]
+        #print(queryset)
+        # Перебираем вещества в кверисете
+        len_results = queryset.count()
+        for result in queryset:
+         #   print(result)
+            ghs_data = result.hazard.hazard_ghs_set.all()
+            for item in ghs_data:
+                confirmed_status = item.confirmed_status
+                hazard_class = item.ghs.hazard_class
+                abbreviation = item.ghs.abbreviation
+                category = item.ghs.hazard_category
+                hazard_score = item.ghs.hazard_scale_score
 
-        for item in queryset:
-            item.testparam = 500
-        return  queryset
+                print(f'Hazard class: {hazard_class}\n'
+                    f'Confirmed status: {confirmed_status}\n'
+                    f'Hazard class and category: {abbreviation} {category}\n'
+                    f'Hazard score: {hazard_score}\n-----------')
+

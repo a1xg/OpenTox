@@ -12,6 +12,8 @@ class TextPostprocessing:
         string = re.sub(r'\n', ' ', string)
         #  Filter replaces parentheses with commas
         string = re.sub(r'[\{\[\(\)\]\}\|]', ',', string)
+
+        string = re.sub(r'(\s[-*]\s)', ',', string)
         # The filter replaces special characters with commas
         string = re.sub(r'[*«»+=~<>:;.&]', ',', string)
         # Percentage filter
@@ -25,6 +27,6 @@ class TextPostprocessing:
         # remove the combination of spaces and commas
         string = re.sub(r'(\s+,|,\s+)', ',', string)
         # Replace multiple spaces with one space
-        self._output_string = re.sub(r'\s+', ' ', string)
-
+        string = re.sub(r'\s+', ' ', string)
+        self._output_string = re.sub(r'(\s,|,\s)',',', string)
         return  self._output_string.lower()

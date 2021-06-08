@@ -51,16 +51,17 @@ class Ingredients(models.Model):
 class GHS(models.Model):
     id = models.BigAutoField(primary_key=True)
     hazard_class = models.CharField(max_length=100, blank=True, null=False)
+    hazard_subclass = models.CharField(max_length=100, blank=True, null=False)
     abbreviation = models.CharField(max_length=20, blank=True, null=False)
     hazard_category = models.CharField(max_length=20, blank=True, null=False)
     code = models.CharField(max_length=20, blank=True, null=False)
     description = models.TextField(blank=True, null=False)
+    hazard_scale_score = models.IntegerField(blank=True, null=False) # значение оценки опасности по 10 бальной, возрастающей шкале
 
     def __str__(self):
         return f'{self.abbreviation} {self.hazard_category}'
 
     class Meta:
-        #default_related_name = 'ghs'
         managed = True
         db_table = 'ghs'
         verbose_name = 'GHS'
