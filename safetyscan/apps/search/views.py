@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.views.generic import DetailView
+from django.views.generic import DetailView, ListView
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from .models import Ingredients
@@ -55,23 +55,20 @@ def search_by_image(request):
             print('NOT VALID')
     return render(request, 'safetyscan/search_results.html', data)
 
-#def details_info(request):
-#    return render(request, 'safetyscan/ingredient_details.html', {'':''})
-
-# TODO переделать вьюху под REST API
-class IngredientsDetailView(DetailView):
-    model = Ingredients
-    template_name = 'safetyscan/ingredient_details.html'
-    context_object_name = 'ingredient'
-
-    def get_queryset(self):
-       return Ingredients.objects.filter(pk=self.kwargs['pk']).select_related('hazard').prefetch_related('hazard__hazard_ghs_set__ghs')
+def ingredient_details(request, id):
+    queryset = Ingredients.objects.filter(pk=id).select_related('hazard').prefetch_related(
+        'hazard__hazard_ghs_set__ghs')
+    context = {
+    'ingredient':IngredientsSerializer(queryset, many=True).data[0],
+    'upload_image_form':UploadImageForm(),
+    'text_form':TextRequestForm()
+    }
+    return render(request, 'safetyscan/ingredient_details.html', context)
 
 
 class IngredientsListView(APIView):
-    '''REST API'''
+    '''REST API view'''
     def get(self, request):
         ingredients = DBSearch(data=[{'eng':'propanol, ethylparaben, E110'}]).getData()
         serializer = IngredientsSerializer(ingredients, many=True)
         return Response(serializer.data)
-

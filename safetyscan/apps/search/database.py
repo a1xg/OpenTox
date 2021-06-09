@@ -1,7 +1,8 @@
 import re
 from django.contrib.postgres.search import SearchQuery, SearchVector, TrigramSimilarity
-from .models import *
 from django.db.models import Q, F, Prefetch, Count
+import pandas as pd
+from .models import *
 from .text_postprocessing import TextPostprocessing
 from .serializers import *
 # Примеры запросов к полям jsonb
@@ -99,8 +100,16 @@ class DBSearch:
         ingredients_block = self._selectIngredientBlock()
         results_pk = ingredients_block.results.values_list('pk', flat=True)
         Ingredients.objects.filter(pk__in=results_pk).update(request_statistics=F('request_statistics') + 1)
-
+        self.hazard_estimator(IngredientsSerializer(ingredients_block.results, many=True).data)
         return ingredients_block.results
+
+
+    # TODO перебрать имеющиеся уведомления опасности.
+    #  1) Посчитать количество уведомлений в рамках 1 класса и принять сумму за 100%.
+    #  2) Вывести средневзвешенную сумму по 10 бальной шкале, по всем категориям класса.
+    #  3) Если источник GHS - Harmonised c&l и количество уведомлений по классу равно 0, то его вес = 100%
+    #  4)  Из Total notifications вычесть количество NA Not classified уведомлений, остаток считать за 100%
+    #  5)
 
     def _selectIngredientBlock(self):
         '''Выбираем блок текста, по которому нашли больше всего совпадений в базе'''
@@ -108,8 +117,8 @@ class DBSearch:
         max_matches_idx = result_count.index(max(result_count))
         return self._text_blocks[max_matches_idx]
 
-    def hazard_estimator(self, queryset):
-        haz_cls =[
+    def hazard_estimator(self, results):
+        haz_cls = [
             'REPRODUCTIVE_TOXICITY',        # токсичность для репродуктивной системы
             'CARCINOGENICITY',              # канцерогенность
             'ACUTE_TOXICITY',               # общая токсичность
@@ -120,21 +129,19 @@ class DBSearch:
             'EYE_DAMAGE_IRRITATION',        # раздражает глаза
             'TARGET_ORGAN_TOXICITY'         # токсичность для органов
         ]
-        #print(queryset)
-        # Перебираем вещества в кверисете
-        len_results = queryset.count()
-        for result in queryset:
-         #   print(result)
-            ghs_data = result.hazard.hazard_ghs_set.all()
-            for item in ghs_data:
-                confirmed_status = item.confirmed_status
-                hazard_class = item.ghs.hazard_class
-                abbreviation = item.ghs.abbreviation
-                category = item.ghs.hazard_category
-                hazard_score = item.ghs.hazard_scale_score
-
-                print(f'Hazard class: {hazard_class}\n'
-                    f'Confirmed status: {confirmed_status}\n'
-                    f'Hazard class and category: {abbreviation} {category}\n'
-                    f'Hazard score: {hazard_score}\n-----------')
+        for result in results:
+            if result['hazard']:
+                main_name = result['main_name']
+                hazard_data = result['hazard']
+                sourse = hazard_data['sourse']
+                total_notifications = hazard_data['total_notifications']
+                df = pd.DataFrame(hazard_data['hazard_ghs_set'])
+                print(f'Ingredient: {main_name}\nTotal notifications: {total_notifications}\nSourse: {sourse}\n',df)
+                for ghs in hazard_data['hazard_ghs_set']:
+                    confirmed_status = ghs['confirmed_status']
+                    hazard_class = ghs['hazard_class']
+                    abbreviation = ghs['abbreviation']
+                    category = ghs['hazard_category']
+                    hazard_score = ghs['hazard_scale_score']
+                    ghs_code = ghs['ghs_code']
 

@@ -26,7 +26,7 @@ class HazardSerializer(serializers.ModelSerializer):
     hazard_ghs_set = Hazard_GHSSerializer(many=True, read_only=True)
     class Meta:
         model = Hazard
-        fields = ('total_notifications', 'sourse', 'hazard_ghs_set')
+        fields = ('total_notifications', 'sourse', 'hazard_ghs_set','cl_inventory_id')
 
 
 class IngredientsSerializer(serializers.ModelSerializer):
