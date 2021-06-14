@@ -7,7 +7,7 @@
 <div class="row">
       <div class="col-12">
             <div class="card card-margin">
-                {% if results %}
+                {% if results.product_ingredients %}
                 <div class="card-body">
                     <div class="row search-body">
                         <div class="col-lg-12">
@@ -28,7 +28,7 @@
                                                     </select>-->
                                                 </div>
                                                 <div class="result-sorting">
-                                                    <p class="m-0">GHS classification</p>
+                                                    <p class="m-0">Hazard summary</p>
                                                     <!--<span>Sort By:</span>
                                                     <select class="form-control border-0" id="exampleOption">
                                                         <option value="1">Relevance</option>
@@ -85,7 +85,7 @@
                                         <table class="table widget-26">
                                             <tbody>
                                                 <!-- Типовая строка таблицы поисковой выдачи -->
-                                                {% for el in results %}
+                                                {% for el in results.product_ingredients %}
                                                 <tr>
                                                     <td>
                                                         <div class="widget-26-job-emp-img">
@@ -95,6 +95,7 @@
                                                     <td>
                                                         <div class="widget-26-job-title">
                                                             <a href="{% url 'ingredient' el.id %}">{{ el.main_name }}</a>
+                                                            <!--<a href="{% url 'ingredient' el.id %}">{{ el.main_name }}</a>-->
                                                             <p class="m-0">
                                                                 {% for func in el.functions %}
                                                                 <span class="text-muted time">{{ func }},</span>
@@ -103,18 +104,14 @@
                                                         </div>
                                                     </td>
                                                     <td>
-                                                        <div class="widget-26-job-salary">{{ el.e_number }}</div>
+                                                        <div class="widget-26-job-salary">{% if el.e_number %}{{ el.e_number }}{% else %}-{% endif %}</div>
                                                     </td>
                                                     <td>
                                                             {% if el.hazard %}
-                                                                {% for ghs in el.hazard.hazard_ghs_set %}
-                                                                    {% if ghs.confirmed_status %}
                                                                     <div class="widget-26-job-category bg-soft-base">
                                                                         <i class="indicator bg-base"></i>
-                                                                        <span>{{ ghs.abbreviation }} {{ ghs.hazard_category }}</span>
+                                                                        <span>{{ el.hazard.ingredient_hazard_sum }}</span>
                                                                     </div>
-                                                                    {% endif %}
-                                                                {% endfor %}
                                                             {% endif %}
                                                     </td>
                                                     <td>

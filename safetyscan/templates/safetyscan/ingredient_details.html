@@ -1,10 +1,11 @@
 {% extends 'index.html' %}
 {% block title %}
-{{ ingredients.main_name }}
+{{ ingredient.main_name }}
 {% endblock %}
 
 {% block content %}
-    {% if ingredient.hazard %}
+<
+    {% if ingredient %}
     <div class="alert alert-warning">
         <h7>{{ ingredient.main_name }} </h7>
         <table class="table table-striped">
@@ -13,25 +14,32 @@
                 <th scope="col">Hazard Class</th>
                 <th scope="col">Hazard Category</th>
                 <th scope="col">Hazard Statement Code</th>
+                <th scope="col">Hazard scale</th>
+                <th scope="col">Description</th>
                 <th class="col">Number of Notifiers</th>
-                <th class="col">Confirmation Status</th>
+                <th class="col">Percent notifications</th>
+                <th class="col">Hazard scale</th>
             </tr>
             </thead>
             <tbody>
 
-            {% for item in ingredient.hazard.hazard_ghs_set.all %}
+            {% for item in ingredient.hazard.hazard_ghs_set %}
             <tr>
-                <td>{{ item.ghs.abbreviation }}</td>
-                <td>{{ item.ghs.hazard_category }}</td>
-                <td>{{ item.ghs.code }}</td>
+                <td>{{ item.abbreviation }}</td>
+                <td>{{ item.hazard_category }}</td>
+                <td>{{ item.ghs_code }}</td>
+                <td>{{ item.hazard_scale_score }}/10</td>
+                <td>{{ item.description }}</td>
                 <td>{{ item.number_of_notifiers	}}</td>
-                <td>{{ item.confirmed_status }}</td>
+                <td>{{ item.percent_notifications }}%</td>
+                <td>{{ item.short_hazard_scale }}/10</td>
+
             </tr>
             {% endfor %}
             </tbody>
         </table>
         <h7>Total notifications: {{ ingredient.hazard.total_notifications }} </h7>
-        <p>Sourse: <a href="https://echa.europa.eu/information-on-chemicals/cl-inventory-database/-/discli/details/{{ ingredients.hazard.cl_inventory_id }}">European Chemicals Agency (ECHA)</a></p>
+        <p>Sourse: <a href="https://echa.europa.eu/information-on-chemicals/cl-inventory-database/-/discli/details/{{ ingredient.hazard.cl_inventory_id }}">European Chemicals Agency (ECHA)</a></p>
     </div>
     {% endif %}
     {% if ingredient.description %}

@@ -1,7 +1,6 @@
 import re
 from django.contrib.postgres.search import SearchQuery, SearchVector, TrigramSimilarity
 from django.db.models import Q, F, Prefetch, Count
-import pandas as pd
 from .models import *
 from .text_postprocessing import TextPostprocessing
 from .serializers import *
@@ -14,28 +13,28 @@ from .serializers import *
 # Ingredient.objects.annotate(similarity=TrigramSimilarity('main_name', 'propyiparaben'),).filter(similarity__gt=0.01).order_by('-similarity')
 # TODO написать совместные тесты модулей ocr, postprocessing, DBsearch
 #  попробовать выгрузить дамп ключевых слов в текстовый файл и создать пользовательский словарь Tesseract
-#  написать модуль оценки опасности
 
 class TextBlock:
     '''Класс текстового блока'''
     def __init__(self, lang:str, text:str):
-        self.lang = lang # язык текста
-        self.text = text # ненормализованный текст
-        self.e_numbers = []             # присутствующие в тексте Е номера
-        self.colour_index = []          # присутствующие в текста номера Colour Index
-        self.keywords = []              # Все ключевые слова, кроме номеров
-        self.results = []               # объекты результатов поиска
-        self.count = int                # количеств найденных базе ключевых слов
+        self.lang = lang          # язык текста
+        self.text = text          # ненормализованный текст
+        self.e_numbers = []       # присутствующие в тексте Е номера
+        self.colour_index = []    # присутствующие в текста номера Colour Index
+        self.keywords = []        # Все ключевые слова, кроме номеров
+        self.results = []         # объекты результатов поиска
+        self.count = int          # количеств найденных базе ключевых слов
 
 
 class DBSearch:
     _re_mask = {
-        'colourIndex': r'([Cc]\.?[Iil1]\.?\s?\d{5})',
-        'casNumbers': r'(\d{2,6}-\d{2}-\d{1})',
-        'ecNumbers': r'(\d{3}-\d{3}-\d{1})',
-        'eNumber': r'([£FEe]\-?\d{3}[\d\w]|[£FEe]\-?\d{3})',
-        'GHS_codes': r'H\d{3}',
-        'inchiKey': r'[A-Z]{14}-[A-Z]{10}-[A-Z]'
+        'colourIndex': r'([Cc]\.?[Iil1]\.?\s?\d{5})',           # Colour Index nums like CI 00000
+        'casNumbers': r'(\d{2,6}-\d{2}-\d{1})',                 # Chemical abstract nums
+        'ecNumbers': r'(\d{3}-\d{3}-\d{1})',                    # EINECS nums like 000-000-0
+        'eNumber': r'([£FEe]\-?\d{3}[\d\w]|[£FEe]\-?\d{3})',    # E numbers food additives, like E000
+        'GHS_codes': r'H\d{3}',                                 # Global harmonized safety nums, like H335
+        'inchiKey': r'[A-Z]{14}-[A-Z]{10}-[A-Z]'                # INCHI - the international google'ble registration
+                                                                # numbers of chemical substances
     }
 
     def __init__(self, data:list):
@@ -88,8 +87,12 @@ class DBSearch:
         if text_block.colour_index:
             for ci in text_block.colour_index:
                 query = query | Q(data__colourIndex__contains=[ci])
-
-        results = Ingredients.objects.filter(query).select_related('hazard').prefetch_related('hazard__hazard_ghs_set__ghs')
+        # запрос без предзагрузки и фильтрации классов опасности
+        # results = Ingredients.objects.filter(query).select_related('hazard').prefetch_related('hazard__hazard_ghs_set__ghs')
+        # Запрос с прездагрузкой Hazard_GHS и GHS таблиц с фильтрацией неиспользуемых классов опасности
+        haz_ghs_prefetch = Hazard_GHS.objects.select_related('ghs').filter(ghs__active_status=True)
+        results = Ingredients.objects.filter(query).select_related('hazard').prefetch_related(
+            Prefetch('hazard__hazard_ghs_set', queryset=haz_ghs_prefetch))
         text_block.results = results
         text_block.count = results.count()
 
@@ -100,48 +103,11 @@ class DBSearch:
         ingredients_block = self._selectIngredientBlock()
         results_pk = ingredients_block.results.values_list('pk', flat=True)
         Ingredients.objects.filter(pk__in=results_pk).update(request_statistics=F('request_statistics') + 1)
-        self.hazard_estimator(IngredientsSerializer(ingredients_block.results, many=True).data)
+
         return ingredients_block.results
-
-
-    # TODO перебрать имеющиеся уведомления опасности.
-    #  1) Посчитать количество уведомлений в рамках 1 класса и принять сумму за 100%.
-    #  2) Вывести средневзвешенную сумму по 10 бальной шкале, по всем категориям класса.
-    #  3) Если источник GHS - Harmonised c&l и количество уведомлений по классу равно 0, то его вес = 100%
-    #  4)  Из Total notifications вычесть количество NA Not classified уведомлений, остаток считать за 100%
-    #  5)
 
     def _selectIngredientBlock(self):
         '''Выбираем блок текста, по которому нашли больше всего совпадений в базе'''
         result_count = [block.count for block in self._text_blocks]
         max_matches_idx = result_count.index(max(result_count))
         return self._text_blocks[max_matches_idx]
-
-    def hazard_estimator(self, results):
-        haz_cls = [
-            'REPRODUCTIVE_TOXICITY',        # токсичность для репродуктивной системы
-            'CARCINOGENICITY',              # канцерогенность
-            'ACUTE_TOXICITY',               # общая токсичность
-            'SKIN_CORROSION_IRRITATION',    # раздражает глаза
-            'RESPIRATORY_SKIN_SENSITISERS', # аллерген
-            'ASPIRATION_TOXICITY',          # токсично при вдыхании
-            'MUTAGENICITY',                 # мутаген
-            'EYE_DAMAGE_IRRITATION',        # раздражает глаза
-            'TARGET_ORGAN_TOXICITY'         # токсичность для органов
-        ]
-        for result in results:
-            if result['hazard']:
-                main_name = result['main_name']
-                hazard_data = result['hazard']
-                sourse = hazard_data['sourse']
-                total_notifications = hazard_data['total_notifications']
-                df = pd.DataFrame(hazard_data['hazard_ghs_set'])
-                print(f'Ingredient: {main_name}\nTotal notifications: {total_notifications}\nSourse: {sourse}\n',df)
-                for ghs in hazard_data['hazard_ghs_set']:
-                    confirmed_status = ghs['confirmed_status']
-                    hazard_class = ghs['hazard_class']
-                    abbreviation = ghs['abbreviation']
-                    category = ghs['hazard_category']
-                    hazard_score = ghs['hazard_scale_score']
-                    ghs_code = ghs['ghs_code']
-

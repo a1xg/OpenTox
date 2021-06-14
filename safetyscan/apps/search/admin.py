@@ -43,11 +43,12 @@ class HazardAdmin(admin.ModelAdmin):
     formfield_overrides = {
         models.JSONField: {'widget': JSONEditorWidget},
     }
-    list_display = ('__str__', 'id', 'cl_inventory_id', 'cas_number', 'ec_number')
+    list_display = ('__str__', 'id', 'cl_inventory_id', 'cas_number', 'ec_number','sourse','total_notifications')
     search_fields = (
         'substance__substanceNames__contains',
         'ec_number__contains',
         'cas_number__contains',
+        'cl_inventory_id'
     )
 
     @admin.action(description='Удалить ключевое слово из выбранных ингридиентов')
@@ -59,7 +60,7 @@ class HazardAdmin(admin.ModelAdmin):
 
 
 class GHSAdmin(admin.ModelAdmin):
-    list_display = ('id', 'abbreviation', 'hazard_category', 'code', 'description','hazard_class','hazard_subclass','hazard_scale_score')
+    list_display = ('id', 'abbreviation', 'hazard_category', 'code', 'description','hazard_class','hazard_subclass','hazard_scale_score', 'active_status')
 
 
 class Hazard_GHSAdmin(admin.ModelAdmin):

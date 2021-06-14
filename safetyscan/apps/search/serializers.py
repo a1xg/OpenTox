@@ -9,7 +9,6 @@ class Hazard_GHSSerializer(serializers.ModelSerializer):
     ghs_code = serializers.CharField(source='ghs.code', read_only=True)
     description = serializers.CharField(source='ghs.description', read_only=True)
     hazard_scale_score = serializers.IntegerField(source='ghs.hazard_scale_score', read_only=True)
-
     class Meta:
         model = Hazard_GHS
         fields = ('hazard_class',
@@ -17,9 +16,10 @@ class Hazard_GHSSerializer(serializers.ModelSerializer):
                   'hazard_category',
                   'ghs_code',
                   'description',
+                  'confirmed_status',
                   'hazard_scale_score',
                   'number_of_notifiers',
-                  'confirmed_status')
+                  )
 
 
 class HazardSerializer(serializers.ModelSerializer):
@@ -33,4 +33,4 @@ class IngredientsSerializer(serializers.ModelSerializer):
     hazard = HazardSerializer(many=False, read_only=True)
     class Meta:
         model = Ingredients
-        fields = ('id','main_name', 'hazard','e_number', 'functions')
+        fields = ('id','main_name', 'hazard','e_number', 'functions', 'pubchem_cid')

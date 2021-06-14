@@ -57,7 +57,7 @@ class GHS(models.Model):
     code = models.CharField(max_length=20, blank=True, null=False)
     description = models.TextField(blank=True, null=False)
     hazard_scale_score = models.IntegerField(blank=True, null=False) # значение оценки опасности по 10 бальной, возрастающей шкале
-
+    active_status = models.BooleanField(default=True, null=False)
     def __str__(self):
         return f'{self.abbreviation} {self.hazard_category}'
 
