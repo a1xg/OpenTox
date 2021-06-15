@@ -73,7 +73,11 @@ class DBSearch:
 
     # TODO доработать запросы по типу нескольких сит: все что не нашлось по
     #  точному совпадению нужно попробовать найти по триграммам
-    def _requestDB(self, text_block:TextBlock):
+    def get_query(self):
+        pass
+
+
+    def _requestDB(self, text_block: TextBlock):
         '''Обращаемся к базе и возвращаем найденное'''
         # составляем комбинированный SQL запрос
         # пока поддерживаются только точные совпадения на английском и без пробелов в начале и конце текста
@@ -87,10 +91,10 @@ class DBSearch:
         if text_block.colour_index:
             for ci in text_block.colour_index:
                 query = query | Q(data__colourIndex__contains=[ci])
-        # запрос без предзагрузки и фильтрации классов опасности
-        # results = Ingredients.objects.filter(query).select_related('hazard').prefetch_related('hazard__hazard_ghs_set__ghs')
+
         # Запрос с прездагрузкой Hazard_GHS и GHS таблиц с фильтрацией неиспользуемых классов опасности
         haz_ghs_prefetch = Hazard_GHS.objects.select_related('ghs').filter(ghs__active_status=True)
+        print(haz_ghs_prefetch)
         results = Ingredients.objects.filter(query).select_related('hazard').prefetch_related(
             Prefetch('hazard__hazard_ghs_set', queryset=haz_ghs_prefetch))
         text_block.results = results

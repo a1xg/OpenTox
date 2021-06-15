@@ -25,10 +25,11 @@ class HazardMeter:
         ingredient_hazard_sums = []
         for ingredient in self._data:
             if ingredient.get('hazard').get('hazard_ghs_set'):
+                df = pd.DataFrame(ingredient['hazard']['hazard_ghs_set'])
                 aggregated_df = self._hazard_data_aggregate(
                     total_notif=ingredient['hazard']['total_notifications'],
                     sourse=ingredient['hazard']['sourse'],
-                    df=pd.DataFrame(ingredient['hazard']['hazard_ghs_set']))
+                    df=df)
                 ingredient_hazard_sum = self._ingredient_hazard_sum(df=aggregated_df)
                 ingredient['hazard']['ingredient_hazard_sum'] = ingredient_hazard_sum
                 ingredient_hazard_sums.append(ingredient_hazard_sum)
@@ -37,7 +38,9 @@ class HazardMeter:
                     del ingredient['hazard']['hazard_ghs_set']
                 elif self._display_format == 'hazard_detail':
                     ingredient['hazard']['hazard_ghs_set'] = [OrderedDict(row) for i, row in aggregated_df.iterrows()]
+                print(f'original df: {df}\naggregated df: {aggregated_df}')
         # считаем среднее значение опасности по всем ингридиентам продукта и добавляем ключ в коллекцию
+
         return OrderedDict(
             {
                 'product_ingredients': self._data,
@@ -88,6 +91,7 @@ class HazardMeter:
 
     def _ingredient_hazard_sum(self, df: pd.DataFrame) -> float:
         """Метод подсчитывает средневзвешенную оценку шкалы опасности по всем классам и количеству уведомлений"""
+        # FIXME проверить корректность подсчета
         df['short_hazard_scale'] = (
             df['number_of_notifiers'] /
             df['number_of_notifiers'].sum() *

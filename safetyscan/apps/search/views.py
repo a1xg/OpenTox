@@ -29,12 +29,12 @@ def text_search(request):
             lang = 'eng'
             search_results = DBSearch(data=[{lang:text}]).getData()
             serialized_data = IngredientsSerializer(search_results, many=True).data
-            print(f'serialized data {serialized_data}')
+            #print(f'serialized data {serialized_data}')
             data['title'] = 'Search results'
             data['text_form'] = TextRequestForm(request.POST)
             data['upload_image_form'] = UploadImageForm()
             data['results'] = HazardMeter(data=serialized_data, display_format='hazard_summary').processed_data
-            print(f"OUTPUT {data}")
+            #print(f"OUTPUT {data}")
         else:
             print('NOT VALID')
     return render(request, 'safetyscan/search_results.html', data)
@@ -61,6 +61,8 @@ def search_by_image(request):
     return render(request, 'safetyscan/search_results.html', data)
 
 def ingredient_details(request, id):
+    # FIXME в detail view не фильтруются классы опасности у которых статус активности False
+    #
     queryset = Ingredients.objects.filter(pk=id).select_related('hazard').prefetch_related(
         'hazard__hazard_ghs_set__ghs')
     serialized_data = IngredientsSerializer(queryset, many=True).data
@@ -70,7 +72,7 @@ def ingredient_details(request, id):
     'upload_image_form': UploadImageForm(),
     'text_form': TextRequestForm()
     }
-    print(f'CONTEXT: {context}')
+    #print(f'CONTEXT: {context}')
     return render(request, 'safetyscan/ingredient_details.html', context)
 
 
