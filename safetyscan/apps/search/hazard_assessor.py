@@ -2,7 +2,6 @@ import pandas as pd
 import time
 from collections import OrderedDict
 
-
 class HazardMeter:
     def __init__(self, data, display_format):
         """
@@ -38,7 +37,7 @@ class HazardMeter:
                     del ingredient['hazard']['hazard_ghs_set']
                 elif self._display_format == 'hazard_detail':
                     ingredient['hazard']['hazard_ghs_set'] = [OrderedDict(row) for i, row in aggregated_df.iterrows()]
-                print(f'original df: {df}\naggregated df: {aggregated_df}')
+                #print(f'original df: {df}\naggregated df: {aggregated_df}')
         # считаем среднее значение опасности по всем ингридиентам продукта и добавляем ключ в коллекцию
 
         return OrderedDict(

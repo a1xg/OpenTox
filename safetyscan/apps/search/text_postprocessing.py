@@ -4,7 +4,7 @@ class TextPostprocessing:
     def __init__(self):
         self._output_string = str
 
-    def stringFilter(self, input_string):
+    def string_filter(self, input_string):
         '''Cleaning text'''
         # cut out word break with line break
         string = re.sub(r'-\n', '', input_string)

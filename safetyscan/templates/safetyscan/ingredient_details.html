@@ -13,7 +13,6 @@
                 <th scope="col">Hazard Class</th>
                 <th scope="col">Hazard Category</th>
                 <th scope="col">Hazard Statement Code</th>
-                <th scope="col">Hazard scale</th>
                 <th scope="col">Description</th>
                 <th class="col">Number of Notifiers</th>
                 <th class="col">Percent notifications</th>
@@ -27,11 +26,10 @@
                 <td>{{ item.abbreviation }}</td>
                 <td>{{ item.hazard_category }}</td>
                 <td>{{ item.ghs_code }}</td>
-                <td>{{ item.hazard_scale_score }}/10</td>
                 <td>{{ item.description }}</td>
                 <td>{{ item.number_of_notifiers	}}</td>
                 <td>{{ item.percent_notifications }}%</td>
-                <td>{{ item.short_hazard_scale }}/10</td>
+                <td>{{ item.hazard_scale_score }}/10</td>
 
             </tr>
             {% endfor %}
