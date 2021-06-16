@@ -8,6 +8,7 @@ import json
 
 # TODO прикрутить форму добавления ключевого слова и языка
 #  доработать удаление ключевого слова на разных языках
+#  написать функцию апдейта данных об опасности в таблице Hazard_GHS
 
 
 class IngredientsAdmin(admin.ModelAdmin):
@@ -38,12 +39,17 @@ class IngredientsAdmin(admin.ModelAdmin):
         pass
 
 
+class GHSInline(admin.TabularInline):
+    model = Hazard_GHS
+
+
 class HazardAdmin(admin.ModelAdmin):
     actions = ['drop_keyword']
+    inlines = (GHSInline,)
     formfield_overrides = {
         models.JSONField: {'widget': JSONEditorWidget},
     }
-    list_display = ('__str__', 'id', 'cl_inventory_id', 'cas_number', 'ec_number','sourse','total_notifications')
+    list_display = ('__str__', 'id', 'cl_inventory_id', 'cas_number', 'ec_number','sourse','total_notifications',)
     search_fields = (
         'substance__substanceNames__contains',
         'ec_number__contains',
@@ -65,7 +71,8 @@ class GHSAdmin(admin.ModelAdmin):
 
 class Hazard_GHSAdmin(admin.ModelAdmin):
     raw_id_fields = ('hazard','ghs')
-    list_display = ('id','hazard','ghs','number_of_notifiers', 'confirmed_status')
+    list_display = ('id','hazard','ghs','number_of_notifiers',)
+    search_fields = ('hazard__id',)
 
 admin.site.register(Ingredients, IngredientsAdmin)
 admin.site.register(Hazard, HazardAdmin)
