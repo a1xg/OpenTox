@@ -2,8 +2,8 @@ from django.shortcuts import render
 #from django.views.generic import DetailView, ListView
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from .text_blocks_screening import IngredientBlockFinder, DBTools
-from .db_tools import DBTools
+from .text_blocks_screening import IngredientBlockFinder
+from .db_tools import DBQueries
 from .serializers import *
 from .forms import UploadImageForm, TextRequestForm
 from .ocr import ImageOCR
@@ -47,7 +47,6 @@ def search_by_image(request):
             ocr = ImageOCR(img=request.FILES['image'].read())
             ocr.decodeImage()
             text_from_img = ocr.getText(text_lang='eng', crop=True, set_font=40)
-            print(f'Text from image {text_from_img}')
             search_results = IngredientBlockFinder(data=text_from_img).getData()
             serialized_data = IngredientsSerializer(search_results, many=True).data
             data['title'] = 'Search results'
@@ -59,10 +58,7 @@ def search_by_image(request):
     return render(request, 'safetyscan/search_results.html', data)
 
 def ingredient_details(request, id):
-
-    query = DBTools(detail_view='test').get_query(pk=id)
-    queryset = DBTools().get_queryset(query=query, update_statistics=False)
-
+    queryset = DBQueries().search_in_db(pk=id)
     serialized_data = IngredientsSerializer(queryset, many=True).data
     filtred_data = HazardMeter(data=serialized_data, display_format='hazard_detail').processed_data
     context = {

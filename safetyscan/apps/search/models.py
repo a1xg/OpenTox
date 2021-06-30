@@ -67,7 +67,6 @@ class GHS(models.Model):
         verbose_name = 'GHS'
         verbose_name_plural = "GHS's"
 
-
 class Hazard(models.Model):
     '''Таблица безопасности ингридиентов'''
     id = models.BigAutoField(primary_key=True)
@@ -77,7 +76,6 @@ class Hazard(models.Model):
     cl_inventory_id = models.IntegerField(blank=True, null=False)
     total_notifications = models.IntegerField(blank=True, null=True)
     sourse = models.CharField(max_length=100, blank=True, null=True)
-    hazard_data =  models.JSONField(blank=True, null=True)
     ghs_data = models.ManyToManyField(GHS, through='Hazard_GHS')
 
     def __str__(self):

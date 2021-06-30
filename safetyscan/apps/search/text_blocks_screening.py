@@ -1,7 +1,7 @@
 import re
 from .regex_patterns import RE_MASKS
 from .text_postprocessing import TextPostprocessing
-from .db_tools import DBTools
+from .db_tools import DBQueries
 
 # TODO написать совместные тесты модулей ocr, postprocessing, DBTools
 #  попробовать выгрузить дамп ключевых слов в текстовый файл и создать пользовательский словарь Tesseract
@@ -58,8 +58,7 @@ class IngredientBlockFinder:
     def getData(self) -> list:
         '''Перебираем текстовые блоки'''
         for text_block in self._text_blocks:
-            query = DBTools(text_block=1).get_query(text_block=text_block)
-            results = DBTools().get_queryset(query=query, update_statistics=True)
+            results = DBQueries().search_in_db(text_block=text_block, update_statistics=True)
             text_block.results = results
             text_block.count = results.count()
 

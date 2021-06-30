@@ -3,18 +3,18 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
-    <link rel="stylesheet" href="{% static 'search/css/search_new.css' %}">
-    <title>{% block title %}{{ title }} {% endblock %}</title>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+	<link rel="stylesheet" href="{% static 'search/css/search_new.css' %}">
+	<title>{% block title %}{{ title }} {% endblock %}</title>
 </head>
 <body>
 <div class="container">
-    {% include 'safetyscan/search_form.html' %}
+	{% include 'safetyscan/search_form.html' %}
 
-    {% block content %}
-    {% endblock %}
+	{% block content %}
+	{% endblock %}
 </div>
 
 </body>
