@@ -1,6 +1,6 @@
 import pandas as pd
 from collections import OrderedDict
-
+# TODO поправить нейминг и организацию кода
 class HazardMeter:
     def __init__(self, data, display_format):
         """
@@ -14,14 +14,19 @@ class HazardMeter:
         # по классу опасности, ниже которого класс опасности игнорируется в расчете
         self._notif_th = 0.1
         self._decimals = 2 # количество знаков после запятой в значениях оценок опасности.
-        self._ingredients_haz_data = self._ingredient_analysis()
-        self.processed_data = self._product_analysis()
 
-    def _ingredient_analysis(self) -> list:
+        self._all_ingredients_haz_data = self._analyze_ingredients()
+        self.processed_data = self._analyze_product()
+
+    def _hazard_manager(self):
+        # если количество ингредиентов = 1 то опасность продукта = опасности ингредиента
+        pass
+
+    def _analyze_ingredients(self) -> list:
         """
         Метод перебирает информацию о каждом ингридиенте в результатах поиска
         """
-        ingredient_df_list = []
+        all_ingredients_hazard_data = []
         for ingredient in self._data:
             if ingredient.get('hazard').get('hazard_ghs_set'):
                 df = pd.DataFrame(ingredient['hazard']['hazard_ghs_set'])
@@ -29,16 +34,15 @@ class HazardMeter:
                     total_notif=ingredient['hazard']['total_notifications'],
                     sourse=ingredient['hazard']['sourse'],
                     df=df)
-                ingredient_df_list.append(aggregated_df)
-                ingredient_hazard_sum = self._ingredient_hazard_avg(df=aggregated_df)
-                ingredient['hazard']['ingredient_hazard_sum'] = ingredient_hazard_sum
+                all_ingredients_hazard_data.append(aggregated_df)
+                ingredient['hazard']['ingredient_hazard_avg'] = self._ingredient_hazard_avg(df=aggregated_df)
                 # формируем наборы данных для отображения в списке результатов или для страницы каждого ингредиента
                 if self._display_format == 'hazard_summary':
                     del ingredient['hazard']['hazard_ghs_set']
                 elif self._display_format == 'hazard_detail':
                     ingredient['hazard']['hazard_ghs_set'] = [OrderedDict(row) for i, row in aggregated_df.iterrows()]
 
-        return ingredient_df_list
+        return all_ingredients_hazard_data
 
     def _ingredient_hazard_aggregate(self, total_notif: int, sourse: str, df: pd.DataFrame) -> pd.DataFrame:
         """
@@ -81,20 +85,14 @@ class HazardMeter:
 
         return df
 
-    def _ingredient_hazard_avg(self, df: pd.DataFrame) -> float:
-        """Метод подсчитывает взвешенную среднюю арифметическую оценку шкалы опасности по всем классам и количеству уведомлений"""
-        weighted_score_list = list(df['number_of_notifiers'] / df['number_of_notifiers'].sum() * df['hazard_scale_score'])
-        return sum(weighted_score_list).__round__(self._decimals)
-
-    def _product_analysis(self) -> OrderedDict:
-        product_hazard_stat = self._product_hazard_aggregate(dataframes=self._ingredients_haz_data)
+    def _analyze_product(self) -> OrderedDict:
+        product_hazard_agg = self._product_hazard_aggregate(dataframes=self._all_ingredients_haz_data)
         # считаем среднее значение опасности по всем ингридиентам продукта
-        product_hazard_averaged = self._product_hazard_avg(data=product_hazard_stat)
-
+        general_hazard_product = self._product_hazard_avg(data=product_hazard_agg)
         return OrderedDict(
             {
                 'product_ingredients': self._data,
-                'product_hazard_averaged': self._product_hazard_avg(data=product_hazard_stat)
+                'product_hazard_avg': general_hazard_product
             }
         )
 
@@ -103,31 +101,46 @@ class HazardMeter:
         if dataframes:
             df = pd.concat(dataframes, ignore_index=True) # объединяем данные об опасности всех ингредиентов
             df.drop(['ghs_code', 'confirmed_status','number_of_notifiers','percent_notifications'], axis=1, inplace=True)
-            df = df[df.hazard_class != 'NO_DATA_AVAILABLE']
-            grupped_by_class = df.groupby(['hazard_class']) # группируем одинаковые классы опасности
+            df = df[df.hazard_class != self._NA]
+            same_classes = df.groupby(['hazard_class']) # группируем одинаковые классы опасности
         else:
             return []
 
-        product_hazard_statistics = []
-        for haz_cls in grupped_by_class.groups.keys():
-            class_group = grupped_by_class.get_group(haz_cls)
-            ingredients_quantity = len(class_group) # количество ингредиентов имеющих класс опасности
+        product_hazard_summary = []
+        for hazard_class in same_classes.groups.keys():
+            class_group = same_classes.get_group(hazard_class)
+            num_of_ingredients = len(class_group) # количество ингредиентов имеющих класс опасности
             # ищем величину шкалы опасности в рамках класса с максимальным количеством вхождений
             most_common_hazard_score = class_group['hazard_scale_score'].value_counts().index[0]
             # оставляем в датайрейме только те данные, у которых величина шкалы опасности совпадает
             class_group = class_group.loc[class_group['hazard_scale_score'] == most_common_hazard_score].reset_index()
             # извлекаем из датафрейма данные по самой часто встречающейся величине шкалы опасности
             data_to_display = class_group.set_index('index').iloc[0].to_dict()
-            data_to_display['num_of_ingredients'] = ingredients_quantity
-            product_hazard_statistics.append(data_to_display)
+            data_to_display['num_of_ingredients'] = num_of_ingredients
+            product_hazard_summary.append(data_to_display)
 
-        return product_hazard_statistics
+        return product_hazard_summary
+
+    # FIXME не совпадают ingredient_hazard_avg и product_hazard_avg
+    def _ingredient_hazard_avg(self, df: pd.DataFrame) -> float:
+        """Метод подсчитывает взвешенную среднюю арифметическую оценку шкалы опасности по всем классам и количеству уведомлений"""
+        print(f'ingredient_hazard_avg:\n{df}')
+        weighted_score_list = list(
+            df['number_of_notifiers'] / df['number_of_notifiers'].sum() * df['hazard_scale_score'])
+        general_hazard_ingredient = sum(weighted_score_list).__round__(self._decimals)
+
+        print(f'general hazard ingredient: [{general_hazard_ingredient}]')
+        return general_hazard_ingredient
 
     def _product_hazard_avg(self, data: list) -> float:
         """Считает общую опасность продукта по классам опасности его ингридиентов и возвращает единую метрику опасности"""
         if data:
             df = pd.DataFrame(data)
+            print(f'product_hazard_avg:\n{df}')
             weighted_hazard = df['num_of_ingredients'] / df['num_of_ingredients'].sum() * df['hazard_scale_score']
-            return weighted_hazard.sum().__round__(self._decimals)
+            general_hazard_product = weighted_hazard.sum().__round__(self._decimals)
+            print(f'geheral hazard product: [{general_hazard_product}]')
+            return general_hazard_product
+
         else:
             return 0
