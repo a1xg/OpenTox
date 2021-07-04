@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'grappelli',
     'django.contrib.admin',
     'search',
+    'frontend',
     'rest_framework',
     'django_json_widget',
     'django.contrib.postgres',

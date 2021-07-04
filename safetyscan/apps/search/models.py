@@ -17,7 +17,7 @@ class Ingredients(models.Model):
         return str(self.hazard)
 
     def cas_numbers(self):
-        self.data.get('casNumbers')
+        return self.data.get('casNumbers')
 
     def ec_numbers(self):
         return self.data.get('ecNumbers')
@@ -29,10 +29,10 @@ class Ingredients(models.Model):
         return self.data.get('pubchemCID')
 
     def functions(self):
-        return  self.data.get('functions')
+        return self.data.get('functions')
 
     def colour_index(self):
-        return  self.data.get('colourIndex')
+        return self.data.get('colourIndex')
 
     class Meta:
         managed = True

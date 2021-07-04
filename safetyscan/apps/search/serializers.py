@@ -33,4 +33,4 @@ class IngredientsSerializer(serializers.ModelSerializer):
     hazard = HazardSerializer(many=False, read_only=True)
     class Meta:
         model = Ingredients
-        fields = ('id','main_name', 'hazard','e_number', 'functions', 'pubchem_cid')
+        fields = ('id','main_name', 'hazard','e_number', 'functions', 'pubchem_cid', 'cas_numbers', 'ec_numbers', 'colour_index', 'description')

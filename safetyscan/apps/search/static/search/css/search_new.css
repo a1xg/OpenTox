@@ -255,9 +255,10 @@ body{
     border-radius: 8px;
 }
 
-
-
-
+.header_block {
+    width: 200px;
+    margin: auto;
+}
 
 
 

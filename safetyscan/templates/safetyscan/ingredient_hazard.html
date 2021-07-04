@@ -1,0 +1,40 @@
+<div class="alert alert-warning">
+    <div class="header_block"><h7>Hazard data</h7></div>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th scope="col">Hazard Class</th>
+            <th scope="col">Hazard Category</th>
+            <th scope="col">Hazard Statement Code</th>
+            <th scope="col">Description</th>
+            <th class="col">Number of Notifiers</th>
+            <th class="col">Percent notifications</th>
+            <th class="col">Hazard scale</th>
+        </tr>
+        </thead>
+        <tbody>
+
+        {% for item in ingredient.hazard.hazard_ghs_set %}
+        <tr>
+            <td>{{ item.abbreviation }}</td>
+            <td>{{ item.hazard_category }}</td>
+            <td>{{ item.ghs_code }}</td>
+            <td>{{ item.description }}</td>
+            <td>{{ item.number_of_notifiers }}</td>
+            <td>
+                <p>{{ item.percent_notifications }}%</p>
+            </td>
+            <td>
+                <p>{{ item.hazard_scale_score }}/10</p>
+            </td>
+
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <h7>Total notifications: {{ ingredient.hazard.total_notifications }}</h7>
+    <p>Sourse: <a
+        href="https://echa.europa.eu/information-on-chemicals/cl-inventory-database/-/discli/details/{{ ingredient.hazard.cl_inventory_id }}">European
+        Chemicals Agency (ECHA)</a></p>
+</div>
+

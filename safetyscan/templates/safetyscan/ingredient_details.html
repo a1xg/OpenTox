@@ -1,53 +1,57 @@
-{% extends 'index.html' %}
-{% block title %}
-{{ ingredient.main_name }}
-{% endblock %}
-
-{% block content %}
-{% if ingredient %}
 <div class="alert alert-warning">
-    <h7>{{ ingredient.main_name }}</h7>
     <table class="table table-striped">
         <thead>
         <tr>
-            <th scope="col">Hazard Class</th>
-            <th scope="col">Hazard Category</th>
-            <th scope="col">Hazard Statement Code</th>
-            <th scope="col">Description</th>
-            <th class="col">Number of Notifiers</th>
-            <th class="col">Percent notifications</th>
-            <th class="col">Hazard scale</th>
+            <th scope="col">Identifier</th>
+            <th scope="col">Value</th>
         </tr>
         </thead>
         <tbody>
-
-        {% for item in ingredient.hazard.hazard_ghs_set %}
+        {% if ingredient.cas_numbers %}
         <tr>
-            <td>{{ item.abbreviation }}</td>
-            <td>{{ item.hazard_category }}</td>
-            <td>{{ item.ghs_code }}</td>
-            <td>{{ item.description }}</td>
-            <td>{{ item.number_of_notifiers }}</td>
-            <td>
-                <p>{{ item.percent_notifications }}%</p>
-            </td>
-            <td>
-                <p>{{ item.hazard_scale_score }}/10</p>
-            </td>
-
+            <td>CAS Numbers:</td>
+            <td>{% for cas in ingredient.cas_numbers %}{{ cas }}, {% endfor %}</td>
         </tr>
-        {% endfor %}
+        {% endif %}
+        {% if ingredient.ec_numbers %}
+        <tr>
+            <td>EC Numbers:</td>
+            <td>{% for ec in ingredient.ec_numbers %}{{ ec }}, {% endfor %}</td>
+        </tr>
+        {% endif %}
+        {% if ingredient.e_number %}
+        <tr>
+            <td>E Number:</td>
+            <td>{{ ingredient.e_number }}</td>
+        </tr>
+        {% endif %}
+        {% if ingredient.functions %}
+        <tr>
+            <td>Functions:</td>
+            <td>
+                {% for func in ingredient.functions %}
+                {{ func }},
+                {% endfor %}
+            </td>
+        </tr>
+        {% endif %}
+        {% if ingredient.colour_index %}
+        <tr>
+            <td>Colour Index number:</td>
+            <td>{% for ci in ingredient.colour_index %}
+                {{ ci }},
+                {% endfor %}
+            </td>
+        </tr>
+        {% endif %}
+        {% if ingredient.pubchem_cid %}
+        <tr>
+            <td>Pubchem CID:</td>
+            <td>
+                <a href="https://pubchem.ncbi.nlm.nih.gov/compound/{{ ingredient.pubchem_cid }}">{{ ingredient.pubchem_cid }}</a>
+            </td>
+        </tr>
+        {% endif %}
         </tbody>
     </table>
-    <h7>Total notifications: {{ ingredient.hazard.total_notifications }}</h7>
-    <p>Sourse: <a
-        href="https://echa.europa.eu/information-on-chemicals/cl-inventory-database/-/discli/details/{{ ingredient.hazard.cl_inventory_id }}">European
-        Chemicals Agency (ECHA)</a></p>
 </div>
-{% endif %}
-{% if ingredient.description %}
-<div class="alert alert-warning">
-    <p>{{ ingredient.description }}</p>
-</div>
-{% endif %}
-{% endblock %}

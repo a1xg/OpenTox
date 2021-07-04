@@ -17,7 +17,7 @@ class HazardMeter:
 
     def get_data(self):
         # если количество ингредиентов = 1 то опасность продукта = опасности ингредиента
-        all_ingredients_haz_detail, all_ingredients_haz_general = self._analyze_ingredients()
+        all_ingredients_haz_detail, all_ingredients_haz_general = self._ingredients_hazard_filter()
 
         if self._display_format == 'hazard_detail':
             return OrderedDict({'product_ingredients': self._data})
@@ -30,7 +30,7 @@ class HazardMeter:
                 }
             )
 
-    def _analyze_ingredients(self) -> list:
+    def _ingredients_hazard_filter(self) -> list:
         """
         Метод перебирает информацию о каждом ингридиенте в результатах поиска
         """
