@@ -37,7 +37,6 @@ class HazardMeter:
         all_hazard_detail = []
         all_general_hazard = []
         for ingredient in self._data:
-            print(ingredient)
             if ingredient.get('hazard').get('hazard_ghs_set'):
                 df = pd.DataFrame(ingredient['hazard']['hazard_ghs_set'])
                 aggregated_df = self._ingredient_hazard_aggregate(

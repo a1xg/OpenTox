@@ -104,5 +104,9 @@ class Hazard_GHS(models.Model):
         managed = True
         db_table = 'hazard_ghs'
         verbose_name = 'Уведомление GHS связанное с веществом'
-        verbose_name_plural = "Уведомления GHS связанные с веществом's"
+        verbose_name_plural = "Уведомления GHS связанные с веществами"
 
+# TODO создать модели текстового запроса и запроса с изображением
+
+class Request(models.Model):
+    text = models.CharField(max_length=1000, blank=True, null=True)

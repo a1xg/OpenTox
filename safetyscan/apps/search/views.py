@@ -1,5 +1,5 @@
 from django.shortcuts import render
-#from django.views.generic import DetailView, ListView
+from rest_framework import generics
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from .text_blocks_screening import IngredientBlockFinder
@@ -8,9 +8,13 @@ from .serializers import *
 from .forms import UploadImageForm, TextRequestForm
 from .ocr import ImageOCR
 from .hazard_assessor import HazardMeter
+import json
 
-# TODO отрефакторить views
-#  настроить выдачу сериализатора под JSON, а это возможно только при вызове сериализаторов из APIView, ModelViewSet.
+# TODO
+#  1) Попробовать запихнуть HazardMeter в Настраиваемые поля сериализатора Ingredients, Hazard_GHS
+#  https://www.django-rest-framework.org/api-guide/fields/#a-basic-custom-field
+#  2) Настроить выдачу сериализатора под JSON, а это возможно только при вызове сериализаторов из APIView, ModelViewSet.
+
 # крутые диаграммы на js https://www.chartjs.org/docs/latest/samples/other-charts/polar-area.html
 
 def index(request):
@@ -79,3 +83,8 @@ class IngredientsListView(APIView):
         ingredients = IngredientBlockFinder(data=[{'eng':'propanol, ethylparaben, E110'}]).getData()
         serializer = IngredientsSerializer(ingredients, many=True)
         return Response(serializer.data)
+
+class TestRequest(generics.ListCreateAPIView):
+    queryset = Request.objects.all()
+    serializer_class = RequestSerializer
+
