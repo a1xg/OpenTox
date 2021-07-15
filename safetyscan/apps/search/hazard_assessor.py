@@ -1,5 +1,6 @@
 import pandas as pd
 from collections import OrderedDict
+import json
 
 class HazardMeter:
     def __init__(self, data: list, display_format: str):
@@ -7,7 +8,7 @@ class HazardMeter:
         :param data: Django REST framework list
         :param display_format: 'hazard_summary' or 'hazard_detail'
         """
-        self._data = data
+        self._data = json.loads(json.dumps(data))
         self._display_format = display_format
         self._NA = 'NO_DATA_AVAILABLE'
         # пороговое значение процентного количества уведомлений
@@ -18,17 +19,15 @@ class HazardMeter:
     def get_data(self):
         # если количество ингредиентов = 1 то опасность продукта = опасности ингредиента
         all_ingredients_haz_detail, all_ingredients_haz_general = self._ingredients_hazard_filter()
-
         if self._display_format == 'hazard_detail':
-            return OrderedDict({'product_ingredients': self._data})
+            return self._data[0] # {'product_ingredients': self._data}
         elif self._display_format ==  'hazard_summary':
-            return OrderedDict(
-                {
-                    'product_ingredients': self._data,
-                    'product_hazard_avg': self._product_hazard_avg(data=all_ingredients_haz_general),
-                    'detail_hazard_product': self._product_hazard_aggregate(dataframes=all_ingredients_haz_detail)
-                }
-            )
+            return {
+                'product_ingredients': self._data,
+                'product_hazard_avg': self._product_hazard_avg(data=all_ingredients_haz_general),
+                'detail_hazard_product': self._product_hazard_aggregate(dataframes=all_ingredients_haz_detail)
+            }
+
 
     def _ingredients_hazard_filter(self) -> list:
         """
@@ -38,11 +37,10 @@ class HazardMeter:
         all_general_hazard = []
         for ingredient in self._data:
             if ingredient.get('hazard').get('hazard_ghs_set'):
-                df = pd.DataFrame(ingredient['hazard']['hazard_ghs_set'])
                 aggregated_df = self._ingredient_hazard_aggregate(
                     total_notif=ingredient['hazard']['total_notifications'],
                     sourse=ingredient['hazard']['sourse'],
-                    df=df)
+                    data=ingredient['hazard']['hazard_ghs_set'])
                 all_hazard_detail.append(aggregated_df)
                 general_hazard = self._ingredient_hazard_avg(data=aggregated_df)
                 all_general_hazard.append(general_hazard)
@@ -51,10 +49,12 @@ class HazardMeter:
                 if self._display_format == 'hazard_summary':
                     del ingredient['hazard']['hazard_ghs_set']
                 elif self._display_format == 'hazard_detail':
-                    ingredient['hazard']['hazard_ghs_set'] = [OrderedDict(row) for i, row in aggregated_df.iterrows()]
+                    ingredient['hazard']['hazard_ghs_set'] = aggregated_df.to_dict('records')
+            else:
+                ingredient['hazard']['ingredient_hazard_avg'] = None
         return all_hazard_detail, all_general_hazard
 
-    def _ingredient_hazard_aggregate(self, total_notif: int, sourse: str, df: pd.DataFrame) -> pd.DataFrame:
+    def _ingredient_hazard_aggregate(self, total_notif: int, sourse: str, data: list) -> pd.DataFrame:
         """
         Модуль обобщает уведомления об опасности вещества по их классу, внутри одного класса
         выбирает те, количество уведомлений по которым наибольшее.
@@ -65,6 +65,7 @@ class HazardMeter:
         Если по существующим классам опасности количество уведомлений меньше порогового значения, 
         то все они подлежат удалению, а класс NO_DATA_AVAILABLE останется единственным принятым для вещества.
         """
+        df = pd.DataFrame(data)
         if total_notif > 0:
             # Подсчитываем количество уведомлений по классу опасности NO_DATA_AVAILABLE
             na_num_notifications = df.loc[df['hazard_class'] == self._NA, 'number_of_notifiers'].sum()

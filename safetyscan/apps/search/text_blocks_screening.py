@@ -17,7 +17,7 @@ class TextBlock:
         self.results = []         # объекты результатов поиска
         self.count = int          # количеств найденных базе ключевых слов
 
-class IngredientBlockFinder:
+class IngredientsBlockFinder:
     def __init__(self, data: list):
         self.data = data
         self._text_blocks = self._buildTextBlock()

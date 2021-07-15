@@ -1,6 +1,8 @@
 from django.db import models
 from django.contrib.postgres.indexes import GinIndex, BTreeIndex, GistIndex
 
+# FIXME не работает поиск по main_name
+
 class Ingredients(models.Model):
     '''Таблица ингридиентов'''
     id = models.BigAutoField(primary_key=True)
@@ -106,7 +108,6 @@ class Hazard_GHS(models.Model):
         verbose_name = 'Уведомление GHS связанное с веществом'
         verbose_name_plural = "Уведомления GHS связанные с веществами"
 
-# TODO создать модели текстового запроса и запроса с изображением
 
 class Request(models.Model):
     text = models.CharField(max_length=1000, blank=True, null=True)
