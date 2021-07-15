@@ -3,7 +3,7 @@
 		<div class="card search-form">
 			<div class="card-body p-0">
 				<!-- Форма поиска -->
-				<form method="post" action="{% url 'text_search' %}">
+				<form method="post"action="{% url 'text_search' %}">
 					<div class="row">
 						<div class="col-12">
 							<div class="row no-gutters">
@@ -11,7 +11,7 @@
 								</div>
 								<div class="col-lg-8 col-md-6 col-sm-12 p-0">
 									{% csrf_token %}
-									{{ text_form }}
+									<input type="text" name="text" placeholder="Enter ingredients separated by commas" class="search-form" maxlength="2000">
 								</div>
 								<div class="col-lg-1 col-md-3 col-sm-12 p-0">
 									<button type="submit" class="btn btn-base">
@@ -30,7 +30,7 @@
 			</div>
 			<form method="post" enctype="multipart/form-data" action="{% url 'search_by_image' %}">
 				{% csrf_token %}
-				{{ upload_image_form }}
+				<input type="file" name="image" onchange="submit();" placeholder="Select product photo">
 			</form>
 		</div>
 	</div>

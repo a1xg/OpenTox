@@ -1,6 +1,15 @@
 from rest_framework import serializers
 from .models import *
 
+# TODO написать сериализатор для запроса через JSON
+
+class TextRequeqtSerializer(serializers.Serializer):
+    text = serializers.CharField()
+
+class ImageRequestSerializer(serializers.Serializer):
+    image = serializers.ImageField()
+
+
 class Hazard_GHSSerializer(serializers.ModelSerializer):
     '''Сериализатор обобщающий данные из таблиц Hazard_GHS и GHS'''
     hazard_class = serializers.CharField(source='ghs.hazard_class', read_only=True)
@@ -34,12 +43,6 @@ class IngredientsSerializer(serializers.ModelSerializer):
     class Meta:
         model = Ingredients
         fields = ('id','main_name', 'hazard','e_number', 'functions', 'pubchem_cid', 'cas_numbers', 'ec_numbers', 'colour_index', 'description')
-
-
-class RequestSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Request
-        fields = ('text',)
 
 
 class GHSDetailsSerializer(serializers.Serializer):

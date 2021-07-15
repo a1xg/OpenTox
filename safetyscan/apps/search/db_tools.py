@@ -5,6 +5,8 @@ from .models import *
 class DBQueries:
     # TODO доработать запросы по типу нескольких сит: все что не нашлось по
     #  точному совпадению нужно попробовать найти по триграммам
+
+    # FIXME некорректно работает поиск, особенно с названиями из нескольких слов
     def _get_query(self, **kwargs) -> Q:
         '''
         Cоставляем SQL запросы на базе Q объектов.
@@ -16,6 +18,7 @@ class DBQueries:
             query = Q()
             if text_block.keywords:
                 for word in text_block.keywords:
+                    query = query | Q(main_name=word.upper())
                     query = query | Q(data__synonyms__eng__contains=[word])
             if text_block.e_numbers:
                 for e in text_block.e_numbers:
@@ -41,6 +44,7 @@ class DBQueries:
         if kwargs.get('update_statistics') == True and len(queryset) > 0:
             results_pk = queryset.values_list('pk', flat=True)
             self._update_statistics(pk_list=results_pk)
+
         return queryset
 
     def _update_statistics(self, pk_list) -> None:
@@ -60,3 +64,4 @@ class DBQueries:
         query = self._get_query(**kwargs)
         queryset = self._get_queryset(query,**kwargs)
         return queryset
+

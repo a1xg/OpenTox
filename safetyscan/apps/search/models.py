@@ -107,7 +107,3 @@ class Hazard_GHS(models.Model):
         db_table = 'hazard_ghs'
         verbose_name = 'Уведомление GHS связанное с веществом'
         verbose_name_plural = "Уведомления GHS связанные с веществами"
-
-
-class Request(models.Model):
-    text = models.CharField(max_length=1000, blank=True, null=True)
