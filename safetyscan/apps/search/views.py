@@ -1,17 +1,19 @@
 from django.shortcuts import render
-from rest_framework import generics
+from rest_framework import generics, viewsets
 from rest_framework.views import APIView
-from rest_framework.response import Response
+from rest_framework import response
 from .text_blocks_screening import IngredientsBlockFinder
 from .db_tools import DBQueries
 from .serializers import *
 from .ocr import ImageOCR
 from .hazard_assessor import HazardMeter
+from .utils import DataMixin
 
 
 # TODO Перевести стандартные представления на rest_framework
 #  будет использовано 2 сериализатора в 1 представлении в зависимости от типа приходящих данных тернаркой будет выбираться сериализатор
 #  или с помощью метода get_serializer_class()
+#  для отправки данных через формы DRF требуется PUT запрос
 # крутые диаграммы на js https://www.chartjs.org/docs/latest/samples/other-charts/polar-area.html
 
 def index(request):
@@ -26,7 +28,7 @@ def text_search(request):
         lang = 'eng'
         search_results = IngredientsBlockFinder(data=[{lang: text}]).getData()
         serialized_data = IngredientsSerializer(search_results, many=True).data
-        hazard_calculated = HazardMeter(data=serialized_data, display_format='hazard_summary').get_data()
+        hazard_calculated = HazardMeter(data=serialized_data, display_format='list').get_data()
         context['results'] = ProductSerializer(hazard_calculated, many=False).data
         context['title'] = 'Search results'
     return render(request, 'safetyscan/search_results.html', context)
@@ -40,7 +42,7 @@ def search_by_image(request):
         text_from_img = ocr.getText(text_lang='eng', crop=True, set_font=40)
         search_results = IngredientsBlockFinder(data=text_from_img).getData()
         serialized_data = IngredientsSerializer(search_results, many=True).data
-        hazard_calculated = HazardMeter(data=serialized_data, display_format='hazard_summary').get_data()
+        hazard_calculated = HazardMeter(data=serialized_data, display_format='list').get_data()
         context['results'] = ProductSerializer(hazard_calculated, many=False).data
         context['title'] = 'Search results'
     return render(request, 'safetyscan/search_results.html', context)
@@ -48,14 +50,35 @@ def search_by_image(request):
 def ingredient_cart(request, id):
     queryset = DBQueries().search_in_db(pk=id)
     serialized_data = IngredientsSerializer(queryset, many=True).data
-    hazard_calculated = HazardMeter(data=serialized_data, display_format='hazard_detail').get_data()
+    hazard_calculated = HazardMeter(data=serialized_data, display_format='detail').get_data()
     context = {'ingredient': DetailsIngredientSerializer(hazard_calculated, many=False).data}
-
     return render(request, 'safetyscan/ingredient_cart.html', context)
 
+# DRF API VIEWS
+class TextSearchAPIView(DataMixin, generics.ListAPIView):
+    '''http://127.0.0.1:8000/search/api/'''
+    serializer_class = TextSearchSerializer
 
-class TestRequest(generics.GenericAPIView):
-    serializer_class = TextRequeqtSerializer
-    def get_serializer_class(self):
+    def post(self, request):
+        serializer = TextSearchSerializer(data=request.data, many=False)
+        if serializer.is_valid(raise_exception=True):
+            context = self.get_context(text=serializer.validated_data['text'], display_format='list')
+            return response.Response(context, status=200)
+        return response.Response(serializer.errors, status=200)
 
-        pass
+
+class ImageSearchAPIView(DataMixin, generics.ListAPIView):
+    serializer_class = ImageSearchSerializer
+
+    def post(self, request):
+        serializer = ImageSearchSerializer(data=request.data, many=False)
+        if serializer.is_valid(raise_exception=True):
+            context = self.get_context(image=serializer.validated_data["image"].read(), display_format='list')
+            return response.Response(context, status=200)
+        return response.Response(serializer.errors, status=200)
+
+
+class DetailAPIView(DataMixin, generics.RetrieveAPIView):
+    def get(self, request, pk):
+        context = self.get_context(display_format='detail', pk=pk)
+        return response.Response(context, status=200)

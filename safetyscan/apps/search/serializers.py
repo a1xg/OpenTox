@@ -1,13 +1,23 @@
 from rest_framework import serializers
 from .models import *
 
-# TODO написать сериализатор для запроса через JSON
 
-class TextRequeqtSerializer(serializers.Serializer):
+class TextSearchSerializer(serializers.Serializer):
     text = serializers.CharField()
 
-class ImageRequestSerializer(serializers.Serializer):
+    def validate_text(self, attrs):
+        if len(attrs) <= 0:
+            raise serializers.ValidationError('Please enter components')
+        return attrs
+
+
+class ImageSearchSerializer(serializers.Serializer):
     image = serializers.ImageField()
+
+    def validate_image(self, attrs):
+        if len(attrs) <= 0:
+            raise serializers.ValidationError('Please select an image to download')
+        return attrs
 
 
 class Hazard_GHSSerializer(serializers.ModelSerializer):
@@ -55,11 +65,10 @@ class GHSDetailsSerializer(serializers.Serializer):
     hazard_scale_score = serializers.IntegerField()
     number_of_notifiers = serializers.IntegerField()
     percent_notifications = serializers.IntegerField()
-    #confirmed_status = serializers.BooleanField()
 
 
 class DetailsIngredientHazardSerializer(serializers.Serializer):
-    ''''''
+    '''Сериализатор подробной информации об опасности ингридиента'''
     hazard_ghs_set = GHSDetailsSerializer(many=True)
     ingredient_hazard_avg = serializers.IntegerField()
     total_notifications = serializers.IntegerField()

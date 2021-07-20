@@ -19,9 +19,9 @@ class HazardMeter:
     def get_data(self):
         # если количество ингредиентов = 1 то опасность продукта = опасности ингредиента
         all_ingredients_haz_detail, all_ingredients_haz_general = self._ingredients_hazard_filter()
-        if self._display_format == 'hazard_detail':
+        if self._display_format == 'detail':
             return self._data[0] # {'product_ingredients': self._data}
-        elif self._display_format ==  'hazard_summary':
+        elif self._display_format ==  'list':
             return {
                 'product_ingredients': self._data,
                 'product_hazard_avg': self._product_hazard_avg(data=all_ingredients_haz_general),
@@ -46,9 +46,9 @@ class HazardMeter:
                 all_general_hazard.append(general_hazard)
                 ingredient['hazard']['ingredient_hazard_avg'] = general_hazard
                 # формируем наборы данных для отображения в списке результатов или для страницы каждого ингредиента
-                if self._display_format == 'hazard_summary':
+                if self._display_format == 'list':
                     del ingredient['hazard']['hazard_ghs_set']
-                elif self._display_format == 'hazard_detail':
+                elif self._display_format == 'detail':
                     ingredient['hazard']['hazard_ghs_set'] = aggregated_df.to_dict('records')
             else:
                 ingredient['hazard']['ingredient_hazard_avg'] = None
