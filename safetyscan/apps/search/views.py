@@ -4,16 +4,11 @@ from rest_framework.views import APIView
 from rest_framework import response
 from .text_blocks_screening import IngredientsBlockFinder
 from .db_tools import DBQueries
+from .models import Ingredients
 from .serializers import *
 from .ocr import ImageOCR
 from .hazard_assessor import HazardMeter
 from .utils import DataMixin
-
-
-# TODO Перевести стандартные представления на rest_framework
-#  будет использовано 2 сериализатора в 1 представлении в зависимости от типа приходящих данных тернаркой будет выбираться сериализатор
-#  или с помощью метода get_serializer_class()
-#  для отправки данных через формы DRF требуется PUT запрос
 # крутые диаграммы на js https://www.chartjs.org/docs/latest/samples/other-charts/polar-area.html
 
 def index(request):
@@ -48,6 +43,7 @@ def search_by_image(request):
     return render(request, 'safetyscan/search_results.html', context)
 
 def ingredient_cart(request, id):
+    '''Представление подробной информации о ингредиенте'''
     queryset = DBQueries().search_in_db(pk=id)
     serialized_data = IngredientsSerializer(queryset, many=True).data
     hazard_calculated = HazardMeter(data=serialized_data, display_format='detail').get_data()
@@ -82,3 +78,10 @@ class DetailAPIView(DataMixin, generics.RetrieveAPIView):
     def get(self, request, pk):
         context = self.get_context(display_format='detail', pk=pk)
         return response.Response(context, status=200)
+
+class TestAPIView(generics.ListAPIView):
+    '''Тестовая вьюха для отладки фронтенда на React'''
+    print('*******************\nВызов класса TestAPIView\n**********************')
+    serializer_class = Hazard_GHSSerializer
+    queryset = Hazard_GHS.objects.all()[:10]
+
