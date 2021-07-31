@@ -3,26 +3,27 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@babel/cli": "^7.14.8",
+    "@babel/preset-stage-0": "^7.8.3",
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^11.2.7",
     "@testing-library/user-event": "^12.8.3",
+    "babel-plugin-lodash": "^3.3.4",
+    "babel-plugin-react-transform": "^3.0.0",
+    "bootstrap": "^5.0.2",
     "css-loader": "^5.2.7",
+    "jquery": "^3.6.0",
+    "react-bootstrap": "^2.0.0-beta.4",
     "react-scripts": "4.0.3",
     "style-loader": "^2.0.0",
     "web-vitals": "^1.1.2"
   },
   "scripts": {
     "start": "react-scripts start",
-    "dev": "webpack --mode development ./src/index.js --output-path ./static/frontend/main.js/main.js",
-    "build": "webpack --mode production ./src/index.js --output-path ./static/frontend/main.js/main.js",
+    "dev": "webpack --mode development ./src/index.js --output-path ./static/frontend/",
+    "build": "webpack --mode production ./src/index.js --output-path ./static/frontend/",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
-  },
-  "babel": {
-    "presets": [
-      "@babel/preset-env",
-      "@babel/preset-react"
-    ]
   },
   "eslintConfig": {
     "extends": [
@@ -46,7 +47,7 @@
     "@babel/core": "^7.14.8",
     "@babel/preset-env": "^7.14.8",
     "@babel/preset-react": "^7.14.5",
-    "babel-loader": "^8.1.0",
+    "babel-loader": "^8.2.2",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "webpack": "^4.44.2",

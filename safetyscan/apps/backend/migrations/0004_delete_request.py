@@ -6,7 +6,7 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('search', '0003_alter_request_id'),
+        ('backend', '0003_alter_request_id'),
     ]
 
     operations = [

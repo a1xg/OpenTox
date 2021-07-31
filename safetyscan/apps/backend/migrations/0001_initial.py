@@ -59,7 +59,7 @@ class Migration(migrations.Migration):
                 ('data', models.JSONField(blank=True, null=True)),
                 ('request_statistics', models.IntegerField(blank=True)),
                 ('description', models.TextField(blank=True, null=True)),
-                ('hazard', models.ForeignKey(blank=True, on_delete=django.db.models.deletion.DO_NOTHING, to='search.hazard')),
+                ('hazard', models.ForeignKey(blank=True, on_delete=django.db.models.deletion.DO_NOTHING, to='backend.hazard')),
             ],
             options={
                 'verbose_name': 'Ингредиент',
@@ -74,8 +74,8 @@ class Migration(migrations.Migration):
                 ('id', models.BigAutoField(primary_key=True, serialize=False)),
                 ('number_of_notifiers', models.IntegerField(blank=True)),
                 ('confirmed_status', models.BooleanField(default=True)),
-                ('ghs', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='search.ghs')),
-                ('hazard', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='search.hazard')),
+                ('ghs', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='backend.ghs')),
+                ('hazard', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='backend.hazard')),
             ],
             options={
                 'verbose_name': 'Уведомление GHS связанное с веществом',
@@ -87,7 +87,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='hazard',
             name='ghs_data',
-            field=models.ManyToManyField(through='search.Hazard_GHS', to='search.GHS'),
+            field=models.ManyToManyField(through='backend.Hazard_GHS', to='backend.GHS'),
         ),
         migrations.AddIndex(
             model_name='ingredients',

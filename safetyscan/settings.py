@@ -38,7 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'grappelli',
     'django.contrib.admin',
-    'search',
+    'backend',
     'frontend',
     'rest_framework',
     'django_json_widget',
@@ -153,9 +153,8 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 
 
 # отключение отображения API:
-REST_FRAMEWORK = {
-    'DEFAULT_RENDERER_CLASSES': (
-        'rest_framework.renderers.JSONRenderer',
-    )
-}
-
+#REST_FRAMEWORK = {
+#    'DEFAULT_RENDERER_CLASSES': (
+#        'rest_framework.renderers.JSONRenderer',
+#    )
+#}

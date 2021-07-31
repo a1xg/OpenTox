@@ -23,7 +23,7 @@ from django.conf.urls.static import static
 urlpatterns = [
     path('grappelli/', include('grappelli.urls')),
     path('admin/', admin.site.urls),
-    path('', include('search.urls')),
+    path('', include('backend.urls')),
     path('', include('frontend.urls')),
     path('__debug__/', include(debug_toolbar.urls)),
     path('api-auth/', include('rest_framework.urls'))

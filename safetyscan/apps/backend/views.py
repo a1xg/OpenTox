@@ -79,9 +79,15 @@ class DetailAPIView(DataMixin, generics.RetrieveAPIView):
         context = self.get_context(display_format='detail', pk=pk)
         return response.Response(context, status=200)
 
-class TestAPIView(generics.ListAPIView):
+class TestAPIView(DataMixin, generics.ListAPIView):
     '''Тестовая вьюха для отладки фронтенда на React'''
-    print('*******************\nВызов класса TestAPIView\n**********************')
-    serializer_class = Hazard_GHSSerializer
-    queryset = Hazard_GHS.objects.all()[:10]
+    serializer_class = TextSearchSerializer
+
+    def post(self, request):
+        serializer = TextSearchSerializer(data=request.data, many=False)
+
+        if serializer.is_valid(raise_exception=True):
+            context = self.get_context(text=serializer.validated_data['text'], display_format='list')
+            print(context)
+        return response.Response(context, status=200)
 

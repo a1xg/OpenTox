@@ -30,15 +30,16 @@ class Hazard_GHSSerializer(serializers.ModelSerializer):
     hazard_scale_score = serializers.IntegerField(source='ghs.hazard_scale_score', read_only=True)
     class Meta:
         model = Hazard_GHS
-        fields = ('hazard_class',
-                  'abbreviation',
-                  'hazard_category',
-                  'ghs_code',
-                  'description',
-                  'confirmed_status',
-                  'hazard_scale_score',
-                  'number_of_notifiers',
-                  )
+        fields = (
+            'hazard_class',
+            'abbreviation',
+            'hazard_category',
+            'ghs_code',
+            'description',
+            'confirmed_status',
+            'hazard_scale_score',
+            'number_of_notifiers',
+        )
 
 
 class HazardSerializer(serializers.ModelSerializer):
