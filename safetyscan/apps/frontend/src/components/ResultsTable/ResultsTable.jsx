@@ -2,7 +2,7 @@ import React from 'react';
 import s from '../style.module.css';
 
 const ResultsTable = (props) => {
-    console.log('ResultsTable props:', props)
+
     return (
         <table className={['table', s['widget-26']].join(' ')}>
             <tbody>
@@ -19,9 +19,8 @@ const ResultsTable = (props) => {
                             </td>
                             <td>
                                 <div className={s['widget-26-job-title']}>
-                                    <a href="{% url 'ingredient' el.id %}">{ingredient.main_name}</a>
+                                    <a href={"api/ingredient/"+ingredient.id}>{ingredient.main_name}</a>
                                     <p className="m-0">
-                                        {/* for func in el.functions */}
                                         <span className={['text-muted', s['time']].join(' ')}>{ingredient.id}</span>
                                     </p>
                                 </div>
@@ -29,7 +28,7 @@ const ResultsTable = (props) => {
                             <td>
                                 <div className={s['widget-26-job-salary']}>E number</div>
                             </td>
-                            <td>{/* ingredient.hazard.ingredient_hazard_avg */}</td>
+                            <td>{ingredient.hazard.ingredient_hazard_avg}/10</td>
                         </tr>
                     );
                 })}

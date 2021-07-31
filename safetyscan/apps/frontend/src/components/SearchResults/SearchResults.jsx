@@ -24,8 +24,7 @@ const SearchResults = (props) => {
                                                         <p className="m-0">E number</p>
                                                     </div>
                                                     <div className="result-views">
-                                                        {/* if results.product_hazard_avg */}
-                                                        <p>Product hazard avg {/* results.product_hazard_avg */}/10</p>
+                                                        <p>Product hazard avg {props.data.product_hazard_avg}/10</p>
                                                         {/* endif */}
                                                     </div>
                                                 </div>
@@ -34,7 +33,7 @@ const SearchResults = (props) => {
                                     </div>
                                     <div className="result-body">
                                         <div className="table-responsive">
-                                           {/* <ResultsTable data={props.data} /> */}
+                                           <ResultsTable data={props.data.product_ingredients} />
                                         </div>
                                     </div>
                                 </div>
