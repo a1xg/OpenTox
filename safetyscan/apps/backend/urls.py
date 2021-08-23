@@ -8,6 +8,5 @@ urlpatterns = [
     path('ingredient/<int:id>', views.ingredient_cart, name='ingredient'),
     path('api/text_field', views.TextSearchAPIView.as_view()),
     path('api/image_field', views.ImageSearchAPIView.as_view()),
-    path('api/ingredient/<int:pk>', views.DetailAPIView.as_view()),
-    path('api/test', views.TestAPIView.as_view())
+    path('api/ingredient/<int:pk>', views.DetailAPIView.as_view())
 ]

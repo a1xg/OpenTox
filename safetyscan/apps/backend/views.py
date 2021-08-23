@@ -81,18 +81,3 @@ class DetailAPIView(DataMixin, generics.RetrieveAPIView):
     def get(self, request, pk):
         context = self.get_context(display_format='detail', pk=pk)
         return response.Response(context, status=200)
-
-class TestAPIView(DataMixin, generics.ListAPIView):
-    '''Тестовая вьюха для отладки фронтенда на React'''
-    serializer_class = TextSearchSerializer
-
-    def post(self, request):
-        serializer = TextSearchSerializer(data=request.data, many=False)
-
-        if serializer.is_valid(raise_exception=True):
-            print(f'request data:\n{request.data}')
-            context = self.get_context(text=serializer.validated_data['text'], display_format='list')
-            print(context)
-        print(f'request data:\n{request.data}')
-        return response.Response(context, status=200)
-
