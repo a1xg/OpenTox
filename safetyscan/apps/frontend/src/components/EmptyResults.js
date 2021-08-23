@@ -11,6 +11,7 @@ const EmptyListResults = {
     product_hazard_avg: null,
     detail_hazard_product: [
       {
+        id: null,
         abbreviation: null,
         description: null,
         hazard_category: null,

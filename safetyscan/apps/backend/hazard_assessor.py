@@ -28,7 +28,6 @@ class HazardMeter:
                 'detail_hazard_product': self._product_hazard_aggregate(dataframes=all_ingredients_haz_detail)
             }
 
-
     def _ingredients_hazard_filter(self) -> list:
         """
         Метод перебирает информацию о каждом ингридиенте в результатах поиска
@@ -66,6 +65,7 @@ class HazardMeter:
         то все они подлежат удалению, а класс NO_DATA_AVAILABLE останется единственным принятым для вещества.
         """
         df = pd.DataFrame(data)
+
         if total_notif > 0:
             # Подсчитываем количество уведомлений по классу опасности NO_DATA_AVAILABLE
             na_num_notifications = df.loc[df['hazard_class'] == self._NA, 'number_of_notifiers'].sum()

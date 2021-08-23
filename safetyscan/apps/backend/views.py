@@ -59,6 +59,7 @@ class TextSearchAPIView(DataMixin, generics.ListAPIView):
         serializer = TextSearchSerializer(data=request.data, many=False)
         if serializer.is_valid(raise_exception=True):
             context = self.get_context(text=serializer.validated_data['text'], display_format='list')
+            print(f'context:\n {context}')
             return response.Response(context, status=200)
         return response.Response(serializer.errors, status=200)
 
@@ -68,8 +69,10 @@ class ImageSearchAPIView(DataMixin, generics.ListAPIView):
 
     def post(self, request):
         serializer = ImageSearchSerializer(data=request.data, many=False)
+        print(f'Request data: {request.data}')
         if serializer.is_valid(raise_exception=True):
             context = self.get_context(image=serializer.validated_data["image"].read(), display_format='list')
+            print(f'context:\n {context}')
             return response.Response(context, status=200)
         return response.Response(serializer.errors, status=200)
 
@@ -87,7 +90,9 @@ class TestAPIView(DataMixin, generics.ListAPIView):
         serializer = TextSearchSerializer(data=request.data, many=False)
 
         if serializer.is_valid(raise_exception=True):
+            print(f'request data:\n{request.data}')
             context = self.get_context(text=serializer.validated_data['text'], display_format='list')
             print(context)
+        print(f'request data:\n{request.data}')
         return response.Response(context, status=200)
 

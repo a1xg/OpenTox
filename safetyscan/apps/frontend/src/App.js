@@ -1,64 +1,34 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import { render } from "react-dom";
 import TextForm from './components/TextForm/TextForm.jsx';
 import ImageForm from './components/ImageForm/ImageForm.jsx';
 import SearchResults from './components/SearchResults/SearchResults.jsx';
 import ProductHazardTable from './components/ProductHazardTable/ProductHazardTable.jsx';
-import EmptyListResults from './components/EmptyResults.js';
-import { data } from 'jquery';
+import EmptyListResults from './components/EmptyResults'
 
-// TODO: пробросить данные из формы в запрос.
-
-class App extends Component {
-  constructor(props) {
-    super(props);
-    // пока данные не загружены используем заглушку
-    this.state = {
-      data: EmptyListResults,
-      loaded: false,
-      placeholder: "Loading"
-    };
-  }
+function App () {
+  // определяем результат поиска и функцию управления его состоянием
+  const [searchResults, setSearchResults] = useState({
+    data: EmptyListResults,
+    found:false
+    });
   
-  componentDidMount() {
-    // содержимое запроса
-    const textRequest = {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ text: 'butanol, eugenol, water, methanol, butylparaben' })
-    }
+  console.log('App searchResults', searchResults)
+  return (
+    <div className="container">
+      <TextForm setSearchResults={setSearchResults} />
+      <ImageForm setSearchResults={setSearchResults} />
 
-    fetch("api/test", textRequest)
-      .then(response => {
-        if (response.status > 400) {
-          return this.setState(() => {
-            return {
-              placeholder: "Something went wrong!"
-            };
-          });
-        }
-        return response.json();
-      })
-      .then(data => {
-        this.setState(() => {
-          return {
-            data,
-            loaded: true
-          };
-        });
-      });
-  }
-  
-  render() {
-     return (
-      <div className="container">
-        <TextForm />
-        <ImageForm />
-        <ProductHazardTable data={this.state.data} />
-        <SearchResults data={this.state.data} />
+      { searchResults.found &&
+      <div>
+        <ProductHazardTable data={searchResults.data} />
+        <SearchResults data={searchResults.data} />
       </div>
-    );
-  }
+      }
+
+    </div>
+  );
+
 }
 
 export default App;

@@ -1,14 +1,42 @@
-import React from 'react';
+import React, { useState } from "react";
 import CSRFToken from '../csrftoken';
+import Request from '../Request/Request'
 import s from '../style.module.css';
 
 const TextForm = (props) => {
+    // определяем пустое значение запроса и функцию получения запроса
+    const [searchTerm, setSearchTerm] = useState("");
+    const setSearchResults = props.setSearchResults
+
+    // обрабатываем событие изменения
+    const handleChange = event => {
+        event.preventDefault();
+        setSearchTerm(event.target.value);
+    };
+
+    // обрабатываем отправку формы
+    const handleSubmit = event => {
+        event.preventDefault();
+
+        let options = {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({ text: searchTerm })
+          };
+
+        Request({
+            url:'api/text_field', 
+            options,
+            setSearchResults
+        });
+    }
+
     return (
         <div className="row">
             <div className="col-lg-12 card-margin">
                 <div className={[s['card'], s['search-form']].join(' ')}>
                     <div className="card-body p-0">
-                        <form method="post" action="api/test" id="search-form">
+                        <form onSubmit={handleSubmit} id="search-form">
                             <div className="row">
                                 <div className="col-12">
                                     <div className="row no-gutters">
@@ -16,7 +44,16 @@ const TextForm = (props) => {
                                         </div>
                                         <div className="col-lg-8 col-md-6 col-sm-12 p-0">
                                             <CSRFToken />
-                                            <input type="text" name="text" placeholder="Enter ingredients separated by commas" className="form-control" id="search" maxLength="2000" />
+                                            <input 
+                                            type="text" 
+                                            name="text" 
+                                            placeholder="Enter ingredients separated by commas" 
+                                            className="form-control" 
+                                            id="search" 
+                                            maxLength="2000"
+                                            value={searchTerm}
+                                            onChange={handleChange} 
+                                            />
                                         </div>
                                         <div className="col-lg-1 col-md-3 col-sm-12 p-0">
                                             <button type="submit" className="btn btn-base">

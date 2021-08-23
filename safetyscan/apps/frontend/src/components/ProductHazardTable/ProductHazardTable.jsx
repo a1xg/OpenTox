@@ -2,12 +2,14 @@ import React from 'react';
 
 
 const ProductHazardTable = (props) => {
+    console.log('ProductHazardTable props:', props);
     return (
         <div className="alert alert-warning">
             <p>Product hazard statistics</p>
             <table className="table table-striped">
                 <thead>
                     <tr>
+                    <th scope="col">ID</th>
                         <th scope="col">Hazard Class</th>
                         <th scope="col">Hazard abbr and category</th>
                         <th scope="col">Description</th>
@@ -16,14 +18,15 @@ const ProductHazardTable = (props) => {
                     </tr>
                 </thead>
                 <tbody>
-                    {props.data.detail_hazard_product.map(h => {
+                    {props.data.detail_hazard_product.map(data => {
                         return (
-                            <tr key={[h.abbreviation, h.hazard_category].join(' ')}>
-                                <td>{h.hazard_class}</td>
-                                <td>{[h.abbreviation, h.hazard_category].join(' ')}</td>
-                                <td>{h.description}</td>
-                                <td>{h.num_of_ingredients}</td>
-                                <td>{h.hazard_scale_score}</td>
+                            <tr key={data.id}>
+                                <td>{data.id}</td>
+                                <td>{data.hazard_class}</td>
+                                <td>{[data.abbreviation, data.hazard_category].join(' ')}</td>
+                                <td>{data.description}</td>
+                                <td>{data.num_of_ingredients}</td>
+                                <td>{data.hazard_scale_score}</td>
                             </tr>
                         );
                     })}

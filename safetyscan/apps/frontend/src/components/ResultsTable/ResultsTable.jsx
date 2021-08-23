@@ -2,6 +2,7 @@ import React from 'react';
 import s from '../style.module.css';
 
 const ResultsTable = (props) => {
+    console.log('ResultsTable props:', props);
 
     return (
         <table className={['table', s['widget-26']].join(' ')}>

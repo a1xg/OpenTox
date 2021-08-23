@@ -31,6 +31,7 @@ class Hazard_GHSSerializer(serializers.ModelSerializer):
     class Meta:
         model = Hazard_GHS
         fields = (
+            'id',
             'hazard_class',
             'abbreviation',
             'hazard_category',
@@ -53,11 +54,12 @@ class IngredientsSerializer(serializers.ModelSerializer):
     hazard = HazardSerializer(many=False, read_only=True)
     class Meta:
         model = Ingredients
-        fields = ('id','main_name', 'hazard','e_number', 'functions', 'pubchem_cid', 'cas_numbers', 'ec_numbers', 'colour_index', 'description')
+        fields = ('id','main_name', 'hazard','e_number', 'functions', 'pubchem_cid', 'cas_numbers', 'ec_numbers', 'colour_index', 'description', 'request_statistics')
 
 
 class GHSDetailsSerializer(serializers.Serializer):
     '''Сериализатор данных опасности ингридиента на странице подробной информации'''
+    id = serializers.IntegerField()
     hazard_class = serializers.CharField()
     abbreviation = serializers.CharField()
     hazard_category = serializers.CharField()
@@ -89,6 +91,7 @@ class DetailsIngredientSerializer(serializers.Serializer):
     ec_numbers = serializers.ListField()
     colour_index = serializers.ListField()
     description = serializers.CharField()
+    request_statistics = serializers.IntegerField()
 
 class ListIngredientHazardSerializer(serializers.Serializer):
     '''Сериализатор данных опасности ингридиента на странице результатов поиска'''
@@ -99,10 +102,20 @@ class ListIngredientSerializer(serializers.Serializer):
     hazard = ListIngredientHazardSerializer(many=False)
     id = serializers.IntegerField()
     main_name = serializers.CharField()
+    #e_number = serializers.CharField()
+    functions = serializers.ListField()
+    #pubchem_cid = serializers.IntegerField()
+    #cas_numbers = serializers.ListField()
+    #ec_numbers = serializers.ListField()
+    #colour_index = serializers.ListField()
+    #description = serializers.CharField()
+    #request_statistics = serializers.IntegerField()
+
 
 
 class ProductHazardStatisticsSerializer(serializers.Serializer):
     '''Сериализатор данных опасности всего продукта'''
+    id = serializers.IntegerField()
     hazard_class = serializers.CharField()
     abbreviation = serializers.CharField()
     hazard_category = serializers.CharField()
