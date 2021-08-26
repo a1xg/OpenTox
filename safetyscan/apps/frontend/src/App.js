@@ -1,37 +1,49 @@
 import React, { useState } from 'react';
-import { render } from "react-dom";
-import TextForm from './components/TextForm/TextForm.jsx';
-import ImageForm from './components/ImageForm/ImageForm.jsx';
+import { Route, BrowserRouter } from 'react-router-dom'
+import SearchForm from './components/SearchForm/SearchForm.jsx'
 import SearchResults from './components/SearchResults/SearchResults.jsx';
-import ProductHazardTable from './components/ProductHazardTable/ProductHazardTable.jsx';
-import EmptyListResults from './components/EmptyResults'
+import About from './components/About/About.jsx';
+import IngredientCart from './components/IngredientCart/IngredientCart.jsx';
+import Navbar from './components/Navbar/Navbar.jsx';
+import Footer from './components/Footer/Footer.jsx';
+import ErrorMessage from './components/SearchResults/ErrorMessage/ErrorMessage.jsx';
+import Logo from './components/Logo/Logo.jsx';
+import Header from './components/Header/Header.jsx';
+import {EmptyListResults} from './components/EmptyResults';
+import style from './components/style.module.css';
 
-function App () {
+// Кнопки и формы более удобные, чем бутстрап: https://material-ui.com/components/buttons/
+
+const App = (props) => {
   // определяем результат поиска и функцию управления его состоянием
   const [searchResults, setSearchResults] = useState({
     data: EmptyListResults,
     found:false
     });
-  
-  console.log('App searchResults', searchResults)
-  return (
-    <div className="container">
-      <TextForm setSearchResults={setSearchResults} />
-      <ImageForm setSearchResults={setSearchResults} />
+    console.log('App searchResults', searchResults);
 
-      { searchResults.found &&
-      <div>
-        <ProductHazardTable data={searchResults.data} />
-        <SearchResults data={searchResults.data} />
-      </div>
-      }
+    const content = () => {
+      if (searchResults.data.product_ingredients) {
+        return (<Route exact path='/' component={() => <SearchResults data={searchResults} />} />)
+      } 
+      return (<ErrorMessage />);
+    };
 
+    return (
+    <div className={style['app-wrapper']}>
+      <Logo />
+      <SearchForm setSearchResults={setSearchResults} />
+      
+      <BrowserRouter>
+      <Navbar />
+      
+        {content()}
+        <Route path='/api/ingredient' component={IngredientCart} />
+        <Route exact path='/about' component={About}/>
+      </BrowserRouter>
+      <Footer />
     </div>
-  );
+  )
+};
 
-}
-
-export default App;
-
-const container = document.getElementById("app");
-render(<App />, container);
+export default App

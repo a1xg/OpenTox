@@ -1,7 +1,6 @@
 import React, { useRef } from "react";
-import CSRFToken from '../csrftoken';
-import Request from '../Request/Request'
-import s from '../style.module.css';
+import CSRFToken from '../../csrftoken';
+import style from '../../style.module.css';
 
 const TextForm = (props) => {
     const form = useRef(null);
@@ -11,17 +10,21 @@ const TextForm = (props) => {
     const submitForm = (event) => {
         event.preventDefault();
         const data = new FormData(form.current);
-        
-        Request({
-            url:'api/text_field', 
-            options: {method: 'POST',  body: data}, 
-            setSearchResults});
+
+        fetch('api/text_field', {method: 'POST',  body: data})
+        .then(response => {return response.json();})
+        .then((data) => {
+            setSearchResults({
+                data: data, 
+                found: true
+            });
+        });
     }
 
     return (
         <div className="row">
             <div className="col-lg-12 card-margin">
-                <div className={[s['card'], s['search-form']].join(' ')}>
+                <div className={[style['card'], style['search-form']].join(' ')}>
                     <div className="card-body p-0">
                         <form onSubmit={submitForm} ref={form} id="search-form">
                             <div className="row">
@@ -30,6 +33,7 @@ const TextForm = (props) => {
                                         <div className="col-lg-3 col-md-3 col-sm-12 p-0">
                                         </div>
                                         <div className="col-lg-8 col-md-6 col-sm-12 p-0">
+                                            
                                             <CSRFToken />
                                             <input 
                                             type="text" 
@@ -37,8 +41,10 @@ const TextForm = (props) => {
                                             placeholder="Enter ingredients separated by commas" 
                                             className="form-control" 
                                             id="search" 
+                                            value={undefined}
                                             maxLength="2000"
                                             />
+                                            
                                         </div>
                                         <div className="col-lg-1 col-md-3 col-sm-12 p-0">
                                             <button type="submit" className="btn btn-base">
@@ -54,6 +60,11 @@ const TextForm = (props) => {
                                 </div>
                             </div>
                         </form>
+
+
+
+
+
                     </div>
                 </div>
             </div>

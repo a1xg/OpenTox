@@ -256,9 +256,52 @@
   border-radius: 8px;
 }
 
+.app-wrapper {
+  margin: 0 auto;
+  display: grid;
+  width: 1024px;
+  grid-template-columns: 2fr 10fr;
+  grid-template-rows: 150px 10fr 100px;
+  grid-template-areas: 
+  "logo searchform"
+  "navbar container"
+  "navbar footer";
+  grid-gap: 0.5rem;
 
+}
 
+.logo {
+  grid-area: logo;
+  background-color: lightgray;
+}
 
+.container {
+  grid-area: container;
+  background-color: white;
+}
 
+.navbar {
+  grid-area: navbar;
+  background-color: lightgrey;
+}
 
+.footer {
+  grid-area: footer;
+  background-color:lightgrey;
+}
 
+.header {
+  grid-area: header;
+  background-color: lightgrey;
+}
+
+.searchform {
+  grid-area: searchform;
+  background-color: lightgrey;
+}
+
+p.error-message {
+  font-size: 25px;
+  color: darkseagreen;
+  text-align:center;
+}
