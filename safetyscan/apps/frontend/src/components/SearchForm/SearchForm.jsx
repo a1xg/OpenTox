@@ -4,10 +4,20 @@ import ImageForm from "./ImageForm/ImageForm.jsx";
 import TextForm from "./TextForm/TextForm.jsx";
 
 const SearchForm = (props) => {
+    const setSearchResults = props.setSearchResults;
+
+    const request = (props) => {
+        fetch(props.url, props.options)
+        .then(response => {return response.json();})
+        .then((data) => {
+            setSearchResults({data: data, found: true});
+        });
+    };
+
     return (
         <div className={style['searchform']}>
-            <ImageForm setSearchResults={props.setSearchResults} />
-            <TextForm setSearchResults={props.setSearchResults} />
+            <ImageForm request={request} />
+            <TextForm request={request} />
         </div>
     )
 };

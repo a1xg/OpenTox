@@ -7,11 +7,14 @@ import IngredientHazard from "./IngredientHazard/IngredientHazard.jsx";
 
 
 const IngredientCart = (props) => {
-    const url = props.location.ingredient.id;
+    console.log('Ingredient cart props', props)
+    const url = '/api'+props.location.pathname;
     const [searchResults, setSearchResults] = useState({
         data: EmptyIngredient,
         found:false
         });
+
+    console.log('URL:', url)
 
     useEffect(() => {
         fetch(url, {method: 'GET'})
@@ -27,13 +30,13 @@ const IngredientCart = (props) => {
     return (
         <div>
             <NavLink to='/'>Back to search results</NavLink>
-            <IngredientDetails />
-            <IngredientDescription />
+            <IngredientDetails data={searchResults.data} />
+            <IngredientDescription data={searchResults.data}/>
             <IngredientHazard data={searchResults.data}/>
             
         </div>
     )
 
-};
+}; 
 
 export default IngredientCart

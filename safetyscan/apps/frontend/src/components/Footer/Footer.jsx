@@ -3,7 +3,7 @@ import style from '../style.module.css'
 
 const Footer = (props) => {
     return (
-        <div className={style['footer']}>FOOTER</div>
+        <div className={style['footer']}></div>
     )
 };
 

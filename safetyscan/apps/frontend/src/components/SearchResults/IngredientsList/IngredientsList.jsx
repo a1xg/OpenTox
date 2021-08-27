@@ -3,6 +3,8 @@ import React from 'react';
 import style from '../../style.module.css'
 
 const IngredientsList = (props) => {
+    const ingredients = props.data.product_ingredients;
+    console.log('IngredientsList props:', props)
 
     return (
         <div className="row">
@@ -19,14 +21,6 @@ const IngredientsList = (props) => {
                                                     <div className={style['records']}>Showing: <b>1-{/* results.product_ingredients | length */}</b> of results</div>
                                                 </div>
                                                 <div className="col-lg-6">
-                                                    <div className={style['result-actions']}>
-                                                        <div>
-                                                            <p className="m-0">E number</p>
-                                                        </div>
-                                                        <div className="result-views">
-                                                            <p>Product hazard avg {props.data.product_hazard_avg}/10</p>
-                                                        </div>
-                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -34,7 +28,7 @@ const IngredientsList = (props) => {
                                             <div className="table-responsive">
                                                 <table className={['table', style['widget-26']].join(' ')}>
                                                     <tbody>
-                                                        {props.data.product_ingredients.map(ingredient => {
+                                                        {ingredients.map(ingredient => {
                                                             return (
                                                                 /* Типовая строка таблицы поисковой выдачи */                        
                                                                 <tr key={ingredient.id}>
@@ -49,10 +43,7 @@ const IngredientsList = (props) => {
                                                                     <td>
                                                                         <div className={style['widget-26-job-title']}>
                                                                             <NavLink to={{
-                                                                                pathname: "api/ingredient/"+ingredient.id,
-                                                                                ingredient: {
-                                                                                    id: ingredient.id
-                                                                                }
+                                                                                pathname: "ingredient/"+ingredient.id
                                                                             }}>{ingredient.main_name}
                                                                             </NavLink>
                                                                             <p className="m-0">
@@ -60,9 +51,7 @@ const IngredientsList = (props) => {
                                                                             </p>
                                                                         </div>
                                                                     </td>
-                                                                    <td>
-                                                                        <div className={style['widget-26-job-salary']}>E number</div>
-                                                                    </td>
+                                                                
                                                                     <td>{ingredient.hazard.ingredient_hazard_avg}/10</td>
                                                                 </tr>
                                                             );

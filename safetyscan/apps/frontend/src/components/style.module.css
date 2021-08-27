@@ -272,7 +272,7 @@
 
 .logo {
   grid-area: logo;
-  background-color: lightgray;
+  /*background-color: lightgray;*/
 }
 
 .container {
@@ -280,24 +280,16 @@
   background-color: white;
 }
 
-.navbar {
-  grid-area: navbar;
-  background-color: lightgrey;
-}
-
 .footer {
   grid-area: footer;
-  background-color:lightgrey;
 }
 
 .header {
   grid-area: header;
-  background-color: lightgrey;
 }
 
 .searchform {
   grid-area: searchform;
-  background-color: lightgrey;
 }
 
 p.error-message {

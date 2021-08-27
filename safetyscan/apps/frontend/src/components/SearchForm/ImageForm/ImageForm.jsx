@@ -1,27 +1,24 @@
 import React from "react";
 import CSRFToken from '../../csrftoken';
-import { useState } from "react";
+import { useHistory } from "react-router-dom";
 import style from '../../style.module.css';
 
 
-const ImageForm = (props) => {
-    // определяем пустое значение запроса и функцию получения запроса
-    const setSearchResults = props.setSearchResults
-    
-    // обрабатываем событие изменения
+
+const ImageForm = (props) => {    
+    const history = useHistory();
+
     const submitForm = (event) => {
         event.preventDefault();
         const formData = new FormData();
         formData.append('image', event.target.files[0]);
         
-        fetch('api/image_field', {method: 'POST', body: formData})
-        .then(response => {return response.json();})
-        .then((data) => {
-            setSearchResults({
-                data: data, 
-                found: true
-            });
+        props.request({
+            url:'api/image_field',
+            options:{method: 'POST', body: formData}
         });
+
+        history.push('/');
     }
 
     return (   

@@ -7,6 +7,7 @@ import IngredientCart from './components/IngredientCart/IngredientCart.jsx';
 import Navbar from './components/Navbar/Navbar.jsx';
 import Footer from './components/Footer/Footer.jsx';
 import ErrorMessage from './components/SearchResults/ErrorMessage/ErrorMessage.jsx';
+import ContentContainer from './components/ContentContainer/ContentContainer.jsx';
 import Logo from './components/Logo/Logo.jsx';
 import Header from './components/Header/Header.jsx';
 import {EmptyListResults} from './components/EmptyResults';
@@ -20,27 +21,22 @@ const App = (props) => {
     data: EmptyListResults,
     found:false
     });
-    console.log('App searchResults', searchResults);
 
-    const content = () => {
-      if (searchResults.data.product_ingredients) {
-        return (<Route exact path='/' component={() => <SearchResults data={searchResults} />} />)
-      } 
-      return (<ErrorMessage />);
-    };
+  const content = () => {
+    if (searchResults.data.product_ingredients) {
+      return (<Route exact path='/' component={() => <SearchResults data={searchResults} />} />)
+    } 
+    return (<ErrorMessage />);
+  };
 
-    return (
+  return (
     <div className={style['app-wrapper']}>
       <Logo />
       <SearchForm setSearchResults={setSearchResults} />
-      
-      <BrowserRouter>
       <Navbar />
-      
         {content()}
-        <Route path='/api/ingredient' component={IngredientCart} />
+        <Route path='/ingredient/:ingredientID' component={IngredientCart} />
         <Route exact path='/about' component={About}/>
-      </BrowserRouter>
       <Footer />
     </div>
   )

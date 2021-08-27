@@ -1,24 +1,22 @@
 import React, { useRef } from "react";
 import CSRFToken from '../../csrftoken';
 import style from '../../style.module.css';
+import { useHistory } from "react-router-dom";
 
 const TextForm = (props) => {
     const form = useRef(null);
-    const setSearchResults = props.setSearchResults;
-
-    // обрабатываем отправку формы
+    const history = useHistory();
+    
     const submitForm = (event) => {
         event.preventDefault();
         const data = new FormData(form.current);
 
-        fetch('api/text_field', {method: 'POST',  body: data})
-        .then(response => {return response.json();})
-        .then((data) => {
-            setSearchResults({
-                data: data, 
-                found: true
-            });
+        props.request({
+            url:'api/text_field',
+            options: {method: 'POST',  body: data}
         });
+
+        history.push('/');
     }
 
     return (
