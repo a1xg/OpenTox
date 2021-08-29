@@ -14,6 +14,9 @@ const Navbar = (props) => {
             <div className={s.row}>
                 <NavLink to='/how-use' className={[s.link, s.active, s.hover].join(' ')}>How use service</NavLink>
             </div>
+            <div className={s.row}>
+                <NavLink to='/search-results' className={[s.link, s.active, s.hover].join(' ')}>search results</NavLink>
+            </div>
         </nav>
         
     )

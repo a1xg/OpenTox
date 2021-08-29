@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { Route, BrowserRouter } from 'react-router-dom'
-import SearchForm from './components/SearchForm/SearchForm.jsx'
+import { Route } from 'react-router-dom'
+import SearchForm from './components/SearchForm/Search.jsx'
 import SearchResults from './components/SearchResults/SearchResults.jsx';
 import About from './components/About/About.jsx';
 import IngredientCart from './components/IngredientCart/IngredientCart.jsx';
@@ -16,27 +16,26 @@ import style from './components/style.module.css';
 // Кнопки и формы более удобные, чем бутстрап: https://material-ui.com/components/buttons/
 
 const App = (props) => {
-  // определяем результат поиска и функцию управления его состоянием
   const [searchResults, setSearchResults] = useState({
     data: EmptyListResults,
     found:false
     });
 
-  const content = () => {
-    if (searchResults.data.product_ingredients) {
-      return (<Route exact path='/' component={() => <SearchResults data={searchResults} />} />)
-    } 
-    return (<ErrorMessage />);
-  };
+    const show_results = () => {
+      if (searchResults.data.product_ingredients) {
+        return (<Route exact path='/search-results' component={() => <SearchResults data={searchResults} />} />)
+      } 
+      return (<ErrorMessage />);
+    };
 
   return (
     <div className={style['app-wrapper']}>
       <Logo />
-      <SearchForm setSearchResults={setSearchResults} />
       <Navbar />
-        {content()}
+      <SearchForm setSearchResults={setSearchResults} />
+      {show_results()}
         <Route path='/ingredient/:ingredientID' component={IngredientCart} />
-        <Route exact path='/about' component={About}/>
+        <Route exact path='/about' component={About} />
       <Footer />
     </div>
   )

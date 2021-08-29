@@ -17,7 +17,7 @@ const IngredientDetails = (props) => {
                         <td>
                             {ingredient.cas_numbers.map(cas => {
                                 return (
-                                    <p>{cas}, </p>
+                                    <p key={cas}>{cas}, </p>
                                 )
                             })}
                         </td>
@@ -27,7 +27,7 @@ const IngredientDetails = (props) => {
                         <td>
                             {ingredient.ec_numbers?.map(ec_num => {
                                 return (
-                                    <p>{ec_num}, </p>
+                                    <p key={ec_num}>{ec_num}, </p>
                                 )
                             })}
                         </td>
@@ -41,7 +41,7 @@ const IngredientDetails = (props) => {
                         <td>
                             {ingredient.functions?.map(func => {
                                 return (
-                                    <p>{func}, </p>
+                                    <p key={func}>{func}, </p>
                                 )
                             })}
                         </td>
@@ -51,7 +51,7 @@ const IngredientDetails = (props) => {
                         <td> 
                             {ingredient.colour_index?.map(ci => {
                                     return (
-                                        <p>{ci}, </p>
+                                        <p key={ci}>{ci}, </p>
                                     )
                                 })
                             }

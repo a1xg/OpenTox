@@ -14,8 +14,6 @@ const IngredientCart = (props) => {
         found:false
         });
 
-    console.log('URL:', url)
-
     useEffect(() => {
         fetch(url, {method: 'GET'})
         .then(response => {return response.json();})
@@ -29,7 +27,7 @@ const IngredientCart = (props) => {
 
     return (
         <div>
-            <NavLink to='/'>Back to search results</NavLink>
+            <NavLink to='/search-results'>Back to search results</NavLink>
             <IngredientDetails data={searchResults.data} />
             <IngredientDescription data={searchResults.data}/>
             <IngredientHazard data={searchResults.data}/>

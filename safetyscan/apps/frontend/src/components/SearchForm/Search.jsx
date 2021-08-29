@@ -3,6 +3,7 @@ import style from '../style.module.css';
 import ImageForm from "./ImageForm/ImageForm.jsx";
 import TextForm from "./TextForm/TextForm.jsx";
 
+
 const SearchForm = (props) => {
     const setSearchResults = props.setSearchResults;
 
@@ -15,7 +16,7 @@ const SearchForm = (props) => {
     };
 
     return (
-        <div className={style['searchform']}>
+        <div className={style['searchform']}> 
             <ImageForm request={request} />
             <TextForm request={request} />
         </div>

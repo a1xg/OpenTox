@@ -6,17 +6,17 @@ import { useHistory } from "react-router-dom";
 const TextForm = (props) => {
     const form = useRef(null);
     const history = useHistory();
-    
+
     const submitForm = (event) => {
         event.preventDefault();
         const data = new FormData(form.current);
 
         props.request({
-            url:'api/text_field',
-            options: {method: 'POST',  body: data}
+            url: 'api/text_field',
+            options: { method: 'POST', body: data }
         });
 
-        history.push('/');
+        history.push('/search-results');
     }
 
     return (
@@ -31,18 +31,18 @@ const TextForm = (props) => {
                                         <div className="col-lg-3 col-md-3 col-sm-12 p-0">
                                         </div>
                                         <div className="col-lg-8 col-md-6 col-sm-12 p-0">
-                                            
+
                                             <CSRFToken />
-                                            <input 
-                                            type="text" 
-                                            name="text" 
-                                            placeholder="Enter ingredients separated by commas" 
-                                            className="form-control" 
-                                            id="search" 
-                                            value={undefined}
-                                            maxLength="2000"
+                                            <input
+                                                type="text"
+                                                name="text"
+                                                placeholder="Enter ingredients separated by commas"
+                                                className="form-control"
+                                                id="search"
+                                                value={undefined}
+                                                maxLength="2000"
                                             />
-                                            
+
                                         </div>
                                         <div className="col-lg-1 col-md-3 col-sm-12 p-0">
                                             <button type="submit" className="btn btn-base">
@@ -58,15 +58,11 @@ const TextForm = (props) => {
                                 </div>
                             </div>
                         </form>
-
-
-
-
-
                     </div>
                 </div>
             </div>
         </div>
+
     )
 }
 

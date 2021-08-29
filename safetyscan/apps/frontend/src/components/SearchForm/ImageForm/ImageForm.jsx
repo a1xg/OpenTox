@@ -18,7 +18,7 @@ const ImageForm = (props) => {
             options:{method: 'POST', body: formData}
         });
 
-        history.push('/');
+        history.push('/search-results');
     }
 
     return (   
