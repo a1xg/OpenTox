@@ -1,0 +1,35 @@
+.chart-wrapper {
+    margin: 0 auto;
+    display: grid;
+    width: 800px;
+    height: 600px;
+    padding: 10px;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 300px 300px;
+    grid-template-areas: 
+    "doughnut-chart bar-chart"
+    "product-rating product-rating";
+    grid-gap: 0.5rem;
+}
+
+.chart {
+    padding: 0px;
+    width: 300px;
+    height: 150px;
+}
+
+.doughnut-chart {
+    grid-area: doughnut-chart;
+}
+
+.bar-chart {
+    grid-area: bar-chart;
+}
+
+.product-rating {
+    grid-area: product-rating;
+}
+
+
+
+ 
