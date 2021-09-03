@@ -2,32 +2,36 @@
     margin: 0 auto;
     display: grid;
     width: 800px;
-    height: 600px;
-    padding: 10px;
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: 300px 300px;
+    height: 400px;
+    padding: 5px;
+    grid-template-columns: 3fr 1fr;
+    grid-template-rows: 200px 200px;
     grid-template-areas: 
     "doughnut-chart bar-chart"
-    "product-rating product-rating";
-    grid-gap: 0.5rem;
+    "doughnut-chart product-rating";
+    grid-gap: 0.2rem;
 }
 
 .chart {
-    padding: 0px;
-    width: 300px;
-    height: 150px;
+    padding: 10px;
 }
 
 .doughnut-chart {
     grid-area: doughnut-chart;
+    width: 500px;
+    height: 100px;
 }
 
 .bar-chart {
     grid-area: bar-chart;
+    width: 300px;
+    height: 150px;
 }
 
 .product-rating {
     grid-area: product-rating;
+    width: 200px;
+    height: 100px;
 }
 
 

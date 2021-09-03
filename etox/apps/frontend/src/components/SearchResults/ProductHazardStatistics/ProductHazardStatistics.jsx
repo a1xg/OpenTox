@@ -43,21 +43,22 @@ const ProductHazardStatistics = (props) => {
                 <div className={style['bar-chart']}>
                     <div className={style['chart']}>
                         <BarChart
-                            labels={descriptions}
+                            labels={['','','','','','']}
                             data={hazard_scale_score}
                             borderColors={colors.borderColors}
                             backgroundColors={colors.backgroundColors}
+                            title={'Hazard level for each class'}
                         />
                     </div>
                 </div>
-
+                
                 <div className={style['product-rating']} >
                     <div className={style['chart']}>
                         <HazardBar
                             rating={props.data.product_hazard_avg}
-                            width={200}
-                            height={100}
-                            title={'Product rating'}
+                            width={160}
+                            height={80}
+                            title={'Product hazard'}
                         />
                     </div>
                 </div>

@@ -20,7 +20,7 @@ const IngredientsList = (props) => {
                                     <div className={style['result-header']}>
                                         <div className="row">
                                             <div className="col-lg-6">
-                                                <div className={style['records']}>Showing: <b>1-{/* results.product_ingredients | length */}</b> of results</div>
+                                                <div className={style['records']}>Showing: <b>1-{ingredients.length}</b> of results</div>
                                             </div>
                                             <div className="col-lg-6">
                                             </div>
@@ -59,7 +59,7 @@ const IngredientsList = (props) => {
                                                                             rating={ingredient.hazard.ingredient_hazard_avg}
                                                                             width={200}
                                                                             height={100}
-                                                                            title={'Ingredient rating'} />
+                                                                            title={'Ingredient hazard'} />
                                                                     </div>
                                                                 </td>
                                                             </tr>
@@ -76,8 +76,7 @@ const IngredientsList = (props) => {
                 </div>
             </div>
         </div>
-
     )
 };
 
-export default IngredientsList
+export default IngredientsList;

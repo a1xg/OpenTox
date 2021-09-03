@@ -6,52 +6,42 @@ const HazardBar = (props) => {
     const height = props.height;
 
     const getRedOrGreenColor = (props) => {
-        const red = Math.floor(255 * props.rating/10);
+        const red = Math.floor(255 * props.rating / 10);
         const green = Math.floor(255 - red);
         return `rgba(${red}, ${green}, 0, 1)`;
     };
 
-    const data = (canvas) => {
+    const getData = (canvas) => {
         const ctx = canvas.getContext("2d");
         const gradient = ctx.createLinearGradient(0, 0, width, 0);
         gradient.addColorStop(0, 'rgba(0, 255, 0, 1)');
         gradient.addColorStop(1, 'rgba(255, 0, 0, 1)');   // getRedOrGreenColor(props)
-        
+
         return {
             labels: [''],
             datasets: [
                 {
-                    backgroundColor : gradient,
-                    borderColor : 'rgba(0, 255, 0, 1)',
+                    backgroundColor: gradient,
+                    borderColor: 'rgba(0, 255, 0, 0.6)',
                     borderWidth: 1,
-                    data : [props.rating]
+                    data: [props.rating]
                 }
             ]
         }
     };
 
     const options = {
-        indexAxis: 'y',
         scales: {
-            xAxes: [{
-                ticks: {
-                    beginAtZero: false,
-                    max: 10,
-                    min: 0
-                }
-            }],
-            yAxes: [{
-                ticks: {
-                    beginAtZero: false,
-                    max: 10,
-                    min: 0
-                }
-            }]
+            x: {
+                suggestedMin: 0,
+                suggestedMax: 10
+            }
         },
+        indexAxis: 'y',
         responsive: true,
         plugins: {
             legend: {
-                display:false,
+                display: false,
                 position: 'left',
             },
             title: {
@@ -59,13 +49,13 @@ const HazardBar = (props) => {
                 text: `${props.title} ${props.rating}`,
             },
         },
-    };
-    
-    return (
-        <div>
-            <Bar data={data} options={options} />
-        </div>
-    );
+};
+
+return (
+    <div>
+        <Bar data={getData} options={options} />
+    </div>
+);
 };
 
 export default HazardBar;

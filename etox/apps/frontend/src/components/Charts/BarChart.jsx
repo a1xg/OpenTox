@@ -3,7 +3,7 @@ import { Bar } from 'react-chartjs-2';
 
 const BarChart = (props) => {
     const data = {
-        labels: ['','','','','','','',''], // props.labels
+        labels: props.labels, // props.labels
         datasets: [
             {
                 data: props.data,
@@ -13,8 +13,14 @@ const BarChart = (props) => {
             },
         ],
     };
-
+    // !TODO предусмотреть отключение labels вместо того, что бы пихать в них пучтые строки.
     const options = {
+        scales: {
+            x: {
+                suggestedMin: 0,
+                suggestedMax: 10
+            }
+        },
         indexAxis: 'y',
         elements: {
             bar: {
@@ -29,7 +35,7 @@ const BarChart = (props) => {
             },
             title: {
                 display: true,
-                text: 'Hazard scale for each class',
+                text: props.title,
             },
         },
     };
