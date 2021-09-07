@@ -1,9 +1,9 @@
 import React from 'react';
-import style from '../style.module.css'
+import style from './About.module.css';
 
 const About = (props) => {
     return (
-        <div className={style.container}>About</div>
+        <div>About</div>
     )
 };
 

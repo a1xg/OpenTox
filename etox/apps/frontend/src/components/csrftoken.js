@@ -16,7 +16,7 @@ function getCookie(name) {
     return cookieValue;
 }
 
-// Получаем токен
+// gr token
 var csrftoken = getCookie('csrftoken');
 
 const CSRFToken = () => {

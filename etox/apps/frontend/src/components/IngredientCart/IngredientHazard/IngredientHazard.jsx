@@ -2,11 +2,12 @@ import React from 'react';
 import BarChart from '../../Charts/BarChart.jsx';
 import HazardBar from '../../Charts/HazardBar.jsx';
 import style from './IngredientHazard.module.css';
-import { getColors } from '../../Charts/ChartTools.js';
+import { getColors, dictsToArrays } from '../../Charts/ChartTools.js';
 
 const IngredientHazard = (props) => {
     console.log('IngredientHazard props', props)
-
+    const data = dictsToArrays(props.data.ingredient.hazard.hazard_ghs_set);
+    console.log('IngredientHazard data', data);
     let descriptions = [];
     let hazard_scale_score = [];
     let percent_notifications = [];

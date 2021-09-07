@@ -18,5 +18,12 @@ const getColors = (props) => {
     return { backgroundColors, borderColors }
 };
 
+const dictsToArrays = (props) => {
+    let arrays = {};
+    Object.keys(props[0]).forEach(key => {
+    arrays[key] = props.map(item => item[key]);
+    });
+    return arrays;
+}
 
-export { getColors };
+export { getColors, dictsToArrays };

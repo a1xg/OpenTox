@@ -3,12 +3,12 @@ import React from 'react';
 const IngredientDetails = (props) => {
     const ingredient = props.data.ingredient;
     return (
-        <div className="alert alert-warning">
-            <table className="table table-striped">
+        <div>
+            <table>
                 <thead>
                     <tr>
-                        <th scope="col">Identifier</th>
-                        <th scope="col">Value</th>
+                        <th>Identifier</th>
+                        <th>Value</th>
                     </tr>
                 </thead>
                 <tbody>

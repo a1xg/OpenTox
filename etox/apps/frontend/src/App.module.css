@@ -1,0 +1,36 @@
+/* Стили для шаблона из https://www.bootdey.com/snippets/view/General-Search-Results */
+
+.app-wrapper {
+  margin: 0 auto;
+  display: grid;
+  width: 1024px;
+  grid-template-columns: 2fr 10fr;
+  grid-template-rows: 150px 10fr 100px;
+  grid-template-areas: 
+  "logo searchform"
+  "navbar container"
+  "navbar footer";
+  grid-gap: 0.5rem;
+}
+
+.logo {
+  grid-area: logo;
+  /*background-color: lightgray;*/
+}
+
+.container {
+  grid-area: container;
+  background-color: white;
+}
+
+.footer {
+  grid-area: footer;
+}
+
+.header {
+  grid-area: header;
+}
+
+.searchform {
+  grid-area: searchform;
+}

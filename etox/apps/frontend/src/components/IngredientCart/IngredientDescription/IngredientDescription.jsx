@@ -2,7 +2,7 @@ import React from 'react';
 
 const IngredientDescription = (props) => {
     return (
-        <div className="alert alert-warning">
+        <div>
             Ingredient Description:
             <div>
                 {props.data.ingredient.description}
