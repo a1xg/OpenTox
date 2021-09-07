@@ -24,7 +24,7 @@ const TextForm = (props) => {
         event.preventDefault();
         const data = new FormData(form.current);
 
-        props.request({
+        props.setQuery({
             url: 'api/text_field',
             options: { method: 'POST', body: data }
         });
@@ -44,8 +44,13 @@ const TextForm = (props) => {
                     label="Search"
                     value={undefined}
                 />
-                <button type="submit">Submit</button>
+                <label htmlFor="icon-button-file">
+                <IconButton color="primary" type="submit">
+                    <Search />
+                </IconButton>
+                </label>
             </form>
+
         </div>
 
     )

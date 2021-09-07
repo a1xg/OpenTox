@@ -3,10 +3,7 @@ import { useHistory } from "react-router-dom";
 import IconButton from '@material-ui/core/IconButton';
 import PhotoCamera from '@material-ui/icons/PhotoCamera';
 import { makeStyles } from '@material-ui/core/styles';
-
 import style from '../SearchForm.module.css';
-
-
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -19,7 +16,6 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-
 const ImageForm = (props) => {
     const history = useHistory();
 
@@ -28,7 +24,7 @@ const ImageForm = (props) => {
         const formData = new FormData();
         formData.append('image', event.target.files[0]);
 
-        props.request({
+        props.setQuery({
             url: 'api/image_field',
             options: { method: 'POST', body: formData }
         });

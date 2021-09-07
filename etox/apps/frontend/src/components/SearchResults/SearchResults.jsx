@@ -5,22 +5,17 @@ import style from './SearchResults.module.css';
 import ErrorMessage from './ErrorMessage/ErrorMessage.jsx';
 
 const SearchResults = (props) => {
-    console.log('SearchResults props:', props)
-
-    if (props.data.data.product_ingredients.length > 0) {
-        return (
-            <div>
-                <ProductHazardStatistics data={props.data.data} />
-                <IngredientsList data={props.data.data} />   
-            </div>
-        )
-    } else {
-        return (
-            <div><ErrorMessage /></div>
-        )
-    }
-    
-    
-};
+    console.log('SearchResults props:', props);
+        if (props.searchResults.loaded == true) {
+            return (
+                <div>
+                    <ProductHazardStatistics data={props.searchResults.data} />
+                    <IngredientsList data={props.searchResults.data} />
+                </div>
+            )
+        } else if (props.searchResults.loaded == false) {
+            return (<div></div>)
+        } else {return (<ErrorMessage />)}      
+    };
 
 export default SearchResults;

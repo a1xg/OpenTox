@@ -5,20 +5,10 @@ import TextForm from "./TextForm/TextForm.jsx";
 
 
 const SearchForm = (props) => {
-    const setSearchResults = props.setSearchResults;
-
-    const request = (props) => {
-        fetch(props.url, props.options)
-        .then(response => {return response.json();})
-        .then((data) => {
-            setSearchResults({data: data, found: true});
-        });
-    };
-
     return (
         <div> 
-            <ImageForm request={request} />
-            <TextForm request={request} />
+            <ImageForm setQuery={props.setQuery} />
+            <TextForm setQuery={props.setQuery} />
         </div>
     )
 };
