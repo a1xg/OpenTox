@@ -1,0 +1,24 @@
+.navbar {
+    grid-area: navbar;
+    background-color: whitesmoke;
+  }
+  
+
+.link {
+    color:grey;
+    text-decoration: none;
+}
+
+.row {
+  margin-inline: 3px;
+}
+
+.link.active {
+  color: red;
+  text-decoration: none;
+}
+
+.link.hover {
+  color: black;
+
+}

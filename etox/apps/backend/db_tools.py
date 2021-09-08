@@ -1,12 +1,10 @@
 #from django.contrib.postgres.search import SearchQuery, SearchVector, TrigramSimilarity
-from django.db.models import Q, F, Prefetch, Count
+from django.db.models import Q, F, Prefetch
 from .models import *
 
 class DBQueries:
     # TODO доработать запросы по типу нескольких сит: все что не нашлось по
     #  точному совпадению нужно попробовать найти по триграммам
-
-    # FIXME некорректно работает поиск, особенно с названиями из нескольких слов
     def _get_query(self, **kwargs) -> Q:
         '''
         Cоставляем SQL запросы на базе Q объектов.

@@ -1,15 +1,7 @@
-from django.shortcuts import render
-from rest_framework import generics, viewsets
-from rest_framework.views import APIView
+from rest_framework import generics
 from rest_framework import response
-from .text_blocks_screening import IngredientsBlockFinder
-from .db_tools import DBQueries
-from .models import Ingredients
 from .serializers import *
-from .ocr import ImageOCR
-from .hazard_assessor import HazardMeter
 from .utils import DataMixin
-# крутые диаграммы на js https://www.chartjs.org/docs/latest/samples/other-charts/polar-area.html
 
 # DRF API VIEWS
 class TextSearchAPIView(DataMixin, generics.ListAPIView):
@@ -21,11 +13,12 @@ class TextSearchAPIView(DataMixin, generics.ListAPIView):
         if serializer.is_valid(raise_exception=True):
             context = self.get_context(text=serializer.validated_data['text'], display_format='list')
             return response.Response(context, status=200)
-        return response.Response(serializer.errors, status=200)
+        return response.Response(serializer.errors, status=400)
 
 
 class ImageSearchAPIView(DataMixin, generics.ListAPIView):
     serializer_class = ImageSearchSerializer
+
 
     def post(self, request):
         serializer = ImageSearchSerializer(data=request.data, many=False)
@@ -33,7 +26,7 @@ class ImageSearchAPIView(DataMixin, generics.ListAPIView):
         if serializer.is_valid(raise_exception=True):
             context = self.get_context(image=serializer.validated_data["image"].read(), display_format='list')
             return response.Response(context, status=200)
-        return response.Response(serializer.errors, status=200)
+        return response.Response(serializer.errors, status=400)
 
 
 class DetailAPIView(DataMixin, generics.RetrieveAPIView):

@@ -7,7 +7,7 @@ import style from '../SearchForm.module.css';
 
 const useStyles = makeStyles((theme) => ({
     root: {
-        '& > *': {
+        button: {
             margin: theme.spacing(1),
         },
     },
@@ -31,15 +31,26 @@ const ImageForm = (props) => {
 
         history.push('/search-results');
     };
+
     const classes = useStyles();
 
     return (
-        <div>
-            <input className={classes.input} id="icon-button-file" type="file" onChange={submitForm} />
+        <div className={classes.root}>
+            <input
+                className={classes.input}
+                id="icon-button-file"
+                type="file"
+                onChange={submitForm} 
+            />
+
             <label htmlFor="icon-button-file">
-                <IconButton color="primary" aria-label="upload picture" component="span">
-                    <PhotoCamera />
-                </IconButton>
+            <IconButton
+                color="primary"
+                aria-label="upload picture"
+                className={classes.button}
+                component="span">
+                <PhotoCamera />
+            </IconButton>
             </label>
         </div>
     )

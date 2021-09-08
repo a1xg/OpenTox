@@ -3,8 +3,6 @@ from .regex_patterns import RE_MASKS
 from .text_postprocessing import TextPostprocessing
 from .db_tools import DBQueries
 
-# TODO написать совместные тесты модулей ocr, postprocessing, DBTools
-#  попробовать выгрузить дамп ключевых слов в текстовый файл и создать пользовательский словарь Tesseract
 
 class TextBlock:
     '''Класс текстового блока'''
@@ -47,7 +45,6 @@ class IngredientsBlockFinder:
 
             # оставшиеся ключевые слова очищаем от лишних символов и пробелов разделяем по запятой
             cleared_string = TextPostprocessing().string_filter(input_string=string)
-            print(f'Cleared text {cleared_string}\n-----------------')
             keyword_list = cleared_string.split(',')
             keyword_list = [keyword for keyword in keyword_list if len(keyword) > 0]
             text_block.keywords = keyword_list

@@ -15,21 +15,13 @@ const IngredientDetails = (props) => {
                     <tr>
                         <td>CAS Numbers:</td>
                         <td>
-                            {ingredient.cas_numbers.map(cas => {
-                                return (
-                                    <p key={cas}>{cas}, </p>
-                                )
-                            })}
+                            {ingredient.cas_numbers?.join(', ')}
                         </td>
                     </tr>
                     <tr>
                         <td>EC Numbers:</td>
                         <td>
-                            {ingredient.ec_numbers?.map(ec_num => {
-                                return (
-                                    <p key={ec_num}>{ec_num}, </p>
-                                )
-                            })}
+                            {ingredient.ec_numbers?.join(', ')}
                         </td>
                     </tr>
                     <tr>
@@ -39,21 +31,13 @@ const IngredientDetails = (props) => {
                     <tr>
                         <td>Functions:</td>
                         <td>
-                            {ingredient.functions?.map(func => {
-                                return (
-                                    <p key={func}>{func}, </p>
-                                )
-                            })}
+                            {ingredient.functions?.join(', ')}
                         </td>
                     </tr> 
                     <tr>
                         <td>Colour Index number:</td>
                         <td> 
-                            {ingredient.colour_index?.map(ci => {
-                                    return (
-                                        <p key={ci}>{ci}, </p>
-                                    )
-                                })
+                            {ingredient.colour_index?.join(', ')
                             }
                         </td>
                     </tr>

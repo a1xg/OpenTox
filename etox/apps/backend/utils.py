@@ -3,15 +3,16 @@ from .ocr import ImageOCR
 from .serializers import IngredientsSerializer, ProductSerializer, DetailsIngredientSerializer
 from .text_blocks_screening import IngredientsBlockFinder
 from .db_tools import DBQueries
+from .ocr_settings import *
 
-DEFAULT_LANG = 'eng'
+#DEFAULT_LANG = 'eng'
 
 class DataMixin:
 
     def _get_text(self, **kwargs):
         ocr = ImageOCR(img=kwargs['image'])
         ocr.decodeImage()
-        text = ocr.getText(text_lang='eng', crop=True, set_font=40)
+        text = ocr.getText(text_lang=DEFAULT_LANG, crop=CROP, set_font=FONT_SIZE)
         return text
 
     def get_queryset(self, **kwargs):
@@ -30,11 +31,7 @@ class DataMixin:
         ingredients_data = IngredientsSerializer(queryset, many=True).data
         hazard_data = HazardMeter(data=ingredients_data, display_format=kwargs['display_format']).get_data()
 
-
         if kwargs['display_format'] == 'list':
             return ProductSerializer(hazard_data, many=False).data
         elif kwargs['display_format'] == 'detail':
             return {'ingredient': DetailsIngredientSerializer(hazard_data, many=False).data}
-
-
-
