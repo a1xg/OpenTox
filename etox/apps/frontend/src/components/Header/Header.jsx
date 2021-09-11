@@ -3,8 +3,8 @@ import style from './Header.module.css'
 
 const Header = (props) => {
     return (
-        <div>HEADER</div>
+        <div>Header</div>
     )
 };
 
-export default Header
+export default Header;
