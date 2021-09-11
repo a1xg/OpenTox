@@ -9,12 +9,23 @@ import Footer from './components/Footer/Footer.jsx';
 import Logo from './components/Logo/Logo.jsx';
 import Header from './components/Header/Header.jsx';
 import style from './App.module.css';
-import {Container, Grid, Paper}  from '@material-ui/core';
+import { Container, Grid, Paper, useScrollTrigger } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
 
+// * useScrollTrigger  для переключения строки поиска в appbar при скролле
+// * у https://devexpress.github.io/ есть еще неплохие гриды 
+// * для вывода табличных данных с встроенными графиками и пагинацией
+//! TODO написать структуру на Grid и Paper
+const useStyles = makeStyles({
+  container: {
+    backgroundColor: '#EFFFF3'
+  }
+});
 
 
 const App = (props) => {
-  const [searchQuery, setQuery] = useState()
+  const classes = useStyles();
+  const [searchQuery, setQuery] = useState();
   const [searchResults, setSearchResults] = useState();
 
   useEffect(() => {
@@ -39,20 +50,28 @@ const App = (props) => {
   }, [searchQuery]);
 
   return (
-    <Container>
-      <div>
-        <Logo />
-        <SideBar />
-        <Grid>
-          <Paper style={{ height: 100, width: 400, }}>
-            <SearchForm path='/' setQuery={setQuery} />
-          </Paper>
+    <Container maxWidth={'xl'}>
+      <Grid container spacing={3}>
+        <Grid item xs={12}>
+          <SideBar />
         </Grid>
-        <Route exact path='/search-results' component={() => <SearchResults searchResults={searchResults} />} />
-        <Route path='/ingredient/:ingredientID' component={IngredientCart} />
-        <Route exact path='/about' component={About} />
+        <Grid item xs={12}>
+          <Grid
+            container
+            alignItems="center"
+            justifyContent="center">
+            <SearchForm path='/' setQuery={setQuery} />
+          </Grid>
+        </Grid>
+        <Grid item xs={12}>
+          <Container maxWidth={'lg'}>
+            <Route exact path='/search-results' component={() => <SearchResults searchResults={searchResults} />} />
+            <Route path='/ingredient/:ingredientID' component={IngredientCart} />
+            <Route exact path='/about' component={About} />
+          </Container>
+        </Grid>
         <Footer />
-      </div>
+      </Grid>
     </Container>
   )
 };

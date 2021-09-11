@@ -26,6 +26,9 @@ const EmptyIngredient = {
   ingredient: {
     id: null,
     main_name: null,
+    synonyms: {
+      eng: [],
+    },
     e_number: null,
     functions: [],
     pubchem_cid: null,

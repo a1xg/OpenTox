@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import { Bar } from 'react-chartjs-2';
+import style from './Charts.module.css';
 
 const HazardBar = (props) => {
     const width = props.width;
@@ -46,15 +47,14 @@ const HazardBar = (props) => {
             },
             title: {
                 display: true,
-                text: `${props.title} ${props.rating}`,
+                text: props.title,
             },
         },
 };
 
-return (
-    <div>
+return (<div className={style['hazard-bar']}>
         <Bar data={getData} options={options} />
-    </div>
+        </div>
 );
 };
 

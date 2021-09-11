@@ -22,7 +22,7 @@ const DoughnutChart = (props) => {
             },
             title: {
                 display: true,
-                text: 'Quantity of components with hazard class'
+                text: props.title
             }
         }
     };

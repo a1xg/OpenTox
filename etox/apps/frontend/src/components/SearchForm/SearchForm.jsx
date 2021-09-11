@@ -1,18 +1,43 @@
 import React, { useRef } from "react";
 import { useHistory } from "react-router-dom";
 import { TextField, InputAdornment } from "@material-ui/core";
+import { makeStyles, withStyles } from '@material-ui/core/styles';
 import IconButton from '@material-ui/core/IconButton';
 import Search from '@material-ui/icons/Search';
-import { makeStyles } from '@material-ui/core/styles';
-import CSRFToken from '../csrftoken';
 import ImageForm from "./ImageForm/ImageForm.jsx";
-import style from './SearchForm.module.css';
+import CSRFToken from '../csrftoken';
+
+// !TODO Подправить стили
+const CssTextField = withStyles({
+    root: {
+        '& label.Mui-focused': {
+            color: 'green',
+        },
+        '& .MuiInput-underline:after': {
+            borderBottomColor: 'green',
+        },
+        '& .MuiOutlinedInput-root': {
+            '& fieldset': {
+                borderColor: 'red',
+                borderRadius: `5px`,
+            },
+            '&:hover fieldset': {
+                borderColor: 'yellow',
+            },
+            '&.Mui-focused fieldset': {
+                borderColor: 'green',
+            },
+        },
+    },
+})(TextField);
 
 
 const useStyles = makeStyles((theme) => ({
-    button: {
+    input: {
         margin: theme.spacing(1),
+        width:530,
     },
+
 }));
 
 const SearchForm = (props) => {
@@ -32,34 +57,33 @@ const SearchForm = (props) => {
     }
 
     return (
-        <div>
-            <form onSubmit={submitForm} ref={form}>
-                <CSRFToken />
-                <TextField
-                    variant="outlined"
-                    placeholder='Enter ingredients separated by commas'
-                    name="text"
-                    type="text"
-                    label="Search"
-                    value={undefined}
-
-                    InputProps={{
-                        endAdornment: (
-                            <InputAdornment position="end">
-                                <ImageForm setQuery={props.setQuery} />
-                                <IconButton
-                                    variant="contained"
-                                    color="primary"
-                                    type="submit"
-                                    >
-                                    <Search />
-                                </IconButton>
-                            </InputAdornment>
-                        )
-                    }}
-                />
-            </form>
-        </div>
+        <form onSubmit={submitForm} ref={form}>
+            <CSRFToken />
+            <CssTextField
+                className={classes.input}
+                variant="outlined"
+                placeholder='Enter ingredients separated by commas'
+                name="text"
+                type="text"
+                label="Search"
+                value={undefined}
+                InputProps={{
+                    maxLength: 500,
+                    endAdornment: (
+                        <InputAdornment position="end">
+                            <ImageForm setQuery={props.setQuery} />
+                            <IconButton
+                                variant="contained"
+                                color="primary"
+                                type="submit"
+                            >
+                                <Search />
+                            </IconButton>
+                        </InputAdornment>
+                    )
+                }}
+            />
+        </form>
     )
 }
 
