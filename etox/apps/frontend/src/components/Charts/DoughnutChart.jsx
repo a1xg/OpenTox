@@ -1,6 +1,6 @@
 import React from 'react';
 import { Doughnut } from 'react-chartjs-2';
-
+// !TODO предусмотреть отсутствие данных для отображения и вывести заглушку
 const DoughnutChart = (props) => {
     const data = {
         labels: props.labels,

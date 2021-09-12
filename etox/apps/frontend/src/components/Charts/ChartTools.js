@@ -1,3 +1,4 @@
+
 const getColors = (props) => {
     let backgroundColors = [];
     let borderColors = [];

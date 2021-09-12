@@ -1,6 +1,6 @@
 import React from 'react';
 import { Bar } from 'react-chartjs-2';
-
+// !TODO предусмотреть отсутствие данных для отображения и вывести заглушку
 const BarChart = (props) => {
     const data = {
         labels: props.labels, // props.labels
@@ -13,7 +13,7 @@ const BarChart = (props) => {
             },
         ],
     };
-    // !TODO предусмотреть отключение labels вместо того, что бы пихать в них пучтые строки.
+
     const options = {
         scales: {
             x: {

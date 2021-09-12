@@ -39,7 +39,7 @@ const App = (props) => {
             if (data.product_ingredients.length == 0) {
               setSearchResults({ loaded: 'error', })
             } else {
-              setSearchResults({ loaded: true, data: data })
+              setSearchResults({ loaded: true, data: data });
             }
           }
         })

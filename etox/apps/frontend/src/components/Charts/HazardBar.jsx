@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import { Bar } from 'react-chartjs-2';
 import style from './Charts.module.css';
-
+// !TODO предусмотреть отсутствие данных для отображения и вывести заглушку
 const HazardBar = (props) => {
     const width = props.width;
     const height = props.height;

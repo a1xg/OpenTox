@@ -1,6 +1,6 @@
 import React from 'react';
 import GridItem from '../../../GridItem/GridItem.jsx';
-
+// !TODO предусмотреть отсутствие данных для отображения и вывести заглушку
 const Legend = (props) => {
     return (
         <div>

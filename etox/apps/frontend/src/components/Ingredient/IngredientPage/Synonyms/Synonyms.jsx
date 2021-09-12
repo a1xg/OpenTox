@@ -5,7 +5,7 @@ const Synonyms = (props) => {
     console.log('Synonyms props:', props)
     const getData = () => {
         if (props.data.ingredient.synonyms) {
-            return props.data.ingredient.synonyms.eng.join(', ')    
+            return props.data.ingredient.synonyms.eng.join('; ')    
         } else {
             return (<p>Not data</p>)
         }

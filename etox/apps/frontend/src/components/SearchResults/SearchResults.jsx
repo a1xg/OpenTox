@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useState, useEffect } from "react";
+import { EmptyChartData } from "../PassData";
 import { getChartData } from '../Charts/ChartTools';
 import ErrorMessage from './ErrorMessage/ErrorMessage.jsx';
 import ResultsPage from './ResultsPage/ResultsPage.jsx';
@@ -6,18 +7,25 @@ import LinearProgress from '@material-ui/core/LinearProgress';
 
 const SearchResults = (props) => {
     console.log('SearchResults props:', props);
-    if (props.searchResults.loaded == true) {
-        // !FIXME данных в detail_hazard_product может и не быть и надо это обработать.
-        const chartData = getChartData({
-            data: props.searchResults.data.detail_hazard_product,
-            backgroundClarity: '0.4',
-            borderClarity: '1'
-        });
+    const [chartData, setChartData] = useState(EmptyChartData);
 
+    useEffect(() => {
+        if (props.searchResults.loaded == true) {
+            if (props.searchResults.data.detail_hazard_product.length > 0) {
+                const data = getChartData({
+                    data: props.searchResults.data.detail_hazard_product,
+                    backgroundClarity: '0.4',
+                    borderClarity: '1'
+                });
+                setChartData(data);
+            }
+        };
+    }, []);
+
+    if (props.searchResults.loaded == true) {
         return (
             <ResultsPage
                 searchResults={props.searchResults}
-                chartData={chartData}
                 chartData={chartData}
             />
         )

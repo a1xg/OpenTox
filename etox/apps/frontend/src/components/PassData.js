@@ -1,10 +1,14 @@
 const EmptyChartData = {
-  description:[],
-  hazard_scale_score:[],
-  percent_notifications:[]
+  datasets: {
+    description:[],
+    hazard_scale_score:[],
+    percent_notifications:[],
+  },
+  colors: {
+    borderColors: [],
+    backgroundColors: []
+  },
 }
-
-
 
 const EmptyListResults = {
   product_ingredients: [
@@ -18,15 +22,15 @@ const EmptyListResults = {
   ],
   product_hazard_avg: null,
   detail_hazard_product: [
-    {
-      id: null,
-      abbreviation: null,
-      description: null,
-      hazard_category: null,
-      hazard_class: null,
-      hazard_scale_score: null,
-      num_of_ingredients: null
-    }
+//    {
+//     id: null,
+//     abbreviation: null,
+//     description: null,
+//     hazard_category: null,
+//     hazard_class: null,
+//     hazard_scale_score: null,
+//     num_of_ingredients: null
+//    }
   ]
 }
 
@@ -47,17 +51,17 @@ const EmptyIngredient = {
     request_statistics: null,
     hazard: {
       hazard_ghs_set: [
-        {
-          id: null,
-          hazard_class: null,
-          abbreviation: null,
-          hazard_category: null,
-          ghs_code: null,
-          description: null,
-          hazard_scale_score: null,
-          number_of_notifiers: null,
-          percent_notifications: null
-        },
+//        {
+//          id: null,
+//          hazard_class: null,
+//          abbreviation: null,
+//          hazard_category: null,
+//          ghs_code: null,
+//          description: null,
+//          hazard_scale_score: null,
+//          number_of_notifiers: null,
+//          percent_notifications: null
+//        },
       ],
       ingredient_hazard_avg: null,
       total_notifications: null,
