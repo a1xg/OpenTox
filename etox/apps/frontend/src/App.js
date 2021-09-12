@@ -21,15 +21,15 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: '#EFFFF3',
   }
 }));
-
+// !TODO Сделать очистку searchQuery и searchResults
 const App = (props) => {
   const classes = useStyles();
   const [searchQuery, setQuery] = useState();
   const [searchResults, setSearchResults] = useState();
 
   useEffect(() => {
-    console.log('QUERY:', searchQuery)
     if (searchQuery) {
+      setSearchResults({ loaded: false });
       fetch(searchQuery.url, searchQuery.options)
         .then(response => { return response.json(); })
         .then((data) => {

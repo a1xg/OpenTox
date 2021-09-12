@@ -1,6 +1,3 @@
-import React from 'react';
-
-
 const getColors = (props) => {
     let backgroundColors = [];
     let borderColors = [];
@@ -24,6 +21,35 @@ const dictsToArrays = (props) => {
     arrays[key] = props.map(item => item[key]);
     });
     return arrays;
-}
+};
 
-export { getColors, dictsToArrays };
+/**
+ * @param {Array} data
+ * - Accepts an array of dictionaries like:
+ *  [{key1:val, key2:val},{key1:val, key2:val}]
+ * @param {string} backgroundClarity
+ * - color transparency of backgroung values: string('0.1'...'1')
+ * @param {string} borderClarity
+ * - color transparency of border values: string('0.1'...'1')
+ * @returns 
+ * @param {dict} chartData.datasets
+ * - dict of arrays like: {key1:[val, val], key2:[val, val]}
+ * @param {Array} chartData.colors.backgroundColors
+ * - array of random RGB codes for background
+ * @param {Array} chartData.colors.borderColors
+ * - array of random RGB codes for border
+ */ 
+const getChartData = (props) => {
+    console.log('getChartData props', props)
+    const chartData = {
+        colors: getColors({
+            numberOfColors: props.data.length,
+            backgroundClarity: props.backgroundClarity,
+            borderClarity: props.borderClarity
+        }),
+        datasets:dictsToArrays(props.data),
+    }
+    return chartData;
+};
+
+export { getChartData };

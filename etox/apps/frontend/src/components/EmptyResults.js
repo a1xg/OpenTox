@@ -1,3 +1,11 @@
+const EmptyChartData = {
+  description:[],
+  hazard_scale_score:[],
+  percent_notifications:[]
+}
+
+
+
 const EmptyListResults = {
   product_ingredients: [
     {
@@ -61,6 +69,7 @@ const EmptyIngredient = {
 
 export {
   EmptyListResults,
-  EmptyIngredient
+  EmptyIngredient,
+  EmptyChartData
 }
 

@@ -1,23 +1,28 @@
 import React from 'react';
-import { getColors, dictsToArrays } from '../Charts/ChartTools';
+import { getChartData } from '../Charts/ChartTools';
 import ErrorMessage from './ErrorMessage/ErrorMessage.jsx';
 import ResultsPage from './ResultsPage/ResultsPage.jsx';
+import LinearProgress from '@material-ui/core/LinearProgress';
 
-// !FIXME данных в hazard.hazard_ghs_set может и не быть и надо это предусмотреть, желательно сделать централизованную валидацию 
 const SearchResults = (props) => {
     console.log('SearchResults props:', props);
     if (props.searchResults.loaded == true) {
-        const data = dictsToArrays(props.searchResults.data.detail_hazard_product);
-        const colors = getColors({
-            numberOfColors: props.searchResults.data.detail_hazard_product.length,
+        // !FIXME данных в detail_hazard_product может и не быть и надо это обработать.
+        const chartData = getChartData({
+            data: props.searchResults.data.detail_hazard_product,
             backgroundClarity: '0.4',
             borderClarity: '1'
         });
+
         return (
-            <ResultsPage searchResults={props.searchResults} data={data} colors={colors} />
+            <ResultsPage
+                searchResults={props.searchResults}
+                chartData={chartData}
+                chartData={chartData}
+            />
         )
     } else if (props.searchResults.loaded == false) {
-        return (<div>Loading</div>)
+        return (<LinearProgress />)
     } else { return (<ErrorMessage />) }
 };
 

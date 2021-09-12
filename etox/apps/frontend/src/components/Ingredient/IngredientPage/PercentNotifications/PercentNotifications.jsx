@@ -4,15 +4,7 @@ import BarChart from '../../../Charts/BarChart.jsx';
 
 
 const PercentNotifications = (props) => {
-    /*
-    const getData = () => {
-        if (props.data.ingredient.hazard.hazard_ghs_set.length > 0) {
-            return props.data.ingredient.hazard
-        } else {
-            return (<p>Not data</p>)
-        }
-    }
-    */
+    console.log('PercentNotifications props', props);
 
     return (
         <div>

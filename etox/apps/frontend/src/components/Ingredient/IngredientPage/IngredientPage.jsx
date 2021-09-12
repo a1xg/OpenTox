@@ -28,9 +28,9 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const IngredientPage = (props) => {
+    console.log('IngredientPage props', props)
     const classes = useStyles();
-
-
+    // !TODO вынести Paper в вызываемые компоненты, а компоненты в свою очередь оборачивать в единый для всех ItemCart
     return (
         <div className={classes.root}>
         <NavLink to='/search-results'>Back to search results</NavLink>
@@ -55,12 +55,18 @@ const IngredientPage = (props) => {
                                 <Grid item xs container direction="row" spacing={1}>
                                     <Grid item xs={6}>
                                         <Paper className={classes.paper}>
-                                            <HazardLevel data={props.data} colors={props.colors} />
+                                            <HazardLevel 
+                                            data={props.chartData.datasets} 
+                                            colors={props.chartData.colors} 
+                                            />
                                         </Paper>
                                     </Grid>
                                     <Grid item xs={6}>
                                         <Paper className={classes.paper}>
-                                            <PercentNotifications data={props.data} colors={props.colors} />
+                                            <PercentNotifications 
+                                            data={props.chartData.datasets} 
+                                            colors={props.chartData.colors} 
+                                            />
                                         </Paper>
                                     </Grid>
                                 </Grid>
@@ -68,8 +74,8 @@ const IngredientPage = (props) => {
                             <Grid item xs={12}>
                                 <Paper className={classes.paper}>
                                 <Legend 
-                                data={props.data} 
-                                colors={props.colors} 
+                                data={props.chartData.datasets} 
+                                colors={props.chartData.colors} 
                                 source={props.searchResults.data.ingredient.hazard.cl_inventory_id}
                                 total_notifications={props.searchResults.data.ingredient.hazard.total_notifications} />
                                 </Paper>

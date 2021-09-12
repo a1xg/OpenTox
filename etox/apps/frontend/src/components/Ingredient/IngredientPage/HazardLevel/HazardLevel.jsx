@@ -5,15 +5,6 @@ import GridItem from '../../../GridItem/GridItem.jsx';
 
 const HazardLevel = (props) => {
     console.log('HazardLevel props', props)
-    /*
-    const getData = () => {
-        if (props.data.ingredient.hazard.hazard_ghs_set.length > 0) {
-            return props.data.ingredient.hazard
-        } else {
-            return (<p>Not data</p>)
-        }
-    }
-    */
 
     return (
         <div>
@@ -26,7 +17,6 @@ const HazardLevel = (props) => {
             />
         </div>
     )
-
 };
 
 export default HazardLevel;
