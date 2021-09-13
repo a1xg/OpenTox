@@ -10,7 +10,6 @@ import MenuIcon from '@material-ui/icons/Menu';
 import FindInPageIcon from '@material-ui/icons/FindInPage';
 import HomeIcon from '@material-ui/icons/Home';
 import clsx from 'clsx';
-import style from './SideBar.module.css';
 
 const useStyles = makeStyles({
     list: {

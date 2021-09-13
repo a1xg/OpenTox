@@ -1,4 +1,4 @@
-const EmptyChartData = {
+const PassChartData = {
   datasets: {
     description:[],
     hazard_scale_score:[],
@@ -10,7 +10,7 @@ const EmptyChartData = {
   },
 }
 
-const EmptyListResults = {
+const PassListResults = {
   product_ingredients: [
     {
       id: null,
@@ -34,7 +34,7 @@ const EmptyListResults = {
   ]
 }
 
-const EmptyIngredient = {
+const PassIngredient = {
   ingredient: {
     id: null,
     main_name: null,
@@ -72,8 +72,8 @@ const EmptyIngredient = {
 };
 
 export {
-  EmptyListResults,
-  EmptyIngredient,
-  EmptyChartData
+  PassListResults,
+  PassIngredient,
+  PassChartData
 }
 

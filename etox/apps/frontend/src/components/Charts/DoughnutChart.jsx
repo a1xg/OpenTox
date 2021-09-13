@@ -17,9 +17,10 @@ const DoughnutChart = (props) => {
     const options = {
         responsive: true,
         plugins: {
-            legend: {
-                position: 'right',
-            },
+            //legend: {
+            //    position: 'right',
+            //},
+            legend:false,
             title: {
                 display: true,
                 text: props.title

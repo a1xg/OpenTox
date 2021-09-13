@@ -7,18 +7,28 @@ import Legend from './Legend/Legend.jsx';
 import ProductPhoto from './ProductPhoto/ProductPhoto.jsx';
 import VolumeFractions from './VolumeFractions/VolumeFractions.jsx';
 import ProductRatingBar from './ProductRatingBar/ProductRatingBar.jsx';
-
+import Bar from '../../Charts/Bar.jsx';
 const useStyles = makeStyles((theme) => ({
     root: {
         flexGrow: 1
     },
-    paper: {
-        padding: theme.spacing(1),
+    diagram: {
+        padding: theme.spacing(0),
         textAlign: "center",
-        color: theme.palette.text.secondary
+        color: theme.palette.text.secondary,
+        display: "flex",
+        height:'100%', 
+        width:'100%'
     },
+    IngredientsList: {
+        padding: theme.spacing(0),
+        textAlign: "center",
+        color: theme.palette.text.secondary,
+        display: "flex",
+    },
+
     tape: {
-        padding: theme.spacing(0.2),
+        padding: theme.spacing(0),
         textAlign: "center",
         color: theme.palette.text.secondary
     },
@@ -26,63 +36,61 @@ const useStyles = makeStyles((theme) => ({
 
 const ResultsPage = (props) => {
     const classes = useStyles();
+    // !TODO вынести Paper в вызываемые компоненты, а компоненты в свою очередь оборачивать в единый для всех ItemCart
 
     return (
-        <div className={classes.root}>
-            <Grid item xs container direction="column" spacing={2}>
-                <Grid item xs={12}>
-                    <Grid item xs container direction="row" spacing={2}>
-                        <Grid item xs={12}>
-                            <Paper className={classes.tape} elevation={3}>
-                                <ProductRatingBar
-                                    rating={props.searchResults.data.product_hazard_avg}
-                                />
-                            </Paper>
-                        </Grid>
+        <Grid item xs container direction="column" spacing={2} className={classes.root}>
+            <Grid item xs={12} >
+                <Grid item xs container direction="row" spacing={2} alignItems="stretch">
+                    <Grid item xs={12} >
+                        <Paper className={classes.tape} elevation={3} >
+                            <ProductRatingBar rating={props.searchResults.data.product_hazard_avg} />
+                        </Paper>
                     </Grid>
-                    <Grid item xs container direction="row" spacing={2}>
-                        <Grid item xs={4}>
-                            <Paper className={classes.paper} elevation={3}>
-                                <VolumeFractions
-                                    data={props.chartData.datasets}
-                                    colors={props.chartData.colors}
-                                />
-                            </Paper>
-                        </Grid>
-                        <Grid item xs={4}>
-                            <Paper className={classes.paper} elevation={3}>
-                                <HazardLevel
-                                    data={props.chartData.datasets}
-                                    colors={props.chartData.colors}
-                                />
-                            </Paper>
-                        </Grid>
-                        <Grid item xs={4}>
-                            <Paper className={classes.paper} elevation={3}>
-                                <Legend
-                                    data={props.chartData.datasets}
-                                    colors={props.chartData.colors}
-                                />
-                            </Paper>
-                        </Grid>
+                </Grid>
+                <Grid item xs container direction="row" spacing={2}>
+                    <Grid item xs={4} >
+                        <Paper className={classes.diagram} elevation={3}>
+                            <VolumeFractions
+                                data={props.chartData.datasets}
+                                colors={props.chartData.colors}
+                            />
+                        </Paper>
                     </Grid>
-                    <Grid item xs container direction="row" spacing={2}>
-                        <Grid item xs={8}>
-                            <Paper className={classes.paper} elevation={3}>
-                                <IngredientsList
-                                    data={props.searchResults.data}
-                                />
-                            </Paper>
-                        </Grid>
-                        <Grid item xs={4}>
-                            <Paper className={classes.paper} elevation={3}>
-                                <ProductPhoto />
-                            </Paper>
-                        </Grid>
+                    <Grid item xs={4} >
+                        <Paper className={classes.diagram} elevation={3}>
+                            <HazardLevel
+                                data={props.chartData.datasets}
+                                colors={props.chartData.colors}
+                            />
+                        </Paper>
+                    </Grid>
+                    <Grid item xs={4} >
+                        <Paper className={classes.diagram} elevation={3}>
+                            <Legend
+                                data={props.chartData.datasets}
+                                colors={props.chartData.colors}
+                            />
+                        </Paper>
+                    </Grid>
+                </Grid>
+                <Grid item xs container direction="row" spacing={2}>
+                    <Grid item xs={8} >
+                        <Paper className={classes.IngredientsList} elevation={3}>
+                            <IngredientsList data={props.searchResults.data} />
+                        </Paper>
+                    </Grid>
+                    <Grid item xs={4} >
+                        <Paper className={classes.IngredientsList} elevation={3}>
+                            <div style={{width:'300px', height:'300px'}}>
+                                <Bar />
+                            </div>
+                            {/*<ProductPhoto />*/}
+                        </Paper>
                     </Grid>
                 </Grid>
             </Grid>
-        </div>
+        </Grid>
     )
 };
 

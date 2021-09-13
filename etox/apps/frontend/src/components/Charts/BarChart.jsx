@@ -1,9 +1,11 @@
 import React from 'react';
 import { Bar } from 'react-chartjs-2';
 // !TODO предусмотреть отсутствие данных для отображения и вывести заглушку
+// !TODO переписать рейтинг на https://js.devexpress.com/ или https://nivo.rocks/pie/ 
+
 const BarChart = (props) => {
     const data = {
-        labels: props.labels, // props.labels
+        labels: props.labels,
         datasets: [
             {
                 data: props.data,
@@ -29,10 +31,11 @@ const BarChart = (props) => {
         },
         responsive: true,
         plugins: {
-            legend: {
-                display:false,
-                position: 'left',
-            },
+            //legend: {
+            //    display:false,
+            //    position: 'left',
+            //},
+            legend:false,
             title: {
                 display: true,
                 text: props.title,

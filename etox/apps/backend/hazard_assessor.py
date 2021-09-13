@@ -45,10 +45,11 @@ class HazardMeter:
                 all_general_hazard.append(general_hazard)
                 ingredient['hazard']['ingredient_hazard_avg'] = general_hazard
                 # формируем наборы данных для отображения в списке результатов или для страницы каждого ингредиента
-                if self._display_format == 'list':
-                    del ingredient['hazard']['hazard_ghs_set']
-                elif self._display_format == 'detail':
-                    ingredient['hazard']['hazard_ghs_set'] = aggregated_df.to_dict('records')
+                ingredient['hazard']['hazard_ghs_set'] = aggregated_df.to_dict('records')
+                #if self._display_format == 'list':
+                #    del ingredient['hazard']['hazard_ghs_set']
+                #elif self._display_format == 'detail':
+                #    ingredient['hazard']['hazard_ghs_set'] = aggregated_df.to_dict('records')
             else:
                 ingredient['hazard']['ingredient_hazard_avg'] = None
         return all_hazard_detail, all_general_hazard

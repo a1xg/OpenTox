@@ -7,7 +7,7 @@ import Search from '@material-ui/icons/Search';
 import ImageForm from "./ImageForm/ImageForm.jsx";
 import CSRFToken from '../csrftoken';
 
-// !TODO Подправить стили
+// !TODO Подправить стили форм
 const CssTextField = withStyles({
     root: {
         '& label.Mui-focused': {

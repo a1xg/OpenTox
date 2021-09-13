@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { EmptyChartData } from "../PassData";
+import { PassChartData } from "../PassData";
 import { getChartData } from '../Charts/ChartTools';
 import ErrorMessage from './ErrorMessage/ErrorMessage.jsx';
 import ResultsPage from './ResultsPage/ResultsPage.jsx';
@@ -7,7 +7,7 @@ import LinearProgress from '@material-ui/core/LinearProgress';
 
 const SearchResults = (props) => {
     console.log('SearchResults props:', props);
-    const [chartData, setChartData] = useState(EmptyChartData);
+    const [chartData, setChartData] = useState(PassChartData);
 
     useEffect(() => {
         if (props.searchResults.loaded == true) {

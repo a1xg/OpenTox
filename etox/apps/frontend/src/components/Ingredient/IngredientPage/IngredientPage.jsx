@@ -16,14 +16,25 @@ const useStyles = makeStyles((theme) => ({
         flexGrow: 1
     },
     paper: {
-        padding: theme.spacing(1),
+        padding: theme.spacing(0),
+        textAlign: "center",
+        color: theme.palette.text.secondary,
+        display: "flex",
+        height:'100%', 
+        width:'100%'
+    },
+    tape: {
+        padding: theme.spacing(0),
         textAlign: "center",
         color: theme.palette.text.secondary
     },
-    tape: {
-        padding: theme.spacing(0.2),
+    details: {
+        padding: theme.spacing(0),
         textAlign: "center",
-        color: theme.palette.text.secondary
+        color: theme.palette.text.secondary,
+        display: "flex",
+        height:'100%', 
+        width:'100%'
     }
 }));
 
@@ -32,20 +43,18 @@ const IngredientPage = (props) => {
     const classes = useStyles();
     // !TODO вынести Paper в вызываемые компоненты, а компоненты в свою очередь оборачивать в единый для всех ItemCart
     return (
-        <div className={classes.root}>
+        <div>
         <NavLink to='/search-results'>Back to search results</NavLink>
-        <Grid item xs container direction="column" spacing={2}>
-            # row1
+        <Grid item xs container direction="column" spacing={0} className={classes.root}>
             <Grid item xs={12}>
                 <Grid item xs container direction="row" spacing={2}>
                     <Grid item xs={4}>    
                         <Title data={props.searchResults.data} />
                     </Grid>
                 </Grid>
-                # row2
-                <Grid item xs container direction="row" spacing={1}>
+                <Grid item xs container direction="row" spacing={1}  alignItems="stretch">
                     <Grid item xs={3}>
-                        <Paper className={classes.paper}>
+                        <Paper className={classes.details}>
                             <Details data={props.searchResults.data} />
                         </Paper>
                     </Grid>
@@ -83,7 +92,6 @@ const IngredientPage = (props) => {
                         </Grid>
                     </Grid>
                 </Grid>
-                # row3
                 <Grid item xs container direction="row" spacing={2}>
                     <Grid item xs={12}>
                         <Paper className={classes.paper}>
@@ -91,7 +99,6 @@ const IngredientPage = (props) => {
                         </Paper>
                     </Grid>
                 </Grid>
-                row4
                 <Grid item xs container direction="row" spacing={2}>
                     <Grid item xs={12}>
                         <Paper className={classes.paper}>

@@ -12,6 +12,7 @@ import style from './App.module.css';
 import { Container, Grid, Paper, useScrollTrigger } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
+
 // * useScrollTrigger  для переключения строки поиска в appbar при скролле
 // * у https://devexpress.github.io/ есть еще неплохие гриды 
 // * для вывода табличных данных с встроенными графиками и пагинацией
@@ -69,7 +70,11 @@ const App = (props) => {
             <Route exact path='/about' component={About} />
           </Container>
         </Grid>
-        <Footer />
+        <Grid item xs={12}>
+          <Container maxWidth={'lg'}>
+            <Footer />
+          </Container>
+        </Grid>
       </Grid>
     </Container>
   )

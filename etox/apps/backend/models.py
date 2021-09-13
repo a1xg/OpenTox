@@ -36,6 +36,9 @@ class Ingredients(models.Model):
     def colour_index(self):
         return self.data.get('colourIndex')
 
+    def synonyms(self):
+        return self.data.get('synonyms')
+
     class Meta:
         managed = True
         db_table = 'ingredients'

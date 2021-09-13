@@ -16,7 +16,7 @@ const HazardBar = (props) => {
         const ctx = canvas.getContext("2d");
         const gradient = ctx.createLinearGradient(0, 0, width, 0);
         gradient.addColorStop(0, 'rgba(0, 255, 0, 1)');
-        gradient.addColorStop(1, 'rgba(255, 0, 0, 1)');   // getRedOrGreenColor(props)
+        gradient.addColorStop(1, 'rgba(255, 0, 0, 1)'); 
 
         return {
             labels: [''],
