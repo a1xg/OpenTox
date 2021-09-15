@@ -9,7 +9,7 @@ const ProductRatingBar = (props) => {
                 rating={props.rating}
                 width={160}
                 height={80}
-                title={'Product hazard'}
+                title={'Product rating'}
             />
         </div>
     )

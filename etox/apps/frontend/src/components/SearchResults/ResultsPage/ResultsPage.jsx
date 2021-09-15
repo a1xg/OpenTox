@@ -7,7 +7,7 @@ import Legend from './Legend/Legend.jsx';
 import ProductPhoto from './ProductPhoto/ProductPhoto.jsx';
 import VolumeFractions from './VolumeFractions/VolumeFractions.jsx';
 import ProductRatingBar from './ProductRatingBar/ProductRatingBar.jsx';
-import Bar from '../../Charts/Bar.jsx';
+
 const useStyles = makeStyles((theme) => ({
     root: {
         flexGrow: 1
@@ -51,7 +51,7 @@ const ResultsPage = (props) => {
                 <Grid item xs container direction="row" spacing={2}>
                     <Grid item xs={4} >
                         <Paper className={classes.diagram} elevation={3}>
-                            <VolumeFractions
+                            <VolumeFractions d={props.d}
                                 data={props.chartData.datasets}
                                 colors={props.chartData.colors}
                             />
@@ -59,10 +59,7 @@ const ResultsPage = (props) => {
                     </Grid>
                     <Grid item xs={4} >
                         <Paper className={classes.diagram} elevation={3}>
-                            <HazardLevel
-                                data={props.chartData.datasets}
-                                colors={props.chartData.colors}
-                            />
+                            <HazardLevel c={props.c}/>
                         </Paper>
                     </Grid>
                     <Grid item xs={4} >
@@ -82,10 +79,7 @@ const ResultsPage = (props) => {
                     </Grid>
                     <Grid item xs={4} >
                         <Paper className={classes.IngredientsList} elevation={3}>
-                            <div style={{width:'300px', height:'300px'}}>
-                                <Bar />
-                            </div>
-                            {/*<ProductPhoto />*/}
+                            <ProductPhoto />
                         </Paper>
                     </Grid>
                 </Grid>

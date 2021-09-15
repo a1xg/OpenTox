@@ -31,10 +31,6 @@ const BarChart = (props) => {
         },
         responsive: true,
         plugins: {
-            //legend: {
-            //    display:false,
-            //    position: 'left',
-            //},
             legend:false,
             title: {
                 display: true,

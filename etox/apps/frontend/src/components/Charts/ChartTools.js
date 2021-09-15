@@ -41,7 +41,6 @@ const dictsToArrays = (props) => {
  * - array of random RGB codes for border
  */ 
 const getChartData = (props) => {
-    console.log('getChartData props', props)
     const chartData = {
         colors: getColors({
             numberOfColors: props.data.length,
@@ -53,4 +52,40 @@ const getChartData = (props) => {
     return chartData;
 };
 
-export { getChartData };
+// TODO написать метод подготовки данных под чарты Nivo
+/*
+Образец датасета: 
+{
+        "id": "ASPIRATION_TOXICITY",
+        "label": "ASPIRATION_TOXICITY",
+        "value": 402,
+
+    },
+*/
+
+const getData = (props) => {
+    let data = []
+    props.dataset.map(item => {
+        data.push({
+            "id":item[props.id],
+            "label":item[props.label], 
+            "value":item[props.value],
+        })
+    });
+
+    return data;
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+export { getChartData, getData };
