@@ -1,96 +1,114 @@
 import React from 'react';
 import { ResponsiveBar } from '@nivo/bar';
-import { defs, backgroundMap } from './ChartsConfig';
+import { defs, fill } from './ChartsConfig';
 import { BoxLegendSvg } from "@nivo/legends"; //! кастомна легенда
 
-const fill = [
+const testFill = [
     {
         match: {
-            id: 'fries'
+            id: 'bar1'
         },
         id: 'dots'
     },
     {
         match: {
-            id: 'sandwich'
+            id: 'bar2'
         },
         id: 'lines'
+    },
+    {
+        match: {
+            id: 'bar4'
+        },
+        id: 'lines'
+    },
+    {
+        match: {
+            id: 'bar6'
+        },
+        id: 'dots'
     }
 ];
 
-const data = [
+const testData = [
     {
-        "id": "b",
-        "hot dog": 65,
-        "hot dogColor": "hsl(303, 70%, 50%)",
+        id:"bar1",
+        label:"label1",
+        value: 8,
     },
     {
-        "id": "c",
-        "burger": 109,
-        "burgerColor": "hsl(237, 70%, 50%)",
+        id:"bar2",
+        label:"label2",
+        value: 2
     },
     {
-        "id": "d",
-        "sandwich": 136,
-        "sandwichColor": "hsl(92, 70%, 50%)",
+        id:"bar3",
+        label:"label3",
+        value: 4
     },
     {
-        "id": "e",
-        "kebab": 188,
-        "kebabColor": "hsl(78, 70%, 50%)",
+        id: "bar4",
+        label: "label4",
+        value: 6
     },
     {
-        "id": "f",
-        "fries": 120,
-        "friesColor": "hsl(3, 70%, 50%)",
+        id: "bar5",
+        label: "label5",
+        value: 6
     },
     {
-        "id": "g",
-        "donut": 158,
-        "donutColor": "hsl(292, 70%, 50%)"
-    },
-  ];
+        id: "bar6",
+        label: "label6",
+        value: 6
+    }
+];
 
+const testDefs = [
+    {
+        id: "dots",
+        type: "patternDots",
+        background: "inherit",
+        color: "#38bcb2",
+        size: 4,
+        padding: 1,
+        stagger: true
+    },
+    {
+        id: "lines",
+        type: "patternLines",
+        background: "inherit",
+        color: "#eed312",
+        rotation: -45,
+        lineWidth: 6,
+        spacing: 10
+    }
+];
 
 const Bar = (props) => {
     console.log('Bar props', props);
     return (
         <ResponsiveBar
-        data={props.c}
-        keys={['value']}
-        indexBy="id"
-        margin={{ top: 50, right: 60, bottom: 50, left: 60 }}
-        padding={0.3}
-        valueScale={{ type: 'linear' }}
-        valueFormat={{ format: '', enabled: false }}
-        colors={{ scheme: 'nivo' }}
-        defs={defs}
-        fill={backgroundMap}
-        borderColor={{ from: 'color', modifiers: [ [ 'darker', 1.6 ] ] }}
-        colorBy='index'
-        axisTop={null}
-        axisRight={null}
-        axisBottom={{
-            tickSize: 5,
-            tickPadding: 5,
-            tickRotation: 0,
-            legend: 'id',
-            legendPosition: 'middle',
-            legendOffset: 32
-        }}
-        axisLeft={{
-            tickSize: 5,
-            tickPadding: 5,
-            tickRotation: 0,
-            legend: 'food',
-            legendPosition: 'middle',
-            legendOffset: -40
-        }}
-        labelSkipWidth={12}
-        labelSkipHeight={12}
-        labelTextColor={{ from: 'color', modifiers: [ [ 'darker', 1.6 ] ] }}
-        
-    />
+            data={props.data}
+            indexBy="id"
+            margin={{ top: 50, right: 50, bottom: 50, left: 50 }}
+            padding={0.4}
+            layout="vertical"
+            colors={{ scheme: 'nivo' }}
+            colorBy="index"
+            defs={defs}
+            fill={fill}
+            borderColor={{ from: "color", modifiers: [["brighter", "1.6"]] }}
+            axisTop={null}
+            axisRight={null}
+            enableGridX={true}
+            enableGridY={false}
+            labelSkipWidth={42}
+            labelSkipHeight={12}
+            labelTextColor="#fff"
+            animate={true}
+            motionStiffness={90}
+            motionDamping={15}
+        />
     )
 
 };

@@ -1,6 +1,6 @@
 import React from 'react';
 import HazardBar from '../../../Charts/HazardBar.jsx';
-import style from './ProductRatingBar.module.css'
+import style from './ProductRatingBar.module.css';
 
 const ProductRatingBar = (props) => {
     return (

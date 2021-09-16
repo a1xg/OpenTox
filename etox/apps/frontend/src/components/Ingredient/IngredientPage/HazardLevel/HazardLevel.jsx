@@ -1,20 +1,25 @@
-import React from 'react';
-import BarChart from '../../../Charts/BarChart.jsx';
+import React, { useState, useEffect } from "react";
 import GridItem from '../../../GridItem/GridItem.jsx';
+import Bar from '../../../Charts/Bar.jsx';
+import { getData } from '../../../Charts/ChartTools';
 
 
 const HazardLevel = (props) => {
-    console.log('HazardLevel props', props)
+    console.log('HazardLevel props', props);
+    const [chartData, setChartData] = useState([{value: null, id: null, label:null}]);
+    useEffect(() => {
+        const data = getData({
+            dataset: props.searchResults.data.ingredient.hazard.hazard_ghs_set,
+            id: 'hazard_class',
+            value: 'hazard_scale_score',
+            label: 'description',
+        });
+        setChartData(data)
+    }, [props])
 
     return (
-        <div>
-            <BarChart
-                labels={props.data.description}
-                data={props.data.hazard_scale_score}
-                borderColors={props.colors.borderColors}
-                backgroundColors={props.colors.backgroundColors}
-                title={'Hazard level for each class'}
-            />
+        <div style={{ width: '400px', height: '400px' }}>
+            <Bar data={chartData} />
         </div>
     )
 };

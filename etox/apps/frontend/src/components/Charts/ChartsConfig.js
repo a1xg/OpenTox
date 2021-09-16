@@ -32,7 +32,7 @@ const defs = [
     }
 ];
 
-const backgroundMap = [
+const fill = [
     {
         match: {
             id: 'ASPIRATION_TOXICITY'
@@ -99,4 +99,4 @@ const backgroundMap = [
     }
 ];
 
-export { backgroundMap, defs };
+export { fill, defs };

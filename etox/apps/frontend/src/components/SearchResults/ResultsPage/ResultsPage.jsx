@@ -35,6 +35,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const ResultsPage = (props) => {
+    console.log('ResultsPage props', props)
     const classes = useStyles();
     // !TODO вынести Paper в вызываемые компоненты, а компоненты в свою очередь оборачивать в единый для всех ItemCart
 
@@ -51,22 +52,18 @@ const ResultsPage = (props) => {
                 <Grid item xs container direction="row" spacing={2}>
                     <Grid item xs={4} >
                         <Paper className={classes.diagram} elevation={3}>
-                            <VolumeFractions d={props.d}
-                                data={props.chartData.datasets}
-                                colors={props.chartData.colors}
-                            />
+                            <VolumeFractions searchResults={props.searchResults} />
                         </Paper>
                     </Grid>
                     <Grid item xs={4} >
                         <Paper className={classes.diagram} elevation={3}>
-                            <HazardLevel c={props.c}/>
+                            <HazardLevel searchResults={props.searchResults}  />
                         </Paper>
                     </Grid>
                     <Grid item xs={4} >
                         <Paper className={classes.diagram} elevation={3}>
                             <Legend
-                                data={props.chartData.datasets}
-                                colors={props.chartData.colors}
+                                data={props.searchResults}
                             />
                         </Paper>
                     </Grid>

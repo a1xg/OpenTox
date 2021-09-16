@@ -4,8 +4,7 @@ const Legend = (props) => {
     console.log('Legend props', props);
     return (
         <div>
-            <p>{props.data.description.join(', ')}</p>
-            <p>{props.colors.backgroundColors.join(', ')}</p>
+            <p>Legend</p>
         </div>
     )
 };
