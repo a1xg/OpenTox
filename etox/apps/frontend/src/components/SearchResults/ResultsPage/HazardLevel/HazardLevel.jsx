@@ -5,7 +5,7 @@ import './HazardLevel.css'
 
 const HazardLevel = (props) => {
     console.log('HazardLevel props:', props);
-    const [chartData, setChartData] = useState([{ 'value': null, 'id': null }]);
+    const [chartData, setChartData] = useState([{ value: null, id: null, label:null, color:'white' }]);
     useEffect(() => {
         const data = getData({
             dataset: props.searchResults.data.detail_hazard_product, 

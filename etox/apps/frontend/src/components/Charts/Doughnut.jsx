@@ -1,6 +1,15 @@
 import React from 'react';
 import { ResponsivePie } from '@nivo/pie';
 import { fill, defs } from './ChartsConfig';
+// версия с которой норм работает Doughnut 0.62.0, с весиями выше - вместо label отображается id
+
+const getColors = (data) => {
+  let colors = []
+  data.map(d => {
+    colors.push(d.color)
+  });
+  return colors
+};
 
 const Doughnut = (props) => {
   console.log('Doughnut props', props);
@@ -9,31 +18,23 @@ const Doughnut = (props) => {
     data={props.data}
     margin={{
       top: 40,
-      right: 80,
-      bottom: 80,
-      left: 80
+      right: 40,
+      bottom: 40,
+      left: 40
     }}
     innerRadius={0.5}
     padAngle={0.7}
     cornerRadius={3}
-    colors={{
-      scheme: "nivo"
-    }}
+    colors={getColors(props.data)} // { scheme: "nivo" }
     borderWidth={1}
     borderColor={{
       from: "color",
       modifiers: [["darker", 0.2]]
     }}
-    //arcLinkLabelsSkipAngle={10}
-    //arcLinkLabelsTextColor="#333333"
-    //arcLinkLabelsThickness={2}
-    //arcLinkLabelsColor={{ from: 'color' }}
-    //arcLabelsSkipAngle={10}
-    //arcLabelsTextColor={{ from: 'color', modifiers: [['darker', 2]] }}
     animate={true}
     enableRadialLabels={false}
-    defs={defs}
-    fill={fill}
+    //defs={defs}
+    //fill={fill}
   />
   )
   

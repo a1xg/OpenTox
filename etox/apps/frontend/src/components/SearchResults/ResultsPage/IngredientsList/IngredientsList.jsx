@@ -1,7 +1,9 @@
 import { NavLink } from 'react-router-dom';
 import React from 'react';
 import style from './ingredientsList.module.css'
-import IngredientRatingBar from './IngredientRatingBar/IngredientRatingBar.jsx'
+import IngredientRatingBar from './IngredientRatingBar/IngredientRatingBar.jsx';
+import BriefStatistics from './BriefStatistics/BriefStatistics.jsx';
+
 
 const IngredientsList = (props) => {
     const ingredients = props.data.product_ingredients;

@@ -1,11 +1,11 @@
 import React from 'react';
-import HazardBar from '../../../Charts/HazardBar.jsx';
+import RatingBar from '../../../Charts/RatingBar.jsx';
 import style from './ProductRatingBar.module.css';
 
 const ProductRatingBar = (props) => {
     return (
         <div className={style['rating-bar']}>
-            <HazardBar
+            <RatingBar
                 rating={props.rating}
                 width={160}
                 height={80}

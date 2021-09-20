@@ -1,7 +1,19 @@
 
 
-/* 
+const colorMap = {
+    'ASPIRATION_TOXICITY':'#8ed4c8',
+    'SKIN_CORROSION_IRRITATION':'#bfbbdb',
+    'EYE_DAMAGE_IRRITATION':'#ffee70',
+    'RESPIRATORY_SKIN_SENSITISERS':'#fb8173',
+    'ACUTE_TOXICITY':'#81b2d4',
+    'MUTAGENICITY':'#fdb562',
+    'CARCINOGENICITY':'#b4df69',
+    'REPRODUCTIVE_TOXICITY':'#fccee6',
+    'TARGET_ORGAN_TOXICITY':'#bd81be',
+    'NO_DATA_AVAILABLE': '#dadada',
+}
 
+/* 
     'ASPIRATION_TOXICITY':
     'SKIN_CORROSION_IRRITATION':"Causes skin irritation"
     'EYE_DAMAGE_IRRITATION':"Causes serious eye irritation"
@@ -102,4 +114,4 @@ const fill = [
     }
 ];
 
-export { fill, defs };
+export { fill, defs, colorMap };

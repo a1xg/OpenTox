@@ -5,7 +5,7 @@ import { makeStyles, withStyles } from '@material-ui/core/styles';
 import IconButton from '@material-ui/core/IconButton';
 import Search from '@material-ui/icons/Search';
 import ImageForm from "./ImageForm/ImageForm.jsx";
-import CSRFToken from '../csrftoken';
+import CSRFToken from './csrftoken';
 
 // !TODO Подправить стили форм
 const CssTextField = withStyles({
@@ -41,7 +41,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const SearchForm = (props) => {
-    const form = useRef(null);
+    const form = useRef(undefined);
     const history = useHistory();
     const classes = useStyles();
     const submitForm = (event) => {
@@ -66,7 +66,6 @@ const SearchForm = (props) => {
                 name="text"
                 type="text"
                 label="Search"
-                value={undefined}
                 InputProps={{
                     maxLength: 500,
                     endAdornment: (

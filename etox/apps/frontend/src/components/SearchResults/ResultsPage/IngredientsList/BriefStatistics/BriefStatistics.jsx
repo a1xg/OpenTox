@@ -1,8 +1,7 @@
 import React, {useEffect, useState} from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import { getData } from '../../../Charts/ChartTools';
+import { getData } from '../../../../Charts/ChartTools';
 import { Grid, Container, Typography } from "@material-ui/core";
-
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -19,9 +18,9 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-// TODO подготовить данные для легенды
-const Legend = (props) => {
-    const [legendData, setLegendData] = useState([{ value: null, id: null, label:null, color:'white' }]);
+const BriefStatistics = (props) => {
+    console.log('BriefStatistics props', props);
+    const [statisticsData, setStatisticsData] = useState([{ value: null, id: null, label:null, color:'white' }]);
     const classes = useStyles();
     useEffect(() => {
         const data = getData({
@@ -34,7 +33,6 @@ const Legend = (props) => {
 
     }, [props]);
 
-    console.log('Legend props', props);
     return (
         <Container>
             <Grid item xs container direction="column" spacing={2} className={classes.root}>
@@ -59,4 +57,4 @@ const Legend = (props) => {
     )
 };
 
-export default Legend;
+export default BriefStatistics;

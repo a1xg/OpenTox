@@ -5,7 +5,7 @@ import './VolumeFractions.css';
 
 const VolumeFractions = (props) => {
     console.log('VolumeFractions props', props);
-    const [chartData, setChartData] = useState([{ 'value': null, 'id': null, label: null }]);
+    const [chartData, setChartData] = useState([{ value: null, id: null, label: null, color: 'white' }]);
     useEffect(() => {
         const data = getData({
             dataset: props.searchResults.data.detail_hazard_product,

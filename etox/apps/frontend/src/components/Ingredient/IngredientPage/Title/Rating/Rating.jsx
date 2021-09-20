@@ -1,11 +1,11 @@
 import React from 'react';
-import HazardBar from '../../../../Charts/HazardBar.jsx';
-import style from './RatingBar.module.css';
+import RatingBar from '../../../../Charts/RatingBar.jsx';
+import style from './Rating.module.css';
 
-const RatingBar = (props) => {
+const Rating = (props) => {
     return (
         <div className={style['rating-bar']}>
-            <HazardBar
+            <RatingBar
                 rating={props.rating}
                 width={100}
                 height={50}
@@ -15,4 +15,4 @@ const RatingBar = (props) => {
     )
 };
 
-export default RatingBar;
+export default Rating;
