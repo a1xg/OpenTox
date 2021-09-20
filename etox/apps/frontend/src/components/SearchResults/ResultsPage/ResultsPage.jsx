@@ -62,9 +62,7 @@ const ResultsPage = (props) => {
                     </Grid>
                     <Grid item xs={4} >
                         <Paper className={classes.diagram} elevation={3}>
-                            <Legend
-                                data={props.searchResults.data}
-                            />
+                            <Legend data={props.searchResults.data} />
                         </Paper>
                     </Grid>
                 </Grid>

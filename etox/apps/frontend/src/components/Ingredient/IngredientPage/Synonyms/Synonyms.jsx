@@ -1,5 +1,6 @@
 import React from 'react';
 import GridItem from '../../../GridItem/GridItem.jsx';
+import { Typography } from "@material-ui/core";
 
 const Synonyms = (props) => {
     console.log('Synonyms props:', props)
@@ -13,8 +14,8 @@ const Synonyms = (props) => {
 
     return (
         <div>
-            <p>Synonyms:</p>
-            {getData()}
+            <Typography variant='h6'>Synonyms:</Typography>
+            <Typography variant='body1'>{getData()}</Typography>
         </div>
     )
 

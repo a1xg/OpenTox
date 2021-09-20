@@ -71,8 +71,7 @@ const IngredientPage = (props) => {
                                         </Grid>
                                         <Grid item xs={6}>
                                             <Paper className={classes.paper}>
-                                                <PercentNotifications
-                                                    searchResults={props.searchResults}
+                                                <PercentNotifications searchResults={props.searchResults}
                                                 />
                                             </Paper>
                                         </Grid>
@@ -80,9 +79,7 @@ const IngredientPage = (props) => {
                                 </Grid>
                                 <Grid item xs={12}>
                                     <Paper className={classes.paper}>
-                                        <Legend
-                                            source={props.searchResults.data.ingredient.hazard.cl_inventory_id}
-                                            total_notifications={props.searchResults.data.ingredient.hazard.total_notifications} />
+                                        <Legend data={props.searchResults.data} />
                                     </Paper>
                                 </Grid>
                             </Grid>

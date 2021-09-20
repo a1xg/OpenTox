@@ -6,7 +6,7 @@ import { colorMap } from '../../../../Charts/ChartsConfig';
 
 const useStyles = makeStyles((theme) => ({
     root: {
-        padding: theme.spacing(1),
+        padding: theme.spacing(0.5),
     },
     rowItem: {
 
@@ -39,10 +39,10 @@ const BriefStatistics = (props) => {
 
     return (
         <Container>
-            <Grid item xs container direction="row" spacing={3} className={classes.root}>
+            <Grid item xs container direction="row" spacing={1} className={classes.root}>
                 {colors.map(color => {
                     return (
-                        <Grid item xs={2} key={color}>
+                        <Grid item xs={0} key={color}>
                             <svg width='14' height='14' >
                                 <circle cx="7" cy="7" r="7" fill={color} />
                             </svg>
