@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { getData } from '../../../Charts/ChartTools';
 import { Grid, Container, Typography } from "@material-ui/core";
@@ -6,48 +6,51 @@ import { Grid, Container, Typography } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
     root: {
-        padding: theme.spacing(1),
+        padding: theme.spacing(0),
     },
     rowItem: {
 
     },
     text: {
-        textAlign: 'center'
+        textAlign: 'left'
     },
-    figure: {
+    svg: {
         alignContent: 'center'
+    },
+    wrapper:  {
+        padding: theme.spacing(0)
     }
 }));
 
-// TODO подготовить данные для легенды
+
 const Legend = (props) => {
-    const [legendData, setLegendData] = useState([{ value: null, id: null, label:null, color:'white' }]);
+    console.log('Legend props', props);
+    const [legendData, setLegendData] = useState([{ value: null, id: null, label: null, color: 'white' }]);
     const classes = useStyles();
     useEffect(() => {
         const data = getData({
-            dataset: props.data.detail_hazard_product, 
-            id:'hazard_class',
-            value:'hazard_scale_score',
-            label:'description',
+            dataset: props.data.detail_hazard_product,
+            id: 'hazard_class',
+            value: 'hazard_scale_score',
+            label: 'description',
         });
         setLegendData(data)
 
     }, [props]);
 
-    console.log('Legend props', props);
     return (
-        <Container>
-            <Grid item xs container direction="column" spacing={2} className={classes.root}>
+        <Container className={classes.wrapper}>
+            <Grid item xs container direction="column" spacing={0} className={classes.root}>
                 {legendData.map(item => {
                     return (
                         <Grid item xs={12} key={item.id}>
-                            <Grid item xs container direction="row" spacing={2} className={classes.rowItem}>
-                                <Grid item xs={4} className={classes.figure} >
+                            <Grid item xs container direction="row" spacing={0} className={classes.rowItem}>
+                                <Grid item xs={2} className={classes.svg} >
                                     <svg width='40' height='20' >
                                         <rect x="0" y="0" width="40" height="20" fill={item.color} />
                                     </svg>
                                 </Grid>
-                                <Grid item xs={8} className={classes.text}>
+                                <Grid item xs={10} className={classes.text}>
                                     <Typography variant='h6'>{item.label}</Typography>
                                 </Grid>
                             </Grid>

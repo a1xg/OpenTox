@@ -40,7 +40,7 @@ const ResultsPage = (props) => {
     // !TODO вынести Paper в вызываемые компоненты, а компоненты в свою очередь оборачивать в единый для всех ItemCart
 
     return (
-        <Grid item xs container direction="column" spacing={2} className={classes.root}>
+        <Grid container direction="column" spacing={2} className={classes.root}>
             <Grid item xs={12} >
                 <Grid item xs container direction="row" spacing={2} alignItems="stretch">
                     <Grid item xs={12} >

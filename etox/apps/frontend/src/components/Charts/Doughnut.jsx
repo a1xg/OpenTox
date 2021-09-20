@@ -25,7 +25,7 @@ const Doughnut = (props) => {
     innerRadius={0.5}
     padAngle={0.7}
     cornerRadius={3}
-    colors={getColors(props.data)} // { scheme: "nivo" }
+    colors={getColors(props.data)}
     borderWidth={1}
     borderColor={{
       from: "color",

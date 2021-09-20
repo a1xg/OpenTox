@@ -1,7 +1,8 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import { getData } from '../../../../Charts/ChartTools';
-import { Grid, Container, Typography } from "@material-ui/core";
+import { Grid, Container } from "@material-ui/core";
+import { colorMap } from '../../../../Charts/ChartsConfig';
+
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -18,37 +19,33 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
+const getColors = (data) => {
+    const colors = [];
+    data.map(item => {
+        colors.push(colorMap[item.hazard_class])
+    });
+    return colors;
+};
+
 const BriefStatistics = (props) => {
     console.log('BriefStatistics props', props);
-    const [statisticsData, setStatisticsData] = useState([{ value: null, id: null, label:null, color:'white' }]);
+    const [colors, setColors] = useState([]);
     const classes = useStyles();
-    useEffect(() => {
-        const data = getData({
-            dataset: props.data.detail_hazard_product, 
-            id:'hazard_class',
-            value:'hazard_scale_score',
-            label:'description',
-        });
-        setLegendData(data)
 
-    }, [props]);
+    useEffect(() => {
+        const col = getColors(props.data);
+        setColors(col);
+    },[props])
 
     return (
         <Container>
-            <Grid item xs container direction="column" spacing={2} className={classes.root}>
-                {legendData.map(item => {
+            <Grid item xs container direction="row" spacing={3} className={classes.root}>
+                {colors.map(color => {
                     return (
-                        <Grid item xs={12} key={item.id}>
-                            <Grid item xs container direction="row" spacing={2} className={classes.rowItem}>
-                                <Grid item xs={4} className={classes.figure} >
-                                    <svg width='40' height='20' >
-                                        <rect x="0" y="0" width="40" height="20" fill={item.color} />
-                                    </svg>
-                                </Grid>
-                                <Grid item xs={8} className={classes.text}>
-                                    <Typography variant='h6'>{item.label}</Typography>
-                                </Grid>
-                            </Grid>
+                        <Grid item xs={2} key={color}>
+                            <svg width='14' height='14' >
+                                <circle cx="7" cy="7" r="7" fill={color} />
+                            </svg>
                         </Grid>
                     )
                 })}
