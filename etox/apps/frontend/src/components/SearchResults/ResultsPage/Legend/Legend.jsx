@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { getData } from '../../../Charts/ChartTools';
 import { Grid, Box, Typography } from "@material-ui/core";
+import { List, ListItem, ListItemText } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -22,6 +23,7 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
+//TODO отрефакторить код: переписать на компонентах Material UI
 const Legend = (props) => {
     console.log('Legend props', props);
     const [legendData, setLegendData] = useState([{ value: null, id: null, label: null, color: 'white' }]);

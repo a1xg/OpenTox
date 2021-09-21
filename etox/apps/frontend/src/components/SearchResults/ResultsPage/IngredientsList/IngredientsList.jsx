@@ -1,67 +1,125 @@
-import React from "react";
+import React, { useState } from "react";
 import { NavLink } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import { makeStyles } from "@material-ui/core/styles";
+import {
+    Typography,
+    Table,
+    TableBody,
+    TableCell,
+    TableContainer,
+    TableHead,
+    TableRow,
+    TableFooter,
+    TablePagination,
+    Paper
+} from '@material-ui/core';
 import IngredientRatingBar from './IngredientRatingBar/IngredientRatingBar.jsx';
 import BriefStatistics from './BriefStatistics/BriefStatistics.jsx';
-import { Grid, Typography } from '@material-ui/core';
-import { makeStyles } from "@material-ui/core/styles";
-
+import TablePaginationActions from "./TablePaginationActions/TablePaginationActions.jsx";
 
 const useStyles = makeStyles((theme) => ({
     root: {
         flexGrow: 1,
         padding: theme.spacing(1)
     },
-    header:{
-
-    }
 }));
 
+TablePaginationActions.propTypes = {
+    count: PropTypes.number.isRequired,
+    onPageChange: PropTypes.func.isRequired,
+    page: PropTypes.number.isRequired,
+    rowsPerPage: PropTypes.number.isRequired,
+};
+
+//function createData(name, calories, fat) {
+//    return { name, calories, fat };
+//};
+
+//TODO Сделать пагинацию
 const IngredientsList = (props) => {
     const ingredients = props.data.product_ingredients;
     const classes = useStyles();
+    const [page, setPage] = useState(0);
+    const [rowsPerPage, setRowsPerPage] = useState(5);
+
+    const emptyRows =
+        page > 0 ? Math.max(0, (1 + page) * rowsPerPage - ingredients.length) : 0;
+
+    const handleChangePage = (event, newPage) => {
+        setPage(newPage);
+    };
+
+    const handleChangeRowsPerPage = (event) => {
+        setRowsPerPage(parseInt(event.target.value, 10));
+        setPage(0);
+    };
     console.log('IngredientsList props:', props);
-
+    //!FIXME баг с xs параметром
     return (
-        <Grid container direction="column" spacing={1} className={classes.root}>
-            <Grid item >
-                <Typography variant='h6'>Showing 1-{ingredients.length} of results</Typography>
-            </Grid>
-            <Grid item xs container direction='row' className={classes.header}>
-                <Grid item xs={4}>
-                    <Typography variant='subtitle1'>Name</Typography>
-                </Grid>
-                <Grid item xs={4}>
-                <Typography variant='subtitle1'>Hazard classes</Typography>
-                </Grid>
-                <Grid item xs={4}>
-                <Typography variant='subtitle1'>Rating</Typography>
-                </Grid>
-            </Grid>
+        <TableContainer component={Paper}  >
+            <Table xs={12} >
+                <TableHead>
+                    <TableRow>
+                        <TableCell>Name</TableCell>
+                        <TableCell>Hazard classes</TableCell>
+                        <TableCell>Rating</TableCell>
+                    </TableRow>
+                </TableHead>
+                <TableBody>
+                    {(rowsPerPage > 0
+                        ? ingredients.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                        : ingredients
+                    ).map((ingredient) => (
+                        <TableRow key={ingredient.id}>
+                            <TableCell component="th" scope="row">
+                                <NavLink to={{ pathname: "ingredient/" + ingredient.id }}>
+                                    <Typography variant='h6'>
+                                        {ingredient.main_name}
+                                    </Typography>
+                                </NavLink>
+                            </TableCell>
+                            <TableCell style={{ width: 160 }} align="right">
+                                <BriefStatistics data={ingredient.hazard.hazard_ghs_set} />
+                            </TableCell>
+                            <TableCell style={{ width: 160 }} align="right">
+                                <IngredientRatingBar rating={ingredient.hazard.ingredient_hazard_avg} />
+                            </TableCell>
+                        </TableRow>
+                    ))}
 
-            {ingredients.map(ingredient => {
-                return (
-                    <Grid item xs container direction="row" spacing={1} key={ingredient.id}>
-                        <Grid item xs={4}>
-                            <NavLink to={{ pathname: "ingredient/" + ingredient.id }}>
-                                <Typography variant='h6'>
-                                    {ingredient.main_name}
-                                </Typography>
-                            </NavLink>
-                        </Grid>
-                        <Grid item xs={4}>
-                            <BriefStatistics data={ingredient.hazard.hazard_ghs_set} />
-                        </Grid>
-                        <Grid item xs={4}>
-                            <IngredientRatingBar rating={ingredient.hazard.ingredient_hazard_avg} />
-                        </Grid>
-                    </Grid>
-                )
-            })}
-
-        </Grid>
-
+                    {emptyRows > 0 && (
+                        <TableRow style={{ height: 53 * emptyRows }}>
+                            <TableCell colSpan={6} />
+                        </TableRow>
+                    )}
+                </TableBody>
+                <TableFooter>
+                    <TableRow>
+                        <TablePagination
+                            rowsPerPageOptions={[5, 10, 25, { label: 'All', value: -1 }]}
+                            colSpan={3}
+                            count={ingredients.length}
+                            rowsPerPage={rowsPerPage}
+                            page={page}
+                            SelectProps={{
+                                inputProps: {
+                                    'aria-label': 'rows per page',
+                                },
+                                native: true,
+                            }}
+                            onPageChange={handleChangePage}
+                            onRowsPerPageChange={handleChangeRowsPerPage}
+                            ActionsComponent={TablePaginationActions}
+                        />
+                    </TableRow>
+                </TableFooter>
+            </Table>
+        </TableContainer>
 
     )
 };
 
 export default IngredientsList;
+
+                        

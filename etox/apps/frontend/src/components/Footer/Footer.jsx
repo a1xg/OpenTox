@@ -1,6 +1,6 @@
 import React from 'react';
 import { Box, Link, Container, Divider } from '@material-ui/core';
-
+import { NavLink } from 'react-router-dom';
 import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles((theme) => ({
@@ -19,14 +19,14 @@ const Footer = (props) => {
             <Container maxWidth='lg' className={classes.root} >
                 <Divider></Divider>
                 <Box className={classes.item}>
-                    <Link href='/about'>
+                    <NavLink to='/about'>
                     About
-                    </Link>
+                    </NavLink>
                 </Box>
                 <Box className={classes.item}>
-                    <Link href='/contacts'>
+                    <NavLink to='/contacts'>
                     Contacts
-                    </Link>
+                    </NavLink>
                 </Box>
                 <Box className={classes.item}>
                     <Link href='https://github.com/a1xg/etox'>
