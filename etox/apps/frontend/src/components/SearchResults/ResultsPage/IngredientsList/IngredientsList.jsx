@@ -32,11 +32,6 @@ TablePaginationActions.propTypes = {
     rowsPerPage: PropTypes.number.isRequired,
 };
 
-//function createData(name, calories, fat) {
-//    return { name, calories, fat };
-//};
-
-//TODO Сделать пагинацию
 const IngredientsList = (props) => {
     const ingredients = props.data.product_ingredients;
     const classes = useStyles();
@@ -55,47 +50,50 @@ const IngredientsList = (props) => {
         setPage(0);
     };
     console.log('IngredientsList props:', props);
-    //!FIXME баг с xs параметром
+
     return (
         <TableContainer component={Paper}  >
             <Table xs={12} >
                 <TableHead>
-                    <TableRow>
-                        <TableCell>Name</TableCell>
-                        <TableCell>Hazard classes</TableCell>
-                        <TableCell>Rating</TableCell>
+                    <TableRow xs={12}>
+                        <TableCell xs={6}>Name</TableCell>
+                        <TableCell xs={3}>Hazard classes</TableCell>
+                        <TableCell xs={3}>Rating</TableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>
                     {(rowsPerPage > 0
                         ? ingredients.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                         : ingredients
-                    ).map((ingredient) => (
-                        <TableRow key={ingredient.id}>
-                            <TableCell component="th" scope="row">
-                                <NavLink to={{ pathname: "ingredient/" + ingredient.id }}>
-                                    <Typography variant='h6'>
-                                        {ingredient.main_name}
-                                    </Typography>
-                                </NavLink>
-                            </TableCell>
-                            <TableCell style={{ width: 160 }} align="right">
-                                <BriefStatistics data={ingredient.hazard.hazard_ghs_set} />
-                            </TableCell>
-                            <TableCell style={{ width: 160 }} align="right">
-                                <IngredientRatingBar rating={ingredient.hazard.ingredient_hazard_avg} />
-                            </TableCell>
-                        </TableRow>
-                    ))}
-
+                    ).map((ingredient) => {
+                        return (
+                            <TableRow key={ingredient.id} xs={12}>
+                                <TableCell xs={6}>
+                                    <NavLink to={{ pathname: "ingredient/" + ingredient.id }}>
+                                        <Typography variant='h6'>
+                                            {ingredient.main_name}
+                                        </Typography>
+                                    </NavLink>
+                                </TableCell>
+                                
+                                <TableCell xs={3}>
+                                    <BriefStatistics data={ingredient.hazard.hazard_ghs_set} />
+                                </TableCell>
+                                <TableCell xs={3}>
+                                    <IngredientRatingBar rating={ingredient.hazard.ingredient_hazard_avg} />
+                                </TableCell>
+                            </TableRow>
+                        )
+                    })}
                     {emptyRows > 0 && (
-                        <TableRow style={{ height: 53 * emptyRows }}>
+                        <TableRow xs={12}>
                             <TableCell colSpan={6} />
                         </TableRow>
                     )}
                 </TableBody>
+
                 <TableFooter>
-                    <TableRow>
+                    <TableRow xs={12}>
                         <TablePagination
                             rowsPerPageOptions={[5, 10, 25, { label: 'All', value: -1 }]}
                             colSpan={3}
@@ -122,4 +120,3 @@ const IngredientsList = (props) => {
 
 export default IngredientsList;
 
-                        

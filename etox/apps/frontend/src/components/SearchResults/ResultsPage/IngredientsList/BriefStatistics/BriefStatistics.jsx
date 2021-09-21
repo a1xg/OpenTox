@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import { Grid, Container } from "@material-ui/core";
+import { Grid, Box } from "@material-ui/core";
 import { colorMap } from '../../../../Charts/ChartsConfig';
 
 
@@ -27,30 +27,29 @@ const getColors = (data) => {
     return colors;
 };
 
+//TODO сделать всплывающую подсказку при наведении на один из 'кружков'.
 const BriefStatistics = (props) => {
     console.log('BriefStatistics props', props);
-    const [colors, setColors] = useState([]);
+    const [colors, setColors] = useState(['white']);
     const classes = useStyles();
 
     useEffect(() => {
         const col = getColors(props.data);
         setColors(col);
-    },[props])
+    }, [props])
 
     return (
-        <Container>
-            <Grid item xs container direction="row" spacing={1} className={classes.root}>
-                {colors.map(color => {
-                    return (
-                        <Grid item xs={0} key={color}>
-                            <svg width='14' height='14' >
-                                <circle cx="7" cy="7" r="7" fill={color} />
-                            </svg>
-                        </Grid>
-                    )
-                })}
-            </Grid>
-        </Container>
+        <Grid item xs container direction="row" spacing={1} className={classes.root}>
+            {colors.map(color => {
+                return (
+                    <Grid item xs={0} key={color} xs={2}>
+                        <svg width='14' height='14' >
+                            <circle cx="7" cy="7" r="7" fill={color} />
+                        </svg>
+                    </Grid>
+                )
+            })}
+        </Grid>
     )
 };
 
