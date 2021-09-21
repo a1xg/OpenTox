@@ -41,7 +41,6 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const SearchForm = (props) => {
-    console.log('SearchForm CSRFtoken', CSRFToken)
     const form = useRef(undefined);
     const history = useHistory();
     const classes = useStyles();

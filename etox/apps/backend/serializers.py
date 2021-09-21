@@ -116,7 +116,7 @@ class GHSListSerializer(serializers.Serializer):
     #abbreviation = serializers.CharField()
     #hazard_category = serializers.CharField()
     #ghs_code = serializers.CharField()
-    #description = serializers.CharField()
+    description = serializers.CharField()
     #hazard_scale_score = serializers.IntegerField()
     #number_of_notifiers = serializers.IntegerField()
     #percent_notifications = serializers.IntegerField()

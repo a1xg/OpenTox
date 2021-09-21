@@ -1,7 +1,8 @@
 import pandas as pd
 from collections import OrderedDict
 import json
-
+# FIXME в detail_hazard_product не попадает класс 'NO_DATA_AVAILABLE',
+#  а для большей понятности желательно его не выбрасывать
 class HazardMeter:
     def __init__(self, data: list, display_format: str):
         """
