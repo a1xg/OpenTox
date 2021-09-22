@@ -8,7 +8,7 @@ const PercentNotifications = (props) => {
     useEffect(() => {
         const data = getData({
             dataset: props.searchResults.data.ingredient.hazard.hazard_ghs_set,
-            id: 'hazard_class',
+            key: 'hazard_class',
             value: 'percent_notifications',
             label: 'description',
         });

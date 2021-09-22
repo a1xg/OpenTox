@@ -19,25 +19,17 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-const getData = (data) => {
-    //const colors = [];
-    data.map(item => {
-        //colors.push(colorMap[item.hazard_class]);
-        item.color = colorMap[item.hazard_class]
-    });
-    return data;
-};
-
-//TODO сделать tooltip для краткой статистики.
 const BriefStatistics = (props) => {
-    console.log('BriefStatistics props', props);
-    const [data, setData] = useState([{ color: null, description: null, hazard_class: null, id: null }]);
+    //console.log('BriefStatistics props', props);
+    const [data, setData] = useState([{ color: 'white', description: '', hazard_class: '', id: null }]);
     const classes = useStyles();
 
     useEffect(() => {
-        const d = getData(props.data);
-        setData(d);
-    }, [props])
+        props.data.map(item => { 
+            item.color = colorMap[item.hazard_class]
+        });
+        setData(props.data);
+    }, [props]);
 
     return (
         <Grid item xs container direction="row" spacing={1} className={classes.root}>

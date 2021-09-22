@@ -9,9 +9,9 @@ const VolumeFractions = (props) => {
     useEffect(() => {
         const data = getData({
             dataset: props.searchResults.data.detail_hazard_product,
-            label: 'description',
-            id: 'hazard_class',
-            value: 'num_of_ingredients'
+            key: 'hazard_class',
+            value: 'num_of_ingredients',
+            label: 'description'
         });
         setChartData(data)
 
@@ -20,7 +20,7 @@ const VolumeFractions = (props) => {
 
     return (
         <div className='vol'>
-            <Doughnut data={chartData} />
+            <Doughnut data={chartData} total_rating={props.searchResults.data.product_hazard_avg} />
         </div>
     )
 };

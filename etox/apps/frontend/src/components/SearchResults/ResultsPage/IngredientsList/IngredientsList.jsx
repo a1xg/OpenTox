@@ -70,8 +70,10 @@ const IngredientsList = (props) => {
                             <TableRow key={ingredient.id} xs={12}>
                                 <TableCell xs={6}>
                                     <NavLink to={{ pathname: "ingredient/" + ingredient.id }}>
-                                        <Typography variant='h6'>
-                                            {ingredient.main_name}
+                                        <Typography variant='subtitle1'>
+                                            {ingredient.main_name[0]+ingredient.main_name
+                                            .substring(1)
+                                            .toLowerCase() }
                                         </Typography>
                                     </NavLink>
                                 </TableCell>
@@ -91,7 +93,6 @@ const IngredientsList = (props) => {
                         </TableRow>
                     )}
                 </TableBody>
-
                 <TableFooter>
                     <TableRow xs={12}>
                         <TablePagination

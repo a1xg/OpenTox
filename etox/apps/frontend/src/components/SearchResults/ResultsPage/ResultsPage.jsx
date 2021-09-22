@@ -26,7 +26,6 @@ const useStyles = makeStyles((theme) => ({
         color: theme.palette.text.secondary,
         display: "flex",
     },
-
     tape: {
         padding: theme.spacing(0),
         textAlign: "center",
@@ -42,6 +41,7 @@ const ResultsPage = (props) => {
     return (
         <Grid container direction="column" spacing={2} className={classes.root}>
             <Grid item xs={12} >
+                {/*
                 <Grid item xs container direction="row" spacing={2} alignItems="stretch">
                     <Grid item xs={12} >
                         <Paper className={classes.tape} elevation={3} >
@@ -49,6 +49,7 @@ const ResultsPage = (props) => {
                         </Paper>
                     </Grid>
                 </Grid>
+                */}
                 <Grid item xs container direction="row" spacing={2}>
                     <Grid item xs={4} >
                         <Paper className={classes.diagram} elevation={3}>

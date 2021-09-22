@@ -9,7 +9,7 @@ import Footer from './components/Footer/Footer.jsx';
 import Logo from './components/Logo/Logo.jsx';
 import Header from './components/Header/Header.jsx';
 import style from './App.module.css';
-import { Container, Grid, Paper, useScrollTrigger } from '@material-ui/core';
+import { Container, Grid, Box, useScrollTrigger } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
 
@@ -51,11 +51,11 @@ const App = (props) => {
 
   return (
     <Container maxWidth={'xl'} className={classes.app}>
-      <Grid container spacing={3}>
-        <Grid item xs={12}>
+      <Grid container spacing={3} >
+        <Grid item xs={12} >
           <SideBar />
         </Grid>
-        <Grid item xs={12}>
+        <Grid item xs={12} >
           <Grid
             container
             alignItems="center"
@@ -63,14 +63,14 @@ const App = (props) => {
             <SearchForm path='/' setQuery={setQuery} />
           </Grid>
         </Grid>
-        <Grid item xs={12}>
-          <Container maxWidth={'lg'}>
+        <Grid item xs={12} >
+          <Container maxWidth={'lg'}> 
             <Route exact path='/search-results' component={() => <SearchResults searchResults={searchResults} />} />
             <Route path='/ingredient/:ingredientID' component={Ingredient} />
             <Route exact path='/about' component={About} />
           </Container>
         </Grid>
-        <Grid item xs={12}>
+        <Grid item xs={12} >
           <Container maxWidth={'lg'}>
             <Footer />
           </Container>

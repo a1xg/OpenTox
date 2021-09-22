@@ -9,11 +9,13 @@ const HazardLevel = (props) => {
     useEffect(() => {
         const data = getData({
             dataset: props.searchResults.data.detail_hazard_product, 
-            id:'hazard_class',
+            key:'hazard_class',
             value:'hazard_scale_score',
             label:'description',
+            notAvailableIgnore: true,
         });
-        setChartData(data)
+        console.log('HazardLevel Final data:', data);
+        setChartData(data);
 
     }, [props]);
 

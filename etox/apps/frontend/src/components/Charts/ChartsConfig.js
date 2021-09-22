@@ -1,5 +1,4 @@
 
-
 const colorMap = {
     'ASPIRATION_TOXICITY':'#8ed4c8',
     'SKIN_CORROSION_IRRITATION':'#bfbbdb',
@@ -12,19 +11,6 @@ const colorMap = {
     'TARGET_ORGAN_TOXICITY':'#bd81be',
     'NO_DATA_AVAILABLE': '#dadada',
 }
-
-/* 
-    'ASPIRATION_TOXICITY':
-    'SKIN_CORROSION_IRRITATION':"Causes skin irritation"
-    'EYE_DAMAGE_IRRITATION':"Causes serious eye irritation"
-    'RESPIRATORY_SKIN_SENSITISERS':"May cause an allergic skin reaction"
-    'ACUTE_TOXICITY':"Harmful if swallowed"
-    'MUTAGENICITY':"Suspected of causing genetic defects"
-    'CARCINOGENICITY':"Suspected of causing cancer"
-    'REPRODUCTIVE_TOXICITY':"May damage fertility or the unborn child."
-    'TARGET_ORGAN_TOXICITY':"May cause respiratory irritation."
-    'NO_DATA_AVAILABLE': 'Data ton avaliable'
-*/
 
 const defs = [
     {

@@ -2,6 +2,8 @@ import React from 'react';
 import RatingBar from '../../../../Charts/RatingBar.jsx';
 import style from './IngredientRatingBar.module.css';
 
+// !TODO перенести рейтинг бары на nivo или SVG
+
 const IngredientRatingBar = (props) => {
     return (
         <div className={style['rating-bar']}>
