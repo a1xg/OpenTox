@@ -9,13 +9,24 @@ import Footer from './components/Footer/Footer.jsx';
 import Logo from './components/Logo/Logo.jsx';
 import Header from './components/Header/Header.jsx';
 import style from './App.module.css';
-import { Container, Grid, Box, useScrollTrigger } from '@material-ui/core';
+import { Container, Grid, Box, useScrollTrigger, createTheme } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-
 
 // * useScrollTrigger  для переключения строки поиска в appbar при скролле
 // * у https://devexpress.github.io/ есть еще неплохие гриды 
 // * для вывода табличных данных с встроенными графиками и пагинацией
+
+const theme = createTheme({
+  breakpoints: {
+    values: {
+      xs: 0,
+      sm: 450,
+      md: 600,
+      lg: 900,
+      xl: 1200
+    },
+  },
+});
 
 const useStyles = makeStyles((theme) => ({
   app: {

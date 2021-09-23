@@ -1,17 +1,16 @@
 import React from 'react';
 import { ResponsivePie } from '@nivo/pie';
-//import { fill, defs } from './ChartsConfig';
 import { makeStyles } from "@material-ui/core/styles";
 import { Container, Typography } from '@material-ui/core';
+import { ratingBarColorMap } from './ChartsConfig';
 
 // версия с которой норм работает Doughnut 0.62.0, с весиями выше - вместо label отображается id
-//! пример использованя текста внутри пирога https://codesandbox.io/s/w27xwy0xlk?file=/src/index.js
 //!TODO предусмотреть кроссбраузерность текста внутри ResponsivePie
 
 const margin = { top: 40, right: 40, bottom: 40, left: 40 };
 
 const useStyles = makeStyles((theme) => ({
-  root:{
+  root: {
     fontFamily: "consolas, sans-serif",
     textAlign: "center",
     position: "relative",
@@ -29,7 +28,7 @@ const useStyles = makeStyles((theme) => ({
     alignItems: "center",
     justifyContent: "center",
     fontSize: 48,
-    color: "green",
+    //color: green,
     textAlign: "center",
     pointerEvents: "none"
   }
@@ -63,10 +62,17 @@ const Doughnut = (props) => {
         animate={true}
         enableRadialLabels={false}
       />
-    <div className={classes.overlay}>
-      <Typography variant='h6'>General danger</Typography>
-      <Typography variant='h3'>{props.total_rating}/10</Typography>
-    </div>
+      <div className={classes.overlay}>
+        <Typography variant='h6'>General danger</Typography>
+        <Typography
+          variant='h3'
+          style={{
+            color: ratingBarColorMap[Math.round(props.total_rating)]
+          }}
+        >
+          {props.total_rating}/10
+        </Typography>
+      </div>
     </Container>
 
 

@@ -34,7 +34,7 @@ const Legend = (props) => {
                 <Grid item xs container direction='row' className={classes.rowItem}>
                     {legendData.map(item => {
                         return (
-                            <Grid item xs container direction='row'>
+                            <Grid item xs container direction='row' key={item.id}>
                                 <Grid item xs={2}>
                                     <svg width='40' height='20' >
                                         <rect x="0" y="0" width="40" height="20" fill={item.color} />

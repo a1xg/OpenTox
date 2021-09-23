@@ -9,7 +9,7 @@ const getColors = (data) => {
   });
   return colors
 };
-
+//!FIXME максимальное значение измерительной шкалы не зафиксировано 
 const Bar = (props) => {
   console.log('Bar props', props);
   return (

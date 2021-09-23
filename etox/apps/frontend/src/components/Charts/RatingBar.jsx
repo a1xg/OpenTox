@@ -1,64 +1,65 @@
 import React from 'react';
-import { Bar } from 'react-chartjs-2';
+//import './RatingBar.css';
+import { Box, Grid, Tooltip } from '@material-ui/core';
+import { ratingBarColorMap } from './ChartsConfig';
+import { makeStyles } from '@material-ui/core';
+import { BorderBottom } from '@material-ui/icons';
 
-const data = [
 
-    {
-        id: "cost",
-        ranges: [3.5,6.5,10],
-        measures: [0],
-        markers: [8]
-    }
-];
+const useStyles = makeStyles((theme) => ({
+    row: {
+        'display': 'flex',
+        'flex-wrap': 'wrap',
+        'flex-direction': 'row',
+        'justify-content': 'start',
+        'align-items': 'auto',
+        'align-content': 'start',
+        background:'gray',
+        borderRadius:'4px'
+     },
+    column:{
+        width:'10%',
+        height:'10px',  
+        background:'light-gray',
+    },
+    item: {
+        width:'100%',
+        height:'100%',
+        borderRadius:'2px'
+    },
+}))
 
-// !TODO перенести рейтинг бары на nivo или SVG
+// !TODO перенести рейтинг бары на nivo или SVG, в стиле segmented progress bar
 const RatingBar = (props) => {
-    const width = props.width;
-    const height = props.height;
+    console.log('RatingBar props', props)
+    const classes = useStyles();
 
-    const getData = (canvas) => {
-        const ctx = canvas.getContext("2d");
-        const gradient = ctx.createLinearGradient(0, 0, width, 0);
-        gradient.addColorStop(0, 'rgba(0, 255, 0, 1)');
-        gradient.addColorStop(1, 'rgba(255, 0, 0, 1)');
+    const rating = Math.round(props.rating);
 
-        return {
-            labels: [''],
-            datasets: [
-                {
-                    backgroundColor: gradient,
-                    borderColor: 'rgba(0, 255, 0, 0.6)',
-                    borderWidth: 1,
-                    data: [props.rating]
-                }
-            ]
-        }
+    const getRectangles = (props) => {
+        let rects = []
+        for (let i = 1; i <= 10; i++) {
+            rects.push(
+                <Tooltip title={i}>
+                    <Box className={classes.column} >
+                        {i <= rating &&
+                            <Box className={classes.item} style={{ background: ratingBarColorMap[i] }}>
+                            </Box>
+                        }
+                    </Box>
+                </Tooltip>
+            );
+        };
+        return rects;
     };
-
-    const options = {
-        scales: {
-            x: {
-                suggestedMin: 0,
-                suggestedMax: 10
-            }
-        },
-        indexAxis: 'y',
-        responsive: true,
-        plugins: {
-            legend: {
-                display: false,
-                position: 'left',
-            },
-            title: {
-                display: false,
-                text: props.title,
-            },
-        },
-    };
-
+    const rects = getRectangles();
+    console.log('getRectangles', rects);
+    //!TODO переделать черт на серый прямоугольник, в который будут вписаны 10 малых прямоугольников с паддингами
     return (
-        <div style={{ widht: "100px", height: "20px" }}>
-            <Bar data={getData} options={options} />
+        <div className={classes.row}>
+            {rects.map((rect) => {
+                return rect
+            })}
         </div>
     );
 };

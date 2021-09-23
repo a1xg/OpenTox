@@ -1,12 +1,11 @@
 import React from 'react';
 import RatingBar from '../../../../Charts/RatingBar.jsx';
-import style from './Rating.module.css';
 
 // !TODO перенести рейтинг бары на nivo или SVG
 
 const Rating = (props) => {
     return (
-        <div className={style['rating-bar']}>
+        <div style={{width:200, height:20}}>
             <RatingBar
                 rating={props.rating}
                 width={100}

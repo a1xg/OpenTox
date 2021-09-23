@@ -47,16 +47,20 @@ const IngredientPage = (props) => {
             <NavLink to='/search-results'>Back to search results</NavLink>
             <Grid item xs container direction="column" spacing={0} className={classes.root}>
                 <Grid item xs={12}>
-                    <Grid item xs container direction="row" spacing={2}>
-                        <Grid item xs={4}>
-                            <Title data={props.searchResults.data} />
-                        </Grid>
-                    </Grid>
-                    <Grid item xs container direction="row" spacing={1} alignItems="stretch">
+                    <Grid item xs container direction="row" spacing={1}>
                         <Grid item xs={3}>
-                            <Paper className={classes.details}>
-                                <Details data={props.searchResults.data} />
-                            </Paper>
+                            <Grid item xs container direction="column" spacing={1} >
+                                <Grid item xs={12}>
+                                    <Paper className={classes.details}>
+                                        <Title data={props.searchResults.data} />
+                                    </Paper>
+                                </Grid>
+                                <Grid item xs={12} >
+                                    <Paper className={classes.details}>
+                                        <Details data={props.searchResults.data} />
+                                    </Paper>
+                                </Grid>
+                            </Grid>
                         </Grid>
                         <Grid item xs={9}>
                             <Grid item xs container direction="column" spacing={1}>

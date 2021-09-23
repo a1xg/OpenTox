@@ -78,10 +78,10 @@ const IngredientsList = (props) => {
                                     </NavLink>
                                 </TableCell>
                                 
-                                <TableCell xs={3}>
+                                <TableCell xs={2}>
                                     <BriefStatistics data={ingredient.hazard.hazard_ghs_set} />
                                 </TableCell>
-                                <TableCell xs={3}>
+                                <TableCell xs={4}>
                                     <IngredientRatingBar rating={ingredient.hazard.ingredient_hazard_avg} />
                                 </TableCell>
                             </TableRow>

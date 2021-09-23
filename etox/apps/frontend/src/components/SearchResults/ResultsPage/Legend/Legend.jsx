@@ -15,8 +15,7 @@ const useStyles = makeStyles((theme) => ({
         textAlign: 'left'
     },
     svg: {
-        alignContent: 'center'
-    },
+        alignContent: 'center'    },
     wrapper:  {
         padding: theme.spacing(1),
         alignContent: 'center'

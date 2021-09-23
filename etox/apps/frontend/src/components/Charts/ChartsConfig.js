@@ -1,14 +1,28 @@
 
-const colorMap = {
-    'ASPIRATION_TOXICITY':'#8ed4c8',
-    'SKIN_CORROSION_IRRITATION':'#bfbbdb',
-    'EYE_DAMAGE_IRRITATION':'#ffee70',
-    'RESPIRATORY_SKIN_SENSITISERS':'#fb8173',
-    'ACUTE_TOXICITY':'#81b2d4',
-    'MUTAGENICITY':'#fdb562',
-    'CARCINOGENICITY':'#b4df69',
-    'REPRODUCTIVE_TOXICITY':'#fccee6',
-    'TARGET_ORGAN_TOXICITY':'#bd81be',
+//!TODO написать цветовую карту для RatingBar
+const ratingBarColorMap = {
+    1: '#13ff00',
+    2: '#46ff00',
+    3: '#7aff00',
+    4: '#aaff00',
+    5: '#d7ff00',
+    6: '#fff700',
+    7: '#ff9d00',
+    8: '#ff6900',
+    9: '#ff3300',
+    10: '#ff0300',
+};
+
+const chartColorMap = {
+    'ASPIRATION_TOXICITY': '#8ed4c8',
+    'SKIN_CORROSION_IRRITATION': '#bfbbdb',
+    'EYE_DAMAGE_IRRITATION': '#ffee70',
+    'RESPIRATORY_SKIN_SENSITISERS': '#fb8173',
+    'ACUTE_TOXICITY': '#81b2d4',
+    'MUTAGENICITY': '#fdb562',
+    'CARCINOGENICITY': '#b4df69',
+    'REPRODUCTIVE_TOXICITY': '#fccee6',
+    'TARGET_ORGAN_TOXICITY': '#bd81be',
     'NO_DATA_AVAILABLE': '#dadada',
 }
 
@@ -46,28 +60,12 @@ const fill = [
         },
         id: 'dots'
     },
-    /*
-    {
-        match: {
-           id: 'EYE_DAMAGE_IRRITATION'
-       },
-        id: 'dots'
-    },
-    */
     {
         match: {
             id: 'RESPIRATORY_SKIN_SENSITISERS'
         },
         id: 'dots'
     },
-    /*
-    {
-        match: {
-            id: 'ACUTE_TOXICITY'
-        },
-        id: 'lines'
-    },
-    */
     {
         match: {
             id: 'MUTAGENICITY'
@@ -100,4 +98,4 @@ const fill = [
     }
 ];
 
-export { fill, defs, colorMap };
+export { fill, defs, chartColorMap, ratingBarColorMap };

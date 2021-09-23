@@ -1,4 +1,4 @@
-import { colorMap } from './ChartsConfig'
+import { chartColorMap } from './ChartsConfig'
 
 const getData = (props) => {
     console.log('getData props', props)
@@ -10,7 +10,7 @@ const getData = (props) => {
                     id: item[props.key],
                     label: item[props.label], 
                     value: item[props.value],
-                    color: colorMap[item[props.key]]
+                    color: chartColorMap[item[props.key]]
                 });
             }
         } else {
@@ -18,7 +18,7 @@ const getData = (props) => {
                 id: item[props.key],
                 label: item[props.label], 
                 value: item[props.value],
-                color: colorMap[item[props.key]]
+                color: chartColorMap[item[props.key]]
             });
         };
     });

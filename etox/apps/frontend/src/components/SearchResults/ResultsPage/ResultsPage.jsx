@@ -6,7 +6,6 @@ import HazardLevel from './HazardLevel/HazardLevel.jsx';
 import Legend from './Legend/Legend.jsx';
 import ProductPhoto from './ProductPhoto/ProductPhoto.jsx';
 import VolumeFractions from './VolumeFractions/VolumeFractions.jsx';
-import ProductRatingBar from './ProductRatingBar/ProductRatingBar.jsx';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -41,15 +40,6 @@ const ResultsPage = (props) => {
     return (
         <Grid container direction="column" spacing={2} className={classes.root}>
             <Grid item xs={12} >
-                {/*
-                <Grid item xs container direction="row" spacing={2} alignItems="stretch">
-                    <Grid item xs={12} >
-                        <Paper className={classes.tape} elevation={3} >
-                            <ProductRatingBar rating={props.searchResults.data.product_hazard_avg} />
-                        </Paper>
-                    </Grid>
-                </Grid>
-                */}
                 <Grid item xs container direction="row" spacing={2}>
                     <Grid item xs={4} >
                         <Paper className={classes.diagram} elevation={3}>
