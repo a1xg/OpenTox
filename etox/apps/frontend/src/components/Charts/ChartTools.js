@@ -18,7 +18,8 @@ const getData = (props) => {
                 id: item[props.key],
                 label: item[props.label], 
                 value: item[props.value],
-                color: chartColorMap[item[props.key]]
+                color: chartColorMap[item[props.key]],
+                
             });
         };
     });

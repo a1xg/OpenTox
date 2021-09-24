@@ -1,8 +1,7 @@
 import pandas as pd
 from collections import OrderedDict
 import json
-# FIXME в detail_hazard_product не попадает класс 'NO_DATA_AVAILABLE',
-#  а для большей понятности желательно его не выбрасывать
+
 class HazardMeter:
     def __init__(self, data: list, display_format: str):
         """
@@ -21,7 +20,7 @@ class HazardMeter:
         # если количество ингредиентов = 1 то опасность продукта = опасности ингредиента
         all_ingredients_haz_detail, all_ingredients_haz_general = self._ingredients_hazard_filter()
         if self._display_format == 'detail':
-            return self._data[0] # {'product_ingredients': self._data}
+            return self._data[0]
         elif self._display_format ==  'list':
             return {
                 'product_ingredients': self._data,
@@ -47,10 +46,6 @@ class HazardMeter:
                 ingredient['hazard']['ingredient_hazard_avg'] = general_hazard
                 # формируем наборы данных для отображения в списке результатов или для страницы каждого ингредиента
                 ingredient['hazard']['hazard_ghs_set'] = aggregated_df.to_dict('records')
-                #if self._display_format == 'list':
-                #    del ingredient['hazard']['hazard_ghs_set']
-                #elif self._display_format == 'detail':
-                #    ingredient['hazard']['hazard_ghs_set'] = aggregated_df.to_dict('records')
             else:
                 ingredient['hazard']['ingredient_hazard_avg'] = None
         return all_hazard_detail, all_general_hazard
@@ -109,7 +104,9 @@ class HazardMeter:
         if dataframes:
             df = pd.concat(dataframes, ignore_index=True) # объединяем данные об опасности всех ингредиентов
             df.drop(['ghs_code', 'confirmed_status','number_of_notifiers','percent_notifications'], axis=1, inplace=True)
-            df = df[df.hazard_class != self._NA]
+            # FIXME в detail_hazard_product не попадает класс 'NO_DATA_AVAILABLE',
+            #  а для большей понятности желательно его не выбрасывать
+            #df = df[df.hazard_class != self._NA]
             same_classes = df.groupby(['hazard_class']) # группируем одинаковые классы опасности
         else:
             return []

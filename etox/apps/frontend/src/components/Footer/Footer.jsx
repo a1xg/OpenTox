@@ -15,7 +15,6 @@ const useStyles = makeStyles((theme) => ({
 const Footer = (props) => {
     const classes = useStyles();
     return (
-        <Box bgcolor='secondary' >
             <Container maxWidth='lg' className={classes.root} >
                 <Divider></Divider>
                 <Box className={classes.item}>
@@ -34,7 +33,6 @@ const Footer = (props) => {
                     </Link>
                 </Box>
             </Container>
-        </Box>
     )
 };
 

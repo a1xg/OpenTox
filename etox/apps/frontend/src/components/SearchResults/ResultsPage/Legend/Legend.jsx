@@ -15,7 +15,8 @@ const useStyles = makeStyles((theme) => ({
         textAlign: 'left'
     },
     svg: {
-        alignContent: 'center'    },
+        alignContent: 'center'    
+    },
     wrapper:  {
         padding: theme.spacing(1),
         alignContent: 'center'
@@ -47,8 +48,8 @@ const Legend = (props) => {
                         <Grid item xs={12} key={item.id}>
                             <Grid item xs container direction="row" className={classes.rowItem}>
                                 <Grid item xs={2} className={classes.svg} >
-                                    <svg width='40' height='20' >
-                                        <rect x="0" y="0" width="40" height="20" fill={item.color} />
+                                    <svg width='40' height='14' >
+                                        <rect x="0" y="0" width="40" height="14" rx="7" fill={item.color} />
                                     </svg>
                                 </Grid>
                                 <Grid item xs={10} className={classes.text}>

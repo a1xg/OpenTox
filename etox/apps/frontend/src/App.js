@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { Route } from 'react-router-dom'
 import SearchForm from './components/SearchForm/SearchForm.jsx'
-import SearchResults from './components/SearchResults/SearchResults.jsx';
+import SearchResultsContainer from './components/SearchResults/SearchResultsContainer.jsx';
 import About from './components/About/About.jsx';
-import Ingredient from './components/Ingredient/Ingredient.jsx';
+import IngredientContainer from './components/Ingredient/IngredientContainer.jsx';
 import SideBar from './components/SideBar/SideBar.jsx';
 import Footer from './components/Footer/Footer.jsx';
 import Logo from './components/Logo/Logo.jsx';
@@ -12,28 +12,19 @@ import style from './App.module.css';
 import { Container, Grid, Box, useScrollTrigger, createTheme } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
+// TODO Сделать очистку searchQuery и searchResults
+// TODO вынести Paper в вызываемые компоненты, а компоненты в свою очередь оборачивать в единый для всех ItemCart
+// TODO Уменьшить ширину app.container до 1024
 // * useScrollTrigger  для переключения строки поиска в appbar при скролле
-// * у https://devexpress.github.io/ есть еще неплохие гриды 
-// * для вывода табличных данных с встроенными графиками и пагинацией
 
-const theme = createTheme({
-  breakpoints: {
-    values: {
-      xs: 0,
-      sm: 450,
-      md: 600,
-      lg: 900,
-      xl: 1200
-    },
-  },
-});
 
 const useStyles = makeStyles((theme) => ({
   app: {
     backgroundColor: '#EFFFF3',
+    height:'100%',
   }
 }));
-// !TODO Сделать очистку searchQuery и searchResults
+
 const App = (props) => {
   const classes = useStyles();
   const [searchQuery, setQuery] = useState();
@@ -76,8 +67,8 @@ const App = (props) => {
         </Grid>
         <Grid item xs={12} >
           <Container maxWidth={'lg'}> 
-            <Route exact path='/search-results' component={() => <SearchResults searchResults={searchResults} />} />
-            <Route path='/ingredient/:ingredientID' component={Ingredient} />
+            <Route exact path='/search-results' component={() => <SearchResultsContainer searchResults={searchResults} />} />
+            <Route path='/ingredient/:ingredientID' component={IngredientContainer} />
             <Route exact path='/about' component={About} />
           </Container>
         </Grid>

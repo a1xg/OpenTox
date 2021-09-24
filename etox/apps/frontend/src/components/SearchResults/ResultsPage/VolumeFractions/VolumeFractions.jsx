@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { getData } from '../../../Charts/ChartTools';
 import Doughnut from '../../../Charts/Doughnut.jsx';
+import ItemCard from "../../../ItemCard/ItemCard.jsx";
+
 import './VolumeFractions.css';
 
 const VolumeFractions = (props) => {
@@ -17,11 +19,8 @@ const VolumeFractions = (props) => {
 
     }, [props])
 
-
     return (
-        <div className='vol'>
             <Doughnut data={chartData} total_rating={props.searchResults.data.product_hazard_avg} />
-        </div>
     )
 };
 

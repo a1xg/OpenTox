@@ -33,13 +33,12 @@ TablePaginationActions.propTypes = {
 };
 
 const IngredientsList = (props) => {
+    console.log('IngredientsList props', props)
     const ingredients = props.data.product_ingredients;
     const classes = useStyles();
     const [page, setPage] = useState(0);
     const [rowsPerPage, setRowsPerPage] = useState(5);
-
-    const emptyRows =
-        page > 0 ? Math.max(0, (1 + page) * rowsPerPage - ingredients.length) : 0;
+    const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - ingredients.length) : 0;
 
     const handleChangePage = (event, newPage) => {
         setPage(newPage);
@@ -52,13 +51,13 @@ const IngredientsList = (props) => {
     console.log('IngredientsList props:', props);
 
     return (
-        <TableContainer component={Paper}  >
+        <TableContainer  >
             <Table xs={12} >
                 <TableHead>
-                    <TableRow xs={12}>
-                        <TableCell xs={6}>Name</TableCell>
-                        <TableCell xs={3}>Hazard classes</TableCell>
-                        <TableCell xs={3}>Rating</TableCell>
+                    <TableRow>
+                        <TableCell>Name</TableCell>
+                        <TableCell >Hazard classes</TableCell>
+                        <TableCell >Rating</TableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>
@@ -67,8 +66,8 @@ const IngredientsList = (props) => {
                         : ingredients
                     ).map((ingredient) => {
                         return (
-                            <TableRow key={ingredient.id} xs={12}>
-                                <TableCell xs={6}>
+                            <TableRow key={ingredient.id} >
+                                <TableCell align="left">
                                     <NavLink to={{ pathname: "ingredient/" + ingredient.id }}>
                                         <Typography variant='subtitle1'>
                                             {ingredient.main_name[0]+ingredient.main_name
@@ -77,24 +76,23 @@ const IngredientsList = (props) => {
                                         </Typography>
                                     </NavLink>
                                 </TableCell>
-                                
-                                <TableCell xs={2}>
+                                <TableCell align="center">
                                     <BriefStatistics data={ingredient.hazard.hazard_ghs_set} />
                                 </TableCell>
-                                <TableCell xs={4}>
+                                <TableCell align="center">
                                     <IngredientRatingBar rating={ingredient.hazard.ingredient_hazard_avg} />
                                 </TableCell>
                             </TableRow>
                         )
                     })}
                     {emptyRows > 0 && (
-                        <TableRow xs={12}>
+                        <TableRow >
                             <TableCell colSpan={6} />
                         </TableRow>
                     )}
                 </TableBody>
                 <TableFooter>
-                    <TableRow xs={12}>
+                    <TableRow >
                         <TablePagination
                             rowsPerPageOptions={[5, 10, 25, { label: 'All', value: -1 }]}
                             colSpan={3}

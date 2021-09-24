@@ -5,9 +5,8 @@ import { makeStyles, withStyles } from '@material-ui/core/styles';
 import IconButton from '@material-ui/core/IconButton';
 import Search from '@material-ui/icons/Search';
 import ImageForm from "./ImageForm/ImageForm.jsx";
-import CSRFToken from './csrftoken.jsx';
+//import CSRFToken from './csrftoken.jsx';
 
-// !TODO Подправить стили форм
 const CssTextField = withStyles({
     root: {
         '& label.Mui-focused': {
@@ -18,26 +17,30 @@ const CssTextField = withStyles({
         },
         '& .MuiOutlinedInput-root': {
             '& fieldset': {
-                borderColor: 'red',
-                borderRadius: `5px`,
+                borderColor: 'lightgray',
+                borderRadius: `28px`,
             },
             '&:hover fieldset': {
-                borderColor: 'yellow',
+                borderColor: '#44924C',
             },
             '&.Mui-focused fieldset': {
-                borderColor: 'green',
+                borderColor: '#44924C',
             },
         },
     },
 })(TextField);
-
 
 const useStyles = makeStyles((theme) => ({
     input: {
         margin: theme.spacing(1),
         width:530,
     },
-
+    button: {
+        "& :visited": { color: "gray" },
+        "& :hover": { color: "#44924C" },
+        "& :active": { color: "gray" },
+        color: 'gray'
+    }
 }));
 
 const SearchForm = (props) => {
@@ -72,9 +75,8 @@ const SearchForm = (props) => {
                         <InputAdornment position="end">
                             <ImageForm setQuery={props.setQuery} />
                             <IconButton
-                                variant="contained"
-                                color="primary"
                                 type="submit"
+                                className={classes.button} 
                             >
                                 <Search />
                             </IconButton>

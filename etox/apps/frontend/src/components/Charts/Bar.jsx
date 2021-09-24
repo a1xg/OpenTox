@@ -25,13 +25,13 @@ const Bar = (props) => {
         bottom: 50,
         left: 60
       }}
-      padding={0.3}
+      padding={0.7}
       defs={defs}
       fill={fill}
       layout="vertical"
       borderColor="inherit:darker(1.6)"
       enableLabel={false}
-      enableGridX={true}
+      enableGridX={false}
       enableGridY={false}
       axisBottom={null}
     />

@@ -3,16 +3,20 @@ import { useHistory } from "react-router-dom";
 import IconButton from '@material-ui/core/IconButton';
 import PhotoCamera from '@material-ui/icons/PhotoCamera';
 import { makeStyles } from '@material-ui/core/styles';
-import style from '../SearchForm.module.css';
 
 const useStyles = makeStyles((theme) => ({
     root: {
-        button: {
-            margin: theme.spacing(1),
-        },
+        
     },
     input: {
         display: 'none',
+    },
+    button: {
+        margin: theme.spacing(1),
+        "& :visited": { color: "gray" },
+        "& :hover": { color: "#44924C" },
+        "& :active": { color: "gray" },
+        color: 'gray'
     },
 }));
 
@@ -45,7 +49,7 @@ const ImageForm = (props) => {
 
             <label htmlFor="icon-button-file">
             <IconButton
-                color="primary"
+                //color="primary"
                 aria-label="upload picture"
                 className={classes.button}
                 component="span">
@@ -56,4 +60,4 @@ const ImageForm = (props) => {
     )
 };
 
-export default ImageForm
+export default ImageForm;

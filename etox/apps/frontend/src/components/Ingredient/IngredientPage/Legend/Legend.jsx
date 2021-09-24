@@ -36,8 +36,8 @@ const Legend = (props) => {
                         return (
                             <Grid item xs container direction='row' key={item.id}>
                                 <Grid item xs={2}>
-                                    <svg width='40' height='20' >
-                                        <rect x="0" y="0" width="40" height="20" fill={item.color} />
+                                    <svg width='50' height='20' >
+                                        <rect x="0" y="0" width="50" height="20" rx="10" fill={item.color} />
                                     </svg>
                                 </Grid>
                                 <Grid item xs={10}>

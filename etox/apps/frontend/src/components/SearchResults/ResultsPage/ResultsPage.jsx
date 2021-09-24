@@ -6,6 +6,7 @@ import HazardLevel from './HazardLevel/HazardLevel.jsx';
 import Legend from './Legend/Legend.jsx';
 import ProductPhoto from './ProductPhoto/ProductPhoto.jsx';
 import VolumeFractions from './VolumeFractions/VolumeFractions.jsx';
+import ItemCard from '../../ItemCard/ItemCard.jsx';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -16,8 +17,8 @@ const useStyles = makeStyles((theme) => ({
         textAlign: "center",
         color: theme.palette.text.secondary,
         display: "flex",
-        height:'100%', 
-        width:'100%'
+        height: '100%',
+        width: '100%'
     },
     IngredientsList: {
         padding: theme.spacing(0),
@@ -25,48 +26,43 @@ const useStyles = makeStyles((theme) => ({
         color: theme.palette.text.secondary,
         display: "flex",
     },
-    tape: {
-        padding: theme.spacing(0),
-        textAlign: "center",
-        color: theme.palette.text.secondary
-    },
+
 }));
 
 const ResultsPage = (props) => {
     console.log('ResultsPage props', props)
     const classes = useStyles();
-    // !TODO вынести Paper в вызываемые компоненты, а компоненты в свою очередь оборачивать в единый для всех ItemCart
 
     return (
         <Grid container direction="column" spacing={2} className={classes.root}>
             <Grid item xs={12} >
                 <Grid item xs container direction="row" spacing={2}>
                     <Grid item xs={4} >
-                        <Paper className={classes.diagram} elevation={3}>
+                        <ItemCard title='Volume fractions'>
                             <VolumeFractions searchResults={props.searchResults} />
-                        </Paper>
+                        </ItemCard>
                     </Grid>
                     <Grid item xs={4} >
-                        <Paper className={classes.diagram} elevation={3}>
-                            <HazardLevel searchResults={props.searchResults}  />
-                        </Paper>
+                        <ItemCard title='Hazard level'>
+                            <HazardLevel searchResults={props.searchResults} />
+                        </ItemCard>
                     </Grid>
                     <Grid item xs={4} >
-                        <Paper className={classes.diagram} elevation={3}>
+                        <ItemCard title='Chart legend'>
                             <Legend data={props.searchResults.data} />
-                        </Paper>
+                        </ItemCard>
                     </Grid>
                 </Grid>
                 <Grid item xs container direction="row" spacing={2}>
                     <Grid item xs={8} >
-                        <Paper className={classes.IngredientsList} elevation={3}>
+                        <ItemCard title='List of ingredients'>
                             <IngredientsList data={props.searchResults.data} />
-                        </Paper>
+                        </ItemCard>
                     </Grid>
                     <Grid item xs={4} >
-                        <Paper className={classes.IngredientsList} elevation={3}>
+                        <ItemCard title='Your product image'>
                             <ProductPhoto />
-                        </Paper>
+                        </ItemCard>
                     </Grid>
                 </Grid>
             </Grid>

@@ -4,8 +4,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import { Container, Typography } from '@material-ui/core';
 import { ratingBarColorMap } from './ChartsConfig';
 
-// версия с которой норм работает Doughnut 0.62.0, с весиями выше - вместо label отображается id
-//!TODO предусмотреть кроссбраузерность текста внутри ResponsivePie
+//! версия с которой норм работает Doughnut 0.62.0, с весиями выше - вместо label отображается id
 
 const margin = { top: 40, right: 40, bottom: 40, left: 40 };
 
@@ -28,7 +27,6 @@ const useStyles = makeStyles((theme) => ({
     alignItems: "center",
     justifyContent: "center",
     fontSize: 48,
-    //color: green,
     textAlign: "center",
     pointerEvents: "none"
   }
@@ -50,7 +48,7 @@ const Doughnut = (props) => {
       <ResponsivePie
         data={props.data}
         margin={margin}
-        innerRadius={0.8}
+        innerRadius={0.85}
         padAngle={0.7}
         cornerRadius={3}
         colors={getColors(props.data)}

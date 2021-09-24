@@ -1,7 +1,7 @@
 import React from 'react';
 import RatingBar from '../../../../Charts/RatingBar.jsx';
 
-// !TODO перенести рейтинг бары на nivo или SVG
+// TODO перенести рейтинг бары на nivo или SVG
 
 const Rating = (props) => {
     return (

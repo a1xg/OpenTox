@@ -1,7 +1,6 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
-import { Grid, Paper } from '@material-ui/core';
-import { makeStyles } from "@material-ui/core/styles";
+import { Grid, Paper, makeStyles } from '@material-ui/core';
 import Details from "./Details/Details.jsx";
 import Description from "./Description/Description.jsx";
 import HazardLevel from "./HazardLevel/HazardLevel.jsx";
@@ -9,6 +8,7 @@ import Title from "./Title/Title.jsx";
 import Legend from "./Legend/Legend.jsx";
 import PercentNotifications from "./PercentNotifications/PercentNotifications.jsx";
 import Synonyms from "./Synonyms/Synonyms.jsx";
+import ItemCard from "../../ItemCard/ItemCard.jsx";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -41,71 +41,69 @@ const useStyles = makeStyles((theme) => ({
 const IngredientPage = (props) => {
     console.log('IngredientPage props', props)
     const classes = useStyles();
-    // !TODO вынести Paper в вызываемые компоненты, а компоненты в свою очередь оборачивать в единый для всех ItemCart
     return (
         <div>
-            <NavLink to='/search-results'>Back to search results</NavLink>
             <Grid item xs container direction="column" spacing={0} className={classes.root}>
                 <Grid item xs={12}>
-                    <Grid item xs container direction="row" spacing={1}>
+                    <Grid item xs container direction="row" spacing={2}>
                         <Grid item xs={3}>
-                            <Grid item xs container direction="column" spacing={1} >
+                            <Grid item xs container direction="column" spacing={2} >
                                 <Grid item xs={12}>
-                                    <Paper className={classes.details}>
+                                    <NavLink to='/search-results'>Back to search results</NavLink>
+                                    <ItemCard title='Name'>
                                         <Title data={props.searchResults.data} />
-                                    </Paper>
+                                    </ItemCard>
                                 </Grid>
                                 <Grid item xs={12} >
-                                    <Paper className={classes.details}>
+                                    <ItemCard title='Details'>
                                         <Details data={props.searchResults.data} />
-                                    </Paper>
+                                    </ItemCard>
                                 </Grid>
                             </Grid>
                         </Grid>
                         <Grid item xs={9}>
-                            <Grid item xs container direction="column" spacing={1}>
+                            <Grid item xs container direction="column" spacing={2}>
                                 <Grid item xs={12}>
-                                    <Grid item xs container direction="row" spacing={1}>
+                                    <Grid item xs container direction="row" spacing={2}>
                                         <Grid item xs={6}>
-                                            <Paper className={classes.paper}>
+                                            <ItemCard title='Hazard level'>
                                                 <HazardLevel
                                                     searchResults={props.searchResults}
                                                 />
-                                            </Paper>
+                                            </ItemCard>
                                         </Grid>
                                         <Grid item xs={6}>
-                                            <Paper className={classes.paper}>
-                                                <PercentNotifications searchResults={props.searchResults}
-                                                />
-                                            </Paper>
+                                            <ItemCard title='Percent of notifications'>
+                                                <PercentNotifications searchResults={props.searchResults} />
+                                            </ItemCard>
                                         </Grid>
                                     </Grid>
                                 </Grid>
                                 <Grid item xs={12}>
-                                    <Paper className={classes.paper}>
+                                    <ItemCard title='Chart legend'>
                                         <Legend data={props.searchResults.data} />
-                                    </Paper>
+                                    </ItemCard>
                                 </Grid>
                             </Grid>
                         </Grid>
                     </Grid>
-                    <Grid item xs container direction="row" spacing={2}>
+                    <Grid item xs container direction="row" spacing={5}>
                         <Grid item xs={12}>
-                            <Paper className={classes.paper}>
+                            <ItemCard title='Ingredient description'>
                                 <Description data={props.searchResults.data} />
-                            </Paper>
+                            </ItemCard>
                         </Grid>
                     </Grid>
-                    <Grid item xs container direction="row" spacing={2}>
+                    <Grid item xs container direction="row" spacing={5}>
                         <Grid item xs={12}>
-                            <Paper className={classes.paper}>
+                            <ItemCard title='Ingredient synonyms'>
                                 <Synonyms data={props.searchResults.data} />
-                            </Paper>
+                            </ItemCard>
                         </Grid>
                     </Grid>
                 </Grid>
-            </Grid>
-        </div>
+            </Grid >
+        </div >
     )
 };
 
