@@ -26,6 +26,7 @@ const Bar = (props) => {
         left: 60
       }}
       padding={0.7}
+      maxValue={props.maxValue}
       defs={defs}
       fill={fill}
       layout="vertical"

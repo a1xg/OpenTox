@@ -1,5 +1,5 @@
 
-const ratingBarColorMap = {
+const ratingColorMap = {
     1: '#3afe03',
     2: '#a0fd01',
     3: '#fffd00',
@@ -97,4 +97,4 @@ const fill = [
     }
 ];
 
-export { fill, defs, chartColorMap, ratingBarColorMap };
+export { fill, defs, chartColorMap, ratingColorMap };

@@ -18,17 +18,17 @@ const Footer = (props) => {
             <Container maxWidth='lg' className={classes.root} >
                 <Divider></Divider>
                 <Box className={classes.item}>
-                    <NavLink to='/about'>
+                    <NavLink to='/about' >
                     About
                     </NavLink>
                 </Box>
                 <Box className={classes.item}>
-                    <NavLink to='/contacts'>
+                    <NavLink to='/contacts' >
                     Contacts
                     </NavLink>
                 </Box>
                 <Box className={classes.item}>
-                    <Link href='https://github.com/a1xg/etox'>
+                    <Link href='https://github.com/a1xg/etox' underline='hover'>
                     Github page
                     </Link>
                 </Box>

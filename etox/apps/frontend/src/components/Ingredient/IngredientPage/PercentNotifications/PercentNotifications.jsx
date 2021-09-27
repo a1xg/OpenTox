@@ -18,7 +18,7 @@ const PercentNotifications = (props) => {
 
     return (
         <div style={{ width: '400px', height: '400px' }}>
-            <Bar data={chartData} />
+            <Bar data={chartData} maxValue={100} />
         </div>
     )
 

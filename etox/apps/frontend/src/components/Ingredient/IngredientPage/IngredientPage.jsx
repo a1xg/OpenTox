@@ -50,7 +50,7 @@ const IngredientPage = (props) => {
                             <Grid item xs container direction="column" spacing={2} >
                                 <Grid item xs={12}>
                                     <NavLink to='/search-results'>Back to search results</NavLink>
-                                    <ItemCard title='Name'>
+                                    <ItemCard title='Name:'>
                                         <Title data={props.searchResults.data} />
                                     </ItemCard>
                                 </Grid>
@@ -66,14 +66,20 @@ const IngredientPage = (props) => {
                                 <Grid item xs={12}>
                                     <Grid item xs container direction="row" spacing={2}>
                                         <Grid item xs={6}>
-                                            <ItemCard title='Hazard level'>
+                                            <ItemCard 
+                                            title='Hazard level'
+                                            caption='Hazard level for each hazard class for the ingredient'
+                                            >
                                                 <HazardLevel
                                                     searchResults={props.searchResults}
                                                 />
                                             </ItemCard>
                                         </Grid>
                                         <Grid item xs={6}>
-                                            <ItemCard title='Percent of notifications'>
+                                            <ItemCard 
+                                            title='Data confidence (%)'
+                                            caption='Confidence based on the number of notifications in the system of GHS'
+                                            >
                                                 <PercentNotifications searchResults={props.searchResults} />
                                             </ItemCard>
                                         </Grid>
@@ -89,14 +95,14 @@ const IngredientPage = (props) => {
                     </Grid>
                     <Grid item xs container direction="row" spacing={5}>
                         <Grid item xs={12}>
-                            <ItemCard title='Ingredient description'>
+                            <ItemCard title='Description'>
                                 <Description data={props.searchResults.data} />
                             </ItemCard>
                         </Grid>
                     </Grid>
                     <Grid item xs container direction="row" spacing={5}>
                         <Grid item xs={12}>
-                            <ItemCard title='Ingredient synonyms'>
+                            <ItemCard title='Synonyms'>
                                 <Synonyms data={props.searchResults.data} />
                             </ItemCard>
                         </Grid>

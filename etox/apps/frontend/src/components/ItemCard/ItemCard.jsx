@@ -1,11 +1,10 @@
 import React from "react";
 import { 
-    TextField, 
-    InputAdornment, 
-    Card, CardContent, 
+    Card, 
+    CardContent, 
     CardActions, 
-    Typography, 
     CardMedia,
+    Typography, 
     Box, 
     makeStyles, 
     Paper 
@@ -24,7 +23,13 @@ const useStyles = makeStyles((theme) => ({
 
     },
     bordertop: {
-        borderTop:"5px solid #44924C"
+        borderTop:"5px solid lightgray"
+    },
+    caption : {
+        color:'lightgray'
+    },
+    title: {
+
     }
 }));
 
@@ -32,14 +37,13 @@ const useStyles = makeStyles((theme) => ({
 const ItemCard = (props) => {
     console.log('ItemCard props', props)
     const classes = useStyles();
-    // TODO проверить существование title и если есть, то отобразить
+
     return (
         <Card className={classes.bordertop}>
             <CardContent>
-            {props.title && <Typography variant='h5'>{props.title}</Typography>}
+            {props.title && <Typography variant='h6'  className={classes.title}>{props.title}</Typography>}
+            {props.caption && <Typography variant='caption' className={classes.caption}>{props.caption}</Typography>}
             {props.children}
-           
-
             </CardContent>
         </Card>
     )

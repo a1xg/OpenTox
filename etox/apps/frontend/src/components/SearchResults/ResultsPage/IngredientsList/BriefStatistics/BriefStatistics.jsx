@@ -1,15 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { makeStyles } from "@material-ui/core/styles";
-import { Grid, Tooltip } from "@material-ui/core";
+import { Grid, Tooltip, makeStyles } from "@material-ui/core";
 import { chartColorMap } from '../../../../Charts/ChartsConfig';
 
 
 const useStyles = makeStyles((theme) => ({
     root: {
         padding: theme.spacing(0.5),
-    },
-    rowItem: {
-
     },
     text: {
         textAlign: 'center'
@@ -32,7 +28,7 @@ const BriefStatistics = (props) => {
     }, [props]);
 
     return (
-        <Grid item xs container direction="row" spacing={1} className={classes.root}>
+        <Grid item xs container direction="row" className={classes.root}>
             {data.map(item => {
                 return (
                     <Grid item xs={0} key={item.color} xs={2}>

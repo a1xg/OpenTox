@@ -14,7 +14,7 @@ import {
     TablePagination,
     Paper
 } from '@material-ui/core';
-import IngredientRatingBar from './IngredientRatingBar/IngredientRatingBar.jsx';
+import Rating from './Rating/Rating.jsx';
 import BriefStatistics from './BriefStatistics/BriefStatistics.jsx';
 import TablePaginationActions from "./TablePaginationActions/TablePaginationActions.jsx";
 
@@ -80,7 +80,7 @@ const IngredientsList = (props) => {
                                     <BriefStatistics data={ingredient.hazard.hazard_ghs_set} />
                                 </TableCell>
                                 <TableCell align="center">
-                                    <IngredientRatingBar rating={ingredient.hazard.ingredient_hazard_avg} />
+                                    <Rating rating={ingredient.hazard.ingredient_hazard_avg} />
                                 </TableCell>
                             </TableRow>
                         )
@@ -113,7 +113,6 @@ const IngredientsList = (props) => {
                 </TableFooter>
             </Table>
         </TableContainer>
-
     )
 };
 

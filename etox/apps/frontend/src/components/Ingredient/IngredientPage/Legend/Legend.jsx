@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import GridItem from '../../../GridItem/GridItem.jsx';
-import { Grid, Typography, Box, Divider } from '@material-ui/core';
+import { Grid, Typography, Box, Divider, Link } from '@material-ui/core';
 import { getData } from '../../../Charts/ChartTools';
 import { makeStyles } from "@material-ui/core/styles";
 
@@ -36,8 +35,8 @@ const Legend = (props) => {
                         return (
                             <Grid item xs container direction='row' key={item.id}>
                                 <Grid item xs={2}>
-                                    <svg width='50' height='20' >
-                                        <rect x="0" y="0" width="50" height="20" rx="10" fill={item.color} />
+                                    <svg width='30' height='14' >
+                                        <rect x="0" y="0" width="30" height="14" rx="7" fill={item.color} />
                                     </svg>
                                 </Grid>
                                 <Grid item xs={10}>
@@ -50,11 +49,25 @@ const Legend = (props) => {
                 <Grid item xs={12}  className={classes.rowItem}>
                     <Divider></Divider>
                         <Typography variant='subtitle2'>
-                            Total notifications: {props.data.ingredient.hazard.total_notifications} 
+                            Total notifications: {
+                            props.data.ingredient.hazard.total_notifications != null 
+                            ? props.data.ingredient.hazard.total_notifications
+                            : 'not data'
+                        } 
                         </Typography>
-                        <Typography variant='subtitle2'>Sourse: <a
-                            href={"https://echa.europa.eu/information-on-chemicals/cl-inventory-database/-/discli/details/" + props.data.ingredient.hazard.cl_inventory_id}>European
-                            Chemicals Agency (ECHA)</a>
+                        <Typography variant='subtitle2'>
+                            Sourse: 
+                            { props.data.ingredient.hazard.cl_inventory_id != null
+                            ? 
+                                <Link href={
+                                    "https://echa.europa.eu/information-on-chemicals/cl-inventory-database/-/discli/details/" 
+                                    + props.data.ingredient.hazard.cl_inventory_id
+                                    } underline='hover'
+                                >
+                                    European Chemicals Agency (ECHA)
+                                </Link>
+                            : 'not data'    
+                        }
                         </Typography>
                     
                 </Grid>

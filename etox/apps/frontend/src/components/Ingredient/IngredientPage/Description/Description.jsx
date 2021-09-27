@@ -4,9 +4,9 @@ import { Typography } from "@material-ui/core";
 
 const Description = (props) => {
     return (
-        <div><Typography variant='h6'>Description:</Typography>
-            <Typography variant='body1'>{props.data.ingredient.description}</Typography>
-        </div>
+        <Typography variant='body1'>
+            {props.data.ingredient.description != null ? props.data.ingredient.description : 'not data'}
+            </Typography>
     )
 
 };

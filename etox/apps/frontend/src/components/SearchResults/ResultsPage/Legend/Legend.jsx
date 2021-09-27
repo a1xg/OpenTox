@@ -23,7 +23,6 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-//TODO отрефакторить код: переписать на компонентах Material UI
 const Legend = (props) => {
     console.log('Legend props', props);
     const [legendData, setLegendData] = useState([{ value: null, id: null, label: null, color: 'white' }]);
@@ -48,8 +47,8 @@ const Legend = (props) => {
                         <Grid item xs={12} key={item.id}>
                             <Grid item xs container direction="row" className={classes.rowItem}>
                                 <Grid item xs={2} className={classes.svg} >
-                                    <svg width='40' height='14' >
-                                        <rect x="0" y="0" width="40" height="14" rx="7" fill={item.color} />
+                                    <svg width='30' height='14' >
+                                        <rect x="0" y="0" width="30" height="14" rx="7" fill={item.color} />
                                     </svg>
                                 </Grid>
                                 <Grid item xs={10} className={classes.text}>

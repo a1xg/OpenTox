@@ -21,7 +21,7 @@ const HazardLevel = (props) => {
 
     return (
         <div className='haz'>
-            <Bar data={chartData} />
+            <Bar data={chartData} maxValue={10} />
         </div>
     )
 };

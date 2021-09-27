@@ -38,12 +38,18 @@ const ResultsPage = (props) => {
             <Grid item xs={12} >
                 <Grid item xs container direction="row" spacing={2}>
                     <Grid item xs={4} >
-                        <ItemCard title='Volume fractions'>
+                        <ItemCard 
+                        title='Volume fractions' 
+                        caption='The number of ingredients for each hazard class in the product'
+                        >
                             <VolumeFractions searchResults={props.searchResults} />
                         </ItemCard>
                     </Grid>
                     <Grid item xs={4} >
-                        <ItemCard title='Hazard level'>
+                        <ItemCard 
+                        title='Hazard level' 
+                        caption='The total hazard level for each hazard class of the ingredients of the product' 
+                        >
                             <HazardLevel searchResults={props.searchResults} />
                         </ItemCard>
                     </Grid>

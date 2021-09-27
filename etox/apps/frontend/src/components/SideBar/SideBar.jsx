@@ -22,17 +22,16 @@ const useStyles = makeStyles({
 
 const menuItems = [
     { text: 'Home page', link: '/', icon: <HomeIcon />},
-    { text: 'Search results', link: '/search-results',icon: <FindInPageIcon />},
+    //{ text: 'Search results', link: '/search-results',icon: <FindInPageIcon />},
     { text: 'How use it', link: '/how-use', icon: <HelpIcon />},
     { text: 'How it works', link: '/how-it-works', icon: <BuildIcon /> },
     { text: 'About', link: '/about', icon: <InfoIcon />},
     { text: 'Contacts', link: '/contacts', icon: <MailIcon />},
 ];
 
-function SideBar() {
+const SideBar = () => {
     const classes = useStyles();
     const [state, setState] = useState({ left: false });
-
     const toggleDrawer = (anchor, open) => (event) => {
         if (
             event.type === "keydown" &&
