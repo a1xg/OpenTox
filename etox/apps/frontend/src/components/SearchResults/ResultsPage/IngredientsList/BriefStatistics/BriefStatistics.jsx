@@ -14,10 +14,10 @@ const useStyles = makeStyles((theme) => ({
         alignContent: 'center'
     }
 }));
-
+//TODO отрефакторить компонент, сделать фиксированной ширину и высоту компонета.
 const BriefStatistics = (props) => {
     //console.log('BriefStatistics props', props);
-    const [data, setData] = useState([{ color: 'white', description: '', hazard_class: '', id: null }]);
+    const [data, setData] = useState([{ color: '', description: '', hazard_class: '', id: null }]);
     const classes = useStyles();
 
     useEffect(() => {

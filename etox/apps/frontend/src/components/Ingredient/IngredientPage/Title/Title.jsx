@@ -1,14 +1,17 @@
 import React from 'react';
-import GridItem from '../../../GridItem/GridItem.jsx';
-import Rating from './Rating/Rating.jsx';
-import { Typography } from "@material-ui/core";
+import IngredientRatingBar from '../../../Charts/IngredientRatingBar.jsx';
+import { Box, Typography } from "@material-ui/core";
 
 const Title = (props) => {
     return (
-        <div>
+        <Box>
             <Typography variant='h5'>{props.data.ingredient.main_name}</Typography>
-            <Rating rating={props.data.ingredient.hazard.ingredient_hazard_avg} />
-        </div>
+            <IngredientRatingBar 
+            rating={props.data.ingredient.hazard.ingredient_hazard_avg} 
+            width={200} 
+            height={20} 
+            />
+        </Box>
     )
 
 };

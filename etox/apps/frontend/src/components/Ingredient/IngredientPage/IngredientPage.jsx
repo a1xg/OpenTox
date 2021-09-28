@@ -14,27 +14,6 @@ import ItemCard from "../../ItemCard/ItemCard.jsx";
 const useStyles = makeStyles((theme) => ({
     root: {
         flexGrow: 1
-    },
-    paper: {
-        padding: theme.spacing(0),
-        textAlign: "center",
-        color: theme.palette.text.secondary,
-        display: "flex",
-        height: '100%',
-        width: '100%'
-    },
-    tape: {
-        padding: theme.spacing(0),
-        textAlign: "center",
-        color: theme.palette.text.secondary
-    },
-    details: {
-        padding: theme.spacing(0),
-        textAlign: "center",
-        color: theme.palette.text.secondary,
-        display: "flex",
-        height: '100%',
-        width: '100%'
     }
 }));
 
@@ -50,7 +29,7 @@ const IngredientPage = (props) => {
                             <Grid item xs container direction="column" spacing={2} >
                                 <Grid item xs={12}>
                                     <NavLink to='/search-results'>Back to search results</NavLink>
-                                    <ItemCard title='Name:'>
+                                    <ItemCard title='Name'>
                                         <Title data={props.searchResults.data} />
                                     </ItemCard>
                                 </Grid>
@@ -66,9 +45,9 @@ const IngredientPage = (props) => {
                                 <Grid item xs={12}>
                                     <Grid item xs container direction="row" spacing={2}>
                                         <Grid item xs={6}>
-                                            <ItemCard 
-                                            title='Hazard level'
-                                            caption='Hazard level for each hazard class for the ingredient'
+                                            <ItemCard
+                                                title='Hazard level'
+                                                caption='Hazard level for each hazard class for the ingredient'
                                             >
                                                 <HazardLevel
                                                     searchResults={props.searchResults}
@@ -76,9 +55,9 @@ const IngredientPage = (props) => {
                                             </ItemCard>
                                         </Grid>
                                         <Grid item xs={6}>
-                                            <ItemCard 
-                                            title='Data confidence (%)'
-                                            caption='Confidence based on the number of notifications in the system of GHS'
+                                            <ItemCard
+                                                title='Data confidence (%)'
+                                                caption='Confidence based on the number of notifications in the system of GHS'
                                             >
                                                 <PercentNotifications searchResults={props.searchResults} />
                                             </ItemCard>
