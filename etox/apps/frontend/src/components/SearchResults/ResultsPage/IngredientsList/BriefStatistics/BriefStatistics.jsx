@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Box, Tooltip } from "@material-ui/core";
 import { chartColorMap } from '../../../../Charts/ChartsConfig';
-
+//TODO не выводить никаких заглушек, если данных по опасности нет.
 const BriefStatistics = (props) => {
     const [data, setData] = useState([{ color: '', description: '', hazard_class: '', id: null }]);
     useEffect(() => {
@@ -31,7 +31,6 @@ const BriefStatistics = (props) => {
                 return (
                     <Tooltip title={item.description} key={item.color}>
                         <Box sx={{
-                            alignSelf: 'flex-start',
                             opacity: '0.8',
                             borderRadius: props.padding,
                             marginRight: props.padding/2,
