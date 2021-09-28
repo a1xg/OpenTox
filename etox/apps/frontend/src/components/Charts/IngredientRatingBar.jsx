@@ -7,7 +7,7 @@ import { ratingColorMap } from './ChartsConfig';
 const getRectangleColors = (rating) => {
     let colors = [];
     for (let i = 1; i <= 10; i++) {
-        let color = (i <= rating ? ratingColorMap[i] : 'lightgray')
+        let color = (i <= rating ? ratingColorMap[i] : 'rgb(245, 243, 243)')
         colors.push(color);
     };
     return colors;
@@ -20,11 +20,11 @@ const IngredientRatingBar = (props) => {
     return (
         <Box sx={{
             display: 'flex',
-            'flex-direction': 'row',
-            'flex-wrap': 'nowrap',
-            'justify-content': 'space-between',
-            'background-color': 'rgb(245, 243, 243)',
-            'border-radius': '4px',
+            flexDirection: 'row',
+            flexWrap: 'nowrap',
+            justifyContent: 'space-between',
+            borderRadius: '4px',
+            border: '1px solid lightgray',
             padding: '3px',
             width: props.width,
             height: props.height
@@ -36,10 +36,10 @@ const IngredientRatingBar = (props) => {
                         <Box
                             sx={{
                                 opacity: '0.8',
-                                'border-radius': '2px',
+                                borderRadius: '2px',
                                 width: props.width*0.08,
                                 height: props.height,
-                                background: color,
+                                backgroundColor: color,
                             }}
                         >
                         </Box>

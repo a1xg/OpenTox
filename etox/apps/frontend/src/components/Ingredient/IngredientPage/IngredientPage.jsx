@@ -1,6 +1,7 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
-import { Grid, Paper, makeStyles } from '@material-ui/core';
+import { Grid, makeStyles } from '@material-ui/core';
+import IngredientRatingBar from '../../Charts/IngredientRatingBar.jsx';
 import Details from "./Details/Details.jsx";
 import Description from "./Description/Description.jsx";
 import HazardLevel from "./HazardLevel/HazardLevel.jsx";
@@ -31,6 +32,11 @@ const IngredientPage = (props) => {
                                     <NavLink to='/search-results'>Back to search results</NavLink>
                                     <ItemCard title='Name'>
                                         <Title data={props.searchResults.data} />
+                                        <IngredientRatingBar
+                                            rating={props.searchResults.data.ingredient.hazard.ingredient_hazard_avg}
+                                            width={200}
+                                            height={20}
+                                        />
                                     </ItemCard>
                                 </Grid>
                                 <Grid item xs={12} >
