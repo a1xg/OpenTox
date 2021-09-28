@@ -2,7 +2,7 @@ import React from 'react';
 import { Box, Tooltip } from '@material-ui/core';
 import { ratingColorMap } from './ChartsConfig';
 
-//TODO сделать вывод различного рейтинга для ингредиентов с классом NO_DATA_AVAILABLE и кодами (Not Classified | NA).
+//TODO сделать вывод заглушки для ингредиентов с классом NO_DATA_AVAILABLE и кодами (Not Classified | NA).
 
 const getRectangleColors = (rating) => {
     let colors = [];
@@ -14,7 +14,7 @@ const getRectangleColors = (rating) => {
 };
 
 const IngredientRatingBar = (props) => {
-    console.log('RatingBar props', props)
+    console.log('IngredientRatingBar props', props)
     const rating = Math.round(props.rating);
     const colors = getRectangleColors(rating);
     return (
@@ -25,7 +25,10 @@ const IngredientRatingBar = (props) => {
             justifyContent: 'space-between',
             borderRadius: '4px',
             border: '1px solid lightgray',
-            padding: '3px',
+            paddingTop: '2px',
+            paddingBottom:'2px',
+            paddingLeft:'1px',
+            paddingRight: '1px',
             width: props.width,
             height: props.height
         }}
@@ -37,6 +40,8 @@ const IngredientRatingBar = (props) => {
                             sx={{
                                 opacity: '0.8',
                                 borderRadius: '2px',
+                                marginLeft:'1px',
+                                marginRight:'1px',
                                 width: props.width*0.08,
                                 height: props.height,
                                 backgroundColor: color,

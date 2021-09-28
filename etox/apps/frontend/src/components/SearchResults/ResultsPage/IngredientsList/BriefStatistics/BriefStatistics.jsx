@@ -3,7 +3,6 @@ import { Box, Tooltip } from "@material-ui/core";
 import { chartColorMap } from '../../../../Charts/ChartsConfig';
 
 const BriefStatistics = (props) => {
-    //console.log('BriefStatistics props', props);
     const [data, setData] = useState([{ color: '', description: '', hazard_class: '', id: null }]);
     useEffect(() => {
         props.data.map(item => {
@@ -14,24 +13,29 @@ const BriefStatistics = (props) => {
 
     return (
         <Box sx={{
-            display: 'flex',
+            display: 'inline-flex',
             flexDirection: 'row',
             flexWrap: 'nowrap',
-            justifyContent: 'space-between',
+            justifyContent: 'center',
+            height: props.height, 
             backgroundColor: '#FFFFFF',
             border: '1px solid lightgray',
             borderRadius: '11px',
-            padding: '3px',
-            width: props.width,
-            height: props.height
+            paddingTop: props.padding,
+            paddingBottom:props.padding,
+            paddingLeft:props.padding/2,
+            paddingRight:props.padding/2,
         }}
         >
             {data.map(item => {
                 return (
                     <Tooltip title={item.description} key={item.color}>
                         <Box sx={{
+                            alignSelf: 'flex-start',
                             opacity: '0.8',
-                            borderRadius: '2px',
+                            borderRadius: props.padding,
+                            marginRight: props.padding/2,
+                            marginLeft: props.padding/2,
                             width: props.height,
                             height: props.height,
                             backgroundColor: '#FFFFFF',

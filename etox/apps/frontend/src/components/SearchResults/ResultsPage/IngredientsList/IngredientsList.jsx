@@ -80,13 +80,16 @@ const IngredientsList = (props) => {
                                     <BriefStatistics 
                                     data={ingredient.hazard.hazard_ghs_set} 
                                     width={100} 
-                                    height={14} />
+                                    height={14} 
+                                    padding={3}
+                                    />
                                 </TableCell>
                                 <TableCell align="center">
                                     <IngredientRatingBar
                                         rating={ingredient.hazard.ingredient_hazard_avg}
                                         width={100}
                                         height={14}
+                                        padding={3}
                                     />
                                 </TableCell>
                             </TableRow>
