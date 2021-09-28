@@ -1,7 +1,7 @@
 import React from 'react';
 import { Box, Tooltip, Typography } from '@material-ui/core';
 import DoneIcon from '@material-ui/icons/Done';
-//import {SearchOffIcon} from '@mui/icons-material';
+//mport SearchOffIcon from '@material-ui/icons';
 import { ratingColorMap } from './ChartsConfig';
 
 const getRectangleColors = (rating) => {
@@ -49,8 +49,10 @@ const safelyPass = (props) => {
 const notDataPass = (props) => {
     return (
         <Tooltip title='No hazard data available for the ingredient.'>
-            <Box>No data</Box>
+            <Box>
+                <Typography variant='caption'>no data</Typography>
             {/*<SearchOffIcon style={{ color: 'rgb(245, 243, 243)', width:14, height:14 }} />*/}
+            </Box>
         </Tooltip>
     )
 };

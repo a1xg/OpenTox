@@ -6,6 +6,7 @@ import LinearProgress from '@material-ui/core/LinearProgress';
 const Ingredient = (props) => {
     console.log('Ingredient props', props)
     const [searchResults, setSearchResults] = useState({ found: false, data: PassIngredient });
+    const [title, setTitle] = useState('Etox')
     useEffect(() => {
         if (searchResults.found == false) {
             const url = '/api' + props.location.pathname;
@@ -16,9 +17,13 @@ const Ingredient = (props) => {
                         data: data,
                         found: true
                     });
+                    setTitle(data.ingredient.main_name)
                 });
-        }
+        };
+        
     }, [searchResults]);
+
+    document.title = title;
 
     return (
         <IngredientPage
