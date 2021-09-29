@@ -11,7 +11,6 @@ import Header from './components/Header/Header.jsx';
 import { Container, Grid, Box, useScrollTrigger, createTheme } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
-//TODO Сделать очистку searchQuery и searchResults
 //TODO Уменьшить ширину app.container до 1024
 // * useScrollTrigger  для переключения строки поиска в appbar при скролле
 

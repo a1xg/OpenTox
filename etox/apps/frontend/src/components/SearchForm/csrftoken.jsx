@@ -17,5 +17,4 @@ const getCookie = (name) => {
 
 const CSRFtoken = getCookie('csrftoken');
 
-
 export default CSRFtoken;

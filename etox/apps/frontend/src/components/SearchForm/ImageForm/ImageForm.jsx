@@ -5,7 +5,6 @@ import PhotoCamera from '@material-ui/icons/PhotoCamera';
 import { makeStyles } from '@material-ui/core/styles';
 import CSRFToken from "../csrftoken.jsx";
 
-// TODO добавить CSRF 
 const useStyles = makeStyles((theme) => ({
     root: {
         

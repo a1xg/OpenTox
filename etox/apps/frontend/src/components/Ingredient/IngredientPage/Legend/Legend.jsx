@@ -29,12 +29,12 @@ const Legend = (props) => {
 
     return (
         <Box className={classes.wrapper}>
-            <Grid container direction="column" spacing={1} >
+            <Grid container direction="column" >
                 {legendData.length > 0 &&
                     <Grid item xs container direction='row' className={classes.rowItem}>
                         {legendData.map(item => {
                             return (
-                                <Grid item xs container direction='row' key={item.id}>
+                                <Grid item xs container direction='row' key={item.id} spacing={1}>
                                     <Grid item xs={2}>
                                         <svg width='30' height='14' >
                                             <rect x="0" y="0" width="30" height="14" rx="7" fill={item.color} />
