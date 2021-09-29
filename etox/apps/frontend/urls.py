@@ -8,4 +8,5 @@ urlpatterns = [
     path('how-it-works/', views.index),
     path('contacts/', views.index),
     path('ingredient/<int:pk>', views.index),
+    path('search-results/', views.index)
 ]

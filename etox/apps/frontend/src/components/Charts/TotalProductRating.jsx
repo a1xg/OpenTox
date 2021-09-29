@@ -1,7 +1,7 @@
 import React from 'react';
 import { Box, Typography } from '@material-ui/core';
 import { ratingColorMap } from './ChartsConfig';
-//TODO не выводить рейтинг при отсутствии данных
+
 const TotalProductRating = (props) => {
     console.log('TotalProductRating props', props)
     return (

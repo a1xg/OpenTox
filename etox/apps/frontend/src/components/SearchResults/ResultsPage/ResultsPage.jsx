@@ -28,7 +28,8 @@ const useStyles = makeStyles((theme) => ({
     },
 
 }));
-
+// TODO поработать над Box элементами в которые оборачиваются все компоненты
+// TODO не выводить компонент вообще, если данные для него отсутствуют
 const ResultsPage = (props) => {
     console.log('ResultsPage props', props)
     const classes = useStyles();

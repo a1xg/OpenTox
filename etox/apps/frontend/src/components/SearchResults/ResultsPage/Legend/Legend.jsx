@@ -22,7 +22,7 @@ const useStyles = makeStyles((theme) => ({
         alignContent: 'center'
     }
 }));
-
+// TODO перенести легенду на List элементы
 const Legend = (props) => {
     console.log('Legend props', props);
     const [legendData, setLegendData] = useState([{ value: null, id: null, label: null, color: 'white' }]);

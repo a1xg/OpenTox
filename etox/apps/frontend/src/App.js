@@ -12,17 +12,36 @@ import { Container, Grid, Box, useScrollTrigger, createTheme } from '@material-u
 import { makeStyles } from '@material-ui/core/styles';
 
 //TODO Сделать очистку searchQuery и searchResults
-//TODO вынести Paper в вызываемые компоненты, а компоненты в свою очередь оборачивать в единый для всех ItemCart
 //TODO Уменьшить ширину app.container до 1024
-//TODO исправить document.title при переходе со страницы ингредиента на главную
-//TODO поправить фон главной страницы, что бы футер был снизу
 // * useScrollTrigger  для переключения строки поиска в appbar при скролле
 
+const theme = createTheme({
+  breakpoints: {
+      keys: {
+          0: 'xs',
+          1: 'sm',
+          2: 'md',
+          3: 'lg',
+          4: 'xl',
+          5: 'full'
+      },
+      values: {
+          xs: 0,
+          sm: 600,
+          md: 900,
+          lg: 1024,
+          xl: 1500,
+          full: window.innerWidth
+      }
+  }
+});
 
 const useStyles = makeStyles((theme) => ({
   app: {
     backgroundColor: '#EFFFF3',
-    height:'100%',
+    minHeight: '100vh',
+    display: 'flex',
+    flex: '1'
   }
 }));
 

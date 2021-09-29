@@ -11,7 +11,8 @@ import PercentNotifications from "./PercentNotifications/PercentNotifications.js
 import Synonyms from "./Synonyms/Synonyms.jsx";
 import ItemCard from "../../ItemCard/ItemCard.jsx";
 
-
+// TODO поработать над Box элементами в которые оборачиваются все компоненты
+// TODO не выводить компонент вообще, если данные для него отсутствуют
 const useStyles = makeStyles((theme) => ({
     root: {
         flexGrow: 1
@@ -32,10 +33,8 @@ const IngredientPage = (props) => {
                                     {
                                     //TODO не добавлять ссылку на страницу результатов, если с 
                                     //TODO сервера была запрошена страница ингредиента из браузерной строки
-                                    props.searchResults.found == true &&
-                                    <NavLink to='/search-results'>Back to search results</NavLink>
                                     }
-                                    
+                                    <NavLink to='/search-results'>Back to search results</NavLink>
                                     <ItemCard title='Name'>
                                         <Title data={props.searchResults.data} />
                                         <IngredientRatingBar

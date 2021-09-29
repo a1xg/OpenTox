@@ -3,7 +3,9 @@ import { useHistory } from "react-router-dom";
 import IconButton from '@material-ui/core/IconButton';
 import PhotoCamera from '@material-ui/icons/PhotoCamera';
 import { makeStyles } from '@material-ui/core/styles';
+import CSRFToken from "../csrftoken.jsx";
 
+// TODO добавить CSRF 
 const useStyles = makeStyles((theme) => ({
     root: {
         
@@ -27,7 +29,7 @@ const ImageForm = (props) => {
         event.preventDefault();
         const formData = new FormData();
         formData.append('image', event.target.files[0]);
-
+        formData.append('csrfmiddlewaretoken', CSRFToken);
         props.setQuery({
             url: 'api/image_field',
             options: { method: 'POST', body: formData }
@@ -46,6 +48,7 @@ const ImageForm = (props) => {
                 type="file"
                 onChange={submitForm} 
             />
+            
 
             <label htmlFor="icon-button-file">
             <IconButton

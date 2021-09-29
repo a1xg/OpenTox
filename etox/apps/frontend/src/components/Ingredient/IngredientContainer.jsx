@@ -14,7 +14,7 @@ const IngredientContainer = (props) => {
                 .then((data) => {
                     setSearchResults({
                         data: data,
-                        found: true
+                        found: true,
                     });
                     document.title = `${data.ingredient.main_name[0]}${data.ingredient.main_name.substring(1).toLowerCase()}`
                 });

@@ -8,15 +8,14 @@ const SearchResults = (props) => {
 
     if (props.searchResults.loaded == true) {
         document.title = 'Search results';
-        return (
-            <ResultsPage searchResults={props.searchResults} />
-        )
+        return <ResultsPage searchResults={props.searchResults} />
     } else if (props.searchResults.loaded == false) {
         document.title = 'Loading...';
-        return (<LinearProgress />)
+        return <LinearProgress />
     } else { 
         document.title = 'Page not found';
-        return (<ErrorMessage />) }
+        return <ErrorMessage />
+     }
 };
 
 export default SearchResults;

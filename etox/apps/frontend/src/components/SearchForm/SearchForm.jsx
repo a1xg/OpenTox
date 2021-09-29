@@ -5,7 +5,7 @@ import { makeStyles, withStyles } from '@material-ui/core/styles';
 import IconButton from '@material-ui/core/IconButton';
 import Search from '@material-ui/icons/Search';
 import ImageForm from "./ImageForm/ImageForm.jsx";
-//import CSRFToken from './csrftoken.jsx';
+import CSRFtoken from './csrftoken.jsx';
 
 const CssTextField = withStyles({
     root: {
@@ -44,7 +44,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const SearchForm = (props) => {
-    const [ingredients, setIngredients] = useState('')
+    const [formText, setFormText] = useState('')
     const form = useRef(undefined);
     const history = useHistory();
     const classes = useStyles();
@@ -57,24 +57,20 @@ const SearchForm = (props) => {
             options: { method: 'POST', body: data }
         });
         history.push('/search-results');
-        setIngredients('');
-    }   
-    const changeForm = (event) => {
-        setIngredients(event.target.value);
-        console.log(event.target.value)
-    }
+        setFormText('');
+    }  ;
 
     return (
         <form onSubmit={submitForm} ref={form}>
-           {/*<CSRFToken />*/}
+             <input type="hidden" name="csrfmiddlewaretoken" value={CSRFtoken} />
             <CssTextField
                 className={classes.input}
                 variant="outlined"
                 placeholder='Enter ingredients separated by commas'
                 name="text"
                 type="text"
-                onChange={(e) => {changeForm(e)}}
-                value={ingredients}
+                onChange={(event) => {setFormText(event.target.value)}}
+                value={formText}
                 label="Search"
                 InputProps={{
                     maxLength: 500,
