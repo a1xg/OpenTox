@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { TextField, InputAdornment } from "@material-ui/core";
 import { makeStyles, withStyles } from '@material-ui/core/styles';
@@ -33,7 +33,7 @@ const CssTextField = withStyles({
 const useStyles = makeStyles((theme) => ({
     input: {
         margin: theme.spacing(1),
-        width:530,
+        width:600,
     },
     button: {
         "& :visited": { color: "gray" },
@@ -44,19 +44,24 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const SearchForm = (props) => {
+    const [ingredients, setIngredients] = useState('')
     const form = useRef(undefined);
     const history = useHistory();
     const classes = useStyles();
+
     const submitForm = (event) => {
         event.preventDefault();
         const data = new FormData(form.current);
-
         props.setQuery({
             url: 'api/text_field',
             options: { method: 'POST', body: data }
         });
-
         history.push('/search-results');
+        setIngredients('');
+    }   
+    const changeForm = (event) => {
+        setIngredients(event.target.value);
+        console.log(event.target.value)
     }
 
     return (
@@ -68,6 +73,8 @@ const SearchForm = (props) => {
                 placeholder='Enter ingredients separated by commas'
                 name="text"
                 type="text"
+                onChange={(e) => {changeForm(e)}}
+                value={ingredients}
                 label="Search"
                 InputProps={{
                     maxLength: 500,
