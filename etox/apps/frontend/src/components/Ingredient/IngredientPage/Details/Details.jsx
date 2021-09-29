@@ -14,7 +14,7 @@ const Details = (props) => {
             </ListItem>
             <ListItem>
                 <ListItemText variant='body1'>
-                    Colour Index number (CI): {
+                    Colour Index number: {
                         props.data.ingredient.colour_index != null ? props.data.ingredient.colour_index : 'not data'
                     }
                 </ListItemText>

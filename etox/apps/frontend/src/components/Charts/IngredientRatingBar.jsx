@@ -1,7 +1,7 @@
 import React from 'react';
-import { Box, Tooltip, Typography } from '@material-ui/core';
+import { Box, Tooltip } from '@material-ui/core';
 import DoneIcon from '@material-ui/icons/Done';
-//mport SearchOffIcon from '@material-ui/icons';
+import SearchOffIcon from '@mui/icons-material/SearchOff';
 import { ratingColorMap } from './ChartsConfig';
 
 const getRectangleColors = (rating) => {
@@ -38,7 +38,7 @@ const getRating = (props) => {
     )
 }
 
-const safelyPass = (props) => {
+const safelyIcon = (props) => {
     return (
         <Tooltip title='This ingredient is completely safe.'>
             <DoneIcon style={{ color: ratingColorMap[1], width:14, height:14 }} />
@@ -46,19 +46,18 @@ const safelyPass = (props) => {
     )
 };
 
-const notDataPass = (props) => {
+const notDataIcon = (props) => {
     return (
         <Tooltip title='No hazard data available for the ingredient.'>
             <Box>
-                <Typography variant='caption'>no data</Typography>
-            {/*<SearchOffIcon style={{ color: 'rgb(245, 243, 243)', width:14, height:14 }} />*/}
+                <SearchOffIcon style={{ color: 'rgb(245, 0, 0)', width:14, height:14 }} />
             </Box>
         </Tooltip>
     )
 };
 
 const IngredientRatingBar = (props) => {
-    console.log('IngredientRatingBar props', props)
+    // console.log('IngredientRatingBar props', props)
     return (
         <Box sx={{
             display: 'inline-flex',
@@ -75,8 +74,8 @@ const IngredientRatingBar = (props) => {
         }}
         >
             {(props.rating > 0 && getRating(props))}
-            {(props.rating == 0 && safelyPass(props))}
-            {(props.rating == null && notDataPass(props))}
+            {(props.rating == 0 && safelyIcon(props))}
+            {(props.rating == null && notDataIcon(props))}
         </Box>
     )
 };

@@ -39,6 +39,7 @@ const Legend = (props) => {
     }, [props]);
 
     return (
+        legendData.length > 0 &&
         <Box className={classes.wrapper}>
             <Grid container direction="column" className={classes.root}>
                 <Grid item xs={12} >

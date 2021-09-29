@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { PassIngredient, PassChartData } from '../PassData';
+import { PassIngredient } from '../PassData';
 import IngredientPage from './IngredientPage/IngredientPage.jsx';
-import LinearProgress from '@material-ui/core/LinearProgress';
 
-const Ingredient = (props) => {
-    console.log('Ingredient props', props)
+const IngredientContainer = (props) => {
+    console.log('IngredientContainer props', props)
     const [searchResults, setSearchResults] = useState({ found: false, data: PassIngredient });
-    const [title, setTitle] = useState('Etox')
+    document.title = 'Search results';
     useEffect(() => {
         if (searchResults.found == false) {
             const url = '/api' + props.location.pathname;
@@ -17,13 +16,10 @@ const Ingredient = (props) => {
                         data: data,
                         found: true
                     });
-                    setTitle(data.ingredient.main_name)
+                    document.title = `${data.ingredient.main_name[0]}${data.ingredient.main_name.substring(1).toLowerCase()}`
                 });
         };
-        
     }, [searchResults]);
-
-    document.title = title;
 
     return (
         <IngredientPage
@@ -32,4 +28,4 @@ const Ingredient = (props) => {
     )
 };
 
-export default Ingredient;
+export default IngredientContainer;

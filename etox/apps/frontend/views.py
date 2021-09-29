@@ -1,8 +1,6 @@
 from django.shortcuts import render
 
-def index(request):
+def index(request, pk=None):
     return render(request, 'frontend/index.html')
 
-def detail(request, pk):
-    return render(request, 'frontend/index.html')
 

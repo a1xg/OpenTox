@@ -15,7 +15,7 @@ import {
     Paper
 } from '@material-ui/core';
 import IngredientRatingBar from '../../../Charts/IngredientRatingBar.jsx';
-import BriefStatistics from './BriefStatistics/BriefStatistics.jsx';
+import BriefStatistics from '../../../Charts/BriefStatistics.jsx';
 import TablePaginationActions from "./TablePaginationActions/TablePaginationActions.jsx";
 
 const useStyles = makeStyles((theme) => ({

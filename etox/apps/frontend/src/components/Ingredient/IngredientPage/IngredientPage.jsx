@@ -29,7 +29,13 @@ const IngredientPage = (props) => {
                         <Grid item xs={3}>
                             <Grid item xs container direction="column" spacing={2} >
                                 <Grid item xs={12}>
+                                    {
+                                    //TODO не добавлять ссылку на страницу результатов, если с 
+                                    //TODO сервера была запрошена страница ингредиента из браузерной строки
+                                    props.searchResults.found == true &&
                                     <NavLink to='/search-results'>Back to search results</NavLink>
+                                    }
+                                    
                                     <ItemCard title='Name'>
                                         <Title data={props.searchResults.data} />
                                         <IngredientRatingBar

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Route, Switch } from 'react-router-dom'
+import { Route } from 'react-router-dom'
 import SearchForm from './components/SearchForm/SearchForm.jsx'
 import SearchResultsContainer from './components/SearchResults/SearchResultsContainer.jsx';
 import About from './components/About/About.jsx';
@@ -8,13 +8,14 @@ import SideBar from './components/SideBar/SideBar.jsx';
 import Footer from './components/Footer/Footer.jsx';
 import Logo from './components/Logo/Logo.jsx';
 import Header from './components/Header/Header.jsx';
-import style from './App.module.css';
 import { Container, Grid, Box, useScrollTrigger, createTheme } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
-// TODO Сделать очистку searchQuery и searchResults
-// TODO вынести Paper в вызываемые компоненты, а компоненты в свою очередь оборачивать в единый для всех ItemCart
-// TODO Уменьшить ширину app.container до 1024
+//TODO Сделать очистку searchQuery и searchResults
+//TODO вынести Paper в вызываемые компоненты, а компоненты в свою очередь оборачивать в единый для всех ItemCart
+//TODO Уменьшить ширину app.container до 1024
+//TODO исправить document.title при переходе со страницы ингредиента на главную
+//TODO поправить фон главной страницы, что бы футер был снизу
 // * useScrollTrigger  для переключения строки поиска в appbar при скролле
 
 
@@ -31,6 +32,7 @@ const App = (props) => {
   const [searchResults, setSearchResults] = useState();
 
   useEffect(() => {
+    document.title = 'Etox';
     if (searchQuery) {
       setSearchResults({ loaded: false });
       fetch(searchQuery.url, searchQuery.options)

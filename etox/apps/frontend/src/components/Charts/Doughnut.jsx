@@ -13,6 +13,7 @@ const getColors = (data) => {
 const Doughnut = (props) => {
   console.log('Doughnut props', props);
   return (
+    props.data.length > 0 &&
       <ResponsivePie
         data={props.data}
         margin={props.margin}
