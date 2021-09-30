@@ -35,9 +35,8 @@ const ResultsPage = (props) => {
 
     return (
         <Grid container direction="row" spacing={2} className={classes.root}>
-            <Grid item xs={8} container direction="column" spacing={1} >
-
-                <Grid container xs direction="row" spacing={1} >
+            <Grid item xs={9} container direction="column" spacing={1} >
+                <Grid container direction="row" spacing={1} >
                     <Grid item xs={6} >
                         {props.searchResults.data.detail_hazard_product.length > 0 &&
                             <ItemCard
@@ -59,22 +58,22 @@ const ResultsPage = (props) => {
                         }
                     </Grid>
                 </Grid>
-                <Grid item xs>
+                <Grid item>
                     <ItemCard title='List of ingredients'>
                         <IngredientsList data={props.searchResults.data} />
                     </ItemCard>
                 </Grid>
             </Grid>
 
-            <Grid item xs={4} container direction="column" spacing={2}>
-                <Grid item xs >
+            <Grid item xs={3} container direction="column" spacing={2}>
+                <Grid item>
                     {props.searchResults.data.detail_hazard_product.length > 0 &&
                         <ItemCard title='Chart legend'>
                             <Legend data={props.searchResults.data.detail_hazard_product} />
                         </ItemCard>
                     }
                 </Grid>
-                <Grid item xs >
+                <Grid item>
                     <ItemCard title='Your product image'>
                         <ProductPhoto />
                     </ItemCard>
