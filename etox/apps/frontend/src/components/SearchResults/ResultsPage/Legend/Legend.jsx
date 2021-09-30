@@ -28,7 +28,7 @@ const Legend = (props) => {
     const classes = useStyles();
     useEffect(() => {
         const data = getData({
-            dataset: props.data.detail_hazard_product,
+            dataset: props.data,
             key: 'hazard_class',
             value: 'hazard_scale_score',
             label: 'description',

@@ -1,10 +1,21 @@
-import React from 'react';
+import React,{useState, useEffect} from 'react';
 import { Typography } from "@material-ui/core";
 
 const Title = (props) => {
-    const title = props.data.ingredient.main_name;
+    console.log('Title props', props);
+    const [title, setTitle] = useState('');
+    
+    useEffect(() => {
+        if (props.mainName != null) {
+            const name = props.mainName[0] + props.mainName.substring(1).toLowerCase()
+            setTitle(name);
+        }
+    },[props]);
+
     return (
-            <Typography variant='h5'>{props.data.ingredient.main_name}</Typography>
+        <Typography variant='h5'>
+            {title}
+        </Typography>
     )
 
 };

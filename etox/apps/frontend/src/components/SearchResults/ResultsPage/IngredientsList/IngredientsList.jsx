@@ -51,7 +51,7 @@ const IngredientsList = (props) => {
     console.log('IngredientsList props:', props);
 
     return (
-        <TableContainer  >
+        <TableContainer>
             <Table xs={12} >
                 <TableHead>
                     <TableRow>

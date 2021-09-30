@@ -1,6 +1,6 @@
 import React from 'react';
 import { makeStyles } from "@material-ui/core/styles";
-import { Grid, Paper } from '@material-ui/core';
+import { Grid } from '@material-ui/core';
 import IngredientsList from './IngredientsList/IngredientsList.jsx';
 import HazardLevel from './HazardLevel/HazardLevel.jsx';
 import Legend from './Legend/Legend.jsx';
@@ -29,50 +29,59 @@ const useStyles = makeStyles((theme) => ({
 
 }));
 // TODO поработать над Box элементами в которые оборачиваются все компоненты
-// TODO не выводить компонент вообще, если данные для него отсутствуют
 const ResultsPage = (props) => {
     console.log('ResultsPage props', props)
     const classes = useStyles();
 
     return (
-        <Grid container direction="column" spacing={2} className={classes.root}>
-            <Grid item xs={12} >
-                <Grid item xs container direction="row" spacing={2}>
-                    <Grid item xs={4} >
-                        <ItemCard 
-                        title='Volume fractions' 
-                        caption='The number of ingredients for each hazard class in the product'
-                        >
-                            <VolumeFractions searchResults={props.searchResults} />
-                        </ItemCard>
+        <Grid container direction="row" spacing={2} className={classes.root}>
+            <Grid item xs={8} container direction="column" spacing={1} >
+
+                <Grid container xs direction="row" spacing={1} >
+                    <Grid item xs={6} >
+                        {props.searchResults.data.detail_hazard_product.length > 0 &&
+                            <ItemCard
+                                title='Volume fractions'
+                                caption='The number of ingredients for each hazard class in the product'
+                            >
+                                <VolumeFractions data={props.searchResults.data} />
+                            </ItemCard>
+                        }
                     </Grid>
-                    <Grid item xs={4} >
-                        <ItemCard 
-                        title='Hazard level' 
-                        caption='The total hazard level for each hazard class of the ingredients of the product' 
-                        >
-                            <HazardLevel searchResults={props.searchResults} />
-                        </ItemCard>
-                    </Grid>
-                    <Grid item xs={4} >
-                        <ItemCard title='Chart legend'>
-                            <Legend data={props.searchResults.data} />
-                        </ItemCard>
+                    <Grid item xs={6} >
+                        {props.searchResults.data.detail_hazard_product.length > 0 &&
+                            <ItemCard
+                                title='Hazard level'
+                                caption='The total hazard level for each hazard class of the ingredients of the product'
+                            >
+                                <HazardLevel data={props.searchResults.data.detail_hazard_product} />
+                            </ItemCard>
+                        }
                     </Grid>
                 </Grid>
-                <Grid item xs container direction="row" spacing={2}>
-                    <Grid item xs={8} >
-                        <ItemCard title='List of ingredients'>
-                            <IngredientsList data={props.searchResults.data} />
-                        </ItemCard>
-                    </Grid>
-                    <Grid item xs={4} >
-                        <ItemCard title='Your product image'>
-                            <ProductPhoto />
-                        </ItemCard>
-                    </Grid>
+                <Grid item xs>
+                    <ItemCard title='List of ingredients'>
+                        <IngredientsList data={props.searchResults.data} />
+                    </ItemCard>
                 </Grid>
             </Grid>
+
+            <Grid item xs={4} container direction="column" spacing={2}>
+                <Grid item xs >
+                    {props.searchResults.data.detail_hazard_product.length > 0 &&
+                        <ItemCard title='Chart legend'>
+                            <Legend data={props.searchResults.data.detail_hazard_product} />
+                        </ItemCard>
+                    }
+                </Grid>
+                <Grid item xs >
+                    <ItemCard title='Your product image'>
+                        <ProductPhoto />
+                    </ItemCard>
+                </Grid>
+            </Grid>
+
+
         </Grid>
     )
 };

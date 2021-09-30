@@ -8,7 +8,7 @@ const HazardLevel = (props) => {
     const [chartData, setChartData] = useState([{ value: null, id: null, label: null, color: 'white' }]);
     useEffect(() => {
         const data = getData({
-            dataset: props.searchResults.data.detail_hazard_product,
+            dataset: props.data,
             key: 'hazard_class',
             value: 'hazard_scale_score',
             label: 'description',

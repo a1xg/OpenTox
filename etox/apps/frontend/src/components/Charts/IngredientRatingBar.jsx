@@ -2,6 +2,7 @@ import React from 'react';
 import { Box, Tooltip } from '@material-ui/core';
 import DoneIcon from '@material-ui/icons/Done';
 import SearchOffIcon from '@mui/icons-material/SearchOff';
+import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
 import { ratingColorMap } from './ChartsConfig';
 
 const getRectangleColors = (rating) => {
@@ -41,7 +42,10 @@ const getRating = (props) => {
 const safelyIcon = (props) => {
     return (
         <Tooltip title='This ingredient is completely safe.'>
-            <DoneIcon style={{ color: ratingColorMap[1], width:14, height:14 }} />
+            <DoneIcon style={{ 
+                color: ratingColorMap[1], 
+                width:16, 
+                height:16 }} />
         </Tooltip>
     )
 };
@@ -50,7 +54,10 @@ const notDataIcon = (props) => {
     return (
         <Tooltip title='No hazard data available for the ingredient.'>
             <Box>
-                <SearchOffIcon style={{ color: 'rgb(245, 0, 0)', width:14, height:14 }} />
+                <HelpOutlineIcon style={{ 
+                    color: 'rgb(245, 0, 0)', 
+                    width:16, 
+                    height:16 }} />
             </Box>
         </Tooltip>
     )

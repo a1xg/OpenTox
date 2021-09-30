@@ -14,27 +14,6 @@ import { makeStyles } from '@material-ui/core/styles';
 //TODO Уменьшить ширину app.container до 1024
 // * useScrollTrigger  для переключения строки поиска в appbar при скролле
 
-const theme = createTheme({
-  breakpoints: {
-      keys: {
-          0: 'xs',
-          1: 'sm',
-          2: 'md',
-          3: 'lg',
-          4: 'xl',
-          5: 'full'
-      },
-      values: {
-          xs: 0,
-          sm: 600,
-          md: 900,
-          lg: 1024,
-          xl: 1500,
-          full: window.innerWidth
-      }
-  }
-});
-
 const useStyles = makeStyles((theme) => ({
   app: {
     backgroundColor: '#EFFFF3',
@@ -72,8 +51,8 @@ const App = (props) => {
   }, [searchQuery]);
 
   return (
-    <Container maxWidth={'xl'} className={classes.app}>
-      <Grid container spacing={3} >
+    <Container maxWidth={'xl'} className={classes.app} >
+      <Grid container spacing={3} direction='row'>
         <Grid item xs={12} >
           <SideBar />
         </Grid>

@@ -7,7 +7,7 @@ const PercentNotifications = (props) => {
     const [chartData, setChartData] = useState([{ value: null, id: null, label:null }]);
     useEffect(() => {
         const data = getData({
-            dataset: props.searchResults.data.ingredient.hazard.hazard_ghs_set,
+            dataset: props.data,
             key: 'hazard_class',
             value: 'percent_notifications',
             label: 'description',

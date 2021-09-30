@@ -12,7 +12,7 @@ const VolumeFractions = (props) => {
     const [chartData, setChartData] = useState([{ value: null, id: null, label: null, color: 'white' }]);
     useEffect(() => {
         const data = getData({
-            dataset: props.searchResults.data.detail_hazard_product,
+            dataset: props.data.detail_hazard_product,
             key: 'hazard_class',
             value: 'num_of_ingredients',
             label: 'description'
@@ -46,7 +46,7 @@ const VolumeFractions = (props) => {
                 pointerEvents: "none"
             }}
             >
-                <TotalProductRating total_rating={props.searchResults.data.product_hazard_avg} />
+                <TotalProductRating total_rating={props.data.product_hazard_avg} />
             </Box>
         </Box>
     )

@@ -7,9 +7,7 @@ const Synonyms = (props) => {
 
     return (
         <Typography variant='body1'>
-            {props.data.ingredient.synonyms != null && 
-            props.data.ingredient.synonyms.eng != null && 
-            props.data.ingredient.synonyms.eng.join('; ')}
+            {props.data.join('; ')}
         </Typography>
     )
 

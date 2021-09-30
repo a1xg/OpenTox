@@ -19,7 +19,7 @@ const Legend = (props) => {
 
     useEffect(() => {
         const data = getData({
-            dataset: props.data.ingredient.hazard.hazard_ghs_set,
+            dataset: props.data.hazard_ghs_set,
             key: 'hazard_class',
             value: 'hazard_scale_score',
             label: 'description',
@@ -50,27 +50,25 @@ const Legend = (props) => {
                 }
                 <Grid item xs={12} className={classes.rowItem}>
                     <Divider></Divider>
+                    {props.data.total_notifications != null &&
                     <Typography variant='subtitle2'>
                         Total notifications: {
-                            props.data.ingredient.hazard.total_notifications != null
-                                ? props.data.ingredient.hazard.total_notifications
-                                : 'not data'
+                            props.data.total_notifications                             
                         }
                     </Typography>
+                    }
+                    {props.data.cl_inventory_id != null && 
                     <Typography variant='subtitle2'>
                         Sourse:
-                        {props.data.ingredient.hazard.cl_inventory_id != null
-                            ?
                             <Link href={
                                 "https://echa.europa.eu/information-on-chemicals/cl-inventory-database/-/discli/details/"
-                                + props.data.ingredient.hazard.cl_inventory_id
+                                + props.data.cl_inventory_id
                             } underline='hover'
                             >
                                 European Chemicals Agency (ECHA)
-                            </Link>
-                            : 'not data'
-                        }
+                            </Link>    
                     </Typography>
+                    }
 
                 </Grid>
             </Grid>

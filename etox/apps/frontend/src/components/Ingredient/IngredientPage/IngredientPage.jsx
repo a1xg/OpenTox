@@ -12,7 +12,8 @@ import Synonyms from "./Synonyms/Synonyms.jsx";
 import ItemCard from "../../ItemCard/ItemCard.jsx";
 
 // TODO поработать над Box элементами в которые оборачиваются все компоненты
-// TODO не выводить компонент вообще, если данные для него отсутствуют
+//TODO не добавлять ссылку на страницу результатов, если с 
+//TODO сервера была запрошена страница ингредиента из браузерной строки
 const useStyles = makeStyles((theme) => ({
     root: {
         flexGrow: 1
@@ -30,13 +31,9 @@ const IngredientPage = (props) => {
                         <Grid item xs={3}>
                             <Grid item xs container direction="column" spacing={2} >
                                 <Grid item xs={12}>
-                                    {
-                                    //TODO не добавлять ссылку на страницу результатов, если с 
-                                    //TODO сервера была запрошена страница ингредиента из браузерной строки
-                                    }
                                     <NavLink to='/search-results'>Back to search results</NavLink>
                                     <ItemCard title='Name'>
-                                        <Title data={props.searchResults.data} />
+                                        <Title mainName={props.searchResults.data.ingredient.main_name} />
                                         <IngredientRatingBar
                                             rating={props.searchResults.data.ingredient.hazard.ingredient_hazard_avg}
                                             width={200}
@@ -46,7 +43,7 @@ const IngredientPage = (props) => {
                                 </Grid>
                                 <Grid item xs={12} >
                                     <ItemCard title='Details'>
-                                        <Details data={props.searchResults.data} />
+                                        <Details data={props.searchResults.data.ingredient} />
                                     </ItemCard>
                                 </Grid>
                             </Grid>
@@ -55,46 +52,55 @@ const IngredientPage = (props) => {
                             <Grid item xs container direction="column" spacing={2}>
                                 <Grid item xs={12}>
                                     <Grid item xs container direction="row" spacing={2}>
-                                        <Grid item xs={6}>
-                                            <ItemCard
-                                                title='Hazard level'
-                                                caption='Hazard level for each hazard class for the ingredient'
-                                            >
-                                                <HazardLevel
-                                                    searchResults={props.searchResults}
-                                                />
-                                            </ItemCard>
-                                        </Grid>
-                                        <Grid item xs={6}>
-                                            <ItemCard
-                                                title='Data confidence (%)'
-                                                caption='Confidence based on the number of notifications in the system of GHS'
-                                            >
-                                                <PercentNotifications searchResults={props.searchResults} />
-                                            </ItemCard>
-                                        </Grid>
+                                        {props.searchResults.data.ingredient.hazard.hazard_ghs_set.length > 0 &&
+                                            <Grid item xs={6}>
+                                                <ItemCard
+                                                    title='Hazard level'
+                                                    caption='Hazard level for each hazard class for the ingredient'
+                                                >
+                                                    <HazardLevel
+                                                        data={props.searchResults.data.ingredient.hazard.hazard_ghs_set}
+                                                    />
+                                                </ItemCard>
+                                            </Grid>
+                                        }
+                                        {props.searchResults.data.ingredient.hazard.hazard_ghs_set.length > 0 &&
+                                            <Grid item xs={6}>
+                                                <ItemCard
+                                                    title='Data confidence (%)'
+                                                    caption='Confidence based on the number of notifications in the system of GHS'
+                                                >
+                                                    <PercentNotifications
+                                                        data={props.searchResults.data.ingredient.hazard.hazard_ghs_set}
+                                                    />
+                                                </ItemCard>
+                                            </Grid>
+                                        }
                                     </Grid>
                                 </Grid>
                                 <Grid item xs={12}>
                                     <ItemCard title='Chart legend'>
-                                        <Legend data={props.searchResults.data} />
+                                        <Legend data={props.searchResults.data.ingredient.hazard} />
                                     </ItemCard>
                                 </Grid>
+                                {props.searchResults.data.ingredient.description != null &&
+                                    <Grid item xs={12}>
+                                        <ItemCard title='Description'>
+                                            <Description data={props.searchResults.data.ingredient.description} />
+                                        </ItemCard>
+                                    </Grid>
+                                }
+                                {props.searchResults.data.ingredient.synonyms != null &&
+                                    props.searchResults.data.ingredient.synonyms.eng != null &&
+                                    <Grid item xs={12}>
+                                        <ItemCard title='Synonyms'>
+                                            <Synonyms
+                                                data={props.searchResults.data.ingredient.synonyms.eng}
+                                            />
+                                        </ItemCard>
+                                    </Grid>
+                                }
                             </Grid>
-                        </Grid>
-                    </Grid>
-                    <Grid item xs container direction="row" spacing={5}>
-                        <Grid item xs={12}>
-                            <ItemCard title='Description'>
-                                <Description data={props.searchResults.data} />
-                            </ItemCard>
-                        </Grid>
-                    </Grid>
-                    <Grid item xs container direction="row" spacing={5}>
-                        <Grid item xs={12}>
-                            <ItemCard title='Synonyms'>
-                                <Synonyms data={props.searchResults.data} />
-                            </ItemCard>
                         </Grid>
                     </Grid>
                 </Grid>
