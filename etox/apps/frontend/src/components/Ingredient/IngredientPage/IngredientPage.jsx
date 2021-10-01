@@ -1,7 +1,5 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
-import { Grid, Button, makeStyles } from '@material-ui/core';
-import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
+import { Grid, makeStyles } from '@material-ui/core';
 import IngredientRatingBar from '../../Charts/IngredientRatingBar.jsx';
 import Details from "./Details/Details.jsx";
 import Description from "./Description/Description.jsx";
@@ -11,8 +9,8 @@ import Legend from "./Legend/Legend.jsx";
 import PercentNotifications from "./PercentNotifications/PercentNotifications.jsx";
 import Synonyms from "./Synonyms/Synonyms.jsx";
 import ItemCard from "../../ItemCard/ItemCard.jsx";
+import BackButton from "./BackButton/BackButton.jsx";
 
-// TODO поработать над Box элементами в которые оборачиваются все компоненты
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -27,17 +25,7 @@ const IngredientPage = (props) => {
             <Grid item container xs={3} direction='column' spacing={2}>
                 {props.backButton == true &&
                     <Grid item >
-                        <NavLink to='/search-results' style={{'text-decoration': 'none'}}>
-                        <Button 
-                        xs={12}
-                        variant="contained" 
-                        style={{display: 'flex', width:'100%', background:'white'}}
-                        startIcon={<ArrowBackIosIcon />
-                        
-                        }>
-                        Back to search results
-                        </Button>
-                        </NavLink>
+                        <BackButton/>
                     </Grid>
                 }
                 <Grid item>

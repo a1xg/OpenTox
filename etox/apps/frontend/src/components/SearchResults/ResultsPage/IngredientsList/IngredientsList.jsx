@@ -68,13 +68,11 @@ const IngredientsList = (props) => {
                         return (
                             <TableRow key={ingredient.id} >
                                 <TableCell align="left">
-                                    <NavLink to={{ pathname: "ingredient/" + ingredient.id }}>
-                                        <Typography variant='subtitle1'>
-                                            {ingredient.main_name[0] + ingredient.main_name
-                                                .substring(1)
-                                                .toLowerCase()}
-                                        </Typography>
+                                <Typography variant='subtitle1'>
+                                    <NavLink to={{ pathname: "ingredient/" + ingredient.id }} style={{textDecoration:'none'}}>
+                                        {ingredient.main_name[0] + ingredient.main_name.substring(1).toLowerCase()}                                       
                                     </NavLink>
+                                    </Typography>
                                 </TableCell>
                                 <TableCell align="center">
                                     <BriefStatistics 

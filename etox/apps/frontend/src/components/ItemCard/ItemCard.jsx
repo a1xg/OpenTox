@@ -12,26 +12,19 @@ import {
 import { BorderRight } from "@material-ui/icons";
 
 const useStyles = makeStyles((theme) => ({
-    root: {
-        padding: theme.spacing(0),
-        textAlign: "center",
-        color: theme.palette.text.secondary,
-        display: "flex",
-        height: '100%',
-        width: '100%'
+    wrapper: {
+        display: 'flex',
+        color: theme.palette.text.secondary, //
     },
     card: {
-
-    },
-    bordertop: {
         borderTop: "5px solid lightgray",
-        padding: '10px'
+        padding: '20px',
+        'flex-grow': 1
     },
     caption: {
         color: 'lightgray'
     },
     title: {
-
     }
 }));
 
@@ -40,18 +33,11 @@ const ItemCard = (props) => {
     const classes = useStyles();
 
     return (
-        <Card className={classes.bordertop}>
-            <CardContent>
+        <Card className={classes.wrapper}>
+            <CardContent className={classes.card} >
                 {props.title && <Typography variant='h6' className={classes.title}>{props.title}</Typography>}
                 {props.caption && <Typography variant='caption' className={classes.caption}>{props.caption}</Typography>}
                 {props.children}
-                {/*
-                <Box sx={{
-                    border: '1px solid rgb(245, 243, 243)',
-                    borderRadius:'2px'
-                }}>
-                </Box>
-                */}
             </CardContent>
         </Card>
     )

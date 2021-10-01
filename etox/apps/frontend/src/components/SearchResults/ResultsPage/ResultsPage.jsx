@@ -10,7 +10,12 @@ import ItemCard from '../../ItemCard/ItemCard.jsx';
 
 const useStyles = makeStyles((theme) => ({
     root: {
+        flexGrow: 1,
     },
+charts: {
+    //height:'100%'
+}
+
 }));
 // TODO поработать над Box элементами в которые оборачиваются все компоненты
 const ResultsPage = (props) => {
@@ -20,7 +25,7 @@ const ResultsPage = (props) => {
     return (
         <Grid container direction="row" spacing={2} >
             <Grid item xs={9} container direction="column" spacing={2} >
-                <Grid container direction="row" spacing={2} >
+                <Grid item container direction="row" spacing={2} className={classes.charts} >
                     <Grid item xs={6} >
                         {props.searchResults.data.detail_hazard_product.length > 0 &&
                             <ItemCard
@@ -42,7 +47,7 @@ const ResultsPage = (props) => {
                         }
                     </Grid>
                 </Grid>
-                <Grid item>
+                <Grid item >
                     <ItemCard title='List of ingredients'>
                         <IngredientsList data={props.searchResults.data} />
                     </ItemCard>
@@ -50,14 +55,14 @@ const ResultsPage = (props) => {
             </Grid>
 
             <Grid item xs={3} container direction="column" spacing={2}>
-                <Grid item>
+                <Grid item >
                     {props.searchResults.data.detail_hazard_product.length > 0 &&
                         <ItemCard title='Chart descripion'>
                             <Legend data={props.searchResults.data.detail_hazard_product} />
                         </ItemCard>
                     }
                 </Grid>
-                <Grid item>
+                <Grid item >
                     <ItemCard title='Your product image'>
                         <ProductPhoto />
                     </ItemCard>

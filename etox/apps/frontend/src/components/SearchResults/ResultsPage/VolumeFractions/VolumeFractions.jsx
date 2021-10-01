@@ -22,33 +22,18 @@ const VolumeFractions = (props) => {
     }, [props])
 
     return (
-        <Box sx={{
-            fontFamily: "consolas, sans-serif",
-            textAlign: "center",
+        <Box sx={{ 
             position: "relative",
-            width: 400,
-            height: 400
+            width: '400px',
+            height: '400px',
         }}
         >
-            <Doughnut data={chartData} margin={margin} />
-            <Box sx={{
-                position: "absolute",
-                top: 0,
-                right: margin.right,
-                bottom: 0,
-                left: margin.left,
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
-                justifyContent: "center",
-                fontSize: 48,
-                textAlign: "center",
-                pointerEvents: "none"
-            }}
-            >
-                <TotalProductRating total_rating={props.data.product_hazard_avg} />
-            </Box>
+           <Doughnut data={chartData} margin={margin} />
+           <TotalProductRating total_rating={props.data.product_hazard_avg} margin={margin} />
+            {/**/}
+            {/**/}
         </Box>
+        
     )
 };
 

@@ -22,8 +22,8 @@ const Bar = (props) => {
       margin={props.margin}
       padding={0.7}
       maxValue={props.maxValue}
-      defs={defs}
-      fill={fill}
+      //defs={defs}
+      //fill={fill}
       layout="vertical"
       borderColor="inherit:darker(1.6)"
       enableLabel={false}

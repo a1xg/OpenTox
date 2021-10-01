@@ -9,6 +9,9 @@ const useStyles = makeStyles((theme) => ({
     },
     item: {
         marginTop: theme.spacing(1)
+    },
+    link:{
+        textDecoration:'none'
     }
 }))
 
@@ -18,12 +21,12 @@ const Footer = (props) => {
             <Container maxWidth='lg' className={classes.root} >
                 <Divider></Divider>
                 <Box className={classes.item}>
-                    <NavLink to='/about' >
+                    <NavLink to='/about' className={classes.link}>
                     About
                     </NavLink>
                 </Box>
                 <Box className={classes.item}>
-                    <NavLink to='/contacts' >
+                    <NavLink to='/contacts' className={classes.link}>
                     Contacts
                     </NavLink>
                 </Box>
