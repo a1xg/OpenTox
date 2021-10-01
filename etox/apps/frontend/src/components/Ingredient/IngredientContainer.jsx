@@ -18,13 +18,20 @@ const IngredientContainer = (props) => {
                     });
                     document.title = `${data.ingredient.main_name[0]}${data.ingredient.main_name.substring(1).toLowerCase()}`
                 });
+                return () => {
+                    // cleaning
+                    setSearchResults({ 
+                        found: false, 
+                        data: PassIngredient 
+                    });
+                };
         };
-    }, [searchResults]);
+    }, []);
 
     return (
         <IngredientPage
             searchResults={searchResults}
-            fromMainPage={props.fromMainPage}
+            backButton={props.backButton}
         />
     )
 };

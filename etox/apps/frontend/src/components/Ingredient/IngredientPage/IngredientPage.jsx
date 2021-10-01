@@ -1,6 +1,7 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
-import { Grid, makeStyles } from '@material-ui/core';
+import { Grid, Button, makeStyles } from '@material-ui/core';
+import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import IngredientRatingBar from '../../Charts/IngredientRatingBar.jsx';
 import Details from "./Details/Details.jsx";
 import Description from "./Description/Description.jsx";
@@ -10,14 +11,11 @@ import Legend from "./Legend/Legend.jsx";
 import PercentNotifications from "./PercentNotifications/PercentNotifications.jsx";
 import Synonyms from "./Synonyms/Synonyms.jsx";
 import ItemCard from "../../ItemCard/ItemCard.jsx";
-import { padding } from "@mui/system";
 
 // TODO поработать над Box элементами в которые оборачиваются все компоненты
-//TODO не добавлять ссылку на страницу результатов, если с 
-//TODO сервера была запрошена страница ингредиента из браузерной строки
+
 const useStyles = makeStyles((theme) => ({
     root: {
-
     }
 }));
 
@@ -27,11 +25,19 @@ const IngredientPage = (props) => {
     return (
         <Grid container direction="row" spacing={2} >
             <Grid item container xs={3} direction='column' spacing={2}>
-                {props.fromMainPage == true &&
+                {props.backButton == true &&
                     <Grid item >
-                        <ItemCard >
-                            <NavLink to='/search-results'>Back to search results</NavLink>
-                        </ItemCard>
+                        <NavLink to='/search-results' style={{'text-decoration': 'none'}}>
+                        <Button 
+                        xs={12}
+                        variant="contained" 
+                        style={{display: 'flex', width:'100%', background:'white'}}
+                        startIcon={<ArrowBackIosIcon />
+                        
+                        }>
+                        Back to search results
+                        </Button>
+                        </NavLink>
                     </Grid>
                 }
                 <Grid item>
@@ -80,7 +86,7 @@ const IngredientPage = (props) => {
                     }
                 </Grid>
                 <Grid item>
-                    <ItemCard title='Chart legend'>
+                    <ItemCard title='Chart description'>
                         <Legend data={props.searchResults.data.ingredient.hazard} />
                     </ItemCard>
                 </Grid>

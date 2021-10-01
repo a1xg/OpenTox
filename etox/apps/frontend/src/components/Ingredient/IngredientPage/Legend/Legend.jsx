@@ -1,15 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { Grid, Typography, Box, Divider, Link } from '@material-ui/core';
-import { getData } from '../../../Charts/ChartTools';
+import { Grid, Typography, Box, Divider, Link, List, ListItem, ListItemIcon, ListItemText } from '@material-ui/core';
 import { makeStyles } from "@material-ui/core/styles";
+import { getData } from '../../../Charts/ChartTools';
 
 const useStyles = makeStyles((theme) => ({
     wrapper: {
         padding: theme.spacing(1),
     },
-    rowItem: {
-
-    }
 }));
 
 const Legend = (props) => {
@@ -31,43 +28,52 @@ const Legend = (props) => {
         <Box className={classes.wrapper}>
             <Grid container direction="column" >
                 {legendData.length > 0 &&
-                    <Grid item xs container direction='row' className={classes.rowItem}>
+                    <Grid item xs={12} container direction='row' spacing={1}>
                         {legendData.map(item => {
                             return (
-                                <Grid item xs container direction='row' key={item.id} spacing={1}>
-                                    <Grid item xs={2}>
-                                        <svg width='30' height='14' >
-                                            <rect x="0" y="0" width="30" height="14" rx="7" fill={item.color} />
-                                        </svg>
-                                    </Grid>
-                                    <Grid item xs={10}>
-                                        <Typography variant='body1'>{item.label}</Typography>
-                                    </Grid>
+                                <Grid item xs={4} key={item.id}>
+                                    <List>
+                                        <ListItem>
+                                            <ListItemIcon>
+                                                <svg width='30' height='14' >
+                                                    <rect x="0" y="0" width="30" height="14" rx="7" fill={item.color} />
+                                                </svg>
+                                            </ListItemIcon>
+                                            <ListItemText>
+                                                {item.label}
+                                            </ListItemText>
+                                        </ListItem>
+                                    </List>
                                 </Grid>
+
+
                             )
                         })}
                     </Grid>
                 }
-                <Grid item xs={12} className={classes.rowItem}>
+                <Grid item xs={12} >
                     <Divider></Divider>
                     {props.data.total_notifications != null &&
-                    <Typography variant='subtitle2'>
-                        Total notifications: {
-                            props.data.total_notifications                             
-                        }
-                    </Typography>
+                    <Box sx={{paddingTop:'10px'}}>
+                        <Typography variant='subtitle2'>
+                            Total notifications: {
+                                props.data.total_notifications
+                            }
+                        </Typography>
+                    </Box>
                     }
-                    {props.data.cl_inventory_id != null && 
-                    <Typography variant='subtitle2'>
-                        Sourse:
-                            <Link href={
+                    {props.data.cl_inventory_id != null &&
+                    <Box sx={{paddingTop:'10px'}}>
+                        <Typography variant='subtitle2'>
+                            Source: <Link href={
                                 "https://echa.europa.eu/information-on-chemicals/cl-inventory-database/-/discli/details/"
                                 + props.data.cl_inventory_id
                             } underline='hover'
                             >
-                                European Chemicals Agency (ECHA)
-                            </Link>    
-                    </Typography>
+                                 {props.data.sourse}
+                            </Link>
+                        </Typography>
+                    </Box>
                     }
 
                 </Grid>

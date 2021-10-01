@@ -6,9 +6,7 @@ import About from './components/About/About.jsx';
 import IngredientContainer from './components/Ingredient/IngredientContainer.jsx';
 import SideBar from './components/SideBar/SideBar.jsx';
 import Footer from './components/Footer/Footer.jsx';
-import Logo from './components/Logo/Logo.jsx';
-import Header from './components/Header/Header.jsx';
-import { Container, Grid, Box, useScrollTrigger, createTheme } from '@material-ui/core';
+import { Container, Grid, useScrollTrigger } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
 //TODO Уменьшить ширину app.container до 1024
@@ -27,7 +25,7 @@ const App = (props) => {
   const classes = useStyles();
   const [searchQuery, setQuery] = useState();
   const [searchResults, setSearchResults] = useState();
-  const [fromMainPage, setFromMainPage] = useState(false);
+  const [backButton, setBackButton] = useState(false);
 
   useEffect(() => {
     document.title = 'Etox';
@@ -43,7 +41,7 @@ const App = (props) => {
               setSearchResults({ loaded: 'error', })
             } else {
               setSearchResults({ loaded: true, data: data });
-              setFromMainPage(true);
+              setBackButton(true);
             }
           }
         })
@@ -70,15 +68,11 @@ const App = (props) => {
           <Container maxWidth={'lg'}> 
             <Route 
             exact path='/search-results' 
-            component={
-              () => <SearchResultsContainer searchResults={searchResults} />
-            } 
+            component={() => <SearchResultsContainer searchResults={searchResults} />} 
             />
             <Route 
             path='/ingredient/:ingredientID' 
-            component={
-              (props) => <IngredientContainer data={props} fromMainPage={fromMainPage} />
-            } 
+            component={(props) => <IngredientContainer data={props} backButton={backButton} />} 
             />
             <Route exact path='/about' component={About} />
           </Container>

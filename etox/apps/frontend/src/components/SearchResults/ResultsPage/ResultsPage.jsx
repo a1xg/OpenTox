@@ -10,7 +10,6 @@ import ItemCard from '../../ItemCard/ItemCard.jsx';
 
 const useStyles = makeStyles((theme) => ({
     root: {
-        flexGrow: 1
     },
 }));
 // TODO поработать над Box элементами в которые оборачиваются все компоненты
@@ -53,7 +52,7 @@ const ResultsPage = (props) => {
             <Grid item xs={3} container direction="column" spacing={2}>
                 <Grid item>
                     {props.searchResults.data.detail_hazard_product.length > 0 &&
-                        <ItemCard title='Chart legend'>
+                        <ItemCard title='Chart descripion'>
                             <Legend data={props.searchResults.data.detail_hazard_product} />
                         </ItemCard>
                     }
