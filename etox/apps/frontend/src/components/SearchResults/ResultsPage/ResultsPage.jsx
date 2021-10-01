@@ -12,21 +12,6 @@ const useStyles = makeStyles((theme) => ({
     root: {
         flexGrow: 1
     },
-    diagram: {
-        padding: theme.spacing(0),
-        textAlign: "center",
-        color: theme.palette.text.secondary,
-        display: "flex",
-        height: '100%',
-        width: '100%'
-    },
-    IngredientsList: {
-        padding: theme.spacing(0),
-        textAlign: "center",
-        color: theme.palette.text.secondary,
-        display: "flex",
-    },
-
 }));
 // TODO поработать над Box элементами в которые оборачиваются все компоненты
 const ResultsPage = (props) => {
@@ -34,9 +19,9 @@ const ResultsPage = (props) => {
     const classes = useStyles();
 
     return (
-        <Grid container direction="row" spacing={2} className={classes.root}>
-            <Grid item xs={9} container direction="column" spacing={1} >
-                <Grid container direction="row" spacing={1} >
+        <Grid container direction="row" spacing={2} >
+            <Grid item xs={9} container direction="column" spacing={2} >
+                <Grid container direction="row" spacing={2} >
                     <Grid item xs={6} >
                         {props.searchResults.data.detail_hazard_product.length > 0 &&
                             <ItemCard
@@ -79,8 +64,6 @@ const ResultsPage = (props) => {
                     </ItemCard>
                 </Grid>
             </Grid>
-
-
         </Grid>
     )
 };

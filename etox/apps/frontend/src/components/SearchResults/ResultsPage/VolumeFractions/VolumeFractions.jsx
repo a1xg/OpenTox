@@ -5,7 +5,7 @@ import Doughnut from '../../../Charts/Doughnut.jsx';
 import TotalProductRating from '../../../Charts/TotalProductRating.jsx';
 
 
-const margin = { top: 40, right: 40, bottom: 40, left: 40 };
+const margin = { top: 50, right: 50, bottom: 50, left: 50 };
 
 const VolumeFractions = (props) => {
     console.log('VolumeFractions props', props);

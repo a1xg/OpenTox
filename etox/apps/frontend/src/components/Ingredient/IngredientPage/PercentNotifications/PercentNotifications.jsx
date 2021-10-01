@@ -1,6 +1,10 @@
 import React, { useState, useEffect } from "react";
 import Bar from '../../../Charts/Bar.jsx';
 import { getData } from '../../../Charts/ChartTools';
+import { Box } from "@material-ui/core";
+import { height } from "@mui/system";
+
+const margin = { top: 50, right: 50, bottom: 50, left: 50 };
 
 const PercentNotifications = (props) => {
     console.log('PercentNotifications props', props);
@@ -17,9 +21,9 @@ const PercentNotifications = (props) => {
     }, [props]);
 
     return (
-        <div style={{ width: '400px', height: '400px' }}>
-            <Bar data={chartData} maxValue={100} />
-        </div>
+        <Box sx={{ width: '400px', height:'400px'}}>
+            <Bar data={chartData} maxValue={100} margin={margin} />
+        </Box>
     )
 
 };

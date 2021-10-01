@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
 import Bar from '../../../Charts/Bar.jsx';
 import { getData } from '../../../Charts/ChartTools';
+import { Box } from "@material-ui/core";
 
+const margin = { top: 50, right: 50, bottom: 50, left: 50 };
 
 const HazardLevel = (props) => {
     console.log('HazardLevel props', props);
@@ -17,9 +19,9 @@ const HazardLevel = (props) => {
     }, [props])
 
     return (
-        <div style={{ width: '400px', height: '400px' }}>
-            <Bar data={chartData} maxValue={10} />
-        </div>
+        <Box sx={{ width: '400px', height:'400px' }}>
+            <Bar data={chartData} maxValue={10} margin={margin} />
+        </Box>
     )
 };
 

@@ -27,6 +27,7 @@ const App = (props) => {
   const classes = useStyles();
   const [searchQuery, setQuery] = useState();
   const [searchResults, setSearchResults] = useState();
+  const [fromMainPage, setFromMainPage] = useState(false);
 
   useEffect(() => {
     document.title = 'Etox';
@@ -42,6 +43,7 @@ const App = (props) => {
               setSearchResults({ loaded: 'error', })
             } else {
               setSearchResults({ loaded: true, data: data });
+              setFromMainPage(true);
             }
           }
         })
@@ -66,8 +68,18 @@ const App = (props) => {
         </Grid>
         <Grid item xs={12} >
           <Container maxWidth={'lg'}> 
-            <Route exact path='/search-results' component={() => <SearchResultsContainer searchResults={searchResults} />} />
-            <Route path='/ingredient/:ingredientID' component={IngredientContainer} />
+            <Route 
+            exact path='/search-results' 
+            component={
+              () => <SearchResultsContainer searchResults={searchResults} />
+            } 
+            />
+            <Route 
+            path='/ingredient/:ingredientID' 
+            component={
+              (props) => <IngredientContainer data={props} fromMainPage={fromMainPage} />
+            } 
+            />
             <Route exact path='/about' component={About} />
           </Container>
         </Grid>

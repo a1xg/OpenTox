@@ -10,13 +10,14 @@ import Legend from "./Legend/Legend.jsx";
 import PercentNotifications from "./PercentNotifications/PercentNotifications.jsx";
 import Synonyms from "./Synonyms/Synonyms.jsx";
 import ItemCard from "../../ItemCard/ItemCard.jsx";
+import { padding } from "@mui/system";
 
 // TODO поработать над Box элементами в которые оборачиваются все компоненты
 //TODO не добавлять ссылку на страницу результатов, если с 
 //TODO сервера была запрошена страница ингредиента из браузерной строки
 const useStyles = makeStyles((theme) => ({
     root: {
-        flexGrow: 1
+
     }
 }));
 
@@ -24,14 +25,15 @@ const IngredientPage = (props) => {
     console.log('IngredientPage props', props)
     const classes = useStyles();
     return (
-        <Grid container direction="row"  spacing={2}>
+        <Grid container direction="row" spacing={2} >
             <Grid item container xs={3} direction='column' spacing={2}>
-                <Grid item >
-                <ItemCard >
-                <NavLink to='/search-results'>Back to search results</NavLink>
-                </ItemCard>
-                </Grid>
-                
+                {props.fromMainPage == true &&
+                    <Grid item >
+                        <ItemCard >
+                            <NavLink to='/search-results'>Back to search results</NavLink>
+                        </ItemCard>
+                    </Grid>
+                }
                 <Grid item>
                     <ItemCard title='Ingredient name'>
                         <Title mainName={props.searchResults.data.ingredient.main_name} />
@@ -51,9 +53,9 @@ const IngredientPage = (props) => {
             </Grid>
 
             <Grid item container xs={9} direction="column" spacing={2}>
-                <Grid item container direction="row" spacing={2}>
+                <Grid item container direction="row" spacing={2} >
                     {props.searchResults.data.ingredient.hazard.hazard_ghs_set.length > 0 &&
-                        <Grid item xs={6}>
+                        <Grid item xs={6} >
                             <ItemCard
                                 title='Hazard level'
                                 caption='Hazard level for each hazard class for the ingredient'
@@ -65,7 +67,7 @@ const IngredientPage = (props) => {
                         </Grid>
                     }
                     {props.searchResults.data.ingredient.hazard.hazard_ghs_set.length > 0 &&
-                        <Grid item xs={6}>
+                        <Grid item xs={6} >
                             <ItemCard
                                 title='Data confidence (%)'
                                 caption='Confidence based on the number of notifications in the system of GHS'

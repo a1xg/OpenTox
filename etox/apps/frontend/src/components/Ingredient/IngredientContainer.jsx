@@ -8,7 +8,7 @@ const IngredientContainer = (props) => {
     document.title = 'Search results';
     useEffect(() => {
         if (searchResults.found == false) {
-            const url = '/api' + props.location.pathname;
+            const url = '/api' + props.data.location.pathname;
             fetch(url, { method: 'GET' })
                 .then(response => { return response.json(); })
                 .then((data) => {
@@ -24,6 +24,7 @@ const IngredientContainer = (props) => {
     return (
         <IngredientPage
             searchResults={searchResults}
+            fromMainPage={props.fromMainPage}
         />
     )
 };

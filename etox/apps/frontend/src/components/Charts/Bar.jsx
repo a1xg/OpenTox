@@ -9,7 +9,7 @@ const getColors = (data) => {
   });
   return colors
 };
-//!FIXME максимальное значение измерительной шкалы не зафиксировано 
+
 const Bar = (props) => {
   console.log('Bar props', props);
   return (
@@ -19,12 +19,7 @@ const Bar = (props) => {
       indexBy="label"
       colorBy='index'
       colors={getColors(props.data)}
-      margin={{
-        top: 50,
-        right: 50,
-        bottom: 50,
-        left: 60
-      }}
+      margin={props.margin}
       padding={0.7}
       maxValue={props.maxValue}
       defs={defs}
