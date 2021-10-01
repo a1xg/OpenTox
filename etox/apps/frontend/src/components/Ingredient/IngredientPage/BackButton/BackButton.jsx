@@ -1,22 +1,18 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
-import { Button, Box, makeStyles } from '@material-ui/core';
+import { Button, makeStyles } from '@material-ui/core';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
-
-
 
 const useStyles = makeStyles((theme) => ({
     button: {
         display: 'flex',
         width: '100%',
         background: 'white',
-
     },
     link: {
         textDecoration: 'none',
     }
 }));
-
 
 const BackButton = () => {
     const classes = useStyles();

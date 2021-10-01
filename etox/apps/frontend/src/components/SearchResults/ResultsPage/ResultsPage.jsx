@@ -13,19 +13,19 @@ const useStyles = makeStyles((theme) => ({
         flexGrow: 1,
     },
 charts: {
-    //height:'100%'
+    flexGrow: 1,
 }
 
 }));
-// TODO поработать над Box элементами в которые оборачиваются все компоненты
+
 const ResultsPage = (props) => {
     console.log('ResultsPage props', props)
     const classes = useStyles();
 
     return (
-        <Grid container direction="row" spacing={2} >
-            <Grid item xs={9} container direction="column" spacing={2} >
-                <Grid item container direction="row" spacing={2} className={classes.charts} >
+        <Grid container direction="row" spacing={3} >
+            <Grid item xs={9} container direction="column" spacing={3} >
+                <Grid item container direction="row" spacing={3} className={classes.charts} >
                     <Grid item xs={6} >
                         {props.searchResults.data.detail_hazard_product.length > 0 &&
                             <ItemCard
@@ -54,7 +54,7 @@ const ResultsPage = (props) => {
                 </Grid>
             </Grid>
 
-            <Grid item xs={3} container direction="column" spacing={2}>
+            <Grid item xs={3} container direction="column" spacing={3}>
                 <Grid item >
                     {props.searchResults.data.detail_hazard_product.length > 0 &&
                         <ItemCard title='Chart descripion'>

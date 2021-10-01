@@ -1,12 +1,12 @@
 import React from "react";
 import { Grid, makeStyles } from '@material-ui/core';
+import PercentNotifications from "./PercentNotifications/PercentNotifications.jsx";
 import IngredientRatingBar from '../../Charts/IngredientRatingBar.jsx';
-import Details from "./Details/Details.jsx";
 import Description from "./Description/Description.jsx";
 import HazardLevel from "./HazardLevel/HazardLevel.jsx";
+import Details from "./Details/Details.jsx";
 import Title from "./Title/Title.jsx";
 import Legend from "./Legend/Legend.jsx";
-import PercentNotifications from "./PercentNotifications/PercentNotifications.jsx";
 import Synonyms from "./Synonyms/Synonyms.jsx";
 import ItemCard from "../../ItemCard/ItemCard.jsx";
 import BackButton from "./BackButton/BackButton.jsx";
@@ -21,8 +21,8 @@ const IngredientPage = (props) => {
     console.log('IngredientPage props', props)
     const classes = useStyles();
     return (
-        <Grid container direction="row" spacing={2} >
-            <Grid item container xs={3} direction='column' spacing={2}>
+        <Grid container direction="row" spacing={3} >
+            <Grid item container xs={3} direction='column' spacing={3}>
                 {props.backButton == true &&
                     <Grid item >
                         <BackButton/>
@@ -46,8 +46,8 @@ const IngredientPage = (props) => {
 
             </Grid>
 
-            <Grid item container xs={9} direction="column" spacing={2}>
-                <Grid item container direction="row" spacing={2} >
+            <Grid item container xs={9} direction="column" spacing={3}>
+                <Grid item container direction="row" spacing={3} >
                     {props.searchResults.data.ingredient.hazard.hazard_ghs_set.length > 0 &&
                         <Grid item xs={6} >
                             <ItemCard
