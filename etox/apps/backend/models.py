@@ -1,10 +1,10 @@
 from django.db import models
 from django.contrib.postgres.indexes import GinIndex, BTreeIndex, GistIndex
 
-# FIXME не работает поиск по main_name
+# FIXME не работает поиск по main_name иногда не находятся синонимы в synonyms.eng, например 'advantame'
 
 class Ingredients(models.Model):
-    '''Таблица ингридиентов'''
+    '''Table of ingredients'''
     id = models.BigAutoField(primary_key=True)
     # TODO выводить имя в lowercase с большой буквы
     main_name = models.CharField(max_length=300, blank=True, null=False)
@@ -43,8 +43,8 @@ class Ingredients(models.Model):
     class Meta:
         managed = True
         db_table = 'ingredients'
-        verbose_name = 'Ингредиент'
-        verbose_name_plural = 'Ингредиенты'
+        verbose_name = 'Ingredient'
+        verbose_name_plural = 'Ingredients'
         indexes = [
             GinIndex(fields=["data"], name="enumber_gin_idx",),
             GinIndex(fields=["data"], name="colourindex_gin_idx",),
@@ -62,7 +62,8 @@ class GHS(models.Model):
     hazard_category = models.CharField(max_length=20, blank=True, null=False)
     code = models.CharField(max_length=20, blank=True, null=False)
     description = models.TextField(blank=True, null=False)
-    hazard_scale_score = models.IntegerField(blank=True, null=False) # значение оценки опасности по 10 бальной, возрастающей шкале
+    # user-defined hazard rating on a 10-point, ascending scale converted from 3-4 point ghs system
+    hazard_scale_score = models.IntegerField(blank=True, null=False)
     active_status = models.BooleanField(default=True, null=False)
     def __str__(self):
         return f'{self.abbreviation} {self.hazard_category}'
@@ -73,8 +74,9 @@ class GHS(models.Model):
         verbose_name = 'GHS'
         verbose_name_plural = "GHS's"
 
+
 class Hazard(models.Model):
-    '''Таблица безопасности ингридиентов'''
+    '''The table safety data of ingredients'''
     id = models.BigAutoField(primary_key=True)
     substance = models.JSONField(blank=True, null=False)
     cas_number = models.CharField(max_length=12, blank=True, null=True)
@@ -88,11 +90,10 @@ class Hazard(models.Model):
         return str(self.substance["substanceNames"][0])
 
     class Meta:
-        #default_related_name = 'hazard'
         managed = True
         db_table = 'hazard'
-        verbose_name = 'Карточка опасности'
-        verbose_name_plural = 'Карточки опасности'
+        verbose_name = 'Card of hazard'
+        verbose_name_plural = 'Cards of hazard'
 
 
 class Hazard_GHS(models.Model):
@@ -106,8 +107,7 @@ class Hazard_GHS(models.Model):
         return str(self.id)
 
     class Meta:
-        #default_related_name = 'hazard_ghs'
         managed = True
         db_table = 'hazard_ghs'
-        verbose_name = 'Уведомление GHS связанное с веществом'
-        verbose_name_plural = "Уведомления GHS связанные с веществами"
+        verbose_name = 'GHS notification related with ingredient'
+        verbose_name_plural = "GHS notifications related with ingredients"

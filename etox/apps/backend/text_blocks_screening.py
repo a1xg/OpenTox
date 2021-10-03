@@ -5,15 +5,15 @@ from .db_tools import DBQueries
 
 
 class TextBlock:
-    '''Класс текстового блока'''
+    '''Text block class'''
     def __init__(self, lang:str, text:str):
-        self.lang = lang          # язык текста
-        self.text = text          # ненормализованный текст
-        self.e_numbers = []       # присутствующие в тексте Е номера
-        self.colour_index = []    # присутствующие в текста номера Colour Index
-        self.keywords = []        # Все ключевые слова, кроме номеров
-        self.results = []         # объекты результатов поиска
-        self.count = int          # количеств найденных базе ключевых слов
+        self.lang = lang          # language of text
+        self.text = text          # unnormalized text
+        self.e_numbers = []       # present in the text E*** numbers
+        self.colour_index = []    # present of text Colour Index(CI) numbers
+        self.keywords = []        # all keywords except numbers
+        self.results = []         # objects of search results
+        self.count = int          # the number of keywords found in the database
 
 class IngredientsBlockFinder:
     def __init__(self, data: list):
@@ -21,29 +21,29 @@ class IngredientsBlockFinder:
         self._text_blocks = self._buildTextBlock()
 
     def _buildTextBlock(self) -> list:
-        '''Принимаем словари и формируем объекты текстовых блоков.
-        В качестве ключей словаря указаны коды языка в формате alpha3.
-        В качестве значений ненормализованная строка ключевых слов'''
+        '''We accept dictionaries and form objects of text blocks.
+         Language codes in alpha3 format are specified as dictionary keys.
+         The values are an unnormalized string of keywords.'''
         text_blocks = []
         for dict in self.data:
             key = list(dict.keys())[0]
             string = dict.get(key)
             text_block = TextBlock(text=string, lang=key)
-            # Ищем E номера и приводим их в порядок, если найдены, то удаляем их из остальной строки
+            # We look for E numbers and put them in order, if found, then remove them from the rest of the line.
             e_numbers = re.findall(RE_MASKS['eNumber'], string)
             if e_numbers:
                 enums = ['E' + re.search(r'(\d{3}[\d\w]|\d{3})', num).group() for num in e_numbers]
                 text_block.e_numbers = enums
                 string = re.sub(RE_MASKS['eNumber'], '', string)
 
-            # Ищем colour index номера и приводим их в порядок, если найдены, то удаляем их из основной строки
+            # We look for color index numbers and put them in order, if found, then remove them from the main line
             ci_numbers = re.findall(RE_MASKS['colourIndex'], string)
             if ci_numbers:
                 ci_nums = ['CI ' + re.search(r'\d{5}', num).group() for num in ci_numbers]
                 text_block.colour_index = ci_nums
                 string = re.sub(RE_MASKS['colourIndex'], '', string)
 
-            # оставшиеся ключевые слова очищаем от лишних символов и пробелов разделяем по запятой
+            # the remaining keywords are cleared of extra characters and spaces, separated by comma
             cleared_string = TextPostprocessing().string_filter(input_string=string)
             keyword_list = cleared_string.split(',')
             keyword_list = [keyword for keyword in keyword_list if len(keyword) > 0]
@@ -53,7 +53,7 @@ class IngredientsBlockFinder:
         return text_blocks
 
     def getData(self) -> list:
-        '''Перебираем текстовые блоки'''
+        '''Looping through text blocks'''
         for text_block in self._text_blocks:
             results = DBQueries().search_in_db(text_block=text_block, update_statistics=True)
             text_block.results = results
@@ -63,7 +63,7 @@ class IngredientsBlockFinder:
         return ingredients_block.results
 
     def _selectIngredientBlock(self) -> TextBlock:
-        '''Выбираем блок текста, по которому нашли больше всего совпадений в базе'''
+        '''Select the block of text for which the most matches were found in the database'''
         result_count = [block.count for block in self._text_blocks]
         max_matches_idx = result_count.index(max(result_count))
         return self._text_blocks[max_matches_idx]

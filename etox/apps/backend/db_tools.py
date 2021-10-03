@@ -7,10 +7,10 @@ class DBQueries:
     #  точному совпадению нужно попробовать найти по триграммам
     def _get_query(self, **kwargs) -> Q:
         '''
-        Cоставляем SQL запросы на базе Q объектов.
-        Пока поддерживаются только точные совпадения на английском и без пробелов в начале и конце текста.
+        We compose a SQL query based on Q objects.
+        So far, only exact matches in English and no spaces at the beginning and end of the text are supported.
         '''
-        # Комбинированный запрос по различным ключевым словам
+        # Combined query for different keywords.
         if kwargs.get('text_block'):
             text_block = kwargs['text_block']
             query = Q()
@@ -24,7 +24,7 @@ class DBQueries:
             if text_block.colour_index:
                 for ci in text_block.colour_index:
                     query = query | Q(data__colourIndex__contains=[ci])
-        # запрос ингредиента по pk
+        # request ingredient by pk
         elif kwargs.get('pk'):
             query = Q(pk=kwargs['pk'])
 
@@ -32,9 +32,9 @@ class DBQueries:
 
     def _get_queryset(self, query: Q, **kwargs):
         '''
-        :query: Набор Q (объектов запроса)
+        :query:  collection of Q objects (query objects)
         '''
-        # Запрос с прездагрузкой Hazard_GHS и GHS таблиц с фильтрацией неиспользуемых классов опасности
+        # Query with preloading of Hazard_GHS and GHS tables with filtering of unused hazard classes.
         haz_ghs_prefetch = Hazard_GHS.objects.select_related('ghs').filter(ghs__active_status=True)
         queryset = Ingredients.objects.filter(query).select_related('hazard').prefetch_related(
             Prefetch('hazard__hazard_ghs_set', queryset=haz_ghs_prefetch))
@@ -46,16 +46,16 @@ class DBQueries:
         return queryset
 
     def _update_statistics(self, pk_list) -> None:
-        '''Обновление статистики запросов найденных элементов'''
+        '''Updating query statistics for found items'''
         Ingredients.objects.filter(pk__in=pk_list).update(request_statistics=F('request_statistics') + 1)
 
     def search_in_db(self, **kwargs):
         '''
         :param kwargs:
-            pk (int): pk ингридиента, если нужно получить 1 ингридиент.
-            text_block (TextBlock): поиск нескольких ингридиентов из объекта TextBlock
-            update_statistics (bool): если параметр установлен в положение True,
-            то будет обновлен счетчик просмотра каждого элемента Queryset
+            pk (int): pk of ingredient if you want get one ingredient
+            text_block (TextBlock): finding multiple ingredients from a TextBlock object data
+            update_statistics (bool): if param value set to True -
+            Update statistics of search requests counter of ingredient in QuerySet object.
 
         :return: QuerySet
         '''

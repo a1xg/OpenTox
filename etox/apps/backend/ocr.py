@@ -10,7 +10,6 @@ pytesseract.pytesseract.tesseract_cmd = 'D:/Program/Tesseract-OCR/tesseract.exe'
 
 # TODO
 #  найти способы одновременной обработки нескольких изображений
-#  сделать обработку return False
 #  сделать проверку распознаваемого языка в списке доступных Tesseract в ином случае вернуть False
 #  Сделать обработку исключения langdetect в случае картинки без текста
 
@@ -263,7 +262,6 @@ class ImageOCR:
                 config = (f'-l {text_lang} --oem 1 --psm 6')
                 text = self._recognizeText(config, image)
                 self.text.append({text_lang:text})
-
         return self.text
 
     def drawBoxes(self, max_resolution) -> np.ndarray:

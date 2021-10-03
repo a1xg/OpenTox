@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from .models import *
 
-# Сериализаторы запросов REST API
+# REST API request serializers
 class TextSearchSerializer(serializers.Serializer):
     text = serializers.CharField()
 
@@ -21,7 +21,7 @@ class ImageSearchSerializer(serializers.Serializer):
 
 
 class Hazard_GHSSerializer(serializers.ModelSerializer):
-    '''Сериализатор обобщающий данные из таблиц Hazard_GHS и GHS'''
+    '''Serializer combining data from Hazard_GHS and GHS tables'''
     id = serializers.IntegerField(source='ghs.id', read_only=True)
     hazard_class = serializers.CharField(source='ghs.hazard_class', read_only=True)
     abbreviation = serializers.CharField(source='ghs.abbreviation', read_only=True)
@@ -43,7 +43,7 @@ class Hazard_GHSSerializer(serializers.ModelSerializer):
             'number_of_notifiers',
         )
 
-# Модельные сериализаторы для внутренней бизнес логики
+# Model serializers for internal application logic
 class HazardSerializer(serializers.ModelSerializer):
     hazard_ghs_set = Hazard_GHSSerializer(many=True, read_only=True)
     class Meta:
@@ -70,9 +70,9 @@ class IngredientsSerializer(serializers.ModelSerializer):
             'synonyms'
         )
 
-# Сериализаторы детальной информации об ингредиенте
+# Ingredient detail serializers
 class GHSDetailsSerializer(serializers.Serializer):
-    '''Сериализатор данных опасности ингридиента на странице подробной информации'''
+    '''Ingredient hazard data serializer detail page'''
     #id = serializers.IntegerField()
     hazard_class = serializers.CharField()
     abbreviation = serializers.CharField()
@@ -85,7 +85,7 @@ class GHSDetailsSerializer(serializers.Serializer):
 
 
 class DetailsIngredientHazardSerializer(serializers.Serializer):
-    '''Сериализатор подробной информации об опасности ингридиента'''
+    '''Ingredient hazard detail serializer'''
     hazard_ghs_set = GHSDetailsSerializer(many=True)
     ingredient_hazard_avg = serializers.IntegerField()
     total_notifications = serializers.IntegerField()
@@ -94,7 +94,7 @@ class DetailsIngredientHazardSerializer(serializers.Serializer):
 
 
 class DetailsIngredientSerializer(serializers.Serializer):
-    '''Сериализатор данных и идентификаторов ингредиента'''
+    '''Serializer of data and ingredient identifiers'''
     id = serializers.IntegerField()
     hazard = DetailsIngredientHazardSerializer(many=False)
     main_name = serializers.CharField()
@@ -108,9 +108,9 @@ class DetailsIngredientSerializer(serializers.Serializer):
     request_statistics = serializers.IntegerField()
     synonyms = serializers.DictField()
 
-# Сериализаторы для результатов поиска
+# Serializers for search results
 class GHSListSerializer(serializers.Serializer):
-    '''Сериализатор данных опасности ингридиента в списке ингридиентов'''
+    '''Hazard data serializer of an ingredient in an ingredient list'''
     id = serializers.IntegerField()
     hazard_class = serializers.CharField()
     #abbreviation = serializers.CharField()
@@ -122,13 +122,13 @@ class GHSListSerializer(serializers.Serializer):
     #percent_notifications = serializers.IntegerField()
 
 class ListIngredientHazardSerializer(serializers.Serializer):
-    '''Сериализатор данных опасности ингридиента на странице результатов поиска'''
+    '''Ingredient hazard data serializer on search results page'''
     ingredient_hazard_avg = serializers.FloatField()
     hazard_ghs_set = GHSListSerializer(many=True)
 
 
 class ListIngredientSerializer(serializers.Serializer):
-    '''Сериализатор списка ингридиентов в продукте'''
+    '''Serializer of the list of ingredients in a product'''
     id = serializers.IntegerField()
     hazard = ListIngredientHazardSerializer(many=False)
     main_name = serializers.CharField()
@@ -143,7 +143,7 @@ class ListIngredientSerializer(serializers.Serializer):
 
 
 class ProductHazardStatisticsSerializer(serializers.Serializer):
-    '''Сериализатор данных опасности всего продукта'''
+    '''Whole product hazard data serializer'''
     id = serializers.IntegerField()
     hazard_class = serializers.CharField()
     #abbreviation = serializers.CharField()
@@ -154,7 +154,7 @@ class ProductHazardStatisticsSerializer(serializers.Serializer):
 
 
 class ProductSerializer(serializers.Serializer):
-    '''Сериализатор данных продукта'''
+    '''Product data serializer'''
     product_ingredients = ListIngredientSerializer(many=True)
     detail_hazard_product = ProductHazardStatisticsSerializer(many=True)
     product_hazard_avg = serializers.IntegerField()

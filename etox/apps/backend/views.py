@@ -5,7 +5,6 @@ from .utils import DataMixin
 
 # DRF API VIEWS
 class TextSearchAPIView(DataMixin, generics.ListAPIView):
-    '''http://127.0.0.1:8000/search/api/'''
     serializer_class = TextSearchSerializer
 
     def post(self, request):
@@ -22,7 +21,6 @@ class ImageSearchAPIView(DataMixin, generics.ListAPIView):
 
     def post(self, request):
         serializer = ImageSearchSerializer(data=request.data, many=False)
-        print(f'Request data: {request.data}')
         if serializer.is_valid(raise_exception=True):
             context = self.get_context(image=serializer.validated_data["image"].read(), display_format='list')
             return response.Response(context, status=200)

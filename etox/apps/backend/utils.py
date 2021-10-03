@@ -5,14 +5,13 @@ from .text_blocks_screening import IngredientsBlockFinder
 from .db_tools import DBQueries
 from .ocr_settings import *
 
-#DEFAULT_LANG = 'eng'
-
 class DataMixin:
 
     def _get_text(self, **kwargs):
         ocr = ImageOCR(img=kwargs['image'])
         ocr.decodeImage()
         text = ocr.getText(text_lang=DEFAULT_LANG, crop=CROP, set_font=FONT_SIZE)
+        print(f'Recognized text: {text}')
         return text
 
     def get_queryset(self, **kwargs):

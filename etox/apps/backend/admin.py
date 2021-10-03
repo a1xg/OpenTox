@@ -1,14 +1,10 @@
 from django.contrib import admin
-from django.db import models
 from django_json_widget.widgets import JSONEditorWidget
-from django.contrib.admin.views.main import ChangeList
 from .models import *
-import re
-import json
 
-# TODO прикрутить форму добавления ключевого слова и языка
-#  доработать удаление ключевого слова на разных языках
-#  написать функцию апдейта данных об опасности в таблице Hazard_GHS
+# TODO make a form for adding a keyword and language
+#  improve the removal of the keyword in different languages
+#  write a function for updating hazard data in the Hazard_GHS table
 
 
 class IngredientsAdmin(admin.ModelAdmin):
