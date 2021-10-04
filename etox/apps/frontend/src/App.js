@@ -1,20 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import { Route } from 'react-router-dom'
+import { Container, Grid, useScrollTrigger, makeStyles } from '@material-ui/core';
 import SearchForm from './components/SearchForm/SearchForm.jsx'
 import SearchResultsContainer from './components/SearchResults/SearchResultsContainer.jsx';
 import About from './components/About/About.jsx';
 import IngredientContainer from './components/Ingredient/IngredientContainer.jsx';
 import SideBar from './components/SideBar/SideBar.jsx';
 import Footer from './components/Footer/Footer.jsx';
-import { Container, Grid, useScrollTrigger } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
 
 //TODO Уменьшить ширину app.container до 1024
 // * useScrollTrigger  для переключения строки поиска в appbar при скролле
 
 const useStyles = makeStyles((theme) => ({
   app: {
-    backgroundColor: '#EFFFF3',
+    backgroundColor: theme.palette.secondary, //'#EFFFF3'
     minHeight: '100vh',
     display: 'flex',
     flex: '1'

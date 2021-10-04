@@ -6,6 +6,8 @@ import {
     makeStyles,
 } from "@material-ui/core";
 
+//TODO починить ToolTip, что бы он выводился поверх Card элемента
+
 const useStyles = makeStyles((theme) => ({
     root: {
         display: 'flex',
@@ -44,7 +46,7 @@ const ItemCard = (props) => {
         raised={state.raised} zdepth={state.shadow}
         >
             <CardContent className={classes.cardcontent} >
-                {props.title && <Typography variant='h6' className={classes.title}>{props.title}</Typography>}
+                {props.title && <Typography variant='h6' >{props.title}</Typography>}
                 {props.caption && <Typography variant='caption' className={classes.caption}>{props.caption}</Typography>}
                 {props.children}
             </CardContent>

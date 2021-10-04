@@ -1,6 +1,6 @@
 import React from 'react';
 import { ResponsiveBar } from '@nivo/bar';
-import { defs, fill } from './ChartsConfig';
+import Tooltip from './ToolTip.jsx';
 
 const getColors = (data) => {
   let colors = []
@@ -9,6 +9,7 @@ const getColors = (data) => {
   });
   return colors
 };
+
 
 const Bar = (props) => {
   console.log('Bar props', props);
@@ -22,13 +23,20 @@ const Bar = (props) => {
       margin={props.margin}
       padding={0.7}
       maxValue={props.maxValue}
-      //defs={defs}
-      //fill={fill}
       layout="vertical"
       borderColor="inherit:darker(1.6)"
       enableLabel={false}
       enableGridX={false}
       enableGridY={false}
+      tooltip={({index}) => (
+        <Tooltip
+          index={props.data[index]}
+          label={props.data[index]['label']}
+          value={props.data[index]['value']}
+          color={props.data[index]['color']}
+          caption={props.caption}
+        />
+      )}
       axisBottom={null}
     />
   )

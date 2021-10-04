@@ -22,7 +22,12 @@ const PercentNotifications = (props) => {
 
     return (
         <Box sx={{ width: '400px', height:'400px'}}>
-            <Bar data={chartData} maxValue={100} margin={margin} />
+            <Bar 
+            data={chartData} 
+            maxValue={100} 
+            margin={margin} 
+            caption='% of hazard notifications'
+            />
         </Box>
     )
 

@@ -1,7 +1,8 @@
 import React from 'react';
 import { ResponsivePie } from '@nivo/pie';
+import Tooltip from './ToolTip.jsx';
 //! версия с которой норм работает Doughnut 0.62.0, с весиями выше - вместо label отображается id
-
+ 
 const getColors = (data) => {
   let colors = []
   data.map(d => {
@@ -12,11 +13,13 @@ const getColors = (data) => {
 
 const Doughnut = (props) => {
   console.log('Doughnut props', props);
+  const data = props.data;
   return (
     props.data.length > 0 &&
       <ResponsivePie
-        data={props.data}
+        data={data}
         margin={props.margin}
+        keys={['value', "label", "id"]}
         innerRadius={0.85}
         padAngle={0.7}
         cornerRadius={3}
@@ -26,7 +29,15 @@ const Doughnut = (props) => {
           from: "color",
           modifiers: [["darker", 0.2]]
         }}
-        animate={true}
+        tooltip={({index}) => (
+          <Tooltip
+            index={index}
+            label={props.data[index]['label']}
+            value={props.data[index]['value']}
+            color={props.data[index]['color']}
+            caption={props.caption}
+          />
+        )}
         enableRadialLabels={false}
       />
   )

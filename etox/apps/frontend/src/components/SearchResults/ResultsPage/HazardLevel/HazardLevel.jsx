@@ -26,7 +26,12 @@ const HazardLevel = (props) => {
             }}
         >  
             {/**/}
-            <Bar data={chartData} maxValue={10} margin={margin} />
+            <Bar 
+            data={chartData} 
+            maxValue={10} 
+            margin={margin} 
+            caption='/10' 
+            />
         </Box>
     )
 };

@@ -28,8 +28,13 @@ const VolumeFractions = (props) => {
             height: '400px',
         }}
         >
-           <Doughnut data={chartData} margin={margin} />
-           <TotalProductRating total_rating={props.data.product_hazard_avg} margin={margin} />
+           <Doughnut 
+           data={chartData} 
+           margin={margin} 
+           caption=' ingredients' />
+           <TotalProductRating 
+           total_rating={props.data.product_hazard_avg} 
+           margin={margin} />
             {/**/}
             {/**/}
         </Box>

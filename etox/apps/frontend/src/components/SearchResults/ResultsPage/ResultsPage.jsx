@@ -41,7 +41,7 @@ const ResultsPage = (props) => {
                             <ItemCard
                                 title='Hazard level'
                                 caption='The total hazard level for each hazard class of the ingredients of the product'
-                            >
+                            > 
                                 <HazardLevel data={props.searchResults.data.detail_hazard_product} />
                             </ItemCard>
                         }

@@ -3,6 +3,7 @@ import { Box, Tooltip } from '@material-ui/core';
 import DoneIcon from '@material-ui/icons/Done';
 import SearchOffIcon from '@mui/icons-material/SearchOff';
 import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
+import ThumbUpIcon from '@mui/icons-material/ThumbUp';
 import { ratingColorMap } from './ChartsConfig';
 
 const getRectangleColors = (rating) => {
@@ -42,7 +43,7 @@ const getRating = (props) => {
 const safelyIcon = (props) => {
     return (
         <Tooltip title='This ingredient is completely safe.'>
-            <DoneIcon style={{ 
+            <ThumbUpIcon style={{ 
                 color: ratingColorMap[1], 
                 width:16, 
                 height:16 }} />

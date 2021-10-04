@@ -48,7 +48,7 @@ const IngredientPage = (props) => {
 
             <Grid item container xs={9} direction="column" spacing={3}>
                 <Grid item container direction="row" spacing={3} >
-                    {props.searchResults.data.ingredient.hazard.hazard_ghs_set.length > 0 &&
+                    {props.searchResults.data.ingredient.hazard.ingredient_hazard_avg > 0 &&
                         <Grid item xs={6} >
                             <ItemCard
                                 title='Hazard level'

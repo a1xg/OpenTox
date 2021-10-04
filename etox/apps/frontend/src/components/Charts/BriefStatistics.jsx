@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Box, Tooltip } from "@material-ui/core";
 import { chartColorMap } from './ChartsConfig';
+import Tooltip from "./ToolTip.jsx";
 
 const BriefStatistics = (props) => {
     const [data, setData] = useState([{ color: '', description: '', hazard_class: '', id: null }]);
