@@ -6,16 +6,15 @@ import {
     makeStyles,
 } from "@material-ui/core";
 
-//TODO починить ToolTip, что бы он выводился поверх Card элемента
 
 const useStyles = makeStyles((theme) => ({
     root: {
         display: 'flex',
         color: theme.palette.text.secondary, 
-        borderTop: "5px solid lightgray",
+        borderTop: `5px solid ${theme.palette.secondary[300]}`,
         transition: "transform 0.01s ease-in-out",
         "&:hover": {
-            borderTop: "5px solid #44924C"
+            borderTop: `5px solid ${theme.palette.primary[200]}`
         }
     },
 
@@ -41,8 +40,8 @@ const ItemCard = (props) => {
         <Card 
         className={classes.root}
         classes={{root: state.raised ? classes.cardHovered : ""}}
-        onMouseOver={()=>setState({ raised: true, shadow: 3})} 
-        onMouseOut={()=>setState({ raised: false, shadow: 1})} 
+        onMouseOver={()=>setState({ raised: true, shadow: 1})} 
+        onMouseOut={()=>setState({ raised: false, shadow: 0.5})} 
         raised={state.raised} zdepth={state.shadow}
         >
             <CardContent className={classes.cardcontent} >

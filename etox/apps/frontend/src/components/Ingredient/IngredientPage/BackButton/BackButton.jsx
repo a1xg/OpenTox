@@ -7,10 +7,15 @@ const useStyles = makeStyles((theme) => ({
     button: {
         display: 'flex',
         width: '100%',
-        background: 'white',
+        backgroundColor: theme.palette.secondary[50],
+        "&:hover": {
+            backgroundColor: theme.palette.secondary[300],
+          },
+        
     },
     link: {
         textDecoration: 'none',
+        color: theme.palette.secondary[700]
     }
 }));
 
@@ -18,16 +23,18 @@ const BackButton = () => {
     const classes = useStyles();
 
     return (
+        
         <Button
             xs={12}
             variant="contained"
             className={classes.button}
             startIcon={<ArrowBackIosIcon />
             }>
-            <NavLink to='/search-results' className={classes.link}>
+                <NavLink to='/search-results' className={classes.link}>
                 Back to search results
-            </NavLink>
+                </NavLink>
         </Button>
+        
 
     )
 };

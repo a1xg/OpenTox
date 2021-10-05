@@ -4,12 +4,12 @@ import { getData } from '../../../Charts/ChartTools';
 import Doughnut from '../../../Charts/Doughnut.jsx';
 import TotalProductRating from '../../../Charts/TotalProductRating.jsx';
 
-
-const margin = { top: 50, right: 50, bottom: 50, left: 50 };
+const margin = { top: 20, right: 20, bottom: 20, left: 20 };
 
 const VolumeFractions = (props) => {
     console.log('VolumeFractions props', props);
     const [chartData, setChartData] = useState([{ value: null, id: null, label: null, color: 'white' }]);
+
     useEffect(() => {
         const data = getData({
             dataset: props.data.detail_hazard_product,
@@ -24,8 +24,8 @@ const VolumeFractions = (props) => {
     return (
         <Box sx={{ 
             position: "relative",
-            width: '400px',
-            height: '400px',
+            //width: '100%',
+            height: '300px',
         }}
         >
            <Doughnut 
@@ -35,8 +35,6 @@ const VolumeFractions = (props) => {
            <TotalProductRating 
            total_rating={props.data.product_hazard_avg} 
            margin={margin} />
-            {/**/}
-            {/**/}
         </Box>
         
     )

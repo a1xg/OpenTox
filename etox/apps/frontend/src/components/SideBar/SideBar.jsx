@@ -7,7 +7,6 @@ import HelpIcon from '@material-ui/icons/Help';
 import BuildIcon from '@material-ui/icons/Build';
 import InfoIcon from '@material-ui/icons/Info';
 import MenuIcon from '@material-ui/icons/Menu';
-import FindInPageIcon from '@material-ui/icons/FindInPage';
 import HomeIcon from '@material-ui/icons/Home';
 import clsx from 'clsx';
 
@@ -22,7 +21,6 @@ const useStyles = makeStyles({
 
 const menuItems = [
     { text: 'Home page', link: '/', icon: <HomeIcon />},
-    //{ text: 'Search results', link: '/search-results',icon: <FindInPageIcon />},
     { text: 'How use it', link: '/how-use', icon: <HelpIcon />},
     { text: 'How it works', link: '/how-it-works', icon: <BuildIcon /> },
     { text: 'About', link: '/about', icon: <InfoIcon />},

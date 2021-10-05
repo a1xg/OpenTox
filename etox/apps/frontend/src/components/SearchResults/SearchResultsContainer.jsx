@@ -2,7 +2,7 @@ import React from 'react';
 import ErrorMessage from './ErrorMessage/ErrorMessage.jsx';
 import ResultsPage from './ResultsPage/ResultsPage.jsx';
 import LinearProgress from '@material-ui/core/LinearProgress';
-
+// TODO стилизовать полосу загрузки
 const SearchResults = (props) => {
     console.log('SearchResults props:', props);
 

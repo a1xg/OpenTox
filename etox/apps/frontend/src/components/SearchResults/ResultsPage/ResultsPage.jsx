@@ -12,9 +12,9 @@ const useStyles = makeStyles((theme) => ({
     root: {
         flexGrow: 1,
     },
-charts: {
-    flexGrow: 1,
-}
+    charts: {
+        flexGrow: 1,
+    }
 
 }));
 
@@ -41,7 +41,7 @@ const ResultsPage = (props) => {
                             <ItemCard
                                 title='Hazard level'
                                 caption='The total hazard level for each hazard class of the ingredients of the product'
-                            > 
+                            >
                                 <HazardLevel data={props.searchResults.data.detail_hazard_product} />
                             </ItemCard>
                         }
@@ -63,9 +63,11 @@ const ResultsPage = (props) => {
                     }
                 </Grid>
                 <Grid item >
-                    <ItemCard title='Your product image'>
-                        <ProductPhoto />
-                    </ItemCard>
+                    {props.searchResults.data.image != null &&
+                        <ItemCard title='Your product image'>
+                            <ProductPhoto />
+                        </ItemCard>
+                    }
                 </Grid>
             </Grid>
         </Grid>

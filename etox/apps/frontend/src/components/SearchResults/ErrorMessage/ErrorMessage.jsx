@@ -1,12 +1,22 @@
 import React from 'react';
-import style from './ErrorMessage.module.css';
+import { Container, Box, Typography } from '@material-ui/core';
+import ItemCard from '../../ItemCard/ItemCard.jsx';
 
+//TODO стилизовать errormessage
 const ErrorMessage = (props) => {
     return (
-        <div>
-            <p className={style['error-message']}>Sorry, ingredients not found...</p>
-        </div>
-    )
+        <Container style={{alignItems:'center'}}>
+        <ItemCard title='Error'>
+        <Box sx={{
+            width:'600px',
+            textAlign:'center',
+        }}>
+            <Typography variant='h6'>Sorry, ingredients not found...</Typography>
+            </Box> 
+        </ItemCard>
+
+        </Container>
+        )
 };
 
 export default ErrorMessage

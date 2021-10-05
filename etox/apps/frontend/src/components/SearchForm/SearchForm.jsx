@@ -7,42 +7,44 @@ import Search from '@material-ui/icons/Search';
 import ImageForm from "./ImageForm/ImageForm.jsx";
 import CSRFtoken from './csrftoken.jsx';
 
-const CssTextField = withStyles({
+const style = (theme) => ({
     root: {
         '& label.Mui-focused': {
-            color: 'green',
+            color: theme.palette.secondary[300],
         },
         '& .MuiInput-underline:after': {
-            borderBottomColor: 'green',
+            borderBottomColor: theme.palette.primary[300],
         },
         '& .MuiOutlinedInput-root': {
             '& fieldset': {
-                borderColor: 'lightgray',
+                borderColor: theme.palette.secondary[300], 
                 borderRadius: `28px`,
             },
             '&:hover fieldset': {
-                borderColor: '#44924C',
+                borderColor: theme.palette.primary[300],
             },
             '&.Mui-focused fieldset': {
-                borderColor: '#44924C',
+                borderColor: theme.palette.primary[300],
             },
         },
     },
-})(TextField);
+})
+
+const CssTextField = withStyles(style)(TextField);
 
 const useStyles = makeStyles((theme) => ({
     input: {
         margin: theme.spacing(1),
-        width:600,
+        width:'600px',
     },
     button: {
-        "& :visited": { color: "gray" },
-        "& :hover": { color: "#44924C" },
-        "& :active": { color: "gray" },
+        "& :visited": { color: theme.palette.secondary[300] },
+        "& :hover": { color: theme.palette.primary[300] },
+        "& :active": { color: theme.palette.secondary[300] },
         color: 'gray'
     }
 }));
-
+//! TODO иногда выскакивает ошибка react-dom.development.js:67 Warning: `value` prop on `input` should not be null. Consider using an empty string to clear the component or `undefined` for uncontrolled
 const SearchForm = (props) => {
     const [formText, setFormText] = useState('')
     const form = useRef(undefined);
@@ -58,11 +60,11 @@ const SearchForm = (props) => {
         });
         history.push('/search-results');
         setFormText('');
-    }  ;
+    };
 
     return (
         <form onSubmit={submitForm} ref={form}>
-             <input type="hidden" name="csrfmiddlewaretoken" value={CSRFtoken} />
+            <input type="hidden" name="csrfmiddlewaretoken" value={CSRFtoken} />
             <CssTextField
                 className={classes.input}
                 variant="outlined"

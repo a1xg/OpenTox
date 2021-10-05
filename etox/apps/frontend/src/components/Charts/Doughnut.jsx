@@ -1,6 +1,6 @@
 import React from 'react';
 import { ResponsivePie } from '@nivo/pie';
-import Tooltip from './ToolTip.jsx';
+import ToolTip from './ToolTip.jsx';
 //! версия с которой норм работает Doughnut 0.62.0, с весиями выше - вместо label отображается id
  
 const getColors = (data) => {
@@ -30,7 +30,7 @@ const Doughnut = (props) => {
           modifiers: [["darker", 0.2]]
         }}
         tooltip={({index}) => (
-          <Tooltip
+          <ToolTip
             index={index}
             label={props.data[index]['label']}
             value={props.data[index]['value']}

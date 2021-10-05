@@ -64,6 +64,8 @@ const notDataIcon = (props) => {
     )
 };
 
+//TODO привести стили tooltip к единому виду
+
 const IngredientRatingBar = (props) => {
     // console.log('IngredientRatingBar props', props)
     return (

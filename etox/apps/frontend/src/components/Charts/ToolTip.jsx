@@ -16,13 +16,12 @@ const useStyles = makeStyles((theme) => ({
 
 }));
 
-const Tooltip = (props) => {
+const ToolTip = (props) => {
     console.log('CustomTooltip props:', props);
     const classes = useStyles();
 
     return (
         <Box className={classes.root}>
-            
             <Typography variant='caption' className={classes.text}>
             <Box sx={{
                 width:'100%',
@@ -37,4 +36,4 @@ const Tooltip = (props) => {
     )
 };
 
-export default Tooltip;
+export default ToolTip;

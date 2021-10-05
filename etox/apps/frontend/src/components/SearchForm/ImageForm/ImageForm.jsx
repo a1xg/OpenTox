@@ -14,9 +14,9 @@ const useStyles = makeStyles((theme) => ({
     },
     button: {
         margin: theme.spacing(1),
-        "& :visited": { color: "gray" },
-        "& :hover": { color: "#44924C" },
-        "& :active": { color: "gray" },
+        "& :visited": { color: theme.palette.secondary[300] },
+        "& :hover": { color: theme.palette.primary[300] },
+        "& :active": { color: theme.palette.secondary[700] },
         color: 'gray'
     },
 }));
@@ -48,7 +48,6 @@ const ImageForm = (props) => {
                 onChange={submitForm} 
             />
             
-
             <label htmlFor="icon-button-file">
             <IconButton
                 //color="primary"

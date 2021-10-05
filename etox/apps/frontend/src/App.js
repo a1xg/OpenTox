@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { Route } from 'react-router-dom'
-import { Container, Grid, useScrollTrigger, makeStyles } from '@material-ui/core';
+import { Container, Grid, useScrollTrigger, makeStyles, ThemeProvider } from '@material-ui/core';
 import SearchForm from './components/SearchForm/SearchForm.jsx'
 import SearchResultsContainer from './components/SearchResults/SearchResultsContainer.jsx';
 import About from './components/About/About.jsx';
 import IngredientContainer from './components/Ingredient/IngredientContainer.jsx';
 import SideBar from './components/SideBar/SideBar.jsx';
 import Footer from './components/Footer/Footer.jsx';
+import customTheme from './components/CustomTheme/CustomTheme.jsx';
+
 
 //TODO Уменьшить ширину app.container до 1024
 // * useScrollTrigger  для переключения строки поиска в appbar при скролле
@@ -50,6 +52,7 @@ const App = (props) => {
   }, [searchQuery]);
 
   return (
+  <ThemeProvider theme={customTheme}>
     <Container maxWidth={'xl'} className={classes.app} >
       <Grid container spacing={3} direction='row'>
         <Grid item xs={12} >
@@ -64,14 +67,14 @@ const App = (props) => {
           </Grid>
         </Grid>
         <Grid item xs={12} >
-          <Container maxWidth={'lg'}> 
-            <Route 
-            exact path='/search-results' 
-            component={() => <SearchResultsContainer searchResults={searchResults} />} 
+          <Container maxWidth={'lg'}>
+            <Route
+              exact path='/search-results'
+              component={() => <SearchResultsContainer searchResults={searchResults} />}
             />
-            <Route 
-            path='/ingredient/:ingredientID' 
-            component={(props) => <IngredientContainer data={props} backButton={backButton} />} 
+            <Route
+              path='/ingredient/:ingredientID'
+              component={(props) => <IngredientContainer data={props} backButton={backButton} />}
             />
             <Route exact path='/about' component={About} />
           </Container>
@@ -83,6 +86,7 @@ const App = (props) => {
         </Grid>
       </Grid>
     </Container>
+  </ThemeProvider>
   )
 };
 

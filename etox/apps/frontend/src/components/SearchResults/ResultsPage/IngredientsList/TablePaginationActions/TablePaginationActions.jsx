@@ -6,6 +6,8 @@ import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft';
 import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
 import LastPageIcon from '@material-ui/icons/LastPage';
 
+// TODO стилизовать кнопки пагинации
+
 const TablePaginationActions = (props) => {
     const theme = useTheme();
     const { count, page, rowsPerPage, onPageChange } = props;
