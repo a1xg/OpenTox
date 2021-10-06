@@ -11,9 +11,9 @@ const useStyles = makeStyles((theme) => ({
     },
     button: {
         margin: theme.spacing(1),
-        "& :visited": { color: theme.palette.secondary[200] },
+        "& :visited": { color: theme.palette.grey[200] },
         "& :hover": { color: theme.palette.primary[300] },
-        "& :active": { color: theme.palette.secondary[400] },
+        "& :active": { color: theme.palette.grey[400] },
         color: 'gray'
     },
 }));

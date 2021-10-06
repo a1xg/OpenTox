@@ -10,12 +10,11 @@ import Footer from './components/Footer/Footer.jsx';
 import customTheme from './components/CustomTheme/CustomTheme.jsx';
 
 
-//TODO Уменьшить ширину app.container до 1024
 // * useScrollTrigger  для переключения строки поиска в appbar при скролле
 
 const useStyles = makeStyles((theme) => ({
   app: {
-    backgroundColor: theme.palette.secondary, //'#EFFFF3'
+    backgroundColor: theme.palette.grey[50],
     minHeight: '100vh',
     display: 'flex',
     flex: '1'

@@ -17,7 +17,7 @@ const customTheme = createTheme({
                 fontSize: 12,
                 fontFamily: 'sans-serif',
                 color: theme.palette.grey[900],
-                backgroundColor: theme.palette.background,
+                backgroundColor: theme.palette.grey[50],
                 borderRadius: 2,
                 boxShadow: theme.shadows[3],
                 overflow: 'hidden'
@@ -26,9 +26,9 @@ const customTheme = createTheme({
         MuiLink: {
             textDecoration:'none',
             root: {
-                color: '#5c5c5c',
+                color: theme.palette.grey[700],
                 "&:hover": {
-                    color: '#b7b7b7',
+                    color: '#62ff3a',
                     textDecoration:'none'
                 },
                 

@@ -8,13 +8,13 @@ const useStyles = makeStyles((theme) => ({
         flexDirection: 'row',
         flexWrap: 'nowrap',
         justifyContent: 'center',
-        backgroundColor: '#FFFFFF',
-        border: '1px solid lightgray',
+        backgroundColor: theme.palette.grey[50],
+        border: `1px solid ${theme.palette.grey[300]}`, //'1px solid lightgray'
         borderRadius: '11px',
     },
     item: {
 
-        backgroundColor: '#FFFFFF'
+        backgroundColor: theme.palette.grey[50]
     }
 
 }))

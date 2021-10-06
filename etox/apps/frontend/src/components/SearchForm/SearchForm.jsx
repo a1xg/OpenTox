@@ -1,6 +1,6 @@
 import React, { useRef, useState } from "react";
 import { useHistory } from "react-router-dom";
-import { TextField, InputBase, InputAdornment, makeStyles, withStyles, alpha } from "@material-ui/core";
+import { TextField, InputAdornment, makeStyles, withStyles, alpha } from "@material-ui/core";
 import IconButton from '@material-ui/core/IconButton';
 import Search from '@material-ui/icons/Search';
 import ImageForm from "./ImageForm/ImageForm.jsx";
@@ -39,9 +39,9 @@ const useStyles = makeStyles((theme) => ({
         width: '600px',
     },
     button: {
-        "& :visited": { color: theme.palette.secondary[200] },
+        "& :visited": { color: theme.palette.grey[200] },
         "& :hover": { color: theme.palette.primary[300] },
-        "& :active": { color: theme.palette.secondary[400] },
+        "& :active": { color: theme.palette.grey[400] },
         color: 'gray'
     }
 }));

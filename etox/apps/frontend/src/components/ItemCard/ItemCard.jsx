@@ -11,7 +11,7 @@ const useStyles = makeStyles((theme) => ({
     root: {
         display: 'flex',
         color: theme.palette.text.secondary, 
-        borderTop: `5px solid ${theme.palette.secondary[300]}`,
+        borderTop: `5px solid ${theme.palette.grey[300]}`,
         transition: "transform 0.01s ease-in-out",
         "&:hover": {
             borderTop: `5px solid ${theme.palette.primary[200]}`

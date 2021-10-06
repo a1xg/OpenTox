@@ -7,15 +7,15 @@ const useStyles = makeStyles((theme) => ({
     button: {
         display: 'flex',
         width: '100%',
-        backgroundColor: theme.palette.secondary[50],
+        backgroundColor: theme.palette.grey[50],
         "&:hover": {
-            backgroundColor: theme.palette.secondary[300],
+            backgroundColor: theme.palette.grey[300],
           },
         
     },
     link: {
         textDecoration: 'none',
-        color: theme.palette.secondary[700]
+        color: theme.palette.grey[700]
     }
 }));
 
