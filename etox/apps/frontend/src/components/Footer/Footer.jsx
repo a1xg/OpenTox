@@ -9,9 +9,6 @@ const useStyles = makeStyles((theme) => ({
     },
     item: {
         marginTop: theme.spacing(1)
-    },
-    link:{
-        textDecoration:'none'
     }
 }))
 
@@ -21,17 +18,17 @@ const Footer = (props) => {
             <Container maxWidth='lg' className={classes.root} >
                 <Divider></Divider>
                 <Box className={classes.item}>
-                    <NavLink to='/about' className={classes.link}>
+                    <Link to='/about' component={NavLink}>
                     About
-                    </NavLink>
+                    </Link>
                 </Box>
                 <Box className={classes.item}>
-                    <NavLink to='/contacts' className={classes.link}>
+                    <Link to='/contacts' component={NavLink}>
                     Contacts
-                    </NavLink>
+                    </Link>
                 </Box>
                 <Box className={classes.item}>
-                    <Link href='https://github.com/a1xg/etox' underline='hover'>
+                    <Link href='https://github.com/a1xg/etox'  >
                     Github page
                     </Link>
                 </Box>

@@ -23,7 +23,6 @@ const BackButton = () => {
     const classes = useStyles();
 
     return (
-        
         <Button
             xs={12}
             variant="contained"
@@ -34,8 +33,6 @@ const BackButton = () => {
                 Back to search results
                 </NavLink>
         </Button>
-        
-
     )
 };
 

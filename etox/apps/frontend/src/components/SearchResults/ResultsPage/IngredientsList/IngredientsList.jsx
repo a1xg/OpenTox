@@ -12,7 +12,7 @@ import {
     TableRow,
     TableFooter,
     TablePagination,
-    Paper
+    Link
 } from '@material-ui/core';
 import IngredientRatingBar from '../../../Charts/IngredientRatingBar.jsx';
 import BriefStatistics from '../../../Charts/BriefStatistics.jsx';
@@ -39,7 +39,7 @@ const IngredientsList = (props) => {
     const [page, setPage] = useState(0);
     const [rowsPerPage, setRowsPerPage] = useState(5);
     const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - ingredients.length) : 0;
-
+// TODO поправить отступы 
     const handleChangePage = (event, newPage) => {
         setPage(newPage);
     };
@@ -69,9 +69,9 @@ const IngredientsList = (props) => {
                             <TableRow key={ingredient.id} >
                                 <TableCell align="left">
                                 <Typography variant='subtitle1'>
-                                    <NavLink to={{ pathname: "ingredient/" + ingredient.id }} style={{textDecoration:'none'}}>
+                                    <Link to={{ pathname: "ingredient/" + ingredient.id }} component={NavLink}>
                                         {ingredient.main_name[0] + ingredient.main_name.substring(1).toLowerCase()}                                       
-                                    </NavLink>
+                                    </Link>
                                     </Typography>
                                 </TableCell>
                                 <TableCell align="center">

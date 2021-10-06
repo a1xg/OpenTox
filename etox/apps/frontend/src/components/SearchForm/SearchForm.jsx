@@ -5,7 +5,6 @@ import IconButton from '@material-ui/core/IconButton';
 import Search from '@material-ui/icons/Search';
 import ImageForm from "./ImageForm/ImageForm.jsx";
 import CSRFtoken from './csrftoken.jsx';
-//TODO сделать outline border как в бутстраповской теме
 
 const style = (theme) => ({
     root: {
