@@ -35,8 +35,8 @@ const ItemCard = (props) => {
     return (
         <Card 
         className={classes.root}
-        onMouseOver={()=>setState({ raised: true, shadow: 1})} 
-        onMouseOut={()=>setState({ raised: false, shadow: 0.5})} 
+        onMouseOver={()=>setState({ raised: true, shadow: 3})} 
+        onMouseOut={()=>setState({ raised: false, shadow: 1})} 
         raised={state.raised} zdepth={state.shadow}
         >
             <CardContent className={classes.cardcontent} >

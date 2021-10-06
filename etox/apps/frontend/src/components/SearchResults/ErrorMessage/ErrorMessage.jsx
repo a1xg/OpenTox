@@ -1,6 +1,5 @@
 import React from 'react';
 import { Container, Box, Typography, makeStyles } from '@material-ui/core';
-import ItemCard from '../../ItemCard/ItemCard.jsx';
 
 const useStyles = makeStyles((theme) => ({
     wrapper: {
@@ -8,7 +7,7 @@ const useStyles = makeStyles((theme) => ({
         border: `1px solid ${theme.palette.grey[300]}`,
         borderRadius:'4px',
         alignItems: 'center',
-        width: 300,
+        width: 600,
         textAlign: 'center',
         padding: '10px'
 
@@ -22,7 +21,6 @@ const useStyles = makeStyles((theme) => ({
     }
 }))
 
-//TODO стилизовать errormessage
 const ErrorMessage = (props) => {
     const classes = useStyles();
     return (

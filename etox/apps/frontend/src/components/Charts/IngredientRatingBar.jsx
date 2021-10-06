@@ -4,7 +4,6 @@ import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
 import ThumbUpIcon from '@mui/icons-material/ThumbUp';
 import { ratingColorMap } from './ChartsConfig';
 
-
 const useStyles = makeStyles((theme) => ({
     root: {
         display: 'inline-flex',
@@ -59,23 +58,12 @@ const IngredientRatingBar = (props) => {
             }
             {props.rating == 0 &&
                 <Tooltip title='This ingredient is completely safe.'>
-                    <ThumbUpIcon style={{
-                        color: ratingColorMap[1],
-                        width: 16,
-                        height: 16
-                    }} />
+                        <ThumbUpIcon />
                 </Tooltip>
             }
             {props.rating == null &&
                 <Tooltip title='No hazard data available for the ingredient.'>
-                    <Box>
-                        <HelpOutlineIcon
-                            style={{
-                                color: ratingColorMap[10],
-                                width: 16,
-                                height: 16
-                            }} />
-                    </Box>
+                    <HelpOutlineIcon />
                 </Tooltip>
             }
         </Box>

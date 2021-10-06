@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { NavLink } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { makeStyles } from "@material-ui/core/styles";
 import {
     Typography,
     Table,
@@ -18,13 +17,6 @@ import IngredientRatingBar from '../../../Charts/IngredientRatingBar.jsx';
 import BriefStatistics from '../../../Charts/BriefStatistics.jsx';
 import TablePaginationActions from "./TablePaginationActions/TablePaginationActions.jsx";
 
-const useStyles = makeStyles((theme) => ({
-    root: {
-        flexGrow: 1,
-        padding: theme.spacing(1)
-    },
-}));
-
 TablePaginationActions.propTypes = {
     count: PropTypes.number.isRequired,
     onPageChange: PropTypes.func.isRequired,
@@ -35,11 +27,11 @@ TablePaginationActions.propTypes = {
 const IngredientsList = (props) => {
     console.log('IngredientsList props', props)
     const ingredients = props.data.product_ingredients;
-    const classes = useStyles();
     const [page, setPage] = useState(0);
     const [rowsPerPage, setRowsPerPage] = useState(5);
     const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - ingredients.length) : 0;
 // TODO поправить отступы 
+
     const handleChangePage = (event, newPage) => {
         setPage(newPage);
     };
