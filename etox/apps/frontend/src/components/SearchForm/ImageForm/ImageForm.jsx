@@ -6,24 +6,22 @@ import { makeStyles } from '@material-ui/core/styles';
 import CSRFToken from "../csrftoken.jsx";
 
 const useStyles = makeStyles((theme) => ({
-    root: {
-        
-    },
     input: {
         display: 'none',
     },
     button: {
         margin: theme.spacing(1),
-        "& :visited": { color: theme.palette.secondary[300] },
+        "& :visited": { color: theme.palette.secondary[200] },
         "& :hover": { color: theme.palette.primary[300] },
-        "& :active": { color: theme.palette.secondary[700] },
+        "& :active": { color: theme.palette.secondary[400] },
         color: 'gray'
     },
 }));
 
 const ImageForm = (props) => {
     const history = useHistory();
-
+    const classes = useStyles();
+    
     const submitForm = (event) => {
         event.preventDefault();
         const formData = new FormData();
@@ -37,8 +35,6 @@ const ImageForm = (props) => {
         history.push('/search-results');
     };
 
-    const classes = useStyles();
-
     return (
         <div className={classes.root}>
             <input
@@ -50,7 +46,6 @@ const ImageForm = (props) => {
             
             <label htmlFor="icon-button-file">
             <IconButton
-                //color="primary"
                 aria-label="upload picture"
                 className={classes.button}
                 component="span">

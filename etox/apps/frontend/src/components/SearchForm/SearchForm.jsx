@@ -12,20 +12,20 @@ const style = (theme) => ({
         '& .MuiOutlinedInput-root': {
             overflow: 'hidden',
             borderRadius: 28,
+            borderColor: theme.palette.primary[800],
             backgroundColor: theme.palette.grey[50],
             transition: theme.transitions.create([
                 'border-color',
                 'background-color',
                 'box-shadow',
             ]),
-            '&:hover': {
-                backgroundColor: 'transparent',
-                
+            '&:hover fieldset': {
+                borderColor: theme.palette.primary[300],
             },
             '&.Mui-focused': {
                 backgroundColor: 'transparent',
                 boxShadow: `${alpha(theme.palette.primary.main, 0.25)} 0 0 0 4px`,
-                borderColor: theme.palette.primary[300],
+                borderColor: theme.palette.primary[100],
             },
 
         },
@@ -40,9 +40,9 @@ const useStyles = makeStyles((theme) => ({
         width: '600px',
     },
     button: {
-        "& :visited": { color: theme.palette.secondary[300] },
+        "& :visited": { color: theme.palette.secondary[200] },
         "& :hover": { color: theme.palette.primary[300] },
-        "& :active": { color: theme.palette.secondary[300] },
+        "& :active": { color: theme.palette.secondary[400] },
         color: 'gray'
     }
 }));
