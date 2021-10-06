@@ -31,7 +31,7 @@ const useStyles = makeStyles({
 
 const menuItems = [
     { text: 'Home page', link: '/', icon: <HomeIcon />},
-    { text: 'How use it', link: '/how-use', icon: <HelpIcon />},
+    { text: 'How use', link: '/how-use', icon: <HelpIcon />},
     { text: 'How it works', link: '/how-it-works', icon: <BuildIcon /> },
     { text: 'About', link: '/about', icon: <InfoIcon />},
     { text: 'Contacts', link: '/contacts', icon: <MailIcon />},

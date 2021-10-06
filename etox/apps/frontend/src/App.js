@@ -7,8 +7,9 @@ import About from './components/About/About.jsx';
 import IngredientContainer from './components/Ingredient/IngredientContainer.jsx';
 import SideBar from './components/SideBar/SideBar.jsx';
 import Footer from './components/Footer/Footer.jsx';
+import HowUse from './components/HowUse/HowUse.jsx';
+import Contacts from './components/Contacts/Contacts.jsx';
 import customTheme from './components/CustomTheme/CustomTheme.jsx';
-
 
 // * useScrollTrigger  для переключения строки поиска в appbar при скролле
 
@@ -76,6 +77,8 @@ const App = (props) => {
               component={(props) => <IngredientContainer data={props} backButton={backButton} />}
             />
             <Route exact path='/about' component={About} />
+            <Route exact path='/how-use' component={HowUse} />
+            <Route exact path='/contacts' component={Contacts} />
           </Container>
         </Grid>
         <Grid item xs={12} >

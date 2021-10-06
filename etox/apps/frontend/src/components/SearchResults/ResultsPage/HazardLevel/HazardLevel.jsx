@@ -22,10 +22,8 @@ const HazardLevel = (props) => {
     return (
         <Box sx={{
             height: '300px', 
-            //width: '100%'
             }}
         >  
-            {/**/}
             <Bar 
             data={chartData} 
             maxValue={10} 

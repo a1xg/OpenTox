@@ -12,7 +12,6 @@ const theme = createTheme({
 const customTheme = createTheme({
     overrides: {
         MuiTooltip: {
-            // TODO убрать прозрачность tooltip
             tooltip: {
                 fontSize: 12,
                 fontFamily: 'sans-serif',

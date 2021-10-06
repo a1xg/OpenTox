@@ -42,7 +42,7 @@ const useStyles = makeStyles((theme) => ({
         "& :visited": { color: theme.palette.grey[200] },
         "& :hover": { color: theme.palette.primary[300] },
         "& :active": { color: theme.palette.grey[400] },
-        color: 'gray'
+        color: theme.palette.grey[500]
     }
 }));
 

@@ -9,7 +9,7 @@ const useStyles = makeStyles((theme) => ({
         flexWrap: 'nowrap',
         justifyContent: 'center',
         backgroundColor: theme.palette.grey[50],
-        border: `1px solid ${theme.palette.grey[300]}`, //'1px solid lightgray'
+        border: `1px solid ${theme.palette.grey[300]}`, 
         borderRadius: '11px',
     },
     item: {
@@ -18,8 +18,6 @@ const useStyles = makeStyles((theme) => ({
     }
 
 }))
-
-//TODO привести стили tooltip к единому виду
 
 const BriefStatistics = (props) => {
     const [data, setData] = useState([{ color: '', description: '', hazard_class: '', id: null }]);

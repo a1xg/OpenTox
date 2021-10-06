@@ -5,13 +5,13 @@ const useStyles = makeStyles((theme) => ({
     root: {
         fontFamily: 'sans-serif',
         display: 'flex',
-        backgroundColor: 'white',
+        backgroundColor: theme.palette.grey[50],
         width:'70px',
         borderRadius: '2px',
         opacity: '1'
     },
     text: {
-        color: 'black',
+        color: theme.palette.grey[900],
     }
 
 }));
