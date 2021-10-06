@@ -1,41 +1,43 @@
 import React, { useRef, useState } from "react";
 import { useHistory } from "react-router-dom";
-import { TextField, InputAdornment } from "@material-ui/core";
-import { makeStyles, withStyles } from '@material-ui/core/styles';
+import { TextField, InputBase, InputAdornment, makeStyles, withStyles, alpha } from "@material-ui/core";
 import IconButton from '@material-ui/core/IconButton';
 import Search from '@material-ui/icons/Search';
 import ImageForm from "./ImageForm/ImageForm.jsx";
 import CSRFtoken from './csrftoken.jsx';
+//TODO сделать outline border как в бутстраповской теме
 
 const style = (theme) => ({
     root: {
-        '& label.Mui-focused': {
-            color: theme.palette.secondary[300],
-        },
-        '& .MuiInput-underline:after': {
-            borderBottomColor: theme.palette.primary[300],
-        },
         '& .MuiOutlinedInput-root': {
-            '& fieldset': {
-                borderColor: theme.palette.secondary[300], 
-                borderRadius: `28px`,
+            overflow: 'hidden',
+            borderRadius: 28,
+            backgroundColor: theme.palette.grey[50],
+            transition: theme.transitions.create([
+                'border-color',
+                'background-color',
+                'box-shadow',
+            ]),
+            '&:hover': {
+                backgroundColor: 'transparent',
+                
             },
-            '&:hover fieldset': {
+            '&.Mui-focused': {
+                backgroundColor: 'transparent',
+                boxShadow: `${alpha(theme.palette.primary.main, 0.25)} 0 0 0 4px`,
                 borderColor: theme.palette.primary[300],
             },
-            '&.Mui-focused fieldset': {
-                borderColor: theme.palette.primary[300],
-            },
+
         },
     },
-})
+});
 
 const CssTextField = withStyles(style)(TextField);
 
 const useStyles = makeStyles((theme) => ({
     input: {
         margin: theme.spacing(1),
-        width:'600px',
+        width: '600px',
     },
     button: {
         "& :visited": { color: theme.palette.secondary[300] },
@@ -44,7 +46,7 @@ const useStyles = makeStyles((theme) => ({
         color: 'gray'
     }
 }));
-//! TODO иногда выскакивает ошибка react-dom.development.js:67 Warning: `value` prop on `input` should not be null. Consider using an empty string to clear the component or `undefined` for uncontrolled
+
 const SearchForm = (props) => {
     const [formText, setFormText] = useState('')
     const form = useRef(undefined);
@@ -71,9 +73,9 @@ const SearchForm = (props) => {
                 placeholder='Enter ingredients separated by commas'
                 name="text"
                 type="text"
-                onChange={(event) => {setFormText(event.target.value)}}
+                onChange={(event) => { setFormText(event.target.value) }}
                 value={formText}
-                label="Search"
+                //label="Search"
                 InputProps={{
                     maxLength: 500,
                     endAdornment: (
@@ -81,7 +83,7 @@ const SearchForm = (props) => {
                             <ImageForm setQuery={props.setQuery} />
                             <IconButton
                                 type="submit"
-                                className={classes.button} 
+                                className={classes.button}
                             >
                                 <Search />
                             </IconButton>
