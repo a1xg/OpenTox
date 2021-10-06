@@ -17,6 +17,12 @@ const useStyles = makeStyles((theme) => ({
         paddingLeft: '1px',
         paddingRight: '1px',
         height: theme.height
+    },
+    redIcon:{
+        color: theme.palette.warning.light
+    },
+    greenIcon:{
+        color:theme.palette.primary.main
     }
 }))
 
@@ -58,12 +64,12 @@ const IngredientRatingBar = (props) => {
             }
             {props.rating == 0 &&
                 <Tooltip title='This ingredient is completely safe.'>
-                        <ThumbUpIcon />
+                        <ThumbUpIcon className={classes.greenIcon} />
                 </Tooltip>
             }
             {props.rating == null &&
                 <Tooltip title='No hazard data available for the ingredient.'>
-                    <HelpOutlineIcon />
+                    <HelpOutlineIcon className={classes.redIcon} />
                 </Tooltip>
             }
         </Box>

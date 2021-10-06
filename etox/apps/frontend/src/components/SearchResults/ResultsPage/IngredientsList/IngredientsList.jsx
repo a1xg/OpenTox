@@ -30,7 +30,6 @@ const IngredientsList = (props) => {
     const [page, setPage] = useState(0);
     const [rowsPerPage, setRowsPerPage] = useState(5);
     const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - ingredients.length) : 0;
-// TODO поправить отступы 
 
     const handleChangePage = (event, newPage) => {
         setPage(newPage);
@@ -44,7 +43,7 @@ const IngredientsList = (props) => {
 
     return (
         <TableContainer>
-            <Table xs={12} >
+            <Table xs={12}>
                 <TableHead>
                     <TableRow>
                         <TableCell>Name</TableCell>
@@ -58,7 +57,7 @@ const IngredientsList = (props) => {
                         : ingredients
                     ).map((ingredient) => {
                         return (
-                            <TableRow key={ingredient.id} >
+                            <TableRow key={ingredient.id}>
                                 <TableCell align="left">
                                 <Typography variant='subtitle1'>
                                     <Link to={{ pathname: "ingredient/" + ingredient.id }} component={NavLink}>
@@ -66,7 +65,7 @@ const IngredientsList = (props) => {
                                     </Link>
                                     </Typography>
                                 </TableCell>
-                                <TableCell align="center">
+                                <TableCell align="left">
                                     <BriefStatistics 
                                     data={ingredient.hazard.hazard_ghs_set} 
                                     width={100} 
@@ -74,7 +73,7 @@ const IngredientsList = (props) => {
                                     padding={3}
                                     />
                                 </TableCell>
-                                <TableCell align="center">
+                                <TableCell align="left">
                                     <IngredientRatingBar
                                         rating={ingredient.hazard.ingredient_hazard_avg}
                                         width={100}

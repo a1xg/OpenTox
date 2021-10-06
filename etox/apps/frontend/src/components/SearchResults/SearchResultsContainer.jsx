@@ -1,8 +1,8 @@
 import React from 'react';
 import ErrorMessage from './ErrorMessage/ErrorMessage.jsx';
 import ResultsPage from './ResultsPage/ResultsPage.jsx';
-import LinearProgress from '@material-ui/core/LinearProgress';
-// TODO стилизовать полосу загрузки
+import ProgressBar from './ProgressBar/ProgressBar.jsx';
+
 const SearchResults = (props) => {
     console.log('SearchResults props:', props);
 
@@ -11,7 +11,9 @@ const SearchResults = (props) => {
         return <ResultsPage searchResults={props.searchResults} />
     } else if (props.searchResults.loaded == false) {
         document.title = 'Loading...';
-        return <LinearProgress />
+        return (
+        <ProgressBar />
+        )
     } else { 
         document.title = 'Page not found';
         return <ErrorMessage />

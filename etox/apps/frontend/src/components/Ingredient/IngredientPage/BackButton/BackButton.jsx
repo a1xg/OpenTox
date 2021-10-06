@@ -19,6 +19,7 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
+// TODO привести цвета hover кнопки к общему стилю сайта
 const BackButton = () => {
     const classes = useStyles();
 

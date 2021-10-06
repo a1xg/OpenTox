@@ -17,6 +17,8 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
+// TODO поправить отступы
+
 const IngredientPage = (props) => {
     console.log('IngredientPage props', props)
     const classes = useStyles();
