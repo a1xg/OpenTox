@@ -52,43 +52,43 @@ const App = (props) => {
   }, [searchQuery]);
 
   return (
-  <ThemeProvider theme={customTheme}>
-    <Container maxWidth={'xl'} className={classes.app} >
-      <Grid container spacing={3} direction='row'>
-        <Grid item xs={12} >
-          <SideBar />
-        </Grid>
-        <Grid item xs={12} >
-          <Grid
-            container
-            alignItems="center"
-            justifyContent="center">
-            <SearchForm path='/' setQuery={setQuery} />
+    <ThemeProvider theme={customTheme}>
+      <Container maxWidth={'xl'} className={classes.app} >
+        <Grid container spacing={3} direction='row'>
+          <Grid item xs={12} >
+            <SideBar />
+          </Grid>
+          <Grid item xs={12} >
+            <Grid
+              container
+              alignItems="center"
+              justifyContent="center">
+              <SearchForm path='/' setQuery={setQuery} />
+            </Grid>
+          </Grid>
+          <Grid item xs={12}>
+            
+              <Route
+                exact path='/search-results'
+                component={() => <SearchResultsContainer searchResults={searchResults} />}
+              />
+              <Route
+                path='/ingredient/:ingredientID'
+                component={(props) => <IngredientContainer data={props} backButton={backButton} />}
+              />
+              <Route exact path='/about' component={About} />
+              <Route exact path='/how-use' component={HowUse} />
+              <Route exact path='/contacts' component={Contacts} />
+           
+          </Grid>
+          <Grid item xs={12} >
+            <Container maxWidth={'lg'}>
+              <Footer />
+            </Container>
           </Grid>
         </Grid>
-        <Grid item xs={12} >
-          <Container maxWidth={'lg'}>
-            <Route
-              exact path='/search-results'
-              component={() => <SearchResultsContainer searchResults={searchResults} />}
-            />
-            <Route
-              path='/ingredient/:ingredientID'
-              component={(props) => <IngredientContainer data={props} backButton={backButton} />}
-            />
-            <Route exact path='/about' component={About} />
-            <Route exact path='/how-use' component={HowUse} />
-            <Route exact path='/contacts' component={Contacts} />
-          </Container>
-        </Grid>
-        <Grid item xs={12} >
-          <Container maxWidth={'lg'}>
-            <Footer />
-          </Container>
-        </Grid>
-      </Grid>
-    </Container>
-  </ThemeProvider>
+      </Container>
+    </ThemeProvider>
   )
 };
 

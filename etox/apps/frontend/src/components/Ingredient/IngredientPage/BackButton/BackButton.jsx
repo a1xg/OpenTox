@@ -34,6 +34,7 @@ const BackButton = () => {
             className={classes.button}
             startIcon={<ArrowBackIosIcon className={classes.icon} />
             }>
+
             <NavLink to='/search-results' className={classes.link}>
                 to results
             </NavLink>

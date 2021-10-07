@@ -14,11 +14,9 @@ const useStyles = makeStyles((theme) => ({
 
 const Footer = (props) => {
     const classes = useStyles();
-    // TODO поправить длину и отцентрировать divider
     return (
             <Container maxWidth='lg' className={classes.root} >
-                
-                <Divider></Divider>
+                <Divider orientation='horizontal'/>
                 <Box className={classes.item}>
                     <Link to='/about' component={NavLink}>
                     About

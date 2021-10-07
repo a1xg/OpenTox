@@ -67,7 +67,6 @@ const customTheme = createTheme({
             lg: 1024,
         },
     }
-
 });
 
 export default customTheme;
