@@ -16,20 +16,17 @@ const TotalProductRating = (props) => {
             flexDirection: "column",
             alignItems: "center",
             justifyContent: "center",
-            fontSize: 48,
             textAlign: "center",
-            pointerEvents: "none",
-            fontFamily: "consolas, sans-serif",
         }}
         >
-            <Typography variant='h6'>Total rating</Typography>
+            <Typography variant='subtitle1'>Total rating</Typography>
             <Typography
-                variant='h3'
+                variant='h4'
                 style={{
                     color: ratingColorMap[Math.round(props.total_rating)]
                 }}
             >
-                {props.total_rating}/10
+                {`${props.total_rating}/10`}
             </Typography>
         </Box>
     )

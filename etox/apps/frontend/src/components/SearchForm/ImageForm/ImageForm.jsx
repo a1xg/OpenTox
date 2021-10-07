@@ -2,9 +2,11 @@ import React from "react";
 import { useHistory } from "react-router-dom";
 import IconButton from '@material-ui/core/IconButton';
 import PhotoCamera from '@material-ui/icons/PhotoCamera';
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles, Box } from '@material-ui/core';
 import CSRFToken from "../csrftoken.jsx";
-// TODO сделать кроппер изображений?
+import ImageCropper from "./ImageCropper/index.jsx";
+
+// TODO сделать кроппер изображений
 const useStyles = makeStyles((theme) => ({
     input: {
         display: 'none',
@@ -36,7 +38,7 @@ const ImageForm = (props) => {
     };
 
     return (
-        <div className={classes.root}>
+        <Box className={classes.root}>
             <input
                 className={classes.input}
                 id="icon-button-file"
@@ -52,7 +54,7 @@ const ImageForm = (props) => {
                 <PhotoCamera />
             </IconButton>
             </label>
-        </div>
+        </Box>
     )
 };
 
