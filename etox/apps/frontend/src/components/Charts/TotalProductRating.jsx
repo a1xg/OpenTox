@@ -17,6 +17,7 @@ const TotalProductRating = (props) => {
             alignItems: "center",
             justifyContent: "center",
             textAlign: "center",
+            pointerEvents: "none",
         }}
         >
             <Typography variant='subtitle1'>Total rating</Typography>
