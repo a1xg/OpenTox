@@ -17,7 +17,6 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-// TODO поправить отступы
 
 const IngredientPage = (props) => {
     console.log('IngredientPage props', props)
@@ -35,8 +34,8 @@ const IngredientPage = (props) => {
                         <Title mainName={props.searchResults.data.ingredient.main_name} />
                         <IngredientRatingBar
                             rating={props.searchResults.data.ingredient.hazard.ingredient_hazard_avg}
-                            width={200}
-                            height={20}
+                            width={150}
+                            height={15}
                         />
                     </ItemCard>
                 </Grid>

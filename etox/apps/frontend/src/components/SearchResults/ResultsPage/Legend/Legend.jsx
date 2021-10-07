@@ -1,25 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { getData } from '../../../Charts/ChartTools';
-import { Box, List, ListItem, ListItemIcon, ListItemText } from "@material-ui/core";
+import { Box, List, ListItem, ListItemIcon, ListItemText, Typography } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
-    root: {
-        padding: theme.spacing(0),
-    },
-    rowItem: {
-        padding: theme.spacing(1),
-    },
-    text: {
-        textAlign: 'left'
-    },
-    svg: {
-        alignContent: 'center'
-    },
-    wrapper: {
-        padding: theme.spacing(1),
-        alignContent: 'center'
-    }
+ 
 }));
 
 const Legend = (props) => {
@@ -39,22 +24,20 @@ const Legend = (props) => {
 
     return (
         legendData.length > 0 &&
-        <Box className={classes.wrapper}>
-            <List>
-                {legendData.map(item => {
-                    return (
-                        <ListItem key={item.id}>
-                            <ListItemIcon>
-                                <svg width='30' height='14' >
-                                    <rect x="0" y="0" width="30" height="14" rx="7" fill={item.color} />
-                                </svg>
-                            </ListItemIcon>
-                            <ListItemText primary={item.label} />
-                        </ListItem>
-                    )
-                })}
-            </List>
-        </Box>
+        <List>
+            {legendData.map(item => {
+                return (
+                    <ListItem key={item.id}>
+                        <ListItemIcon>
+                            <svg width='30' height='14' >
+                                <rect x="0" y="0" width="30" height="14" rx="7" fill={item.color} />
+                            </svg>
+                        </ListItemIcon>
+                        <ListItemText secondary={item.label} />
+                    </ListItem>
+                )
+            })}
+        </List>
     )
 };
 

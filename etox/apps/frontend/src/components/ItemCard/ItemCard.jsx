@@ -10,20 +10,21 @@ import {
 const useStyles = makeStyles((theme) => ({
     root: {
         display: 'flex', 
-        borderTop: `5px solid ${theme.palette.grey[300]}`,
+        borderTop: `5px solid ${theme.palette.grey[400]}`,
         "&:hover": {
             borderTop: `5px solid ${theme.palette.primary[200]}`
-        }
+        },
+        backgroundColor: theme.palette.grey[50]
     },
     cardcontent: {
         padding: '20px',
         'flex-grow': 1
     },
     caption: {
-        color: theme.palette.grey[400]
+        color: theme.palette.grey[500]
     },
     title: {
-        color: theme.palette.grey[700]
+        color: theme.palette.grey[800]
     }
 
 }));

@@ -39,14 +39,10 @@ const Legend = (props) => {
                                                     <rect x="0" y="0" width="30" height="14" rx="7" fill={item.color} />
                                                 </svg>
                                             </ListItemIcon>
-                                            <ListItemText>
-                                                {item.label}
-                                            </ListItemText>
+                                            <ListItemText secondary={item.label} />
                                         </ListItem>
                                     </List>
                                 </Grid>
-
-
                             )
                         })}
                     </Grid>

@@ -23,12 +23,12 @@ const customTheme = createTheme({
             },
         },
         MuiLink: {
-            textDecoration:'none',
+            //textDecoration:'none',
             root: {
-                color: theme.palette.grey[700],
+                color: theme.palette.primary.main,
                 "&:hover": {
-                    color: '#62ff3a',
-                    textDecoration:'none'
+                    color: theme.palette.primary.main,
+                    //textDecoration:'none'
                 },
                 
             },
@@ -49,17 +49,17 @@ const customTheme = createTheme({
             900: '#009a00'
         },
         secondary: {
-            main: '#dbdbdb',
-            50: '#f9f9f9',
-            100: '#f3f3f3',
-            200: '#eaeaea',
-            300: '#dbdbdb',
-            400: '#b7b7b7',
-            500: '#989898',
-            600: '#6f6f6f',
-            700: '#5c5c5c',
-            800: '#3d3d3d',
-            900: '#1c1c1c'
+            main: '#e667fd',
+            50: '#fbe7fe',
+            100: '#f4c2fd',
+            200: '#ee97fe',
+            300: '#e667fd',
+            400: '#de37fb',
+            500: '#d100f2',
+            600: '#bf00ec',
+            700: '#a700e5',
+            800: '#9100df',
+            900: '#6604d3'
         }
     },
     breakpoints: {

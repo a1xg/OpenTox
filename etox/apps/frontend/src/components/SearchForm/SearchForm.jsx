@@ -10,20 +10,20 @@ const style = (theme) => ({
     root: {
         '& .MuiOutlinedInput-root': {
             overflow: 'hidden',
-            borderRadius: 28,
+            borderRadius: 4, //28
             borderColor: theme.palette.primary[800],
-            backgroundColor: theme.palette.grey[50],
+            backgroundColor: theme.palette.grey[100],
             transition: theme.transitions.create([
                 'border-color',
                 'background-color',
                 'box-shadow',
             ]),
             '&:hover fieldset': {
-                borderColor: theme.palette.primary[300],
+                borderColor: theme.palette.primary[400],
             },
             '&.Mui-focused': {
                 backgroundColor: 'transparent',
-                boxShadow: `${alpha(theme.palette.primary.main, 0.25)} 0 0 0 4px`,
+                boxShadow: `${alpha(theme.palette.primary.main, 0.25)} 0 0 0 2px`,
                 borderColor: theme.palette.primary[100],
             },
 
@@ -74,7 +74,6 @@ const SearchForm = (props) => {
                 type="text"
                 onChange={(event) => { setFormText(event.target.value) }}
                 value={formText}
-                //label="Search"
                 InputProps={{
                     maxLength: 500,
                     endAdornment: (

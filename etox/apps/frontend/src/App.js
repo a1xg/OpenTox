@@ -15,7 +15,7 @@ import customTheme from './components/CustomTheme/CustomTheme.jsx';
 
 const useStyles = makeStyles((theme) => ({
   app: {
-    backgroundColor: theme.palette.grey[50],
+    backgroundColor: theme.palette.grey[100],
     minHeight: '100vh',
     display: 'flex',
     flex: '1'

@@ -47,8 +47,8 @@ const IngredientsList = (props) => {
                 <TableHead>
                     <TableRow>
                         <TableCell>Name</TableCell>
-                        <TableCell >Hazard classes</TableCell>
-                        <TableCell >Rating</TableCell>
+                        <TableCell>Hazard classes</TableCell>
+                        <TableCell>Rating</TableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>
