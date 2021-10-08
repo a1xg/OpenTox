@@ -1,5 +1,9 @@
 import React, { useState, useCallback } from 'react';
-import { Typography, Button, Slider, makeStyles } from '@material-ui/core';
+import { Box, Container, Button, Slider, makeStyles, List, ListItem, ListItemIcon } from '@material-ui/core';
+import Stack from '@mui/material/Stack';
+import AutorenewIcon from '@mui/icons-material/Autorenew';
+import ZoomInIcon from '@mui/icons-material/ZoomIn';
+import AspectRatioIcon from '@mui/icons-material/AspectRatio';
 import Cropper from 'react-easy-crop';
 import ImgDialog from './ImgDialog.jsx';
 import getCroppedImg from './cropImage';
@@ -8,7 +12,7 @@ const useStyles = makeStyles((theme) => ({
     cropContainer: {
         position: 'relative',
         width: '100%',
-        height: 200,
+        height: 400,
         background: '#333',
         [theme.breakpoints.up('sm')]: {
             height: 400,
@@ -28,16 +32,7 @@ const useStyles = makeStyles((theme) => ({
             alignItems: 'center',
         },
     },
-    sliderContainer: {
-        display: 'flex',
-        flex: '1',
-        alignItems: 'center',
-    },
-    sliderLabel: {
-        [theme.breakpoints.down('xs')]: {
-            minWidth: 65,
-        },
-    },
+
     slider: {
         padding: '22px 0px',
         marginLeft: 32,
@@ -47,9 +42,22 @@ const useStyles = makeStyles((theme) => ({
             margin: '0 16px',
         },
     },
+    wrapper: {
+        alignItems: 'center',
+        width: 500,
+        textAlign: 'center',
+    },
+    cropBox: {
+        border: `1px solid ${theme.palette.grey[300]}`,
+        borderRadius: '4px',
+        padding: '10px',
+    },
+    icon: {
+        color: theme.palette.grey[700],
+    }, 
 }));
 
-const dogImg =
+const originalImage =
     'https://img.huffingtonpost.com/asset/5ab4d4ac2000007d06eb2c56.jpeg?cache=sih0jwle4e&ops=1910_1000';
 
 const ImageCropper = (props) => {
@@ -68,7 +76,7 @@ const ImageCropper = (props) => {
     const showCroppedImage = useCallback(async () => {
         try {
             const croppedImage = await getCroppedImg(
-                dogImg,
+                originalImage,
                 croppedAreaPixels,
                 rotation
             );
@@ -84,83 +92,71 @@ const ImageCropper = (props) => {
     }, []);
 
     return (
-        <div>
-            <div className={classes.cropContainer}>
-                <Cropper
-                    image={dogImg}
-                    crop={crop}
-                    rotation={rotation}
-                    zoom={zoom}
-                    aspect={aspect}
-                    onCropChange={setCrop}
-                    onRotationChange={setRotation}
-                    onCropComplete={onCropComplete}
-                    onZoomChange={setZoom}
-                />
-            </div>
-            <div className={classes.controls}>
-                <div className={classes.sliderContainer}>
-                    <Typography
-                        variant="overline"
-                        classes={{ root: classes.sliderLabel }}
-                    >
-                        Zoom
-                    </Typography>
-                    <Slider
-                        value={zoom}
-                        min={1}
-                        max={4}
-                        step={0.2}
-                        aria-labelledby="Zoom"
-                        classes={{ root: classes.slider }}
-                        onChange={(e, zoom) => setZoom(zoom)}
+        <Container className={classes.wrapper}>
+            <Box className={classes.cropBox}>
+                <Box className={classes.cropContainer}>
+                    <Cropper
+                        image={originalImage}
+                        crop={crop}
+                        rotation={rotation}
+                        zoom={zoom}
+                        aspect={aspect}
+                        onCropChange={setCrop}
+                        onRotationChange={setRotation}
+                        onCropComplete={onCropComplete}
+                        onZoomChange={setZoom}
                     />
-                </div>
-                <div className={classes.sliderContainer}>
-                    <Typography
-                        variant="overline"
-                        classes={{ root: classes.sliderLabel }}
+                </Box>
+
+                <Box className={classes.controls}>
+                    <Stack spacing={2} direction="row" sx={{ mb: 1 }} alignItems="center">
+                        <ZoomInIcon className={classes.icon} />
+                        <Slider
+                            value={zoom}
+                            min={1}
+                            max={4}
+                            step={0.2}
+                            aria-labelledby="Zoom"
+                            className={classes.slider}
+                            onChange={(e, zoom) => setZoom(zoom)}
+                        />
+                    </Stack>
+                    <Stack spacing={2} direction="row" sx={{ mb: 1 }} alignItems="center">
+                        <AspectRatioIcon className={classes.icon} />
+                        <Slider
+                            value={aspect}
+                            min={0.5}
+                            max={3}
+                            step={0.1}
+                            aria-labelledby="Acpect"
+                            className={classes.slider}
+                            onChange={(e, aspect) => setAspect(aspect)}
+                        /> 
+                    </Stack>
+                    <Stack spacing={2} direction="row" sx={{ mb: 1 }} alignItems="center">
+                        <AutorenewIcon className={classes.icon} />
+                        <Slider
+                            value={rotation}
+                            min={-180}
+                            max={180}
+                            step={3}
+                            aria-labelledby="Rotation"
+                            className={classes.slider}
+                            onChange={(e, rotation) => setRotation(rotation)}
+                        />
+                    </Stack>
+                    <Button
+                        onClick={showCroppedImage}
+                        variant="contained"
+                        color="primary"
+                        className={classes.cropButton}
                     >
-                        Aspect
-                    </Typography>
-                    <Slider
-                        value={aspect}
-                        min={0.5}
-                        max={3}
-                        step={0.1}
-                        aria-labelledby="Acpect"
-                        classes={{ root: classes.slider }}
-                        onChange={(e, aspect) => setAspect(aspect)}
-                    />
-                </div>
-                <div className={classes.sliderContainer}>
-                    <Typography
-                        variant="overline"
-                        classes={{ root: classes.sliderLabel }}
-                    >
-                        Rotation
-                    </Typography>
-                    <Slider
-                        value={rotation}
-                        min={0}
-                        max={360}
-                        step={6}
-                        aria-labelledby="Rotation"
-                        classes={{ root: classes.slider }}
-                        onChange={(e, rotation) => setRotation(rotation)}
-                    />
-                </div>
-                <Button
-                    onClick={showCroppedImage}
-                    variant="contained"
-                    color="primary"
-                    classes={{ root: classes.cropButton }}
-                >
-                    Show Result
-                </Button>
-            </div>
-            <ImgDialog img={croppedImage} onClose={onClose} />
-        </div>
+                        Crop
+                    </Button>
+                </Box>
+                <ImgDialog img={croppedImage} onClose={onClose} />
+            </Box>
+        </Container>
     )
 };
 

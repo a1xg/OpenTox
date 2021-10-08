@@ -1,13 +1,6 @@
-import React, { useState } from 'react'
-import { withStyles, makeStyles } from '@material-ui/core'
-import Dialog from '@material-ui/core/Dialog'
-import AppBar from '@material-ui/core/AppBar'
-import Toolbar from '@material-ui/core/Toolbar'
-import IconButton from '@material-ui/core/IconButton'
-import Typography from '@material-ui/core/Typography'
-import CloseIcon from '@material-ui/icons/Close'
-import Slide from '@material-ui/core/Slide'
-
+import React, { useState } from 'react';
+import { makeStyles,Dialog,AppBar,Toolbar,IconButton,Typography,Slide } from '@material-ui/core';
+import CloseIcon from '@material-ui/icons/Close';
 
 const useStyles = makeStyles((theme) => ({
   appBar: {
@@ -32,17 +25,19 @@ const useStyles = makeStyles((theme) => ({
 
 function Transition(props) {
   return <Slide direction="up" {...props} />
-}
+};
 
 const ImgDialog = (props) => {
-  const [state, setState] = useState({ open: false });
   const classes = useStyles();
+  
+  const [state, setState] = useState({ open: false });
   const handleClickOpen = () => {
     setState({ open: true })
   };
   const handleClose = () => {
     setState({ open: false })
   };
+  
 
   return (
     <Dialog
@@ -74,6 +69,6 @@ const ImgDialog = (props) => {
       </div>
     </Dialog>
   )
-}
+};
 
 export default ImgDialog;
