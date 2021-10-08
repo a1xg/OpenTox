@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { withStyles } from '@material-ui/core'
+import { withStyles, makeStyles } from '@material-ui/core'
 import Dialog from '@material-ui/core/Dialog'
 import AppBar from '@material-ui/core/AppBar'
 import Toolbar from '@material-ui/core/Toolbar'
@@ -8,7 +8,8 @@ import Typography from '@material-ui/core/Typography'
 import CloseIcon from '@material-ui/icons/Close'
 import Slide from '@material-ui/core/Slide'
 
-const styles = {
+
+const useStyles = makeStyles((theme) => ({
   appBar: {
     position: 'relative',
   },
@@ -27,22 +28,21 @@ const styles = {
     maxWidth: '100%',
     maxHeight: '100%',
   },
-}
+}));
 
 function Transition(props) {
   return <Slide direction="up" {...props} />
 }
 
 const ImgDialog = (props) => {
-  const [state, setState] = useState({ open: false })
-  const { classes } = props
+  const [state, setState] = useState({ open: false });
+  const classes = useStyles();
   const handleClickOpen = () => {
     setState({ open: true })
-  }
-
+  };
   const handleClose = () => {
     setState({ open: false })
-  }
+  };
 
   return (
     <Dialog
@@ -76,4 +76,4 @@ const ImgDialog = (props) => {
   )
 }
 
-export default withStyles(styles)(ImgDialog)
+export default ImgDialog;
