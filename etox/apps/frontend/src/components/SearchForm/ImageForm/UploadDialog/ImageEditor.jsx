@@ -48,7 +48,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const ImageEditor = (props) => {
-    //console.log('ImageEditor props', props)
+    console.log('ImageEditor props', props)
     const [crop, setCrop] = useState({ x: 0, y: 0 });
     const [rotation, setRotation] = useState(0);
     const [zoom, setZoom] = useState(1);
@@ -56,17 +56,7 @@ const ImageEditor = (props) => {
     const [croppedAreaPixels, setCroppedAreaPixels] = useState(null);
     const [croppedImage, setCroppedImage] = useState(null);
     const classes = useStyles();
-    const [inputImage, setInputImage] = useState(props.inputImage);
-    const [originalImage, setOriginalImage] = useState();
-
-
-    useEffect(() => {
-        let reader = new FileReader();
-        reader.readAsDataURL(inputImage);
-        reader.onloadend = (event) => {
-            setOriginalImage(reader.result);
-        }
-    }, [])
+    const [originalImage, setOriginalImage] = useState(props.base64Image);
 
     const onCropComplete = useCallback((croppedArea, croppedAreaPixels) => {
         setCroppedAreaPixels(croppedAreaPixels);
@@ -81,8 +71,8 @@ const ImageEditor = (props) => {
             );
             console.log('donee', { croppedImage });
             setCroppedImage(croppedImage);
-            props.setFinalImageURL(croppedImage);
-            props.closeHandler();
+            props.setBase64Image(croppedImage);
+            props.setEditPreviewSwitch(false);
         } catch (e) {
             console.error(e)
         }
@@ -93,7 +83,7 @@ const ImageEditor = (props) => {
     }, []);
 
     const editHandler = () => {
-        props.setEditHandler(false);
+        props.setEditPreviewSwitch(false);
     };
 
     return (

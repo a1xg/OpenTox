@@ -7,16 +7,10 @@ import CSRFToken from "../csrftoken.jsx";
 import UploadDialog from "./UploadDialog/UploadDialog.jsx";
 
 //! при простой отправке изображения на сервер в Network form data отправляется: (binary); csrfmiddlewaretoken: токен
-//!
-//!
-//!
-//!
-//!
-//!
 
-const base64toImage = (cropImg) => {
-    //let cropImg = this.$refs.cropper.getCroppedCanvas().toDataURL();
-    let arr = cropImg.split(","),
+const base64toImage = (dataURL) => {
+    //let dataURL = this.$refs.cropper.getCroppedCanvas().toDataURL();
+    let arr = dataURL.split(","),
         mime = arr[0].match(/:(.*?);/)[1],
         bstr = atob(arr[1]),
         n = bstr.length,
@@ -24,11 +18,11 @@ const base64toImage = (cropImg) => {
 
     while (n--) {
         u8arr[n] = bstr.charCodeAt(n);
-    }
+    };
 
-    let imageCrop = new File([u8arr], 'imagename.jpg', { type: mime });
-    return imageCrop
-}
+    let image = new File([u8arr], 'imagename.jpg', { type: mime });
+    return image
+};
 
 
 const useStyles = makeStyles((theme) => ({
@@ -44,41 +38,43 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-
 const ImageForm = (props) => {
     const history = useHistory();
     const classes = useStyles();
-    const [inputImage, setInputImage] = useState();
-    const [open, setOpen] = useState(false);
-    const [finalImageURL, setFinalImageURL] = useState(null);
+    const [inputImage, setInputImage] = useState(null);
+    const [finalImage, setFinalImage] = useState(null);
+    const [openDialog, setOpenDialod] = useState(false);
 
     useEffect(() => {
-        if (finalImageURL != null) {
+        if (finalImage != null) {
             submitForm();
+            setInputImage(null);
+            setFinalImage(null);
+            setOpenDialod(false);
         };
-    }, [finalImageURL])
+        console.log('finalImage', finalImage)
+    }, [finalImage]);
 
-    const closeHandler = (props) => {
-        setOpen(false);
+    const openHandler = (event) => {
+        event.preventDefault();
+        setInputImage(event.target.files[0]);
+        setOpenDialod(true);
     };
 
-    const openDialog = (event) => {
-        setInputImage(event.target.files[0]);
-        setOpen(true);
+    const closeHandler = (props) => {
+        setOpenDialod(false);
+        setInputImage(null);
     };
 
     const submitForm = (event) => {
-        //event.preventDefault();
         const formData = new FormData();
-        const img = base64toImage(finalImageURL);
-        formData.append('image', img);
-        //formData.append('image', event.target.files[0]);
+        const image = base64toImage(finalImage);
+        formData.append('image', image);
         formData.append('csrfmiddlewaretoken', CSRFToken);
         props.setQuery({
             url: 'api/image_field',
             options: { method: 'POST', body: formData }
         });
-
         history.push('/search-results');
     };
 
@@ -88,10 +84,8 @@ const ImageForm = (props) => {
                 className={classes.input}
                 id="icon-button-file"
                 type="file"
-                //onChange={submitForm} 
-                onChange={openDialog}
+                onChange={openHandler}
             />
-
             <label htmlFor="icon-button-file">
                 <IconButton
                     aria-label="upload picture"
@@ -100,12 +94,14 @@ const ImageForm = (props) => {
                     <PhotoCamera />
                 </IconButton>
             </label>
+            {inputImage != null && 
             <UploadDialog
                 inputImage={inputImage}
-                open={open}
+                openDialog={openDialog}
+                setFinalImage={setFinalImage}
                 closeHandler={closeHandler}
-                setFinalImageURL={setFinalImageURL}
             />
+            }
         </Box>
     )
 };

@@ -19,32 +19,21 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const ImagePreview = (props) => {
-    const closeHandler = props.closeHandler;
     console.log('ImagePreview props', props)
     const classes = useStyles();
-    const [inputImage, setInputImage] = useState(props.inputImage);
-    const [preview, setPreview] = useState();
-
-    useEffect(() => {
-        let reader = new FileReader();
-        reader.readAsDataURL(inputImage);
-        reader.onloadend = (event) => {
-            setPreview(reader.result);
-        }
-    }, [])
-
+    
     const editHandler = () => {
-        props.setEditHandler(true)
+        props.setEditPreviewSwitch(true);
     }
 
     const sendHandler = () => {
-        props.setFinalImageURL(inputImage);
+        props.setFinalImage(props.base64Image);
         props.closeHandler();
     }
 
     return (
         <div>
-            <img src={preview} style={{ height: 400 }} />
+            <img src={props.base64Image} style={{ height: 400 }} />
             <Box className={classes.buttonBox}>
                 <Stack spacing={2} direction="row" alignItems='inherit' justifyContent='space-around'>
                     <Button
