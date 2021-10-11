@@ -1,11 +1,10 @@
-import React, { useState, useCallback, useEffect } from 'react';
+import React, { useState, useCallback } from 'react';
 import Cropper from 'react-easy-crop';
 import { Box, Button, Slider, makeStyles } from '@material-ui/core';
 import Stack from '@mui/material/Stack';
 import AutorenewIcon from '@mui/icons-material/Autorenew';
 import ZoomInIcon from '@mui/icons-material/ZoomIn';
 import AspectRatioIcon from '@mui/icons-material/AspectRatio';
-import CroppedImgDialog from './final.jsx';
 import getCroppedImg from './cropTools.js';
 
 const useStyles = makeStyles((theme) => ({
@@ -48,13 +47,13 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const ImageEditor = (props) => {
-    console.log('ImageEditor props', props)
+    console.log('ImageEditor props', props);
+    const classes = useStyles();
     const [crop, setCrop] = useState({ x: 0, y: 0 });
     const [rotation, setRotation] = useState(0);
     const [zoom, setZoom] = useState(1);
     const [aspect, setAspect] = useState(1.7);
     const [croppedAreaPixels, setCroppedAreaPixels] = useState(null);
-    const classes = useStyles();
     const [originalImage, setOriginalImage] = useState(props.base64Image);
 
     const onCropComplete = useCallback((croppedArea, croppedAreaPixels) => {
@@ -70,6 +69,7 @@ const ImageEditor = (props) => {
             );
             console.log('donee', { croppedImage });
             props.setBase64Image(croppedImage);
+            props.setCrop(false);
             props.setEditPreviewSwitch(false);
         } catch (e) {
             console.error(e)

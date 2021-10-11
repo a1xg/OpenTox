@@ -6,7 +6,7 @@ import { makeStyles, Box } from '@material-ui/core';
 import CSRFToken from "../csrftoken.jsx";
 import UploadDialog from "./UploadDialog/UploadDialog.jsx";
 
-
+// TODO добавить кроп параметр к запросу REST API
 const useStyles = makeStyles((theme) => ({
     input: {
         display: 'none',
@@ -26,6 +26,8 @@ const ImageForm = (props) => {
     const [inputImage, setInputImage] = useState(null);
     const [finalImage, setFinalImage] = useState(null);
     const [openDialog, setOpenDialod] = useState(false);
+    // crop parameter that determines the need or unnecessary cropping of the image on the server
+    const [crop, setCrop] = useState(true); 
 
     useEffect(() => {
         if (finalImage != null) {
@@ -34,7 +36,6 @@ const ImageForm = (props) => {
             setFinalImage(null);
             setOpenDialod(false);
         };
-        console.log('finalImage', finalImage)
     }, [finalImage]);
 
     const openHandler = (event) => {
@@ -52,6 +53,7 @@ const ImageForm = (props) => {
         const formData = new FormData();
         formData.append('image', finalImage);
         formData.append('csrfmiddlewaretoken', CSRFToken);
+        formData.append('crop', crop);
         props.setQuery({
             url: 'api/image_field',
             options: { method: 'POST', body: formData }
@@ -81,6 +83,7 @@ const ImageForm = (props) => {
                 openDialog={openDialog}
                 setFinalImage={setFinalImage}
                 closeHandler={closeHandler}
+                setCrop={setCrop}
             />
             }
         </Box>

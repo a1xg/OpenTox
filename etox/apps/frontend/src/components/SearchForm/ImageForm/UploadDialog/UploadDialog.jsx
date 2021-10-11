@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Box, Dialog, Container, Typography, makeStyles, Button } from '@material-ui/core';
+import { Box, Dialog, Container, makeStyles } from '@material-ui/core';
 import ImagePreview from './ImagePreview.jsx';
 import ImageEditor from './ImageEditor.jsx';
 
@@ -29,7 +29,7 @@ const base64decode = (dataURL) => {
         u8arr[n] = bstr.charCodeAt(n);
     };
 
-    let image = new File([u8arr], 'imagename.jpg', { type: mime });
+    let image = new File([u8arr], 'croppedImage.jpg', { type: mime });
     return image
 };
 
@@ -69,6 +69,7 @@ const UploadDialog = (props) => {
                             base64Image={base64Image}
                             setEditPreviewSwitch={setEditPreviewSwitch}
                             setBase64Image={setBase64Image}
+                            setCrop={props.setCrop}
                         />
                     }
                 </Box>

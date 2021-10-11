@@ -39,10 +39,11 @@ const useStyles = makeStyles((theme) => ({
         width: '600px',
     },
     button: {
+        color: theme.palette.grey[500],
         "& :visited": { color: theme.palette.grey[200] },
         "& :hover": { color: theme.palette.primary[300] },
-        "& :active": { color: theme.palette.grey[400] },
-        color: theme.palette.grey[500]
+        "& :active": { color: theme.palette.grey[400] }
+        
     }
 }));
 
