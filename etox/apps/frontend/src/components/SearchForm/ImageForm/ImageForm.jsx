@@ -1,18 +1,18 @@
 import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import IconButton from '@material-ui/core/IconButton';
-import PhotoCamera from '@material-ui/icons/PhotoCamera';
+import ImageSearchIcon from '@material-ui/icons/ImageSearch';
 import { makeStyles, Box } from '@material-ui/core';
 import CSRFToken from "../csrftoken.jsx";
-import UploadDialog from "./UploadDialog/UploadDialog.jsx";
+import DialogContainer from "./ImagePreviewEdit/DialogContainer.jsx";
 
-// TODO добавить кроп параметр к запросу REST API
+// TODO очистить форму
 const useStyles = makeStyles((theme) => ({
     input: {
         display: 'none',
     },
     button: {
-        margin: theme.spacing(1),
+        margin: theme.spacing(0.5),
         "& :visited": { color: theme.palette.grey[200] },
         "& :hover": { color: theme.palette.primary[300] },
         "& :active": { color: theme.palette.grey[400] },
@@ -26,15 +26,13 @@ const ImageForm = (props) => {
     const [inputImage, setInputImage] = useState(null);
     const [finalImage, setFinalImage] = useState(null);
     const [openDialog, setOpenDialod] = useState(false);
-    // crop parameter that determines the need or unnecessary cropping of the image on the server
-    const [crop, setCrop] = useState(true); 
+    // crop - boolean parameter that determines the need or unnecessary cropping of the image on the server
+    const [cropParam, setCropParam] = useState(true); 
 
     useEffect(() => {
         if (finalImage != null) {
             submitForm();
-            setInputImage(null);
-            setFinalImage(null);
-            setOpenDialod(false);
+            closeHandler();
         };
     }, [finalImage]);
 
@@ -45,15 +43,18 @@ const ImageForm = (props) => {
     };
 
     const closeHandler = (props) => {
-        setOpenDialod(false);
         setInputImage(null);
+        setFinalImage(null);
+        setOpenDialod(false);
+        setCropParam(true);
     };
 
     const submitForm = (event) => {
         const formData = new FormData();
         formData.append('image', finalImage);
         formData.append('csrfmiddlewaretoken', CSRFToken);
-        formData.append('crop', crop);
+        formData.append('crop', cropParam);
+        
         props.setQuery({
             url: 'api/image_field',
             options: { method: 'POST', body: formData }
@@ -74,16 +75,16 @@ const ImageForm = (props) => {
                     aria-label="upload picture"
                     className={classes.button}
                     component="span">
-                    <PhotoCamera />
+                    <ImageSearchIcon />
                 </IconButton>
             </label>
             {inputImage != null && 
-            <UploadDialog
+            <DialogContainer
                 inputImage={inputImage}
                 openDialog={openDialog}
                 setFinalImage={setFinalImage}
                 closeHandler={closeHandler}
-                setCrop={setCrop}
+                setCropParam={setCropParam}
             />
             }
         </Box>

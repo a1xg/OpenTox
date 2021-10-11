@@ -1,6 +1,8 @@
 import React, { useState, useCallback } from 'react';
 import Cropper from 'react-easy-crop';
-import { Box, Button, Slider, makeStyles } from '@material-ui/core';
+import { Box, Button, Slider, makeStyles, Typography } from '@material-ui/core';
+import FileDownloadDoneIcon from '@mui/icons-material/FileDownloadDone';
+import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import Stack from '@mui/material/Stack';
 import AutorenewIcon from '@mui/icons-material/Autorenew';
 import ZoomInIcon from '@mui/icons-material/ZoomIn';
@@ -13,23 +15,22 @@ const useStyles = makeStyles((theme) => ({
         width: '100%',
         height: 300,
         background: '#333',
-        [theme.breakpoints.up('sm')]: {
-            height: 400,
-        },
+ 
     },
     button: {
-        flexShrink: 0,
-        marginLeft: 16,
+        backgroundColor: theme.palette.grey[50],
+        "&:hover": {
+            backgroundColor: theme.palette.primary[200],
+        },
+        '&:active': {
+            backgroundColor: theme.palette.primary[400],
+        },
     },
     controls: {
         padding: 16,
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'stretch',
-        [theme.breakpoints.up('sm')]: {
-            flexDirection: 'row',
-            alignItems: 'center',
-        },
     },
 
     slider: {
@@ -44,17 +45,20 @@ const useStyles = makeStyles((theme) => ({
     icon: {
         color: theme.palette.grey[700],
     },
+    link:{
+        color: theme.palette.grey[700],
+    }
 }));
 
 const ImageEditor = (props) => {
-    console.log('ImageEditor props', props);
+    //console.log('ImageEditor props', props);
     const classes = useStyles();
     const [crop, setCrop] = useState({ x: 0, y: 0 });
     const [rotation, setRotation] = useState(0);
     const [zoom, setZoom] = useState(1);
     const [aspect, setAspect] = useState(1.7);
     const [croppedAreaPixels, setCroppedAreaPixels] = useState(null);
-    const [originalImage, setOriginalImage] = useState(props.base64Image);
+    const originalImage = props.base64Image;
 
     const onCropComplete = useCallback((croppedArea, croppedAreaPixels) => {
         setCroppedAreaPixels(croppedAreaPixels);
@@ -67,9 +71,8 @@ const ImageEditor = (props) => {
                 croppedAreaPixels,
                 rotation
             );
-            console.log('donee', { croppedImage });
             props.setBase64Image(croppedImage);
-            props.setCrop(false);
+            props.setCropParam(false);
             props.setEditPreviewSwitch(false);
         } catch (e) {
             console.error(e)
@@ -112,8 +115,8 @@ const ImageEditor = (props) => {
                     <AspectRatioIcon className={classes.icon} />
                     <Slider
                         value={aspect}
-                        min={0.5}
-                        max={3}
+                        min={0.2}
+                        max={5}
                         step={0.1}
                         aria-labelledby="Acpect"
                         className={classes.slider}
@@ -139,16 +142,18 @@ const ImageEditor = (props) => {
                         variant="contained"
                         color="primary"
                         className={classes.button}
+                        startIcon={<ArrowBackIosNewIcon className={classes.icon} />}
                     >
-                        Back
+                        <Typography className={classes.link}>Back</Typography>
                     </Button>
                     <Button
                         onClick={showCroppedImage}
                         variant="contained"
                         color="primary"
                         className={classes.button}
+                        startIcon={<FileDownloadDoneIcon className={classes.icon} />}
                     >
-                        Crop
+                         <Typography className={classes.link}>Save</Typography>
                     </Button>
                 </Stack>
             </Box>

@@ -3,17 +3,18 @@ import { Box, Dialog, Container, makeStyles } from '@material-ui/core';
 import ImagePreview from './ImagePreview.jsx';
 import ImageEditor from './ImageEditor.jsx';
 
+// TODO привести в порядок верстку
 const useStyles = makeStyles((theme) => ({
     container: {
         alignItems: 'center',
-        width: 500,
         textAlign: 'center',
-    },
-    wrapper: {
-        width: 400,
         border: `1px solid ${theme.palette.grey[500]}`,
         borderRadius: 4,
         padding: 15,
+    },
+    wrapper: {
+        width: 400,
+        
     },
 
 }));
@@ -29,20 +30,17 @@ const base64decode = (dataURL) => {
         u8arr[n] = bstr.charCodeAt(n);
     };
 
-    let image = new File([u8arr], 'croppedImage.jpg', { type: mime });
-    return image
+    return new File([u8arr], 'croppedImage.jpg', { type: mime });
 };
 
 const UploadDialog = (props) => {
-    console.log('UploadDialog props', props);
     const classes = useStyles();
     const [editPreviewSwitch, setEditPreviewSwitch] = useState(false);
-    const [base64Image, setBase64Image] = useState();
+    const [base64Image, setBase64Image] = useState(null);
     
     const sendHandler = () => {
         const imageFile = base64decode(base64Image);
         props.setFinalImage(imageFile);
-        props.closeHandler();
     };
 
     useEffect(() => {
@@ -69,7 +67,7 @@ const UploadDialog = (props) => {
                             base64Image={base64Image}
                             setEditPreviewSwitch={setEditPreviewSwitch}
                             setBase64Image={setBase64Image}
-                            setCrop={props.setCrop}
+                            setCropParam={props.setCropParam}
                         />
                     }
                 </Box>
