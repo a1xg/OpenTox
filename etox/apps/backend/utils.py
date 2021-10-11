@@ -10,7 +10,7 @@ class DataMixin:
     def _get_text(self, **kwargs):
         ocr = ImageOCR(img=kwargs['image'])
         ocr.decodeImage()
-        text = ocr.getText(text_lang=DEFAULT_LANG, crop=CROP, set_font=FONT_SIZE)
+        text = ocr.getText(text_lang=DEFAULT_LANG, crop=kwargs['crop'], set_font=FONT_SIZE)
         print(f'Recognized text: {text}')
         return text
 

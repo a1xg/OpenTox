@@ -18,11 +18,14 @@ class TextSearchAPIView(DataMixin, generics.ListAPIView):
 class ImageSearchAPIView(DataMixin, generics.ListAPIView):
     serializer_class = ImageSearchSerializer
 
-
     def post(self, request):
         serializer = ImageSearchSerializer(data=request.data, many=False)
         if serializer.is_valid(raise_exception=True):
-            context = self.get_context(image=serializer.validated_data["image"].read(), display_format='list')
+            context = self.get_context(
+                image=serializer.validated_data["image"].read(),
+                display_format='list',
+                crop=serializer.validated_data["crop"]
+            )
             return response.Response(context, status=200)
         return response.Response(serializer.errors, status=400)
 

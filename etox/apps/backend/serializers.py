@@ -13,6 +13,7 @@ class TextSearchSerializer(serializers.Serializer):
 
 class ImageSearchSerializer(serializers.Serializer):
     image = serializers.ImageField()
+    crop = serializers.BooleanField()
 
     def validate_image(self, attrs):
         if len(attrs) <= 0:

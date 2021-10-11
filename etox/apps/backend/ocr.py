@@ -251,7 +251,6 @@ class ImageOCR:
                 multilang_recog_text = self._recognizeText(default_config, sample_image)
                 # Detect language
                 recognized_lang = self._detectLang(multilang_recog_text)
-                print(f'recognized language: {recognized_lang}')
                 # After the exact definition of the language, we make repeated
                 # recognition with the exact indication of the language
                 custom_config = (f'-l {recognized_lang} --oem 1 --psm 6')
