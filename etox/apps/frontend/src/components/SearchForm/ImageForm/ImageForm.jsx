@@ -6,24 +6,6 @@ import { makeStyles, Box } from '@material-ui/core';
 import CSRFToken from "../csrftoken.jsx";
 import UploadDialog from "./UploadDialog/UploadDialog.jsx";
 
-//! при простой отправке изображения на сервер в Network form data отправляется: (binary); csrfmiddlewaretoken: токен
-
-const base64toImage = (dataURL) => {
-    //let dataURL = this.$refs.cropper.getCroppedCanvas().toDataURL();
-    let arr = dataURL.split(","),
-        mime = arr[0].match(/:(.*?);/)[1],
-        bstr = atob(arr[1]),
-        n = bstr.length,
-        u8arr = new Uint8Array(n);
-
-    while (n--) {
-        u8arr[n] = bstr.charCodeAt(n);
-    };
-
-    let image = new File([u8arr], 'imagename.jpg', { type: mime });
-    return image
-};
-
 
 const useStyles = makeStyles((theme) => ({
     input: {
@@ -68,8 +50,7 @@ const ImageForm = (props) => {
 
     const submitForm = (event) => {
         const formData = new FormData();
-        const image = base64toImage(finalImage);
-        formData.append('image', image);
+        formData.append('image', finalImage);
         formData.append('csrfmiddlewaretoken', CSRFToken);
         props.setQuery({
             url: 'api/image_field',

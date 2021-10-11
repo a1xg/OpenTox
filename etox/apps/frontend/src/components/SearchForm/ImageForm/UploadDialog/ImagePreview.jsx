@@ -24,31 +24,26 @@ const ImagePreview = (props) => {
     
     const editHandler = () => {
         props.setEditPreviewSwitch(true);
-    }
-
-    const sendHandler = () => {
-        props.setFinalImage(props.base64Image);
-        props.closeHandler();
-    }
+    };
 
     return (
         <div>
             <img src={props.base64Image} style={{ height: 400 }} />
             <Box className={classes.buttonBox}>
                 <Stack spacing={2} direction="row" alignItems='inherit' justifyContent='space-around'>
-                    <Button
-                        onClick={sendHandler}
-                        variant="contained"
-                        color="primary"
-                        className={classes.button} >
-                        Send
-                    </Button>
-                    <Button
+                <Button
                         onClick={editHandler}
                         variant="contained"
                         color="primary"
                         className={classes.button} >
                         Edit
+                    </Button>
+                    <Button
+                        onClick={props.sendHandler}
+                        variant="contained"
+                        color="primary"
+                        className={classes.button} >
+                        Send
                     </Button>
                 </Stack>
             </Box>

@@ -54,7 +54,6 @@ const ImageEditor = (props) => {
     const [zoom, setZoom] = useState(1);
     const [aspect, setAspect] = useState(1.7);
     const [croppedAreaPixels, setCroppedAreaPixels] = useState(null);
-    const [croppedImage, setCroppedImage] = useState(null);
     const classes = useStyles();
     const [originalImage, setOriginalImage] = useState(props.base64Image);
 
@@ -70,17 +69,12 @@ const ImageEditor = (props) => {
                 rotation
             );
             console.log('donee', { croppedImage });
-            setCroppedImage(croppedImage);
             props.setBase64Image(croppedImage);
             props.setEditPreviewSwitch(false);
         } catch (e) {
             console.error(e)
         }
     }, [croppedAreaPixels, rotation]);
-
-    const onClose = useCallback(() => {
-        setCroppedImage(null)
-    }, []);
 
     const editHandler = () => {
         props.setEditPreviewSwitch(false);
@@ -108,7 +102,7 @@ const ImageEditor = (props) => {
                         value={zoom}
                         min={1}
                         max={4}
-                        step={0.2}
+                        step={0.1}
                         aria-labelledby="Zoom"
                         className={classes.slider}
                         onChange={(e, zoom) => setZoom(zoom)}
