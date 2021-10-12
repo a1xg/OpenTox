@@ -1,24 +1,16 @@
 import React, { useState, useEffect } from 'react';
-import { Box, Dialog, Container, makeStyles } from '@material-ui/core';
+import { Dialog, Container, makeStyles } from '@material-ui/core';
 import ImagePreview from './ImagePreview.jsx';
 import ImageEditor from './ImageEditor.jsx';
+import ItemCard from '../../../ItemCard/ItemCard.jsx';
+import useStyles from './styles.js';
 
 // TODO привести в порядок верстку
+/*
 const useStyles = makeStyles((theme) => ({
-    container: {
-        alignItems: 'center',
-        textAlign: 'center',
-        border: `1px solid ${theme.palette.grey[500]}`,
-        borderRadius: 4,
-        padding: 15,
-    },
-    wrapper: {
-        width: 400,
-        
-    },
-
+  
 }));
-
+*/
 const base64decode = (dataURL) => {
     let arr = dataURL.split(","),
         mime = arr[0].match(/:(.*?);/)[1],
@@ -37,7 +29,7 @@ const UploadDialog = (props) => {
     const classes = useStyles();
     const [editPreviewSwitch, setEditPreviewSwitch] = useState(false);
     const [base64Image, setBase64Image] = useState(null);
-    
+
     const sendHandler = () => {
         const imageFile = base64decode(base64Image);
         props.setFinalImage(imageFile);
@@ -53,8 +45,8 @@ const UploadDialog = (props) => {
 
     return (
         <Dialog open={props.openDialog} onClose={props.closeHandler}>
-            <Container className={classes.container}>
-                <Box className={classes.wrapper}>
+            <ItemCard>
+                <Container className={classes.dialogContainer}>
                     {editPreviewSwitch == false &&
                         <ImagePreview
                             base64Image={base64Image}
@@ -70,8 +62,8 @@ const UploadDialog = (props) => {
                             setCropParam={props.setCropParam}
                         />
                     }
-                </Box>
-            </Container>
+                </Container>
+            </ItemCard>
         </Dialog>
     )
 };

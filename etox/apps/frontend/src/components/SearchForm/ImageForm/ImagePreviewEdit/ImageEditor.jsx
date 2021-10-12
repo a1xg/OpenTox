@@ -1,6 +1,6 @@
 import React, { useState, useCallback } from 'react';
 import Cropper from 'react-easy-crop';
-import { Box, Button, Slider, makeStyles, Typography } from '@material-ui/core';
+import { Box, Button, Slider, Typography } from '@material-ui/core';
 import FileDownloadDoneIcon from '@mui/icons-material/FileDownloadDone';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import Stack from '@mui/material/Stack';
@@ -8,50 +8,9 @@ import AutorenewIcon from '@mui/icons-material/Autorenew';
 import ZoomInIcon from '@mui/icons-material/ZoomIn';
 import AspectRatioIcon from '@mui/icons-material/AspectRatio';
 import getCroppedImg from './cropTools.js';
-
-const useStyles = makeStyles((theme) => ({
-    cropContainer: {
-        position: 'relative',
-        width: '100%',
-        height: 300,
-        background: '#333',
- 
-    },
-    button: {
-        backgroundColor: theme.palette.grey[50],
-        "&:hover": {
-            backgroundColor: theme.palette.primary[200],
-        },
-        '&:active': {
-            backgroundColor: theme.palette.primary[400],
-        },
-    },
-    controls: {
-        padding: 16,
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'stretch',
-    },
-
-    slider: {
-        padding: '22px 0px',
-        marginLeft: 32,
-        [theme.breakpoints.up('sm')]: {
-            flexDirection: 'row',
-            alignItems: 'center',
-            margin: '0 16px',
-        },
-    },
-    icon: {
-        color: theme.palette.grey[700],
-    },
-    link:{
-        color: theme.palette.grey[700],
-    }
-}));
+import useStyles from './styles.js';
 
 const ImageEditor = (props) => {
-    //console.log('ImageEditor props', props);
     const classes = useStyles();
     const [crop, setCrop] = useState({ x: 0, y: 0 });
     const [rotation, setRotation] = useState(0);
@@ -85,7 +44,7 @@ const ImageEditor = (props) => {
 
     return (
         <Box>
-            <Box className={classes.cropContainer}>
+            <Box className={classes.cropBox}>
                 <Cropper
                     crop={crop}
                     image={originalImage}
@@ -135,7 +94,7 @@ const ImageEditor = (props) => {
                         onChange={(e, rotation) => setRotation(rotation)}
                     />
                 </Stack>
-
+            
                 <Stack spacing={2} direction="row" alignItems='inherit' justifyContent='space-around'>
                     <Button
                         onClick={editHandler}
@@ -153,11 +112,12 @@ const ImageEditor = (props) => {
                         className={classes.button}
                         startIcon={<FileDownloadDoneIcon className={classes.icon} />}
                     >
-                         <Typography className={classes.link}>Save</Typography>
+                        <Typography className={classes.link}>Save</Typography>
                     </Button>
                 </Stack>
             </Box>
         </Box>
+
     )
 };
 
