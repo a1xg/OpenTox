@@ -1,51 +1,11 @@
 import React, { useRef, useState } from "react";
 import { useHistory } from "react-router-dom";
-import { TextField, InputAdornment, makeStyles, withStyles, alpha } from "@material-ui/core";
+import { TextField, InputAdornment } from "@material-ui/core";
 import IconButton from '@material-ui/core/IconButton';
 import Search from '@material-ui/icons/Search';
 import ImageForm from "./ImageForm/ImageForm.jsx";
 import CSRFtoken from './csrftoken.jsx';
-
-const style = (theme) => ({
-    root: {
-        '& .MuiOutlinedInput-root': {
-            overflow: 'hidden',
-            borderRadius: 4, //28
-            borderColor: theme.palette.primary[800],
-            backgroundColor: theme.palette.grey[100],
-            transition: theme.transitions.create([
-                'border-color',
-                'background-color',
-                'box-shadow',
-            ]),
-            '&:hover fieldset': {
-                borderColor: theme.palette.primary[400],
-            },
-            '&.Mui-focused': {
-                backgroundColor: 'transparent',
-                boxShadow: `${alpha(theme.palette.primary.main, 0.25)} 0 0 0 2px`,
-                borderColor: theme.palette.primary[100],
-            },
-
-        },
-    },
-});
-
-const CssTextField = withStyles(style)(TextField);
-
-const useStyles = makeStyles((theme) => ({
-    input: {
-        margin: theme.spacing(1),
-        width: '600px',
-    },
-    button: {
-        color: theme.palette.grey[500],
-        "& :visited": { color: theme.palette.grey[200] },
-        "& :hover": { color: theme.palette.primary[300] },
-        "& :active": { color: theme.palette.grey[400] }
-        
-    }
-}));
+import useStyles from './styles.js';
 
 const SearchForm = (props) => {
     const [formText, setFormText] = useState('')
@@ -67,7 +27,7 @@ const SearchForm = (props) => {
     return (
         <form onSubmit={submitForm} ref={form}>
             <input type="hidden" name="csrfmiddlewaretoken" value={CSRFtoken} />
-            <CssTextField
+            <TextField
                 className={classes.input}
                 variant="outlined"
                 placeholder='Enter ingredients separated by commas'
