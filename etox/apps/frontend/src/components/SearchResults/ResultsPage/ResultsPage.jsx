@@ -24,8 +24,8 @@ const ResultsPage = (props) => {
     return (
         <Container maxWidth={'lg'}>
             <Grid container direction="row" spacing={0} className={classes.root}>
-                <Grid item xs={8} container direction="column" spacing={3} >
-                    <Grid item container direction="row" spacing={3} >
+                <Grid item xs={10} container direction="column" spacing={2} >
+                    <Grid item container direction="row" spacing={2} >
                         <Grid item xs={6} >
                             {props.searchResults.data.detail_hazard_product.length > 0 &&
                                 <ItemCard
@@ -53,11 +53,10 @@ const ResultsPage = (props) => {
                         </ItemCard>
                     </Grid>
                 </Grid>
-
-                <Grid item xs={4} container direction="column" spacing={3}>
+                <Grid item xs={2} container direction="column" spacing={2}>
                     <Grid item>
                         {props.searchResults.data.detail_hazard_product.length > 0 &&
-                            <ItemCard title='Chart descripion'>
+                            <ItemCard title='Descripion'>
                                 <Legend data={props.searchResults.data.detail_hazard_product} />
                             </ItemCard>
                         }

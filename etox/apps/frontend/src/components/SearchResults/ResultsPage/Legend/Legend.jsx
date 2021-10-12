@@ -1,10 +1,26 @@
 import React, { useEffect, useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { getData } from '../../../Charts/ChartTools';
-import { Box, List, ListItem, ListItemIcon, ListItemText, Typography } from "@material-ui/core";
+import { Box, Typography } from "@material-ui/core";
+import { Stack } from "@mui/material";
+
 
 const useStyles = makeStyles((theme) => ({
- 
+    legengContainer:{
+        alignItems:'center', 
+        justifyContent:'space-around' 
+    },
+    legendItem:{
+        alignItems:'center'
+    },
+    itemBox:{
+        width:'90%', 
+        border: `1px solid ${theme.palette.grey[400]}`,
+        borderRadius:4, 
+        backgroundColor: theme.palette.grey[100],
+        padding:10
+    },
+
 }));
 
 const Legend = (props) => {
@@ -24,20 +40,20 @@ const Legend = (props) => {
 
     return (
         legendData.length > 0 &&
-        <List>
+        <Stack direction='column' spacing={1} className={classes.legengContainer}>
             {legendData.map(item => {
                 return (
-                    <ListItem key={item.id}>
-                        <ListItemIcon>
-                            <svg width='30' height='14' >
-                                <rect x="0" y="0" width="30" height="14" rx="7" fill={item.color} />
-                            </svg>
-                        </ListItemIcon>
-                        <ListItemText secondary={item.label} />
-                    </ListItem>
+                    <Box className={classes.itemBox} key={item.id}>
+                    <Stack direction='column' key={item.id} className={classes.legendItem}>
+                        <svg width='100%' height='4' >
+                            <rect x="0" y="0" width="100%" height="4" rx="2" fill={item.color} />
+                        </svg>
+                        <Typography variant='caption'>{item.label}</Typography>
+                    </Stack>
+                    </Box>
                 )
             })}
-        </List>
+        </Stack>
     )
 };
 

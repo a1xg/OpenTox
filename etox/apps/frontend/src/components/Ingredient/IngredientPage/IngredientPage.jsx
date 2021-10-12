@@ -86,7 +86,7 @@ const IngredientPage = (props) => {
                     </Grid>
                     {props.searchResults.data.ingredient.description != null &&
                         <Grid item>
-                            <ItemCard title='Description'>
+                            <ItemCard title='Ingredient description'>
                                 <Description data={props.searchResults.data.ingredient.description} />
                             </ItemCard>
                         </Grid>

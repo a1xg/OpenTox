@@ -1,18 +1,28 @@
 import React, { useState, useEffect } from 'react';
-import { Grid, Typography, Box, Link, List, ListItem, ListItemIcon, ListItemText } from '@material-ui/core';
+import { Grid, Typography, Box, Link } from '@material-ui/core';
 import { makeStyles } from "@material-ui/core/styles";
 import { getData } from '../../../Charts/ChartTools';
 import { Stack } from '@mui/material';
 import Divider from '@mui/material/Divider';
-import { textAlign } from '@mui/system';
 
 
 const useStyles = makeStyles((theme) => ({
     wrapper: {
-        padding: theme.spacing(1),
+        margin: theme.spacing(1),
+    },
+    itemBox: {
+        padding: 10,
+        border: `1px solid ${theme.palette.grey[400]}`,
+        borderRadius: 4,
+        backgroundColor: theme.palette.grey[100],
+        margin: 2
+    },
+    item: {
+        alignItems: 'center',
+        textAlign: 'center'
     },
 }));
-// TODO перевести легенду на элементы Stack
+
 const Legend = (props) => {
     console.log('Legend props', props);
     const [legendData, setLegendData] = useState([{ value: null, id: null, label: null, color: 'white' }]);
@@ -30,26 +40,34 @@ const Legend = (props) => {
 
     return (
         <Box className={classes.wrapper}>
-            <Grid container direction="column" >
+            <Grid container direction="column" spacing={1}>
                 {legendData.length > 0 &&
-                    <Grid item xs={12} container direction='row' spacing={3}>
+                    <Grid item xs={12} container direction='row' spacing={1}>
                         {legendData.map(item => {
                             return (
                                 <Grid item xs={3} key={item.id}>
-                                    <Stack direction='column' flexItem alignItems='center' textAlign='center'>
-                                        <svg width='100%' height='10' >
-                                            <rect x="0" y="0" width="100%" height="4" rx="2" fill={item.color} />
-                                        </svg>
-
-                                        <Typography variant='caption'> {item.label} </Typography>
-                                    </Stack>
+                                    <Box className={classes.itemBox}>
+                                        <Stack direction='column' className={classes.item}>
+                                            <svg width='100%' height='4'>
+                                                <rect
+                                                    fill={item.color}
+                                                    x='0'
+                                                    y='0'
+                                                    width="100%"
+                                                    height='4'
+                                                    rx='2'
+                                                />
+                                            </svg>
+                                            <Typography variant='caption'> {item.label} </Typography>
+                                        </Stack>
+                                    </Box>
                                 </Grid>
                             )
                         })}
                     </Grid>
                 }
                 <Grid item xs={12} >
-                    <Divider></Divider>
+                    <Divider />
                     {props.data.total_notifications != null &&
                         <Box sx={{ paddingTop: '10px' }}>
                             <Typography variant='subtitle2'>
@@ -63,10 +81,9 @@ const Legend = (props) => {
                         <Box sx={{ paddingTop: '10px' }}>
                             <Typography variant='subtitle2'>
                                 Source: <Link href={
-                                    "https://echa.europa.eu/information-on-chemicals/cl-inventory-database/-/discli/details/"
-                                    + props.data.cl_inventory_id
-                                } underline='hover'
-                                >
+                                `https://echa.europa.eu/information-on-chemicals/
+                                cl-inventory-database/-/discli/details/${props.data.cl_inventory_id}`
+                                } >
                                     {props.data.sourse}
                                 </Link>
                             </Typography>
