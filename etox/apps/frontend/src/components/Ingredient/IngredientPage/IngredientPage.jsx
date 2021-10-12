@@ -9,8 +9,7 @@ import Title from "./Title/Title.jsx";
 import Legend from "./Legend/Legend.jsx";
 import Synonyms from "./Synonyms/Synonyms.jsx";
 import ItemCard from "../../ItemCard/ItemCard.jsx";
-import BackButton from "./BackButton/BackButton.jsx";
-
+import Breadcrumb from "./Breadcrumb/Breadcrumbs.jsx";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -27,13 +26,11 @@ const IngredientPage = (props) => {
     const classes = useStyles();
     return (
         <Container maxWidth={'lg'}>
+            {props.backButton == true &&
+            <Breadcrumb namePage={props.searchResults.data.ingredient.main_name} />
+            }
             <Grid container direction="row" spacing={0} className={classes.root}>
                 <Grid item container xs={3} direction='column' spacing={2}>
-                    {props.backButton == true &&
-                        <Grid item >
-                            <BackButton />
-                        </Grid>
-                    }
                     <Grid item>
                         <ItemCard title='Ingredient name'>
                             <Title mainName={props.searchResults.data.ingredient.main_name} />
