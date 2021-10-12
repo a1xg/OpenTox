@@ -1,13 +1,18 @@
 import React from 'react';
 import GridItem from '../../../GridItem/GridItem.jsx';
 import { Typography } from "@material-ui/core";
+import capitalizeJoinItems from '../../tools.js';
 
 const Synonyms = (props) => {
     console.log('Synonyms props:', props)
 
     return (
         <Typography variant='body1'>
-            {props.data.join('; ')}
+            {capitalizeJoinItems({
+                items:props.data,
+                separator:';'
+            })
+        }
         </Typography>
     )
 
