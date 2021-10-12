@@ -11,7 +11,8 @@ import {
     TableRow,
     TableFooter,
     TablePagination,
-    Link
+    Link, 
+    capitalize
 } from '@material-ui/core';
 import IngredientRatingBar from '../../../Charts/IngredientRatingBar.jsx';
 import BriefStatistics from '../../../Charts/BriefStatistics.jsx';
@@ -61,7 +62,7 @@ const IngredientsList = (props) => {
                                 <TableCell align="left">
                                 <Typography variant='subtitle1'>
                                     <Link to={{ pathname: "ingredient/" + ingredient.id }} component={NavLink}>
-                                        {ingredient.main_name[0] + ingredient.main_name.substring(1).toLowerCase()}                                       
+                                        {capitalize(ingredient.main_name.toLowerCase())}                                       
                                     </Link>
                                     </Typography>
                                 </TableCell>

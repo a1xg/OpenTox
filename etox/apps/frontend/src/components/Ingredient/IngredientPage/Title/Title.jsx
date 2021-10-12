@@ -1,5 +1,5 @@
 import React,{useState, useEffect} from 'react';
-import { Typography } from "@material-ui/core";
+import { Typography, capitalize } from "@material-ui/core";
 
 const Title = (props) => {
     console.log('Title props', props);
@@ -7,8 +7,7 @@ const Title = (props) => {
     
     useEffect(() => {
         if (props.mainName != null) {
-            const name = props.mainName[0] + props.mainName.substring(1).toLowerCase()
-            setTitle(name);
+            setTitle(capitalize(props.mainName.toLowerCase()));
         }
     },[props]);
 

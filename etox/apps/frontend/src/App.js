@@ -78,8 +78,7 @@ const App = (props) => {
               />
               <Route exact path='/about' component={About} />
               <Route exact path='/how-use' component={HowUse} />
-              <Route exact path='/contacts' component={Contacts} />
-           
+              <Route exact path='/contacts' component={Contacts} />           
           </Grid>
           <Grid item xs={12} >
             <Container maxWidth={'lg'}>

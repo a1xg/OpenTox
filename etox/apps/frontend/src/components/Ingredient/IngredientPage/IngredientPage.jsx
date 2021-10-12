@@ -28,7 +28,7 @@ const IngredientPage = (props) => {
     return (
         <Container maxWidth={'lg'}>
             <Grid container direction="row" spacing={0} className={classes.root}>
-                <Grid item container xs={3} direction='column' spacing={3}>
+                <Grid item container xs={3} direction='column' spacing={2}>
                     {props.backButton == true &&
                         <Grid item >
                             <BackButton />
@@ -52,8 +52,8 @@ const IngredientPage = (props) => {
 
                 </Grid>
 
-                <Grid item container xs={9} direction="column" spacing={3}>
-                    <Grid item container direction="row" spacing={3} >
+                <Grid item container xs={9} direction="column" spacing={2}>
+                    <Grid item container direction="row" spacing={2} >
                         {props.searchResults.data.ingredient.hazard.ingredient_hazard_avg > 0 &&
                             <Grid item xs={6} >
                                 <ItemCard

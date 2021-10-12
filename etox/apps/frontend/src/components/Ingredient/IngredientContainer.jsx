@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { capitalize } from "@material-ui/core";
 import { PassIngredient } from '../PassData';
 import IngredientPage from './IngredientPage/IngredientPage.jsx';
 
@@ -16,7 +17,7 @@ const IngredientContainer = (props) => {
                         data: data,
                         found: true,
                     });
-                    document.title = `${data.ingredient.main_name[0]}${data.ingredient.main_name.substring(1).toLowerCase()}`
+                    document.title = capitalize(data.ingredient.main_name.toLowerCase())
                 });
                 return () => {
                     // cleaning
