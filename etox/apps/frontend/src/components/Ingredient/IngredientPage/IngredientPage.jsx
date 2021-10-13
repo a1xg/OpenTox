@@ -36,8 +36,7 @@ const useStyles = makeStyles((theme) => ({
     bottomGrid:{
         justifyContent: 'space-evenly',
         alignItems: 'center',
-        //width:'100%'
-    }
+        }
 }));
 
 

@@ -32,7 +32,7 @@ const Details = (props) => {
                                 Colour Index number:
                             </TableCell>
                             <TableCell align="left">
-                                {props.data.colour_index}
+                                {props.data.colour_index.join(', ')}
                             </TableCell>
                         </TableRow>
                     }

@@ -5,12 +5,6 @@ import ImageEditor from './ImageEditor.jsx';
 import ItemCard from '../../../ItemCard/ItemCard.jsx';
 import useStyles from './styles.js';
 
-// TODO привести в порядок верстку
-/*
-const useStyles = makeStyles((theme) => ({
-  
-}));
-*/
 const base64decode = (dataURL) => {
     let arr = dataURL.split(","),
         mime = arr[0].match(/:(.*?);/)[1],

@@ -9,13 +9,13 @@ const useStyles = makeStyles((theme) => ({
     },
     previewBox: {
         position: 'relative',
-        maxWidth: 500,
+        width: 500,
         maxHeight:400,
         background: theme.palette.grey[900],
     },
     cropBox:{
         position: 'relative',
-        maxWidth:500,
+        width:500,
         height:400,
         background: theme.palette.grey[900],
     },

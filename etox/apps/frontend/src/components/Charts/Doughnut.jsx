@@ -2,7 +2,7 @@ import React from 'react';
 import { ResponsivePie } from '@nivo/pie';
 import ToolTip from './ToolTip.jsx';
 //! версия с которой норм работает Doughnut 0.62.0, с весиями выше - вместо label отображается id
- 
+
 const getColors = (data) => {
   let colors = []
   data.map(d => {

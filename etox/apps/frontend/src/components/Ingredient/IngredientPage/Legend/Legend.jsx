@@ -22,7 +22,7 @@ const useStyles = makeStyles((theme) => ({
     },
     stack: {
         alignItems: 'center',
-        textAlign: 'center',
+        textAlign: 'left',
     },
     stackWrapper:{
         padding: 5
@@ -75,7 +75,7 @@ const Legend = (props) => {
                             )
                         })}
                     </Grid>
-                }
+                }      
                 <Grid item xs={12} >
                     <Divider />
                     {props.data.total_notifications != null &&
@@ -96,8 +96,8 @@ const Legend = (props) => {
                             </Typography>
                         </Box>
                     }
-
                 </Grid>
+               
             </Grid>
         </Box>
     )

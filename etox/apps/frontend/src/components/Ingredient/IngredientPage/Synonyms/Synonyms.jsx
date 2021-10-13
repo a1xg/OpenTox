@@ -1,5 +1,4 @@
 import React from 'react';
-import GridItem from '../../../GridItem/GridItem.jsx';
 import { Typography } from "@material-ui/core";
 import capitalizeJoinItems from '../../tools.js';
 
