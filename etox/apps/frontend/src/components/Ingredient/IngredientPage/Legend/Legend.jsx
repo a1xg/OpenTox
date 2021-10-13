@@ -1,26 +1,33 @@
 import React, { useState, useEffect } from 'react';
-import { Grid, Typography, Box, Link } from '@material-ui/core';
+import { Grid, Typography, Box, Link, Paper } from '@material-ui/core';
 import { makeStyles } from "@material-ui/core/styles";
 import { getData } from '../../../Charts/ChartTools';
 import { Stack } from '@mui/material';
 import Divider from '@mui/material/Divider';
 
+const echaURL = 'https://echa.europa.eu/information-on-chemicals/cl-inventory-database/-/discli/details/'
 
 const useStyles = makeStyles((theme) => ({
     wrapper: {
         margin: theme.spacing(1),
     },
-    itemBox: {
-        padding: 10,
+    grid:{
+        margin:5,
+    },
+    gridItem: {
         border: `1px solid ${theme.palette.grey[400]}`,
         borderRadius: 4,
         backgroundColor: theme.palette.grey[100],
-        margin: 2
+        height: '100%',
     },
-    item: {
+    stack: {
         alignItems: 'center',
-        textAlign: 'center'
+        textAlign: 'center',
     },
+    stackWrapper:{
+        padding: 5
+    }
+
 }));
 
 const Legend = (props) => {
@@ -42,13 +49,14 @@ const Legend = (props) => {
         <Box className={classes.wrapper}>
             <Grid container direction="column" spacing={1}>
                 {legendData.length > 0 &&
-                    <Grid item xs={12} container direction='row' spacing={1}>
+                    <Grid item xs={12} container direction='row' spacing={1} className={classes.grid}>
                         {legendData.map(item => {
                             return (
                                 <Grid item xs={3} key={item.id}>
-                                    <Box className={classes.itemBox}>
-                                        <Stack direction='column' className={classes.item}>
-                                            <svg width='100%' height='4'>
+                                    <Paper className={classes.gridItem} elevation={3}>
+                                        <Box className={classes.stackWrapper}>
+                                        <Stack direction='column' className={classes.stack}>
+                                            <svg width='100%' height='4' >
                                                 <rect
                                                     fill={item.color}
                                                     x='0'
@@ -56,11 +64,13 @@ const Legend = (props) => {
                                                     width="100%"
                                                     height='4'
                                                     rx='2'
+                                                    
                                                 />
                                             </svg>
-                                            <Typography variant='caption'> {item.label} </Typography>
+                                            <Typography variant='caption'  style={{margin:5}}> {item.label} </Typography>
                                         </Stack>
-                                    </Box>
+                                        </Box>
+                                    </Paper>
                                 </Grid>
                             )
                         })}
@@ -80,10 +90,7 @@ const Legend = (props) => {
                     {props.data.cl_inventory_id != null &&
                         <Box sx={{ paddingTop: '10px' }}>
                             <Typography variant='subtitle2'>
-                                Source: <Link href={
-                                `https://echa.europa.eu/information-on-chemicals/
-                                cl-inventory-database/-/discli/details/${props.data.cl_inventory_id}`
-                                } >
+                                Source: <Link href={`${echaURL}${props.data.cl_inventory_id}`} >
                                     {props.data.sourse}
                                 </Link>
                             </Typography>
