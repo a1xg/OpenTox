@@ -1,62 +1,90 @@
 import React from 'react';
-import { Link, List, ListItem, ListItemText } from "@material-ui/core";
+import {
+    Link,
+    Table,
+    TableCell,
+    TableRow,
+    TableBody,
+    TableContainer
+} from "@material-ui/core";
 import capitalizeJoinItems from '../../tools.js'
 
-const Details = (props) => {
+const pubchemURL = 'https://pubchem.ncbi.nlm.nih.gov/compound/'
 
+const Details = (props) => {
     return (
-        <List>
-            {props.data.cas_numbers != null &&
-                <ListItem>
-                    <ListItemText variant='body1'>
-                        CAS numbers: {props.data.cas_numbers.join(', ')}
-                    </ListItemText>
-                </ListItem>
-            }
-            {props.data.colour_index != null &&
-                <ListItem>
-                    <ListItemText variant='body1'>
-                        Colour Index number: {props.data.colour_index}
-                    </ListItemText>
-                </ListItem>
-            }
-            {props.data.ec_numbers != null &&
-                <ListItem>
-                    <ListItemText variant='body1'>
-                        EC numbers: {props.data.ec_numbers.join(', ')}
-                    </ListItemText>
-                </ListItem>
-            }
-            {props.data.functions != null &&
-                <ListItem>
-                    <ListItemText variant='body1'>
-                        Functions: {
-                            capitalizeJoinItems(
+        <TableContainer>
+            <Table size="small" >
+                <TableBody>
+                    {props.data.cas_numbers != null &&
+                        <TableRow>
+                            <TableCell component="th" scope="row">
+                                CAS numbers:
+                            </TableCell>
+                            <TableCell align="left">
+                                {props.data.cas_numbers.join(', ')}
+                            </TableCell>
+                        </TableRow>
+                    }
+                    {props.data.colour_index != null &&
+                        <TableRow>
+                            <TableCell component="th" scope="row">
+                                Colour Index number:
+                            </TableCell>
+                            <TableCell align="left">
+                                {props.data.colour_index}
+                            </TableCell>
+                        </TableRow>
+                    }
+                    {props.data.ec_numbers != null &&
+                        <TableRow>
+                            <TableCell component="th" scope="row">
+                                EC numbers:
+                            </TableCell>
+                            <TableCell align="left">
+                                {props.data.ec_numbers.join(', ')}
+                            </TableCell>
+                        </TableRow>
+                    }
+                    {props.data.functions != null &&
+                        <TableRow>
+                            <TableCell component="th" scope="row">
+                                Functions:
+                            </TableCell>
+                            <TableCell align="left">
                                 {
-                                    items: props.data.functions,
-                                    separator: ','
-                                }
-                            )}
-                    </ListItemText>
-                </ListItem>
-            }
-            {props.data.pubchem_cid != null &&
-                <ListItem>
-                    <ListItemText variant='body1'>
-                        PubChem ID: {
-                            <Link href={'https://pubchem.ncbi.nlm.nih.gov/compound/' + props.data.pubchem_cid} underline='hover'>
-                                {props.data.pubchem_cid}
-                            </Link>
-                        }
-                    </ListItemText>
-                </ListItem>
-            }
-            <ListItem>
-                <ListItemText variant='body1'>
-                    Request statistics: {props.data.request_statistics}
-                </ListItemText>
-            </ListItem>
-        </List>
+                                    capitalizeJoinItems(
+                                        {
+                                            items: props.data.functions,
+                                            separator: ','
+                                        }
+                                    )}
+                            </TableCell>
+                        </TableRow>
+                    }
+                    {props.data.pubchem_cid != null &&
+                        <TableRow>
+                            <TableCell component="th" scope="row">
+                                PubChem ID:
+                            </TableCell>
+                            <TableCell align="left">
+                                <Link href={`${pubchemURL}${props.data.pubchem_cid}`}>
+                                    {props.data.pubchem_cid}
+                                </Link>
+                            </TableCell>
+                        </TableRow>
+                    }
+                    <TableRow>
+                        <TableCell component="th" scope="row">
+                            Request statistics:
+                        </TableCell>
+                        <TableCell align="left">
+                            {props.data.request_statistics}
+                        </TableCell>
+                    </TableRow>
+                </TableBody>
+            </Table>
+        </TableContainer>
     )
 
 };
