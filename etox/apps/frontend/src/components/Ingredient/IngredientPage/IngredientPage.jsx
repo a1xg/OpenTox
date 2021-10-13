@@ -10,35 +10,7 @@ import Legend from "./Legend/Legend.jsx";
 import Synonyms from "./Synonyms/Synonyms.jsx";
 import ItemCard from "../../ItemCard/ItemCard.jsx";
 import Breadcrumb from "./Breadcrumb/Breadcrumbs.jsx";
-
-const useStyles = makeStyles((theme) => ({
-    root:{
-        alignItems: 'center',
-    },
-    topGrid: {
-        flexGrow: 1,
-        width: "100%",
-        justifyContent: 'space-around',
-    },
-    col1: {
-        alignItems: 'stretch',
-        justifyContent: 'space-around',
-        height:'100%'
-    },
-    col2: {
-        alignItems: 'stretch',
-        justifyContent: 'space-around',
-        height:'100%'
-    },
-    col2row:{
-        alignItems: 'center'
-    },
-    bottomGrid:{
-        justifyContent: 'space-evenly',
-        alignItems: 'center',
-        }
-}));
-
+import useStyles from "./styles.js";
 
 const IngredientPage = (props) => {
     console.log('IngredientPage props', props)

@@ -15,7 +15,7 @@ const useStyles = makeStyles((theme) => ({
         margin:5,
     },
     gridItem: {
-        border: `1px solid ${theme.palette.grey[400]}`,
+        //border: `1px solid ${theme.palette.grey[400]}`,
         borderRadius: 4,
         backgroundColor: theme.palette.grey[100],
         height: '100%',
