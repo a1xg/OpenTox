@@ -6,7 +6,6 @@ import {
     makeStyles,
 } from "@material-ui/core";
 
-
 const useStyles = makeStyles((theme) => ({
     root: {
         display: 'flex', 
@@ -14,7 +13,8 @@ const useStyles = makeStyles((theme) => ({
         "&:hover": {
             borderTop: `5px solid ${theme.palette.primary[200]}`
         },
-        backgroundColor: theme.palette.grey[50]
+        backgroundColor: theme.palette.grey[50], 
+        height:'100%'
     },
     cardcontent: {
         padding: '20px',
