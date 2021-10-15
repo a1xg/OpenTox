@@ -1,38 +1,62 @@
 import React from 'react';
-import { Box, Link, Container, Divider } from '@material-ui/core';
 import { NavLink } from 'react-router-dom';
-import { makeStyles } from "@material-ui/core/styles";
+import {
+    Box,
+    Link,
+    Container,
+    Divider,
+    Typography,
+    makeStyles
+} from '@material-ui/core';
+import { Stack } from '@mui/material';
 
 const useStyles = makeStyles((theme) => ({
-    root:{
-        textAlign:'center',
+    root: {
+        textAlign: 'center',
+        display: 'flex-column',
+        width: '100%'
     },
-    item: {
-        marginTop: theme.spacing(1)
+    stack: {
+        paddingTop: 10,
+        width: 300, 
+        justifyContent: 'center',
+    },
+    item:{
+        paddingTop:5,
+        alignContent: 'center',
+        justifyContent: 'center',
+        display: 'flex'
     }
 }))
 
 const Footer = (props) => {
     const classes = useStyles();
     return (
-            <Container maxWidth='lg' className={classes.root} >
-                <Divider orientation='horizontal'/>
+        <Container maxWidth='lg' >
+            <Box className={classes.root}>
                 <Box className={classes.item}>
-                    <Link to='/about' component={NavLink}>
-                    About
-                    </Link>
+                    <Divider orientation='horizontal' style={{ width: '100%' }} />
                 </Box>
                 <Box className={classes.item}>
-                    <Link to='/contacts' component={NavLink}>
-                    Contacts
-                    </Link>
+                    <Stack direction='row' spacing={2} className={classes.stack}>
+                        <Link to='/about' component={NavLink}>
+                            About
+                        </Link>
+                        <Link to='/contacts' component={NavLink}>
+                            Contacts
+                        </Link>
+                        <Link href='https://github.com/a1xg/etox'  >
+                            Github page
+                        </Link>
+                    </Stack>
                 </Box>
                 <Box className={classes.item}>
-                    <Link href='https://github.com/a1xg/etox'  >
-                    Github page
-                    </Link>
+                    <Typography variant='caption'>
+                        © Opentox 2021
+                    </Typography>
                 </Box>
-            </Container>
+            </Box>
+        </Container>
     )
 };
 
