@@ -9,9 +9,9 @@ class DataMixin:
 
     def _get_text(self, **kwargs):
         ocr = ImageOCR(img=kwargs['image'])
-        ocr.decodeImage()
-        text = ocr.getText(text_lang=DEFAULT_LANG, crop=kwargs['crop'], set_font=FONT_SIZE)
-        print(f'Recognized text: {text}')
+        ocr.decode_image()
+        text = ocr.get_text(text_lang=DEFAULT_LANG, crop=kwargs['crop'], set_font=FONT_SIZE)
+        #print(f'Recognized text: {text}')
         return text
 
     def get_queryset(self, **kwargs):

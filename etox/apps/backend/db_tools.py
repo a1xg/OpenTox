@@ -2,9 +2,10 @@
 from django.db.models import Q, F, Prefetch
 from .models import *
 
+# TODO implement inaccurate search (trigram),
+#  make the search conditional: if the word is not found by exact match, then you need to try to find it by trigrams
+
 class DBQueries:
-    # TODO доработать запросы по типу нескольких сит: все что не нашлось по
-    #  точному совпадению нужно попробовать найти по триграммам
     def _get_query(self, **kwargs) -> Q:
         '''
         We compose a SQL query based on Q objects.

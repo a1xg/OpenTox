@@ -6,7 +6,6 @@ from django.contrib.postgres.indexes import GinIndex, BTreeIndex, GistIndex
 class Ingredients(models.Model):
     '''Table of ingredients'''
     id = models.BigAutoField(primary_key=True)
-    # TODO выводить имя в lowercase с большой буквы
     main_name = models.CharField(max_length=300, blank=True, null=False)
     hazard = models.ForeignKey('Hazard', models.DO_NOTHING, blank=True, null=False)
     data = models.JSONField(blank=True, null=True, db_index=False)

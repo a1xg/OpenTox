@@ -1,5 +1,3 @@
 DEFAULT_LANG = 'eng'
 
 FONT_SIZE = 40
-
-#CROP = True
