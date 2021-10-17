@@ -1,6 +1,10 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
-import { Box, Breadcrumbs, Link, Typography, capitalize } from "@material-ui/core";
+import Box from "@material-ui/core/Box";
+import Breadcrumbs from "@material-ui/core/Breadcrumbs";
+import Link from "@material-ui/core/Link";
+import Typography from "@material-ui/core/Typography";
+import { capitalize } from "@material-ui/core";
 import HomeIcon from '@mui/icons-material/Home';
 import ManageSearchIcon from '@mui/icons-material/ManageSearch';
 import NavigateNextIcon from '@mui/icons-material/NavigateNext';

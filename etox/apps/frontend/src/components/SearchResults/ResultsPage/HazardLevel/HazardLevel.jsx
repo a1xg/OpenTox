@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Box } from '@material-ui/core';
+import Box from '@material-ui/core/Box';
 import { getData } from '../../../Charts/ChartTools';
 import Bar from '../../../Charts/Bar.jsx';
 

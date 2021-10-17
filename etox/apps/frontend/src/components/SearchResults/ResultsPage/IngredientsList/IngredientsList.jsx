@@ -1,19 +1,17 @@
 import React, { useState } from "react";
 import { NavLink } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import {
-    Typography,
-    Table,
-    TableBody,
-    TableCell,
-    TableContainer,
-    TableHead,
-    TableRow,
-    TableFooter,
-    TablePagination,
-    Link, 
-    capitalize
-} from '@material-ui/core';
+import { capitalize } from '@material-ui/core';
+import Typography from '@material-ui/core/Typography';
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableContainer from '@material-ui/core/TableContainer';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
+import TableFooter from '@material-ui/core/TableFooter';
+import TablePagination from '@material-ui/core/TablePagination';
+import Link from '@material-ui/core/Link';
 import IngredientRatingBar from '../../../Charts/IngredientRatingBar.jsx';
 import BriefStatistics from '../../../Charts/BriefStatistics.jsx';
 import TablePaginationActions from "./TablePaginationActions/TablePaginationActions.jsx";

@@ -1,6 +1,9 @@
 import React, { useState, useCallback } from 'react';
 import Cropper from 'react-easy-crop';
-import { Box, Button, Slider, Typography } from '@material-ui/core';
+import Box from '@material-ui/core/Box';
+import Button from '@material-ui/core/Button';
+import Slider from '@material-ui/core/Slider';
+import Typography from '@material-ui/core/Typography';
 import FileDownloadDoneIcon from '@mui/icons-material/FileDownloadDone';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import Stack from '@mui/material/Stack';

@@ -1,5 +1,6 @@
 import React from "react";
-import { Grid, Container, makeStyles } from '@material-ui/core';
+import Container from '@material-ui/core/Container';
+import Grid from '@material-ui/core/Grid';
 import PercentNotifications from "./PercentNotifications/PercentNotifications.jsx";
 import IngredientRatingBar from '../../Charts/IngredientRatingBar.jsx';
 import Description from "./Description/Description.jsx";
@@ -66,7 +67,7 @@ const IngredientPage = (props) => {
                             <Grid item xs={6} >
                                 <ItemCard
                                     title='Data confidence (%)'
-                                    caption='Confidence based on the number of notifications in the system of GHS'
+                                    caption='Confidence based on the number of notifications in the system of CLP'
                                 >
                                     <PercentNotifications
                                         data={props.searchResults.data.ingredient.hazard.hazard_ghs_set}

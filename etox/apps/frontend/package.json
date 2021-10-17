@@ -22,6 +22,7 @@
     "babel-plugin-lodash": "^3.3.4",
     "babel-plugin-react-transform": "^3.0.0",
     "css-loader": "^5.2.7",
+    "file-loader": "^6.2.0",
     "jquery": "^3.6.0",
     "npm-watch": "^0.11.0",
     "react-easy-crop": "^3.5.3",
@@ -29,6 +30,7 @@
     "react-scripts": "4.0.3",
     "style-loader": "^2.0.0",
     "styled-components": "^5.3.1",
+    "url-loader": "^4.1.1",
     "web-vitals": "^1.1.2"
   },
   "scripts": {

@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { Box, Tooltip, makeStyles } from "@material-ui/core";
+import Box from "@material-ui/core/Box";
+import Tooltip from "@material-ui/core/Tooltip";
+import { makeStyles } from "@material-ui/core/styles";
 import { chartColorMap } from './ChartsConfig';
 
 const useStyles = makeStyles((theme) => ({

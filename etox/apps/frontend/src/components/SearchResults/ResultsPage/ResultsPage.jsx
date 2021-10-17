@@ -1,6 +1,7 @@
 import React from 'react';
 import { makeStyles } from "@material-ui/core/styles";
-import { Container, Grid } from '@material-ui/core';
+import Container from '@material-ui/core/Container';
+import Grid from '@material-ui/core/Grid';
 import IngredientsList from './IngredientsList/IngredientsList.jsx';
 import HazardLevel from './HazardLevel/HazardLevel.jsx';
 import Legend from './Legend/Legend.jsx';

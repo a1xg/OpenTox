@@ -1,5 +1,5 @@
 import React from 'react';
-import { createTheme } from '@material-ui/core';
+import { createTheme } from '@material-ui/core/styles';
 
 //* Default theme https://mui.com/customization/default-theme/
 

@@ -7,7 +7,7 @@ const SearchResults = (props) => {
     console.log('SearchResults props:', props);
 
     if (props.searchResults.loaded == true) {
-        document.title = 'Search results';
+        document.title = 'OpenTox - Search results';
         return <ResultsPage searchResults={props.searchResults} />
     } else if (props.searchResults.loaded == false) {
         document.title = 'Loading...';

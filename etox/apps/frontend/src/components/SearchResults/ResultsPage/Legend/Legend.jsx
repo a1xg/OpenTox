@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { Typography, makeStyles, Paper } from "@material-ui/core";
+import Paper from "@material-ui/core/Paper";
+import Typography from "@material-ui/core/Typography";
+import { makeStyles } from "@material-ui/core/styles";
 import { Stack } from "@mui/material";
 import { getData } from '../../../Charts/ChartTools';
 

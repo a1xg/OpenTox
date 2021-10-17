@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from "react";
 import Bar from '../../../Charts/Bar.jsx';
 import { getData } from '../../../Charts/ChartTools';
-import { Box } from "@material-ui/core";
-import { height } from "@mui/system";
+import Box from "@material-ui/core/Box";
 
-const margin = { top: 50, right: 50, bottom: 50, left: 50 };
+const margin = { top: 30, right: 30, bottom: 10, left: 30 };
 
 const PercentNotifications = (props) => {
     console.log('PercentNotifications props', props);

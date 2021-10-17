@@ -1,20 +1,18 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import {
-    Box,
-    Link,
-    Container,
-    Divider,
-    Typography,
-    makeStyles
-} from '@material-ui/core';
+import Box from '@material-ui/core/Box';
+import Container from '@material-ui/core/Container';
+import Link from '@material-ui/core/Link';
+import Divider from '@material-ui/core/Divider';
+import Typography from '@material-ui/core/Typography';
+import {makeStyles} from '@material-ui/core/styles';
 import { Stack } from '@mui/material';
 
 const useStyles = makeStyles((theme) => ({
     root: {
         textAlign: 'center',
         display: 'flex-column',
-        width: '100%'
+        width: '100%',
     },
     stack: {
         paddingTop: 10,
@@ -40,7 +38,7 @@ const Footer = (props) => {
                 <Box className={classes.item}>
                     <Stack direction='row' spacing={2} className={classes.stack}>
                         <Link to='/about' component={NavLink}>
-                            About
+                            About us
                         </Link>
                         <Link to='/contacts' component={NavLink}>
                             Contacts
@@ -52,7 +50,7 @@ const Footer = (props) => {
                 </Box>
                 <Box className={classes.item}>
                     <Typography variant='caption'>
-                        © Opentox 2021
+                        © OpenTox 2021
                     </Typography>
                 </Box>
             </Box>

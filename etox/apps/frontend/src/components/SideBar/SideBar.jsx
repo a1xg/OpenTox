@@ -1,23 +1,17 @@
 import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
-import { 
-    Drawer, 
-    List, 
-    ListItem, 
-    ListItemIcon, 
-    ListItemText, 
-    IconButton,
-    Menu,
-    MenuItem,
-    MenuList,
-} from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
+import Drawer from '@material-ui/core/Drawer';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import ListItemText from '@material-ui/core/ListItemText';
+import IconButton from '@material-ui/core/IconButton';
 import MailIcon from '@material-ui/icons/Mail';
 import HelpIcon from '@material-ui/icons/Help';
-import BuildIcon from '@material-ui/icons/Build';
 import InfoIcon from '@material-ui/icons/Info';
 import MenuIcon from '@material-ui/icons/Menu';
 import HomeIcon from '@material-ui/icons/Home';
+import { makeStyles } from '@material-ui/core/styles';
 import clsx from 'clsx';
 
 const useStyles = makeStyles({
@@ -32,14 +26,15 @@ const useStyles = makeStyles({
 const menuItems = [
     { text: 'Home page', link: '/', icon: <HomeIcon />},
     { text: 'How use', link: '/how-use', icon: <HelpIcon />},
-    { text: 'How it works', link: '/how-it-works', icon: <BuildIcon /> },
-    { text: 'About', link: '/about', icon: <InfoIcon />},
+    //{ text: 'How it works', link: '/how-it-works', icon: <BuildIcon /> },
+    { text: 'About us', link: '/about', icon: <InfoIcon />},
     { text: 'Contacts', link: '/contacts', icon: <MailIcon />},
 ];
 
 const SideBar = () => {
     const classes = useStyles();
     const [state, setState] = useState({ left: false });
+    
     const toggleDrawer = (anchor, open) => (event) => {
         if (
             event.type === "keydown" &&

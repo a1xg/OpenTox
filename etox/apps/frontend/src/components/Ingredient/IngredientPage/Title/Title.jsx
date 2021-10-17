@@ -1,5 +1,6 @@
 import React,{useState, useEffect} from 'react';
-import { Typography, capitalize } from "@material-ui/core";
+import Typography from "@material-ui/core/Typography";
+import {capitalize} from "@material-ui/core";
 
 const Title = (props) => {
     console.log('Title props', props);

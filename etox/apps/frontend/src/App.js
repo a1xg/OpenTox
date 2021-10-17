@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { Route } from 'react-router-dom'
-import { Container, Grid, useScrollTrigger, makeStyles, ThemeProvider } from '@material-ui/core';
-import SearchForm from './components/SearchForm/SearchForm.jsx'
+import Container  from '@material-ui/core/Container';
+import Grid from '@material-ui/core/Grid';
+import { makeStyles } from "@material-ui/core";
+import { ThemeProvider } from '@material-ui/core/styles';
+import SearchForm from './components/SearchForm/SearchForm.jsx';
 import SearchResultsContainer from './components/SearchResults/SearchResultsContainer.jsx';
 import About from './components/About/About.jsx';
 import IngredientContainer from './components/Ingredient/IngredientContainer.jsx';
@@ -12,7 +15,7 @@ import Contacts from './components/Contacts/Contacts.jsx';
 import customTheme from './components/CustomTheme/CustomTheme.jsx';
 
 // * useScrollTrigger  для переключения строки поиска в appbar при скролле
-
+// TODO проверить правильность и грамматику title, tooltip итд
 const useStyles = makeStyles((theme) => ({
   app: {
     backgroundColor: theme.palette.grey[100],
@@ -29,7 +32,7 @@ const App = (props) => {
   const [backButton, setBackButton] = useState(false);
 
   useEffect(() => {
-    document.title = 'Etox';
+    document.title = 'OpenTox';
     if (searchQuery) {
       setSearchResults({ loaded: false });
       fetch(searchQuery.url, searchQuery.options)

@@ -1,5 +1,7 @@
 import React from 'react';
-import { Box, Tooltip, makeStyles } from '@material-ui/core';
+import Box from '@material-ui/core/Box';
+import Tooltip from '@material-ui/core/Tooltip';
+import { makeStyles } from '@material-ui/core/styles';
 import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
 import ThumbUpIcon from '@mui/icons-material/ThumbUp';
 import { ratingColorMap } from './ChartsConfig';

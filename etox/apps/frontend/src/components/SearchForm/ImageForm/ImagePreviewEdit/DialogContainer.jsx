@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { Dialog, Container, makeStyles } from '@material-ui/core';
+import Dialog from '@material-ui/core/Dialog';
+import Container from '@material-ui/core/Container';
 import ImagePreview from './ImagePreview.jsx';
 import ImageEditor from './ImageEditor.jsx';
 import ItemCard from '../../../ItemCard/ItemCard.jsx';

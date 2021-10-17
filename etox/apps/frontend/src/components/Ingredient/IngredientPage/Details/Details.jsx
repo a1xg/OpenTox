@@ -1,13 +1,11 @@
 import React from 'react';
-import {
-    Link,
-    Table,
-    TableCell,
-    TableRow,
-    TableBody,
-    TableContainer
-} from "@material-ui/core";
-import capitalizeJoinItems from '../../tools.js'
+import Link from '@material-ui/core/Link';
+import Table from '@material-ui/core/Table';
+import TableCell from '@material-ui/core/TableCell';
+import TableRow from '@material-ui/core/TableRow';
+import TableBody from '@material-ui/core/TableBody';
+import TableContainer from '@material-ui/core/TableContainer';
+import capitalizeJoinItems from '../../tools.js';
 
 const pubchemURL = 'https://pubchem.ncbi.nlm.nih.gov/compound/'
 

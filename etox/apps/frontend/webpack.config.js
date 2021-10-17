@@ -11,18 +11,43 @@ module.exports = {
         use: { loader: 'babel-loader' }
       },
       {
-        test: /\.css$/ ,
+        test: /\.css$/,
         exclude: /node_modules/,
         use: [
           {
-            loader:"style-loader"
+            loader: "style-loader"
           },
           {
-            loader:"css-loader"
+            loader: "css-loader"
           }
-        ] 
-      }
-    
+        ]
+      },
+      {
+        test: /\.(png|jpe?g|gif)$/i,
+        use: [
+          {
+            loader: 'file-loader',
+            options: {
+              name: '[name].[ext]',
+              publicPath: 'images',
+              outputPath: 'images',
+              esModule: false
+            }
+          },
+        ],
+      },
+      {
+        test: /\.(png|jpg|gif)$/i,
+        use: [
+          {
+            loader: 'url-loader',
+            options: {
+              esModule: false,
+              limit: 8192,
+            },
+          },
+        ],
+      },
     ]
   }
 };

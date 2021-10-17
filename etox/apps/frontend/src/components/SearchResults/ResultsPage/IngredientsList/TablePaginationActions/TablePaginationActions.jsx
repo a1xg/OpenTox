@@ -1,6 +1,7 @@
 import React from "react";
-import { IconButton, Box } from '@material-ui/core';
-import { useTheme, makeStyles } from "@material-ui/core";
+import IconButton from '@material-ui/core/IconButton';
+import Box from '@material-ui/core/Box';
+import { useTheme, makeStyles } from "@material-ui/core/styles";
 import FirstPageIcon from '@material-ui/icons/FirstPage';
 import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft';
 import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
