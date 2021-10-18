@@ -2,7 +2,7 @@ import re
 from .regex_patterns import RE_MASKS
 from .text_postprocessing import TextPostprocessing
 from .db_tools import DBQueries
-
+import time
 
 class TextBlock:
     '''Text block class'''
@@ -54,12 +54,15 @@ class IngredientsBlockFinder:
 
     def getData(self) -> list:
         '''Looping through text blocks'''
+        start = time.time()
+        # TODO make asynchronous
         for text_block in self._text_blocks:
             results = DBQueries().search_in_db(text_block=text_block, update_statistics=True)
             text_block.results = results
             text_block.count = results.count()
-
         ingredients_block = self._selectIngredientBlock()
+        end = time.time()
+        print(f'Block screening time: [{end-start} sec]')
         return ingredients_block.results
 
     def _selectIngredientBlock(self) -> TextBlock:

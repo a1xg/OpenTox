@@ -1,10 +1,10 @@
 from rest_framework import generics
 from rest_framework import response
 from .serializers import *
-from .utils import DataMixin
+from .search import Search
 
 # DRF API VIEWS
-class TextSearchAPIView(DataMixin, generics.ListAPIView):
+class TextSearchAPIView(Search, generics.ListAPIView):
     serializer_class = TextSearchSerializer
 
     def post(self, request):
@@ -15,7 +15,7 @@ class TextSearchAPIView(DataMixin, generics.ListAPIView):
         return response.Response(serializer.errors, status=400)
 
 
-class ImageSearchAPIView(DataMixin, generics.ListAPIView):
+class ImageSearchAPIView(Search, generics.ListAPIView):
     serializer_class = ImageSearchSerializer
 
     def post(self, request):
@@ -30,7 +30,7 @@ class ImageSearchAPIView(DataMixin, generics.ListAPIView):
         return response.Response(serializer.errors, status=400)
 
 
-class DetailAPIView(DataMixin, generics.RetrieveAPIView):
+class DetailAPIView(Search, generics.RetrieveAPIView):
     def get(self, request, pk):
         context = self.get_context(display_format='detail', pk=pk)
         return response.Response(context, status=200)

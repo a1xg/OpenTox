@@ -5,7 +5,7 @@ from .text_blocks_screening import IngredientsBlockFinder
 from .db_tools import DBQueries
 from .ocr_settings import *
 
-class DataMixin:
+class Search:
 
     def _get_text(self, **kwargs):
         ocr = ImageOCR(img=kwargs['image'])
