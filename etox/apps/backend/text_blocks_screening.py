@@ -20,6 +20,7 @@ class TextBlock:
         self.keywords = []        # all keywords except numbers
         self.results = []         # objects of search results
         self.count = int          # the number of keywords found in the database
+        self.image = bytes        # the output image
 
 class IngredientsBlockFinder:
     def __init__(self, data: list):
@@ -49,6 +50,10 @@ class IngredientsBlockFinder:
                 text_block.colour_index = ci_nums
                 string = re.sub(RE_MASKS['colourIndex'], '', string)
 
+            # If the text was received from an image, then the image must be returned with anchor to the text block
+            image = dict.get('image')
+            text_block.image = image
+
             # the remaining keywords are cleared of extra characters and spaces, separated by comma
             cleared_string = TextPostprocessing().string_filter(input_string=string)
             keyword_list = cleared_string.split(',')
@@ -60,16 +65,14 @@ class IngredientsBlockFinder:
 
     def getData(self) -> list:
         '''Looping through text blocks'''
-        start = time.time()
         # TODO make asynchronous
         for text_block in self._text_blocks:
             results = DBQueries().search_in_db(text_block=text_block, update_statistics=True)
             text_block.results = results
             text_block.count = results.count()
         ingredients_block = self._selectIngredientBlock()
-        end = time.time()
-        print(f'Block screening time: [{end-start} sec]')
-        return ingredients_block.results
+
+        return ingredients_block.results # ingredients_block.image
 
     def _selectIngredientBlock(self) -> TextBlock:
         '''Select the block of text for which the most matches were found in the database'''

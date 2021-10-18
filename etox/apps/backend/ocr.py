@@ -37,14 +37,13 @@ class ImageOCR:
 
     def _decode_image(self, input_img) -> np.ndarray:
         '''Decode bytes image to numpy format'''
-        print(f'ImageOCR input dtype: {type(input_img)}')
         decoded_img = cv2.imdecode(np.fromstring(input_img, np.uint8), cv2.IMREAD_UNCHANGED)
         return decoded_img
 
     def _encode_image(self, input_img:np.ndarray):
         '''Encodes an np.ndarray into a JPG image'''
         success, encoded_image = cv2.imencode('.jpg', input_img)
-        bytes_img = encoded_image.tobytes()
+        bytes_img = encoded_image.tostring()
         return bytes_img
 
     def _image_preprocessing(self) -> np.ndarray:
