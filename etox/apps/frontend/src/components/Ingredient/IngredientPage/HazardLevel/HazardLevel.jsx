@@ -6,7 +6,6 @@ import Box from "@material-ui/core/Box";
 const margin = { top: 30, right: 30, bottom: 10, left: 30 };
 
 const HazardLevel = (props) => {
-    console.log('HazardLevel props', props);
     const [chartData, setChartData] = useState([{value: null, id: null, label:null}]);
     useEffect(() => {
         const data = getData({

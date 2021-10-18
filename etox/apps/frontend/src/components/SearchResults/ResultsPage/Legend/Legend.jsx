@@ -1,31 +1,11 @@
 import React, { useEffect, useState } from "react";
 import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
-import { makeStyles } from "@material-ui/core/styles";
 import { Stack } from "@mui/material";
 import { getData } from '../../../Charts/ChartTools';
-
-
-const useStyles = makeStyles((theme) => ({
-    legengContainer:{
-        alignItems:'center', 
-        justifyContent:'space-around' 
-    },
-    legendItem:{
-        alignItems:'center'
-    },
-    itemBox:{
-        width:'90%', 
-        //border: `1px solid ${theme.palette.grey[400]}`,
-        borderRadius:4, 
-        backgroundColor: theme.palette.grey[100],
-        padding:10
-    },
-
-}));
+import useStyles from "./styles.js";
 
 const Legend = (props) => {
-    console.log('Legend props', props);
     const [legendData, setLegendData] = useState([{ value: null, id: null, label: null, color: 'white' }]);
     const classes = useStyles();
     useEffect(() => {

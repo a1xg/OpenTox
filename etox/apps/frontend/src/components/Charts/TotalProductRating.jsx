@@ -4,7 +4,6 @@ import Typography from '@material-ui/core/Typography';
 import { ratingColorMap } from './ChartsConfig';
 
 const TotalProductRating = (props) => {
-    console.log('TotalProductRating props', props)
     return (
         props.total_rating > 0 &&
         <Box sx={{

@@ -7,19 +7,14 @@ const useStyles = makeStyles((theme) => ({
         width: '600px',
         '& .MuiOutlinedInput-root': {
             overflow: 'hidden',
-            borderRadius: 4, //28
+            borderRadius: 4, 
             borderColor: theme.palette.primary[800],
-            backgroundColor: theme.palette.grey[100],
-            transition: theme.transitions.create([
-                'border-color',
-                'background-color',
-                'box-shadow',
-            ]),
+            backgroundColor: theme.palette.grey[50],
             '&:hover fieldset': {
                 borderColor: theme.palette.primary[400],
             },
             '&.Mui-focused': {
-                backgroundColor: 'transparent',
+                backgroundColor: theme.palette.grey[50],
                 boxShadow: `${alpha(theme.palette.primary.main, 0.25)} 0 0 0 2px`,
                 borderColor: theme.palette.primary[100],
             },

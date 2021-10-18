@@ -18,7 +18,6 @@ const useStyles = makeStyles((theme) => ({
 
         backgroundColor: theme.palette.grey[50]
     }
-
 }))
 
 const BriefStatistics = (props) => {

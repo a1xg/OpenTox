@@ -24,10 +24,9 @@ TablePaginationActions.propTypes = {
 };
 
 const IngredientsList = (props) => {
-    console.log('IngredientsList props', props)
     const ingredients = props.data.product_ingredients;
     const [page, setPage] = useState(0);
-    const [rowsPerPage, setRowsPerPage] = useState(5);
+    const [rowsPerPage, setRowsPerPage] = useState(10);
     const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - ingredients.length) : 0;
 
     const handleChangePage = (event, newPage) => {
@@ -38,7 +37,6 @@ const IngredientsList = (props) => {
         setRowsPerPage(parseInt(event.target.value, 10));
         setPage(0);
     };
-    console.log('IngredientsList props:', props);
 
     return (
         <TableContainer>
@@ -47,7 +45,7 @@ const IngredientsList = (props) => {
                     <TableRow>
                         <TableCell>Name</TableCell>
                         <TableCell>Hazard classes</TableCell>
-                        <TableCell>Rating</TableCell>
+                        <TableCell>OpenTox rating</TableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>

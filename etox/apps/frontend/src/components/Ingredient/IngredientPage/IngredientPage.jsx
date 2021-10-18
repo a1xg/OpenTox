@@ -14,7 +14,6 @@ import Breadcrumb from "./Breadcrumb/Breadcrumbs.jsx";
 import useStyles from "./styles.js";
 
 const IngredientPage = (props) => {
-    console.log('IngredientPage props', props)
     const classes = useStyles();
     return (
         <Container maxWidth={'lg'}>
@@ -26,7 +25,7 @@ const IngredientPage = (props) => {
             <Grid item xs={12} container direction="row" spacing={0} className={classes.topGrid} >
                 <Grid item container xs={4} direction='column' spacing={2} className={classes.col1}>
                     <Grid item>
-                        <ItemCard title='Ingredient name'>
+                        <ItemCard>
                             <Title mainName={props.searchResults.data.ingredient.main_name} />
                             <IngredientRatingBar
                                 rating={props.searchResults.data.ingredient.hazard.ingredient_hazard_avg}
@@ -66,8 +65,8 @@ const IngredientPage = (props) => {
                         {props.searchResults.data.ingredient.hazard.hazard_ghs_set.length > 0 &&
                             <Grid item xs={6} >
                                 <ItemCard
-                                    title='Data confidence (%)'
-                                    caption='Confidence based on the number of notifications in the system of CLP'
+                                    title='Data probability (%)'
+                                    caption='Probability based on the number of notifications in the system of CLP'
                                 >
                                     <PercentNotifications
                                         data={props.searchResults.data.ingredient.hazard.hazard_ghs_set}

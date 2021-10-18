@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
         background: theme.palette.grey[900],
     },
     image:{
-        maxWidth:'100%',
+        maxWidth:500,
         maxHeight:400,
     },
     controls: {

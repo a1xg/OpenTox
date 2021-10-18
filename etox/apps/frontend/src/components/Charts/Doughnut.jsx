@@ -12,7 +12,6 @@ const getColors = (data) => {
 };
 
 const Doughnut = (props) => {
-  console.log('Doughnut props', props);
   const data = props.data;
   return (
     props.data.length > 0 &&

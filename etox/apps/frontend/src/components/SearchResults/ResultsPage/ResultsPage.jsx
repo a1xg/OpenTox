@@ -1,25 +1,15 @@
 import React from 'react';
-import { makeStyles } from "@material-ui/core/styles";
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
 import IngredientsList from './IngredientsList/IngredientsList.jsx';
 import HazardLevel from './HazardLevel/HazardLevel.jsx';
 import Legend from './Legend/Legend.jsx';
 import ProductPhoto from './ProductPhoto/ProductPhoto.jsx';
-import VolumeFractions from './VolumeFractions/VolumeFractions.jsx';
+import ProductStatistics from './ProductStatistics/ProductStatistics.jsx';
 import ItemCard from '../../ItemCard/ItemCard.jsx';
-
-const useStyles = makeStyles((theme) => ({
-    root: {
-        flexGrow: 1,
-        width: "100%",
-        justifyContent:'space-around',
-        alignItems: 'stretch',
-    },
-}));
+import useStyles from './styles.js';
 
 const ResultsPage = (props) => {
-    console.log('ResultsPage props', props)
     const classes = useStyles();
 
     return (
@@ -30,18 +20,18 @@ const ResultsPage = (props) => {
                         <Grid item xs={6} >
                             {props.searchResults.data.detail_hazard_product.length > 0 &&
                                 <ItemCard
-                                    title='Volume fractions'
-                                    caption='The number of ingredients for each hazard class in the product'
+                                    title='Product hazard statistics'
+                                    caption='Number of ingredients with hazard class'
                                 >
-                                    <VolumeFractions data={props.searchResults.data} />
+                                    <ProductStatistics data={props.searchResults.data} />
                                 </ItemCard>
                             }
                         </Grid>
                         <Grid item xs={6} >
                             {props.searchResults.data.detail_hazard_product.length > 0 &&
                                 <ItemCard
-                                    title='Hazard level'
-                                    caption='The total hazard level for each hazard class of the ingredients of the product'
+                                    title='Product hazard level'
+                                    caption='Total hazard level for all ingredients'
                                 >
                                     <HazardLevel data={props.searchResults.data.detail_hazard_product} />
                                 </ItemCard>

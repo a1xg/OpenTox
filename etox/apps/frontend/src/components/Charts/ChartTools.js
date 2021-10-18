@@ -1,7 +1,7 @@
 import { chartColorMap } from './ChartsConfig'
 
 const getData = (props) => {
-    console.log('getData props', props)
+
     let data = []
     props.dataset.map((item,i) => {
         if (props.notAvailableIgnore == true) {

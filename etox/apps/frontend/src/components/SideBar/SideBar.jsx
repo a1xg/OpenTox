@@ -11,17 +11,8 @@ import HelpIcon from '@material-ui/icons/Help';
 import InfoIcon from '@material-ui/icons/Info';
 import MenuIcon from '@material-ui/icons/Menu';
 import HomeIcon from '@material-ui/icons/Home';
-import { makeStyles } from '@material-ui/core/styles';
 import clsx from 'clsx';
-
-const useStyles = makeStyles({
-    list: {
-        width: 250
-    },
-    fullList: {
-        width: "auto"
-    }
-});
+import useStyles from './styles.js';
 
 const menuItems = [
     { text: 'Home page', link: '/', icon: <HomeIcon />},

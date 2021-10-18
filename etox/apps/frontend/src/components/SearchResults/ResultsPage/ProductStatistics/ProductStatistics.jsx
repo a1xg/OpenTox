@@ -6,8 +6,7 @@ import TotalProductRating from '../../../Charts/TotalProductRating.jsx';
 
 const margin = { top: 20, right: 20, bottom: 20, left: 20 };
 
-const VolumeFractions = (props) => {
-    console.log('VolumeFractions props', props);
+const ProductStatistics = (props) => {
     const [chartData, setChartData] = useState([{ value: null, id: null, label: null, color: 'white' }]);
 
     useEffect(() => {
@@ -39,4 +38,4 @@ const VolumeFractions = (props) => {
     )
 };
 
-export default VolumeFractions;
+export default ProductStatistics;

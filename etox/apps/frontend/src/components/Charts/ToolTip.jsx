@@ -19,9 +19,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const ToolTip = (props) => {
-    console.log('CustomTooltip props:', props);
     const classes = useStyles();
-
     return (
         <Box className={classes.root}>
             <Typography variant='caption' className={classes.text}>

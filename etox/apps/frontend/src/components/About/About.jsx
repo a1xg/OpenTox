@@ -16,81 +16,82 @@ const About = (props) => {
                     <Typography variant='h6'>About OpenTox</Typography>
                     <Box className={classes.textWrapper}>
                         <Typography variant='body1'>
-                            OpenTox - сервис для оценки потенциального вреда для здоровья человека пищевых добавок и компонентов косметики.
-                            Мы распознаем ингредиенты на английском языке, а так-же Е### номера и CI-##### номера.
+                            OpenTox is a service for assessing the potential harm to human health of food additives and cosmetics components.
+                            We recognize ingredients in English, as well as E### numbers and CI##### numbers.
                         </Typography>
                     </Box>
-                    <Typography variant='h6'>Наша цель</Typography>
+                    <Typography variant='h6'>Our mission</Typography>
                     <Box className={classes.textWrapper}>
                         <Typography variant='body1'>
-                            OpenTox упрощает оценку рисков для здоровья конкретного пищевого продукта или косметического
-                            средства используя сложные расчеты основанные на большом количестве научных данных о токсикологии, и
-                            преобразование этих данных их в понятные и простые шкалы оценки рисков по каждому ингредиенту и продукту в целом.
-                            Вам не придется пользоваться гуглом, и читать статьи на википедии по каждому ингредиенту, мы это сделаем за вас.
+                        OpenTox makes it easy to assess the health risks of a particular food or cosmetic product using
+                         complex calculations based on a large amount of scientific toxicological data, and converting 
+                         this data into understandable and simple risk ratings for each ingredient and product as a whole.
+                         You don't have to google and read the wikipedia articles for each ingredient, we will do it for you.
                         </Typography>
                     </Box>
-                    <Typography variant='h6'>Рейтинг Opentox</Typography>
+                    <Typography variant='h6'>Opentox ratinc</Typography>
                     <Box className={classes.textWrapper}>
                         <Typography variant='body1'>
-                            OpenTox рейтинг рассчитывается на основе данных из системы GHS.
-                            Рейтинг ингредиента вычисляется, как среднее арифметическим взвешенное, учитывая класс опасности для человека
-                            уровень опасности внутри класса.
-                            Рейтинг продукта вычисляется, как среднее арифметическое рейтинга его ингредиентов.
+                        The OpenTox rating is calculated based on data from the GHS system.
+                        The rating of an ingredient is calculated as an arithmetically weighted average, taking into 
+                        account the hazard class for humans, the level of hazard within the class.
+                        The rating of a product is calculated as the arithmetic average of the rating of its ingredients.
                         </Typography>
                     </Box>
-                    <Typography variant='h6'>Система GHS</Typography>
+                    <Typography variant='h6'>GHS system</Typography>
                     <Box className={classes.textWrapper}>
                         <Typography variant='body1'>
                             <p>
-                                В качестве критериев оценки вреда для здоровья мы используем Согласованную на глобальном уровне
-                                система классификации и маркировки химических веществ (GHS)
-                                <Link href='https://unece.org/about-ghs' >
-                                    <Typography variant='caption'>[1]</Typography>
-                                </Link>, разработанную Организацией объединенных наций.
-                                Сама по себе система GHS была создана по причине того, что в разных странах мира существуют свои системы
-                                и критерии оценки опасности химических компонентов.
+                            We use the Globally Harmonized System of Classification and Labeling of Chemicals (GHS)
+                            <Link href='https://unece.org/about-ghs' >
+                                <Typography variant='caption'>[1]</Typography>
+                            </Link>, developed by the United Nations, as our criteria for assessing health hazards.
+                                The GHS system was created due to the fact that different countries of the world have 
+                                their own systems and criteria for assessing the hazard of chemical components.
                             </p>
                             <p>
-                                В эпоху глобальной международной торговли вещества
-                                запрещенные к применению в одной стране на пример по причине канцерогенности, могли совершенно спокойно
-                                использоваться в другой стране, что вызывало много путаницы и рисков для здоровья конечных потребителей.
+                            In the era of global international trade, substances prohibited for use in one country, for
+                             example, due to carcinogenicity, could be safely used in another country, which caused a 
+                             lot of confusion and health risks for end users.
                             </p>
                         </Typography>
                     </Box>
-                    <Typography variant='h6'>Cистема CLP и проблема ее внедрения</Typography>
+                    <Typography variant='h6'>CLP system and the problem of its implementation</Typography>
                     <Box className={classes.textWrapper}>
                         <Typography variant='body1'>
                             <p>
-                                Регламент классификации, маркировки и упаковки (CLP)
-                                <Link href='https://echa.europa.eu/regulations/clp/understanding-clp'>
+                            The Classification, Labeling and Packaging (CLP)<Link href='https://echa.europa.eu/regulations/clp/understanding-clp'>
                                     <Typography variant='caption'>[2]</Typography>
-                                </Link>,
-                                основанный на системе GHS был введен для стран евросоюза в 2008 году.
-                                Регламент CLP обязывает производителей и импортеров химических веществ и их смесей(продуктов) наносить
-                                на упаковке информацию о возможных рисках для здоровья и окружающей среды согласно системе GHS.
-                                Так-же регламент обязывет регистрировать информацию о рисках в специльном публичном
-                                <Link href='https://echa.europa.eu/information-on-chemicals/cl-inventory-database/'> реестре</Link>, в котором данные агрегирутся
-                                и позволяют объективно, непредвзято и максимально демократично оценить риски того или иного вещества,
-                                избежать ошибок в классификации.
+                                </Link> regulation based on the GHS system was introduced for the EU countries in 2008.
+                                
+                                The CLP regulation obliges manufacturers and importers of chemicals and their mixtures (products) 
+                                to include on their packaging information on possible health and environmental risks in accordance
+                                 with the GHS system.
+
+                                Also, the regulation obliges to register information about risks in a special public 
+                                <Link href='https://echa.europa.eu/information-on-chemicals/cl-inventory-database/'> register</Link>, 
+                                in which the data are aggregated and allow to objectively, impartially and as democratic as
+                                 possible assess the risks of a particular substance, to avoid errors in classification.
                             </p>
                             <p>
-                                К сожалению в регламенте CLP косметические продукты имеют особый статус и их производители пока не обязаны наносить на
-                                упаковку информацию о рисках согласно GHS.
-                                Внедрение системы GHS для косметических продуктов и требования наносить на упаковке информационные надписи на данный момент
-                                только обсуждается и находится в зачаточной стадии.
-                                Государственные организации осуществляющие контроль за использованием ингредиентов косметики как правило лишь констатируют
-                                применение тех или иных компонентов производителями, но запретить производителям использовать небезопасный компонент
-                                оказывается непростой задачей, требующей проведения длительных научных исследований подтверждающих вредное влияние на
-                                здоровье человека. Немного лучше ситуация с Е-добавками, однако некоторые из них были разрешены десятки лет назад,
-                                но потом были запрещены во многих странах мира, когда появилось достаточное количество научных данных об их опасности.
+                            Unfortunately, in the CLP regulation, cosmetic products have a special status and their 
+                            manufacturers are not yet obliged to put risk information on the packaging according to the GHS.
+                            The introduction of the GHS system for cosmetic products and the requirement for labeling on 
+                            packaging is currently under discussion and is in its infancy.
+                            State organizations exercising control over the use of cosmetics ingredients usually only 
+                            state the use of certain components by manufacturers, but prohibiting manufacturers from
+                             using an unsafe component turns out to be a difficult task, requiring long-term scientific 
+                             research confirming the harmful effects on human health. The situation with E-supplements 
+                             is a little better, however, some of them were allowed decades ago, but then were banned 
+                             in many countries around the world, when there was a sufficient amount of scientific evidence
+                              about their dangers.
                             </p>
-                            Таким образом на сегодня производители и импортеры косметики:
-                            не обязаны наносить маркировку опасности ингредиентов.
-                            могут использовать в производстве любой компонент, который еще не успели законодательно запретить,
-                            но по которым уже давно известны риски.
-                            <Link href='https://link.springer.com/article/10.1186/2190-4715-24-37' >
+                            Thus, for today manufacturers and importers of cosmetics:
+                            Are not required to affix hazard labels to ingredients.
+                            Can use in production any component that has not yet been legally prohibited, but for which the 
+                            risks have long been known<Link href='https://link.springer.com/article/10.1186/2190-4715-24-37' >
                                 <Typography variant='caption'>[3]</Typography>
-                            </Link>
+                            </Link>.
                         </Typography>
                     </Box>
                     <Typography variant='h6'>Sources: </Typography>

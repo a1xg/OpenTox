@@ -1,21 +1,26 @@
-import React,{useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
+import Box from '@material-ui/core/Box'
 import Typography from "@material-ui/core/Typography";
-import {capitalize} from "@material-ui/core";
+import { capitalize } from "@material-ui/core";
 
 const Title = (props) => {
-    console.log('Title props', props);
     const [title, setTitle] = useState('');
-    
+
     useEffect(() => {
         if (props.mainName != null) {
             setTitle(capitalize(props.mainName.toLowerCase()));
         }
-    },[props]);
+    }, [props]);
 
     return (
-        <Typography variant='h5'>
-            {title}
-        </Typography>
+        <Box>
+            <Typography variant='caption'>
+                Ingredient name
+            </Typography>
+            <Typography variant='h5'>
+                {title}
+            </Typography>
+        </Box>
     )
 
 };

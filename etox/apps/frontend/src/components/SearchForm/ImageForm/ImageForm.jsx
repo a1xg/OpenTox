@@ -3,23 +3,11 @@ import { useHistory } from "react-router-dom";
 import IconButton from '@material-ui/core/IconButton';
 import ImageSearchIcon from '@material-ui/icons/ImageSearch';
 import Box from '@material-ui/core/Box';
-import { makeStyles } from '@material-ui/core/styles';
 import CSRFToken from "../csrftoken.jsx";
 import DialogContainer from "./ImagePreviewEdit/DialogContainer.jsx";
+import useStyles from "./styles.js";
 
 // TODO очистить форму
-const useStyles = makeStyles((theme) => ({
-    input: {
-        display: 'none',
-    },
-    button: {
-        margin: theme.spacing(0.5),
-        "& :visited": { color: theme.palette.grey[200] },
-        "& :hover": { color: theme.palette.primary[300] },
-        "& :active": { color: theme.palette.grey[400] },
-        color: theme.palette.grey[500]
-    },
-}));
 
 const ImageForm = (props) => {
     const history = useHistory();
@@ -38,9 +26,9 @@ const ImageForm = (props) => {
     }, [finalImage]);
 
     const openHandler = (event) => {
-        event.preventDefault();
         setInputImage(event.target.files[0]);
         setOpenDialod(true);
+        event.preventDefault();
     };
 
     const closeHandler = (props) => {

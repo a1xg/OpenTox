@@ -12,7 +12,6 @@ const getColors = (data) => {
 
 
 const Bar = (props) => {
-  console.log('Bar props', props);
   return (
     <ResponsiveBar
       data={props.data}

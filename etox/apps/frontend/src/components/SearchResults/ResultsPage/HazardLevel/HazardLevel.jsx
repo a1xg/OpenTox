@@ -6,7 +6,6 @@ import Bar from '../../../Charts/Bar.jsx';
 const margin = { top: 20, right: 50, bottom: 20, left: 50 };
 
 const HazardLevel = (props) => {
-    console.log('HazardLevel props:', props);
     const [chartData, setChartData] = useState([{ value: null, id: null, label: null, color: 'white' }]);
     useEffect(() => {
         const data = getData({

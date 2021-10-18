@@ -4,7 +4,6 @@ import ResultsPage from './ResultsPage/ResultsPage.jsx';
 import ProgressBar from './ProgressBar/ProgressBar.jsx';
 
 const SearchResults = (props) => {
-    console.log('SearchResults props:', props);
 
     if (props.searchResults.loaded == true) {
         document.title = 'OpenTox - Search results';

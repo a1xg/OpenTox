@@ -1,6 +1,7 @@
 import React from 'react';
 import Box from '@material-ui/core/Box';
 import Tooltip from '@material-ui/core/Tooltip';
+import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
 import ThumbUpIcon from '@mui/icons-material/ThumbUp';
@@ -20,11 +21,11 @@ const useStyles = makeStyles((theme) => ({
         paddingRight: '1px',
         height: theme.height
     },
-    redIcon:{
+    redIcon: {
         color: theme.palette.warning.light
     },
-    greenIcon:{
-        color:theme.palette.primary.main
+    greenIcon: {
+        color: theme.palette.primary.main
     }
 }))
 
@@ -43,37 +44,39 @@ const IngredientRatingBar = (props) => {
     const colors = rating != null ? getRectangleColors(rating) : null;
 
     return (
-        <Box className={classes.root}>
-            {props.rating > 0 &&
-                colors.map((color, index) => {
-                    return (
-                        <Tooltip title={index + 1} key={index}>
-                            <Box
-                                sx={{
-                                    opacity: '0.8',
-                                    borderRadius: '2px',
-                                    marginLeft: '1px',
-                                    marginRight: '1px',
-                                    width: props.width * 0.08,
-                                    height: props.height,
-                                    backgroundColor: color,
-                                }}
-                            >
-                            </Box>
-                        </Tooltip>
-                    )
-                })
-            }
-            {props.rating == 0 &&
-                <Tooltip title='This ingredient is completely safe.'>
+        <Box>
+            <Box className={classes.root}>
+                {props.rating > 0 &&
+                    colors.map((color, index) => {
+                        return (
+                            <Tooltip title={index + 1} key={index}>
+                                <Box
+                                    sx={{
+                                        opacity: '0.8',
+                                        borderRadius: '2px',
+                                        marginLeft: '1px',
+                                        marginRight: '1px',
+                                        width: props.width * 0.08,
+                                        height: props.height,
+                                        backgroundColor: color,
+                                    }}
+                                >
+                                </Box>
+                            </Tooltip>
+                        )
+                    })
+                }
+                {props.rating == 0 &&
+                    <Tooltip title='This ingredient is completely safe.'>
                         <ThumbUpIcon className={classes.greenIcon} />
-                </Tooltip>
-            }
-            {props.rating == null &&
-                <Tooltip title='No hazard data available for the ingredient.'>
-                    <HelpOutlineIcon className={classes.redIcon} />
-                </Tooltip>
-            }
+                    </Tooltip>
+                }
+                {props.rating == null &&
+                    <Tooltip title='No hazard data available for the ingredient.'>
+                        <HelpOutlineIcon className={classes.redIcon} />
+                    </Tooltip>
+                }
+            </Box>
         </Box>
     )
 };

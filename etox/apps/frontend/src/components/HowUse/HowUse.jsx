@@ -16,7 +16,6 @@ const HowUse = (props) => {
             <ItemCard>
                 <Box className={classes.root}>
                     <Typography variant='h6'>1 Take a high-quality photo of your product's ingredient list</Typography>
-
                     <Typography variant='body2'>
                         *Don't use flash, use natural light.
                     </Typography>

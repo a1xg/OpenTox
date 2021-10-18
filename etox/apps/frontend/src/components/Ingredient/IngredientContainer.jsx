@@ -4,7 +4,6 @@ import { PassIngredient } from '../PassData';
 import IngredientPage from './IngredientPage/IngredientPage.jsx';
 
 const IngredientContainer = (props) => {
-    console.log('IngredientContainer props', props)
     const [searchResults, setSearchResults] = useState({ found: false, data: PassIngredient });
     document.title = 'Search results';
     useEffect(() => {

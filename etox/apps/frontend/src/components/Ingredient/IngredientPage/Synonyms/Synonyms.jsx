@@ -3,8 +3,6 @@ import Typography from "@material-ui/core/Typography";
 import capitalizeJoinItems from '../../tools.js';
 
 const Synonyms = (props) => {
-    console.log('Synonyms props:', props)
-
     return (
         <Typography variant='body1'>
             {capitalizeJoinItems({

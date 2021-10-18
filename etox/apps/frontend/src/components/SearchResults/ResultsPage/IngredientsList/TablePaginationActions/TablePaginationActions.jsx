@@ -1,20 +1,12 @@
 import React from "react";
 import IconButton from '@material-ui/core/IconButton';
 import Box from '@material-ui/core/Box';
-import { useTheme, makeStyles } from "@material-ui/core/styles";
+import { useTheme } from "@material-ui/core/styles";
 import FirstPageIcon from '@material-ui/icons/FirstPage';
 import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft';
 import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
 import LastPageIcon from '@material-ui/icons/LastPage';
-
-const useStyles = makeStyles((theme) => ({
-  button:{
-    "& :visited": { color: theme.palette.grey[200] },
-    "& :hover": { color: theme.palette.primary[300] },
-    "& :active": { color: theme.palette.grey[400] },
-    color: theme.palette.grey[500]
-  }
-}));
+import useStyles from "./styles.js";
 
 const TablePaginationActions = (props) => {
     const theme = useTheme();

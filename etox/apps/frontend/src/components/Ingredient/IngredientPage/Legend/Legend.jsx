@@ -4,38 +4,14 @@ import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import Link from '@material-ui/core/Link';
 import Paper from '@material-ui/core/Paper';
-import { makeStyles } from "@material-ui/core/styles";
 import { getData } from '../../../Charts/ChartTools';
 import { Stack } from '@mui/material';
 import Divider from '@mui/material/Divider';
+import useStyles from './styles.js';
 
 const echaURL = 'https://echa.europa.eu/information-on-chemicals/cl-inventory-database/-/discli/details/'
 
-const useStyles = makeStyles((theme) => ({
-    wrapper: {
-        margin: theme.spacing(1),
-    },
-    grid:{
-        margin:5,
-    },
-    gridItem: {
-        //border: `1px solid ${theme.palette.grey[400]}`,
-        borderRadius: 4,
-        backgroundColor: theme.palette.grey[100],
-        height: '100%',
-    },
-    stack: {
-        alignItems: 'center',
-        textAlign: 'left',
-    },
-    stackWrapper:{
-        padding: 5
-    }
-
-}));
-
 const Legend = (props) => {
-    console.log('Legend props', props);
     const [legendData, setLegendData] = useState([{ value: null, id: null, label: null, color: 'white' }]);
     const classes = useStyles();
 

@@ -6,7 +6,6 @@ import Box from "@material-ui/core/Box";
 const margin = { top: 30, right: 30, bottom: 10, left: 30 };
 
 const PercentNotifications = (props) => {
-    console.log('PercentNotifications props', props);
     const [chartData, setChartData] = useState([{ value: null, id: null, label:null }]);
     useEffect(() => {
         const data = getData({
@@ -16,7 +15,6 @@ const PercentNotifications = (props) => {
             label: 'description',
         });
         setChartData(data);
-        console.log('DATA:', data);
     }, [props]);
 
     return (

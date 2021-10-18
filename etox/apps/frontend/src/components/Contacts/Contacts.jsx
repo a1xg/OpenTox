@@ -12,7 +12,7 @@ const Contacts = (props) => {
     const classes = useStyles();
     return (
         <Box>
-            contacts
+            
         </Box >
     )
 };

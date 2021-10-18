@@ -20,7 +20,6 @@ const ImageEditor = (props) => {
     const [zoom, setZoom] = useState(1);
     const [aspect, setAspect] = useState(1.7);
     const [croppedAreaPixels, setCroppedAreaPixels] = useState(null);
-    const originalImage = props.base64Image;
 
     const onCropComplete = useCallback((croppedArea, croppedAreaPixels) => {
         setCroppedAreaPixels(croppedAreaPixels);
@@ -29,7 +28,7 @@ const ImageEditor = (props) => {
     const showCroppedImage = useCallback(async () => {
         try {
             const croppedImage = await getCroppedImg(
-                originalImage,
+                props.base64Image,
                 croppedAreaPixels,
                 rotation
             );
@@ -50,7 +49,7 @@ const ImageEditor = (props) => {
             <Box className={classes.cropBox}>
                 <Cropper
                     crop={crop}
-                    image={originalImage}
+                    image={props.base64Image}
                     rotation={rotation}
                     zoom={zoom}
                     aspect={aspect}
