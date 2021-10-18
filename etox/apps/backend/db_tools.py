@@ -2,6 +2,10 @@
 from django.db.models import Q, F, Prefetch
 from .models import *
 
+# The module builds database queries based on delimited clean text.
+# Queries are written for various database fields - relational and non-relational fields.
+# The module is engaged in sending requests and updating the statistics of requests.
+
 # TODO implement inaccurate search (trigram),
 #  make the search conditional: if the word is not found by exact match, then you need to try to find it by trigrams
 

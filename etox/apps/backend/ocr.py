@@ -4,9 +4,24 @@ import cv2
 import pytesseract
 import pycountry
 from langdetect import detect, DetectorFactory
-
 # Absolute path to tesseract.exe file if environment variable is not working correctly
 pytesseract.pytesseract.tesseract_cmd = 'D:/Program/Tesseract-OCR/tesseract.exe'
+
+# The module is able to select a text scene in images containing foreign objects
+# and cut out text paragraphs separately. Unfortunately, the image skew compensation
+# has not yet been implemented.
+#
+# The module is able to automatically recognize the language, for which it makes a
+# test recognition of text from the cut sample of the image (the crop factor can be adjusted),
+# the language is recognized and re-recognition is done with an explicit indication of the language.
+# If the image contains several text paragraphs in different languages and the
+# language was not specified, the module will automatically recognize the language of each paragraph.
+#
+# This module implements the calculation of the average number of lines, the average font size
+# and the ratio of the size of the image to the text block in the image. This is required to
+# automatically adjust the filters applied to the image in order to improve the quality of
+# recognition of images with different font sizes, with a different number of lines and
+# different text segmentation.
 
 # TODO
 #  Find ways to process multiple images simultaneously.

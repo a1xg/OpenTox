@@ -4,6 +4,12 @@ from .text_postprocessing import TextPostprocessing
 from .db_tools import DBQueries
 import time
 
+# The module analyzes the text blocks detected in the image from which
+# the text was recognized. The module searches for the block that contains
+# the list of ingredients by sending a query to the database.
+# The block with the largest number of matches found in the database
+# is the product composition.
+
 class TextBlock:
     '''Text block class'''
     def __init__(self, lang:str, text:str):

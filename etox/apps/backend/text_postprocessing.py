@@ -1,5 +1,7 @@
 import re
 
+# The module sequentially processes the raw text received from the image recognition.
+
 class TextPostprocessing:
     def __init__(self):
         self._output_string = str

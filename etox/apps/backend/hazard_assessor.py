@@ -2,6 +2,12 @@ import pandas as pd
 from collections import OrderedDict
 import json
 
+# The module filters and summarizes information about an ingredient,
+# based on data from the CLP system, removing information with
+# insufficient reliability.
+# Based on the data obtained, several ratings are calculated for
+# an ingredient and for the entire product based on these ingredients.
+
 class HazardMeter:
     def __init__(self, data: list, display_format: str):
         """
