@@ -31,13 +31,21 @@ pytesseract.pytesseract.tesseract_cmd = 'D:/Program/Tesseract-OCR/tesseract.exe'
 
 class ImageOCR:
     def __init__(self, img):
-        self.img = img
+        self.img = self._decode_image(img)
         self.text = [] # output list of dictionaries with recognized text in the format {'lang':'text'}
         self._boxes = []
 
-    def decode_image(self) -> np.ndarray:
-        '''Decode base64 image to numpy format'''
-        self.img = cv2.imdecode(np.fromstring(self.img, np.uint8), cv2.IMREAD_UNCHANGED)
+    def _decode_image(self, input_img) -> np.ndarray:
+        '''Decode bytes image to numpy format'''
+        print(f'ImageOCR input dtype: {type(input_img)}')
+        decoded_img = cv2.imdecode(np.fromstring(input_img, np.uint8), cv2.IMREAD_UNCHANGED)
+        return decoded_img
+
+    def _encode_image(self, input_img:np.ndarray):
+        '''Encodes an np.ndarray into a JPG image'''
+        success, encoded_image = cv2.imencode('.jpg', input_img)
+        bytes_img = encoded_image.tobytes()
+        return bytes_img
 
     def _image_preprocessing(self) -> np.ndarray:
         '''Flattening the image histogram'''
@@ -271,12 +279,18 @@ class ImageOCR:
                 # recognition with the exact indication of the language
                 custom_config = (f'-l {recognized_lang} --oem 1 --psm 6')
                 text = self._recognize_text(custom_config, image)
-                self.text.append({recognized_lang:text})
+                self.text.append({
+                    recognized_lang: text,
+                    'image':self._encode_image(image)
+                })
             else:
                 # Recognition option if the language of the text is known
                 config = (f'-l {text_lang} --oem 1 --psm 6')
                 text = self._recognize_text(config, image)
-                self.text.append({text_lang:text})
+                self.text.append({
+                    text_lang:text,
+                    'image':self._encode_image(image)
+                })
         return self.text
 
     def draw_boxes(self, max_resolution) -> np.ndarray:
