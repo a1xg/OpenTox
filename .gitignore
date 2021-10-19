@@ -1,2 +1,6 @@
 /etox/settings.py
+/experiments.py
 .idea/
+**/__pycache__
+*.pyo
+*.pyc

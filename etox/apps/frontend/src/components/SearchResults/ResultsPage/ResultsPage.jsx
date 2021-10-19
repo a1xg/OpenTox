@@ -11,7 +11,6 @@ import useStyles from './styles.js';
 
 const ResultsPage = (props) => {
     const classes = useStyles();
-
     return (
         <Container maxWidth={'lg'}>
             <Grid container direction="row" spacing={0} className={classes.root}>
@@ -53,11 +52,12 @@ const ResultsPage = (props) => {
                         }
                     </Grid>
                     <Grid item>
-                        {props.searchResults.data.image != null &&
+                        {/*
+                        props.searchResults.data.image_with_ingredients != null &&
                             <ItemCard title='Your product image'>
-                                <ProductPhoto />
+                                <ProductPhoto image={props.searchResults.data.image_with_ingredients} />
                             </ItemCard>
-                        }
+                        */}
                     </Grid>
                 </Grid>
             </Grid>

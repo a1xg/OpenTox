@@ -1,17 +1,24 @@
-import React from 'react';
+import React,{useEffect, useState} from 'react';
 import CardMedia from '@material-ui/core/CardMedia';
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
 }))
-
+//TODO отрисовать изображение
 const ProductPhoto = (props) => {
-    return (
+    const [image, setImage] = useState()
+    const byteImg = props.image
+    {/*
         <CardMedia
             component='img'
-            src='https://img.wonderhowto.com/img/68/22/63430545609681/0/your-typical-beauty-product-ingredients-list.w1456.jpg'
-            title="Contemplative Reptile"
+            src={URL.createObjectURL(props.image)}
         />
+    */}
+
+    return (
+        <div>
+
+        </div>
     )
 };
 

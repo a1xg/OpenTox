@@ -97,7 +97,7 @@ const IngredientsList = (props) => {
                             page={page}
                             SelectProps={{
                                 inputProps: {
-                                    'aria-label': 'rows per page',
+                                    'aria-label': 'Ingredients per page',
                                 },
                                 native: true,
                             }}

@@ -27,6 +27,7 @@ const UploadDialog = (props) => {
 
     const sendHandler = () => {
         const imageFile = base64decode(base64Image);
+        console.log('UploadDialog byte img', imageFile)
         props.setFinalImage(imageFile);
     };
 
