@@ -1,3 +1,4 @@
 DEFAULT_LANG = 'eng'
 
 FONT_SIZE = 40
+

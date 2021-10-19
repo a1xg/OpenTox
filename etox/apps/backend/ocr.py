@@ -3,6 +3,7 @@ import numpy as np
 import cv2
 import pytesseract
 import pycountry
+
 from langdetect import detect, DetectorFactory
 # Absolute path to tesseract.exe file if environment variable is not working correctly
 pytesseract.pytesseract.tesseract_cmd = 'D:/Program/Tesseract-OCR/tesseract.exe'
