@@ -5,23 +5,23 @@ import Doughnut from '../../../Charts/Doughnut.jsx';
 import TotalProductRating from '../../../Charts/TotalProductRating.jsx';
 import { makeStyles } from "@material-ui/core/styles";
 
-const margin = {
-    top: 20, 
-    right: 20, 
-    bottom: 20, 
-    left: 20 
-    };
-
 const useStyles = makeStyles((theme) => ({
-    chartWrapper:{
-        height:'300px',
+    chartWrapper: {
+        height: '300px',
+        paddingTop:'20px',
+        paddingBottom:'20px',
+        paddingRight:'50px',
+        paddingLeft:'50px',
         position: "relative",
         [theme.breakpoints.down('md')]: {
-            height: '200px'
-          },
+            height: '170px',
+            paddingTop:'10px',
+            paddingBottom:'0px',
+            paddingRight:'10px',
+            paddingLeft:'10px',
+        },
     }
-}))
-
+}));
 
 const ProductStatistics = (props) => {
     const [chartData, setChartData] = useState([{ value: null, id: null, label: null, color: 'white' }]);
@@ -40,14 +40,13 @@ const ProductStatistics = (props) => {
 
     return (
         <Box className={classes.chartWrapper}>
-           <Doughnut 
-           data={chartData} 
-           margin={margin} 
-           caption=' ingredients' />
-           <TotalProductRating 
-           total_rating={props.data.product_hazard_avg} 
-           margin={margin} />
-        </Box>        
+            <Doughnut
+                data={chartData}
+                caption=' ingredients' />
+            <TotalProductRating
+                total_rating={props.data.product_hazard_avg}
+                />
+        </Box>
     )
 };
 

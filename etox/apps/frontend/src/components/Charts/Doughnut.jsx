@@ -17,7 +17,6 @@ const Doughnut = (props) => {
     props.data.length > 0 &&
       <ResponsivePie
         data={data}
-        margin={props.margin}
         keys={['value', "label", "id"]}
         innerRadius={0.85}
         padAngle={0.7}
@@ -40,7 +39,6 @@ const Doughnut = (props) => {
         enableRadialLabels={false}
       />
   )
-
 };
 
 export default Doughnut;

@@ -5,17 +5,25 @@ import { getData } from '../../../Charts/ChartTools';
 import Bar from '../../../Charts/Bar.jsx';
 
 const margin = { 
-    top: 30, 
-    right: 30, 
-    bottom: 30, 
-    left: 30 
+    top: 5, 
+    right: 20, 
+    bottom: 5, 
+    left:20 
 };
 
 const useStyles = makeStyles((theme) => ({
     chartWrapper:{
         height:'300px',
+        paddingTop:'20px',
+        paddingBottom:'20px',
+        paddingLeft:'40px',
+        paddingRight:'40px',
         [theme.breakpoints.down('md')]: {
-            height: '200px'
+            height: '170px',
+            paddingTop:'10px',
+            paddingBottom:'10px',
+            paddingLeft:'10px',
+            paddingRight:'10px',
           },
     }   
 }));

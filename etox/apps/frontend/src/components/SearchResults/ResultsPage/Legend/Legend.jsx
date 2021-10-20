@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
 import Box from '@material-ui/core/Box';
-import Grid from '@material-ui/core/Grid';
+import Grid from '@mui/material/Grid';
 import { Stack } from "@mui/material";
 import { getData } from '../../../Charts/ChartTools';
 import useStyles from "./styles.js";
@@ -23,7 +23,7 @@ const Legend = (props) => {
 
     return (
         legendData.length > 0 &&
-        <Grid item xs={12} container direction='row' spacing={1} className={classes.grid}>
+        <Grid direction='row' container spacing={1} className={classes.grid}>
             {legendData.map(item => {
                 return (
                     <Grid item xs={2} key={item.id}>
