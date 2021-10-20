@@ -3,10 +3,11 @@ import numpy as np
 import cv2
 import pytesseract
 import pycountry
+from .ocr_settings import *
 
 from langdetect import detect, DetectorFactory
 # Absolute path to tesseract.exe file if environment variable is not working correctly
-pytesseract.pytesseract.tesseract_cmd = 'D:/Program/Tesseract-OCR/tesseract.exe'
+pytesseract.pytesseract.tesseract_cmd = TESSERACT_PATH
 
 # The module is able to select a text scene in images containing foreign objects
 # and cut out text paragraphs separately. Unfortunately, the image skew compensation
@@ -245,7 +246,7 @@ class ImageOCR:
         alpha_3_lang_code = langdict.alpha_3
         return alpha_3_lang_code
 
-    def get_text(self, text_lang, crop:bool, set_font:int) -> list:
+    def get_text(self, text_lang:str, crop:bool, set_font:int) -> list:
         """text_lang The language must be specified in alpha-3 format,
         if the language is unknown, then the text_lang parameter must be set to False.
         If the language is not specified, then it will be recognized automatically,
