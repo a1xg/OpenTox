@@ -1,6 +1,7 @@
 import React, { useRef, useState } from "react";
 import { useHistory } from "react-router-dom";
 import TextField from "@material-ui/core/TextField";
+import Container from '@material-ui/core/Container';
 import InputAdornment from "@material-ui/core/InputAdornment";
 import IconButton from '@material-ui/core/IconButton';
 import Search from '@material-ui/icons/Search';
@@ -26,6 +27,7 @@ const SearchForm = (props) => {
     };
 
     return (
+        <Container className={classes.formContainer}>
         <form onSubmit={submitForm} ref={form}>
             <input type="hidden" name="csrfmiddlewaretoken" value={CSRFtoken} />
             <TextField
@@ -52,7 +54,8 @@ const SearchForm = (props) => {
                 }}
             />
         </form>
+        </Container>
     )
-}
+};
 
-export default SearchForm
+export default SearchForm;

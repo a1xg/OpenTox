@@ -2,9 +2,12 @@ import React from "react";
 import { makeStyles, alpha } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
+    formContainer:{
+        maxWidth:600
+    },
     input: {
         margin: theme.spacing(1),
-        width: '600px',
+        width: '100%',
         '& .MuiOutlinedInput-root': {
             overflow: 'hidden',
             borderRadius: 4, 
@@ -18,7 +21,6 @@ const useStyles = makeStyles((theme) => ({
                 boxShadow: `${alpha(theme.palette.primary.main, 0.25)} 0 0 0 2px`,
                 borderColor: theme.palette.primary[100],
             },
-
         },
     },
     button: {

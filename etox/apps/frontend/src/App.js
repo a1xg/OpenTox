@@ -59,21 +59,20 @@ const App = (props) => {
 
   return (
     <ThemeProvider theme={customTheme}>
-      <Container maxWidth={'xl'} className={classes.app} >
+      <Container maxWidth={'xl'} className={classes.app}>
         <Grid container spacing={3} direction='row'>
           <Grid item xs={12} >
             <SideBar />
           </Grid>
-          <Grid item xs={12} >
-            <Grid
-              container
+          <Grid item xs={12}>
+            <Grid item container
               alignItems="center"
-              justifyContent="center">
+              justifyContent="center"
+              >
               <SearchForm path='/' setQuery={setQuery} />
             </Grid>
           </Grid>
           <Grid item xs={12}>
-            
               <Route
                 exact path='/search-results'
                 component={() => <SearchResultsContainer searchResults={searchResults} />}
