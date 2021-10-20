@@ -14,7 +14,7 @@ const ResultsPage = (props) => {
     return (
         <Container maxWidth={'lg'}>
             <Grid container direction="row" spacing={0} className={classes.root}>
-                <Grid item xs={10} container direction="column" spacing={2} >
+                <Grid item xs={12} container direction="column" spacing={2} >
                     <Grid item container direction="row" spacing={2} >
                         <Grid item xs={6} >
                             {props.searchResults.data.detail_hazard_product.length > 0 &&
@@ -37,13 +37,6 @@ const ResultsPage = (props) => {
                             }
                         </Grid>
                     </Grid>
-                    <Grid item >
-                        <ItemCard title='List of ingredients'>
-                            <IngredientsList data={props.searchResults.data} />
-                        </ItemCard>
-                    </Grid>
-                </Grid>
-                <Grid item xs={2} container direction="column" spacing={2}>
                     <Grid item>
                         {props.searchResults.data.detail_hazard_product.length > 0 &&
                             <ItemCard title='Descripion'>
@@ -51,15 +44,23 @@ const ResultsPage = (props) => {
                             </ItemCard>
                         }
                     </Grid>
+                    <Grid item >
+                        <ItemCard title='List of ingredients'>
+                            <IngredientsList data={props.searchResults.data} />
+                        </ItemCard>
+                    </Grid>
+                </Grid>
+                {/*
+                <Grid item xs={2} container direction="column" spacing={2}>
                     <Grid item>
-                        {/*
                         props.searchResults.data.image_with_ingredients != null &&
                             <ItemCard title='Your product image'>
                                 <ProductPhoto image={props.searchResults.data.image_with_ingredients} />
                             </ItemCard>
-                        */}
+                        
                     </Grid>
                 </Grid>
+                */}
             </Grid>
         </Container>
     )

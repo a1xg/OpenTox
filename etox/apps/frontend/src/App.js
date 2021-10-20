@@ -16,6 +16,9 @@ import customTheme from './components/CustomTheme/CustomTheme.jsx';
 
 // * useScrollTrigger  для переключения строки поиска в appbar при скролле
 // TODO проверить правильность и грамматику title, tooltip итд
+
+// TODO сделать мобильную версию сайта
+
 const useStyles = makeStyles((theme) => ({
   app: {
     backgroundColor: theme.palette.grey[100],
