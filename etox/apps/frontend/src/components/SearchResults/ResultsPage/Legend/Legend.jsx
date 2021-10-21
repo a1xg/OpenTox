@@ -6,7 +6,7 @@ import Grid from '@mui/material/Grid';
 import { Stack } from "@mui/material";
 import { getData } from '../../../Charts/ChartTools';
 import useStyles from "./styles.js";
-
+//TODO вернуть вертикальную легенду
 const Legend = (props) => {
     const [legendData, setLegendData] = useState([{ value: null, id: null, label: null, color: 'white' }]);
     const classes = useStyles();
@@ -23,24 +23,20 @@ const Legend = (props) => {
 
     return (
         legendData.length > 0 &&
-        <Grid direction='row' container spacing={1} className={classes.grid}>
+        <Stack direction='column' spacing={1} className={classes.legengContainer}>
             {legendData.map(item => {
                 return (
-                    <Grid item xs={2} key={item.id}>
-                        <Paper className={classes.gridItem} elevation={3} key={item.id}>
-                            <Box className={classes.stackWrapper}>
-                                <Stack direction='column' key={item.id} className={classes.legendItem}>
-                                    <svg width='100%' height='4' >
-                                        <rect x="0" y="0" width="100%" height="4" rx="2" fill={item.color} />
-                                    </svg>
-                                    <Typography variant='caption'>{item.label}</Typography>
-                                </Stack>
-                            </Box>
-                        </Paper>
-                    </Grid>
+                    <Paper className={classes.itemBox} elevation={3} key={item.id}>
+                    <Stack direction='column' key={item.id} className={classes.legendItem}>
+                        <svg width='100%' height='4' >
+                            <rect x="0" y="0" width="100%" height="4" rx="2" fill={item.color} />
+                        </svg>
+                        <Typography variant='caption'>{item.label}</Typography>
+                    </Stack>
+                    </Paper>
                 )
             })}
-        </Grid >
+        </Stack>
     )
 };
 

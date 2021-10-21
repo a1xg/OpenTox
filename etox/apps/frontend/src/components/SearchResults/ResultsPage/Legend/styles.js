@@ -1,19 +1,18 @@
 import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles((theme) => ({
-    grid:{
-        margin:5,
-    },
-    gridItem:{
-        height: '100%',
-        borderRadius:4, 
-        backgroundColor: theme.palette.grey[100],
-    },
-    stackWrapper:{
-        padding: 5
+    legengContainer:{
+        alignItems:'center', 
+        justifyContent:'space-around' 
     },
     legendItem:{
         alignItems:'center'
+    },
+    itemBox:{
+        width:'90%', 
+        borderRadius:4, 
+        backgroundColor: theme.palette.grey[100],
+        padding:10
     },
 
 }));
