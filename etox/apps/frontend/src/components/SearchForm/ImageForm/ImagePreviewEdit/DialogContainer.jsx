@@ -5,6 +5,7 @@ import ImagePreview from './ImagePreview.jsx';
 import ImageEditor from './ImageEditor.jsx';
 import ItemCard from '../../../ItemCard/ItemCard.jsx';
 import useStyles from './styles.js';
+//TODO поправить ширину контейнера
 
 const base64decode = (dataURL) => {
     let arr = dataURL.split(","),

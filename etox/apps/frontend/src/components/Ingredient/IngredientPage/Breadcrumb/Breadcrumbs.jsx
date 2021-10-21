@@ -25,7 +25,7 @@ const Breadcrumb = (props) => {
           component={NavLink}
         >
           <HomeIcon sx={{ mr: 0.5 }} fontSize="inherit" />
-          Home page
+          Home
         </Link>
         <Link
           underline="hover"
@@ -35,7 +35,7 @@ const Breadcrumb = (props) => {
           component={NavLink}
         >
           <ManageSearchIcon sx={{ mr: 0.5 }} fontSize="inherit" />
-          Search results
+          Results
         </Link>
         <Typography
           sx={{ display: 'flex', alignItems: 'center' }}

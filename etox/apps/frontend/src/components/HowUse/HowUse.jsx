@@ -9,6 +9,7 @@ import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import CancelIcon from '@mui/icons-material/Cancel';
 import useStyles from './styles.js';
 
+//TODO некоторые картинки пропадают при заливке на сервер, сервер отдает 404 при загрузке их
 const HowUse = (props) => {
     const classes = useStyles();
     return (

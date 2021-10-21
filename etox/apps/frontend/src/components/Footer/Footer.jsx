@@ -21,11 +21,11 @@ const Footer = (props) => {
                         <Link to='/about' component={NavLink}>
                             About us
                         </Link>
+                        <Link to='/how-use' component={NavLink}>
+                            How use
+                        </Link>
                         <Link to='/contacts' component={NavLink}>
                             Contacts
-                        </Link>
-                        <Link href='https://github.com/a1xg/etox'  >
-                            Github page
                         </Link>
                     </Stack>
                 </Box>

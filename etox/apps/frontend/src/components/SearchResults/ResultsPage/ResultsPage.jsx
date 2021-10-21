@@ -8,7 +8,7 @@ import ProductPhoto from './ProductPhoto/ProductPhoto.jsx';
 import ProductStatistics from './ProductStatistics/ProductStatistics.jsx';
 import ItemCard from '../../ItemCard/ItemCard.jsx';
 import useStyles from './styles.js';
-// todo вернуть трехколоночный грид
+
 const ResultsPage = (props) => {
     const classes = useStyles();
     return (

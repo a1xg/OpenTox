@@ -12,7 +12,7 @@ import ZoomInIcon from '@mui/icons-material/ZoomIn';
 import AspectRatioIcon from '@mui/icons-material/AspectRatio';
 import getCroppedImg from './cropTools.js';
 import useStyles from './styles.js';
-
+// TODO переделать верстку, сделать адаптивной
 const ImageEditor = (props) => {
     const classes = useStyles();
     const [crop, setCrop] = useState({ x: 0, y: 0 });
@@ -60,7 +60,7 @@ const ImageEditor = (props) => {
                 />
             </Box>
             <Box className={classes.controls}>
-                <Stack spacing={2} direction="row" sx={{ mb: 1 }} alignItems="center">
+                <Stack spacing={2} direction="row" alignItems="center">
                     <ZoomInIcon className={classes.icon} />
                     <Slider
                         value={zoom}
@@ -72,7 +72,7 @@ const ImageEditor = (props) => {
                         onChange={(e, zoom) => setZoom(zoom)}
                     />
                 </Stack>
-                <Stack spacing={2} direction="row" sx={{ mb: 1 }} alignItems="center">
+                <Stack spacing={2} direction="row" alignItems="center">
                     <AspectRatioIcon className={classes.icon} />
                     <Slider
                         value={aspect}
@@ -84,7 +84,7 @@ const ImageEditor = (props) => {
                         onChange={(e, aspect) => setAspect(aspect)}
                     />
                 </Stack>
-                <Stack spacing={2} direction="row" sx={{ mb: 1 }} alignItems="center">
+                <Stack spacing={2} direction="row" alignItems="center">
                     <AutorenewIcon className={classes.icon} />
                     <Slider
                         value={rotation}
