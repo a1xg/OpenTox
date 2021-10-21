@@ -3,11 +3,16 @@ import { makeStyles, alpha } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
     formContainer:{
-        maxWidth:600
+        maxWidth:600,
+        paddingLeft:0,
+        paddingRight:0,
+        justifyContent: 'center',
+        width: '100%',
     },
     input: {
         margin: theme.spacing(1),
-        width: '100%',
+        display: 'flex', 
+
         '& .MuiOutlinedInput-root': {
             overflow: 'hidden',
             borderRadius: 4, 
