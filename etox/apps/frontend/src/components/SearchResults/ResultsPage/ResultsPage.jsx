@@ -3,7 +3,7 @@ import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
 import IngredientsList from './IngredientsList/IngredientsList.jsx';
 import HazardLevel from './HazardLevel/HazardLevel.jsx';
-import Legend from './Legend/Legend.jsx';
+import LegendVertical from '../../Charts/LegendVertical/LegendVertical.jsx';
 import ProductPhoto from './ProductPhoto/ProductPhoto.jsx';
 import ProductStatistics from './ProductStatistics/ProductStatistics.jsx';
 import ItemCard from '../../ItemCard/ItemCard.jsx';
@@ -47,7 +47,7 @@ const ResultsPage = (props) => {
                     <Grid item>
                         {props.searchResults.data.detail_hazard_product.length > 0 &&
                             <ItemCard title='Descripion'>
-                                <Legend data={props.searchResults.data.detail_hazard_product} />
+                                <LegendVertical data={props.searchResults.data.detail_hazard_product} />
                             </ItemCard>
                         }
                     </Grid>

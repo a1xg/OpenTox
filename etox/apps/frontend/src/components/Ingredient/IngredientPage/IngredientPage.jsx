@@ -7,7 +7,7 @@ import Description from "./Description/Description.jsx";
 import HazardLevel from "./HazardLevel/HazardLevel.jsx";
 import Details from "./Details/Details.jsx";
 import Title from "./Title/Title.jsx";
-import Legend from "./Legend/Legend.jsx";
+import ChartDescription from "./ChartDescription/ChartDescription.jsx";
 import Synonyms from "./Synonyms/Synonyms.jsx";
 import ItemCard from "../../ItemCard/ItemCard.jsx";
 import Breadcrumb from "./Breadcrumb/Breadcrumbs.jsx";
@@ -77,7 +77,7 @@ const IngredientPage = (props) => {
                     </Grid>
                     <Grid item >
                         <ItemCard title='Chart description'>
-                            <Legend data={props.searchResults.data.ingredient.hazard} />
+                            <ChartDescription data={props.searchResults.data.ingredient.hazard} />
                         </ItemCard>
                     </Grid>
                 </Grid>

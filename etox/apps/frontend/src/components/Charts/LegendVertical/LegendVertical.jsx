@@ -1,13 +1,11 @@
 import React, { useEffect, useState } from "react";
 import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
-import Box from '@material-ui/core/Box';
-import Grid from '@mui/material/Grid';
 import { Stack } from "@mui/material";
-import { getData } from '../../../Charts/ChartTools';
+import { getData } from '../ChartTools.js';
 import useStyles from "./styles.js";
-//TODO вернуть вертикальную легенду
-const Legend = (props) => {
+
+const LegendVertical = (props) => {
     const [legendData, setLegendData] = useState([{ value: null, id: null, label: null, color: 'white' }]);
     const classes = useStyles();
     useEffect(() => {
@@ -40,4 +38,4 @@ const Legend = (props) => {
     )
 };
 
-export default Legend;
+export default LegendVertical;
