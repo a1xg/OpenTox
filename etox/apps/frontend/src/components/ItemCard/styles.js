@@ -13,13 +13,16 @@ const useStyles = makeStyles((theme) => ({
     },
     cardcontent: {
         padding: '20px',
+        [theme.breakpoints.down('md')]:{
+            padding: '5px',
+        },
         'flex-grow': 1
     },
     caption: {
-        color: theme.palette.grey[500]
+        color: theme.palette.grey[500],
     },
     title: {
-        color: theme.palette.grey[800]
+        color: theme.palette.grey[800],
     }
 
 }));
