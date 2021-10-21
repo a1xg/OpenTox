@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { capitalize } from "@material-ui/core";
 import { PassIngredient } from '../PassData';
-import IngredientPage from './IngredientPage/IngredientPage.jsx';
+import PageDesctop from './IngredientPage/PageDesctop/PageDesctop.jsx';
 
 const IngredientContainer = (props) => {
     const [searchResults, setSearchResults] = useState({ found: false, data: PassIngredient });
@@ -29,7 +29,7 @@ const IngredientContainer = (props) => {
     }, []);
 
     return (
-        <IngredientPage
+        <PageDesctop
             searchResults={searchResults}
             backButton={props.backButton}
         />

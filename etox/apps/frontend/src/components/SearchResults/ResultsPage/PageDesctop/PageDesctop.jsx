@@ -1,15 +1,15 @@
 import React from 'react';
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
-import IngredientsList from './IngredientsList/IngredientsList.jsx';
-import HazardLevel from './HazardLevel/HazardLevel.jsx';
-import LegendVertical from '../../Charts/LegendVertical/LegendVertical.jsx';
-import ProductPhoto from './ProductPhoto/ProductPhoto.jsx';
-import ProductStatistics from './ProductStatistics/ProductStatistics.jsx';
-import ItemCard from '../../ItemCard/ItemCard.jsx';
+import IngredientsList from '../IngredientsList/IngredientsList.jsx';
+import HazardLevel from '../HazardLevel/HazardLevel.jsx';
+import LegendVertical from '../../../Charts/LegendVertical/LegendVertical.jsx';
+import ProductPhoto from '../ProductPhoto/ProductPhoto.jsx';
+import ProductStatistics from '../ProductStatistics/ProductStatistics.jsx';
+import ItemCard from '../../../ItemCard/ItemCard.jsx';
 import useStyles from './styles.js';
 
-const ResultsPage = (props) => {
+const PageDesctop = (props) => {
     const classes = useStyles();
     return (
         <Container maxWidth={'lg'}>
@@ -65,4 +65,4 @@ const ResultsPage = (props) => {
     )
 };
 
-export default ResultsPage;
+export default PageDesctop;
