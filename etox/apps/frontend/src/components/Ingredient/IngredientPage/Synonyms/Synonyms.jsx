@@ -1,6 +1,6 @@
 import React from 'react';
 import Typography from "@material-ui/core/Typography";
-import capitalizeJoinItems from '../../tools.js';
+import {capitalizeJoinItems} from '../../../tools.js';
 
 const Synonyms = (props) => {
     return (

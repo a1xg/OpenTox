@@ -5,7 +5,7 @@ import TableCell from '@material-ui/core/TableCell';
 import TableRow from '@material-ui/core/TableRow';
 import TableBody from '@material-ui/core/TableBody';
 import TableContainer from '@material-ui/core/TableContainer';
-import capitalizeJoinItems from '../../tools.js';
+import {capitalizeJoinItems} from '../../../tools.js';
 
 const pubchemURL = 'https://pubchem.ncbi.nlm.nih.gov/compound/'
 

@@ -1,17 +1,10 @@
 import React from 'react';
-import { useTheme } from '@mui/material/styles';
-import useMediaQuery from '@mui/material/useMediaQuery';
 import ErrorMessage from './ErrorMessage/ErrorMessage.jsx';
 import PageDesctop from './ResultsPage/PageDesctop/PageDesctop.jsx';
 import PageMobile from './ResultsPage/PageMobile/PageMobile.jsx';
 import ProgressBar from './ProgressBar/ProgressBar.jsx';
+import {MobileOrDesctop} from '../tools.js'
 
-const MobileOrDesctop = () => {
-    // if resolution > 'md' breakpoints - return true
-    const theme = useTheme();
-    const matches = useMediaQuery(theme.breakpoints.up('md'));  
-    return matches == true ? 'desctop' : 'mobile'    
-  };
 
 const SearchResults = (props) => {
     const displayOption = MobileOrDesctop();
