@@ -3,6 +3,7 @@ import Cropper from 'react-easy-crop';
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import Slider from '@material-ui/core/Slider';
+import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import FileDownloadDoneIcon from '@mui/icons-material/FileDownloadDone';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
@@ -36,7 +37,7 @@ const ImageEditor = (props) => {
             props.setCropParam(false);
             props.setEditPreviewSwitch(false);
         } catch (e) {
-            console.error(e)
+            //console.error(e)
         }
     }, [croppedAreaPixels, rotation]);
 
@@ -45,21 +46,24 @@ const ImageEditor = (props) => {
     };
 
     return (
-        <Box>
-            <Box className={classes.cropBox}>
-                <Cropper
-                    crop={crop}
-                    image={props.base64Image}
-                    rotation={rotation}
-                    zoom={zoom}
-                    aspect={aspect}
-                    onCropChange={setCrop}
-                    onRotationChange={setRotation}
-                    onCropComplete={onCropComplete}
-                    onZoomChange={setZoom}
-                />
-            </Box>
-            <Box className={classes.controls}>
+        <Grid container direction='column' spacing={2} >
+            <Grid item >
+                <Box className={classes.cropBox}>
+                    <Cropper
+                        crop={crop}
+                        image={props.base64Image}
+                        rotation={rotation}
+                        zoom={zoom}
+                        aspect={aspect}
+                        onCropChange={setCrop}
+                        onRotationChange={setRotation}
+                        onCropComplete={onCropComplete}
+                        onZoomChange={setZoom}
+                    />
+                </Box>
+            </Grid>
+
+            <Grid item>
                 <Stack spacing={2} direction="row" alignItems="center">
                     <ZoomInIcon className={classes.icon} />
                     <Slider
@@ -72,6 +76,8 @@ const ImageEditor = (props) => {
                         onChange={(e, zoom) => setZoom(zoom)}
                     />
                 </Stack>
+            </Grid>
+            <Grid item>
                 <Stack spacing={2} direction="row" alignItems="center">
                     <AspectRatioIcon className={classes.icon} />
                     <Slider
@@ -84,6 +90,9 @@ const ImageEditor = (props) => {
                         onChange={(e, aspect) => setAspect(aspect)}
                     />
                 </Stack>
+            </Grid>
+
+            <Grid item>
                 <Stack spacing={2} direction="row" alignItems="center">
                     <AutorenewIcon className={classes.icon} />
                     <Slider
@@ -96,8 +105,10 @@ const ImageEditor = (props) => {
                         onChange={(e, rotation) => setRotation(rotation)}
                     />
                 </Stack>
-            
-                <Stack spacing={2} direction="row" alignItems='inherit' justifyContent='space-around'>
+            </Grid>
+
+            <Grid item container direction='row' spacing={2} className={classes.buttonGrid}>
+                <Grid item xs={6}>
                     <Button
                         onClick={editHandler}
                         variant="contained"
@@ -107,6 +118,8 @@ const ImageEditor = (props) => {
                     >
                         <Typography className={classes.link}>Back</Typography>
                     </Button>
+                </Grid>
+                <Grid item xs={6}>
                     <Button
                         onClick={showCroppedImage}
                         variant="contained"
@@ -116,10 +129,9 @@ const ImageEditor = (props) => {
                     >
                         <Typography className={classes.link}>Save</Typography>
                     </Button>
-                </Stack>
-            </Box>
-        </Box>
-
+                </Grid>
+            </Grid>
+        </Grid>
     )
 };
 

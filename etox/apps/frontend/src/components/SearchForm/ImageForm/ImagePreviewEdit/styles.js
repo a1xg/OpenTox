@@ -13,24 +13,29 @@ const useStyles = makeStyles((theme) => ({
     dialogContainer: {
         alignItems: 'center',
         textAlign: 'center',
+        paddingTop: theme.spacing(1),
         backgroundColor: theme.palette.grey[50],
     },
     previewGrid:{
+        alignItems: 'center',
+    },
+
+    buttonGrid:{
+        width:'100%'
     },
     previewBox: {
         position: 'relative',
         width: 500,
-        overflow:'auto',
         height:'100%',
         background: theme.palette.grey[900],
         [theme.breakpoints.down('md')]: {
-            width: '100%',
+            width: '100%', 
         }
     },
     cropBox: {
         position: 'relative',
         width: 500,
-        height: '50vh', //400
+        height: '50vh',
         background: theme.palette.grey[900],
         [theme.breakpoints.down('md')]: {
             width: '100%',
@@ -39,9 +44,6 @@ const useStyles = makeStyles((theme) => ({
     image: {
         maxHeight: '70vh',
         maxWidth:'100%',
-        [theme.breakpoints.down('md')]: {
-            //maxWidth: '100%',
-        }
     },
     controls: {
         paddingTop: 5,
@@ -52,7 +54,6 @@ const useStyles = makeStyles((theme) => ({
         [theme.breakpoints.down('md')]: {
             maxWidth: '100%',
         }
-
     },
     button: {
         width: '100%',

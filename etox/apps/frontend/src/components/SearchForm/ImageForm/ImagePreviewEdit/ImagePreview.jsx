@@ -16,14 +16,14 @@ const ImagePreview = (props) => {
     };
 
     return (
-        <Grid container direction='column' spacing={2} >
+        <Grid container direction='column' spacing={2} className={classes.previewGrid}>
             <Grid item xs={12}>
                 <Box className={classes.previewBox}>
                     <img src={props.base64Image} className={classes.image} />
                 </Box>
             </Grid>
 
-            <Grid item xs={12} container direction='row' spacing={1}>
+            <Grid item xs={12} container direction='row' spacing={2} className={classes.buttonGrid}>
                 <Grid item xs={6}>
                     <Button
                         onClick={editHandler}
