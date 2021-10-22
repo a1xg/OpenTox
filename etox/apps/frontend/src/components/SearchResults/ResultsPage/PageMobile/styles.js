@@ -18,16 +18,12 @@ const useStyles = makeStyles((theme) => ({
     },
     gridRow2:{
         marginLeft:theme.spacing(1),
-        marginRight:theme.spacing(1)
-       //alignItems: 'stretch',
-    //justifyContent: 'space-between',
+        marginRight:theme.spacing(1),
     },
     gridRow3:{
-        //alignItems: 'stretch',
-        //justifyContent: 'start',
-        //marginLeft:theme.spacing(2),
-        //marginRight:theme.spacing(2),
-        width:'100%'
+        alignItems: 'stretch',
+        justifyContent: 'space-around',
+        width: 'calc(100% - 16px)'
     }
 }));
 

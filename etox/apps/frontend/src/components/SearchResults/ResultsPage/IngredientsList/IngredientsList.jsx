@@ -7,6 +7,7 @@ import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableContainer from '@material-ui/core/TableContainer';
+import Container from '@material-ui/core/Container';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import TableFooter from '@material-ui/core/TableFooter';
@@ -22,7 +23,7 @@ TablePaginationActions.propTypes = {
     page: PropTypes.number.isRequired,
     rowsPerPage: PropTypes.number.isRequired,
 };
-
+// TODO поправить ширину в мобильной версии, что бы не появлялся скроллбар
 const IngredientsList = (props) => {
     const ingredients = props.data.product_ingredients;
     const [page, setPage] = useState(0);
@@ -39,8 +40,8 @@ const IngredientsList = (props) => {
     };
 
     return (
-        <TableContainer>
-            <Table xs={12}>
+        <Container>
+            <Table xs={12} >
                 <TableHead>
                     <TableRow>
                         <TableCell>Name</TableCell>
@@ -108,7 +109,7 @@ const IngredientsList = (props) => {
                     </TableRow>
                 </TableFooter>
             </Table>
-        </TableContainer>
+        </Container>
     )
 };
 
