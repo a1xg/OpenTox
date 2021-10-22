@@ -31,7 +31,7 @@ const Contacts = (props) => {
                             Project page on github
                         </Link>
                         <Link href='https://www.linkedin.com/in/oleksandr-smirnov-383363150/'>
-                            linkedIn author page
+                            LinkedIn author page
                         </Link>
                     </Stack>
                 </Box>

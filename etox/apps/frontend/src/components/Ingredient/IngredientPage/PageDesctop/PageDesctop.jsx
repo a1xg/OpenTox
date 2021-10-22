@@ -14,6 +14,7 @@ import Breadcrumb from "../Breadcrumb/Breadcrumbs.jsx";
 import useStyles from "./styles.js";
 
 const PageDesctop = (props) => {
+    console.log('Desctop view')
     const classes = useStyles();
     return (
         <Container maxWidth={'lg'}>
@@ -21,7 +22,6 @@ const PageDesctop = (props) => {
                 <Breadcrumb namePage={props.searchResults.data.ingredient.main_name} />
             }
             <Grid container direction="column" spacing={2} className={classes.root}>
-
             <Grid item xs={12} container direction="row" spacing={0} className={classes.topGrid} >
                 <Grid item container xs={4} direction='column' spacing={2} className={classes.col1}>
                     <Grid item>
@@ -47,7 +47,6 @@ const PageDesctop = (props) => {
                         </Grid>
                     }
                 </Grid>
-
                 <Grid item container xs={8} direction="column" spacing={2} className={classes.col2}>
                     <Grid item container direction="row" spacing={2} className={classes.col2row}>
                         {props.searchResults.data.ingredient.hazard.ingredient_hazard_avg > 0 &&

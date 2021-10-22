@@ -22,7 +22,7 @@ const Footer = (props) => {
                             About us
                         </Link>
                         <Link to='/how-use' component={NavLink}>
-                            How use
+                            How to use
                         </Link>
                         <Link to='/contacts' component={NavLink}>
                             Contacts

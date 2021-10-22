@@ -16,7 +16,7 @@ import useStyles from './styles.js';
 
 const menuItems = [
     { text: 'Home page', link: '/', icon: <HomeIcon />},
-    { text: 'How use', link: '/how-use', icon: <HelpIcon />},
+    { text: 'How to use', link: '/how-use', icon: <HelpIcon />},
     //{ text: 'How it works', link: '/how-it-works', icon: <BuildIcon /> },
     { text: 'About us', link: '/about', icon: <InfoIcon />},
     { text: 'Contacts', link: '/contacts', icon: <MailIcon />},

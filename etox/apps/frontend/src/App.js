@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { Route } from 'react-router-dom'
 import Container  from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
-import { makeStyles } from "@material-ui/core";
 import { ThemeProvider } from '@material-ui/core/styles';
 import SearchForm from './components/SearchForm/SearchForm.jsx';
 import SearchResultsContainer from './components/SearchResults/SearchResultsContainer.jsx';
@@ -13,20 +12,11 @@ import Footer from './components/Footer/Footer.jsx';
 import HowUse from './components/HowUse/HowUse.jsx';
 import Contacts from './components/Contacts/Contacts.jsx';
 import customTheme from './components/CustomTheme/CustomTheme.jsx';
+import useStyles from './AppStyles.js';
 
 // * useScrollTrigger  для переключения строки поиска в appbar при скролле
 // TODO проверить правильность и грамматику title, tooltip итд
-
 // TODO сделать мобильную версию сайта, возможно придется написать отдельные гриды для мобильной версии
-
-const useStyles = makeStyles((theme) => ({
-  app: {
-    backgroundColor: theme.palette.grey[100],
-    minHeight: '100vh',
-    display: 'flex',
-    flex: '1'
-  }
-}));
 
 const App = (props) => {
   const classes = useStyles();
@@ -59,12 +49,12 @@ const App = (props) => {
 
   return (
     <ThemeProvider theme={customTheme}>
-      <Container maxWidth={'xl'} className={classes.app}>
-        <Grid container spacing={3} direction='row'>
-          <Grid item xs={12} >
+      <Container maxWidth={'xl'} className={classes.appContainer}>
+        <Grid container spacing={0} direction='row' className={classes.grid}>
+          <Grid item xs={12} className={classes.headerWrapper}>
             <SideBar />
           </Grid>
-          <Grid item xs={12}>
+          <Grid item xs={12} className={classes.searchWrapper}>
             <Grid item container
               alignItems="center"
               justifyContent="center"
@@ -72,7 +62,7 @@ const App = (props) => {
               <SearchForm path='/' setQuery={setQuery} />
             </Grid>
           </Grid>
-          <Grid item xs={12}>
+          <Grid item xs={12} className={classes.contentWrapper}>
               <Route
                 exact path='/search-results'
                 component={() => <SearchResultsContainer searchResults={searchResults} />}
@@ -85,7 +75,7 @@ const App = (props) => {
               <Route exact path='/how-use' component={HowUse} />
               <Route exact path='/contacts' component={Contacts} />           
           </Grid>
-          <Grid item xs={12} >
+          <Grid item xs={12} className={classes.footerWrapper}>
             <Container maxWidth={'lg'}>
               <Footer />
             </Container>
