@@ -13,9 +13,9 @@ import useStyles from './styles.js';
 const HowUse = (props) => {
     const classes = useStyles();
     return (
-        <Container>
+        <Container className={classes.wrapper}>
             <ItemCard>
-                <Box className={classes.root}>
+                <Box className={classes.box}>
                     <Typography variant='h6'>1 Take a high-quality photo of your product's ingredient list</Typography>
                     <Typography variant='body2'>
                         *Don't use flash, use natural light.

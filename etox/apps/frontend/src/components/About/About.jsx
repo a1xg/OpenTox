@@ -10,10 +10,10 @@ import useStyles from './styles.js';
 const About = (props) => {
     const classes = useStyles();
     return (
-        <Container>
+        <Container className={classes.container}>
             <ItemCard>
                 <Box className={classes.contentWrapper}>
-                    <Typography variant='h6'>About OpenTox</Typography>
+                    <Typography variant='h5'>About OpenTox</Typography>
                     <Box className={classes.textWrapper}>
                         <Typography variant='body1'>
                             OpenTox is a service for assessing the potential harm to human health of food additives and cosmetics components.
@@ -21,7 +21,7 @@ const About = (props) => {
                         </Typography>
                     </Box>
 
-                    <Typography variant='h6'>Our mission</Typography>
+                    <Typography variant='h5'>Our mission</Typography>
                     <Box className={classes.textWrapper}>
                         <Typography variant='body1'>
                             OpenTox makes it easy to assess the health risks of a particular food or cosmetic product using
@@ -31,7 +31,7 @@ const About = (props) => {
                         </Typography>
                     </Box>
 
-                    <Typography variant='h6'>Opentox rating</Typography>
+                    <Typography variant='h5'>Opentox rating</Typography>
                     <Box className={classes.textWrapper}>
                         <Typography variant='body1'>
                             The OpenTox rating is calculated based on data from the GHS system.
@@ -41,7 +41,7 @@ const About = (props) => {
                         </Typography>
                     </Box>
 
-                    <Typography variant='h6'>GHS system</Typography>
+                    <Typography variant='h5'>GHS system</Typography>
                     <Box className={classes.textWrapper}>
                         <Typography variant='body1'>
                             
@@ -60,7 +60,7 @@ const About = (props) => {
                         </Typography>
                     </Box>
 
-                    <Typography variant='h6'>CLP system and the problem of its implementation</Typography>
+                    <Typography variant='h5'>CLP system and the problem of its implementation</Typography>
                     <Box className={classes.textWrapper}>
                         <Typography variant='body1'>
                             
@@ -99,7 +99,7 @@ const About = (props) => {
                         </Typography>
                     </Box>
                     
-                    <Typography variant='h6'>Sources: </Typography>
+                    <Typography variant='h5'>Links</Typography>
                     <Box className={classes.textWrapper} style={{ border: 'none', paddingTop: 0 }}>
                         <Stack direction='column' spacing={1}>
                             <Typography variant='caption'>
@@ -107,8 +107,8 @@ const About = (props) => {
                                 <Link href='https://unece.org/about-ghs'> Globally Harmonized System of Classification and Labelling of Chemicals (GHS)</Link>
                             </Typography>
                             <Typography variant='caption'>
-                                <b>[2]</b>
-                                <Link href='https://echa.europa.eu/regulations/clp/understanding-clp'>
+                                <b>[2] </b>
+                                <Link href='https://echa.europa.eu/regulations/clp/understanding-clp'> 
                                     Classification, Labelling and Packaging (CLP) Regulation
                                 </Link>
                             </Typography>

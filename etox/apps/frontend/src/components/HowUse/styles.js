@@ -1,9 +1,17 @@
 import { makeStyles } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
-    root: {
+    wrapper:{
+        paddingLeft:theme.spacing(1),
+        paddingRight:theme.spacing(1)
+    },
+
+    box: {
         alignItems: 'center',
         padding: 50,
+        [theme.breakpoints.down('md')]: {
+            padding: 5,
+        },
         justifyItems: 'space-around'
     },
     paper: {
@@ -11,18 +19,23 @@ const useStyles = makeStyles((theme) => ({
         padding: 15,
         display: 'table',
         marginTop: 20,
-        marginBottom:20
+        marginBottom: 20,
+        [theme.breakpoints.down('md')]: {
+            padding: 5,
+            marginTop: 5,
+            marginBottom: 5,
+        }
     },
     imgContainer: {
         position: 'relative',
         padding: 4,
         borderRadius: 4,
-        width:'100%',
-        height:'100%'
+        width: '100%',
+        height: '100%'
     },
     image: {
         maxWidth: '100%',
-        maxHeight:'100%'
+        maxHeight: '100%'
     },
     iconRed: {
         opacity: 0.8,
