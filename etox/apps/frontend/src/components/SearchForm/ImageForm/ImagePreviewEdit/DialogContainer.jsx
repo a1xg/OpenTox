@@ -5,30 +5,18 @@ import ImagePreview from './ImagePreview.jsx';
 import ImageEditor from './ImageEditor.jsx';
 import ItemCard from '../../../ItemCard/ItemCard.jsx';
 import useStyles from './styles.js';
+import { MobileOrDesctop, base64decode } from '../../../tools.js';
+
 //TODO поправить ширину контейнера
-
-const base64decode = (dataURL) => {
-    let arr = dataURL.split(","),
-        mime = arr[0].match(/:(.*?);/)[1],
-        bstr = atob(arr[1]),
-        n = bstr.length,
-        u8arr = new Uint8Array(n);
-
-    while (n--) {
-        u8arr[n] = bstr.charCodeAt(n);
-    };
-
-    return new File([u8arr], 'croppedImage.jpg', { type: mime });
-};
 
 const UploadDialog = (props) => {
     const classes = useStyles();
     const [editPreviewSwitch, setEditPreviewSwitch] = useState(false);
     const [base64Image, setBase64Image] = useState(null);
+    const displayOption = MobileOrDesctop();
 
     const sendHandler = () => {
         const imageFile = base64decode(base64Image);
-        console.log('UploadDialog byte img', imageFile)
         props.setFinalImage(imageFile);
     };
 
@@ -41,7 +29,12 @@ const UploadDialog = (props) => {
     }, [props.inputImage]);
 
     return (
-        <Dialog open={props.openDialog} onClose={props.closeHandler}>
+        <Dialog 
+        open={props.openDialog} 
+        onClose={props.closeHandler} 
+        className={classes.dialog}
+        fullWidth={displayOption == 'mobile' ? true : false}
+        >
             <ItemCard>
                 <Container className={classes.dialogContainer}>
                     {editPreviewSwitch == false &&

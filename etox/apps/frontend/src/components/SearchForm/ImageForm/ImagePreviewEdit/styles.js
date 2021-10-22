@@ -1,53 +1,61 @@
 import React from 'react';
-import {makeStyles} from '@material-ui/core'
+import { makeStyles } from '@material-ui/core'
 
 const useStyles = makeStyles((theme) => ({
+    dialog:{
+        '& .MuiDialog-paper': {
+            margin: 0
+        },
+        '& .MuiDialog-paperFullWidth':{
+            width:'calc(100% - 16px)'
+        }
+    },
     dialogContainer: {
         alignItems: 'center',
         textAlign: 'center',
         backgroundColor: theme.palette.grey[50],
     },
-
+    previewGrid:{
+    },
     previewBox: {
         position: 'relative',
         width: 500,
-        maxHeight:400,
+        overflow:'auto',
+        height:'100%',
         background: theme.palette.grey[900],
         [theme.breakpoints.down('md')]: {
-            width:'80%',
+            width: '100%',
         }
     },
-
-    cropBox:{
+    cropBox: {
         position: 'relative',
-        width:500,
-        height:400,
+        width: 500,
+        height: '50vh', //400
         background: theme.palette.grey[900],
         [theme.breakpoints.down('md')]: {
-            maxWidth:'90%',            
+            width: '100%',
         }
     },
-
-    image:{
-        maxWidth:500,
-        maxHeight:400,
+    image: {
+        maxHeight: '70vh',
+        maxWidth:'100%',
         [theme.breakpoints.down('md')]: {
-            maxWidth:'100%',
+            //maxWidth: '100%',
         }
     },
     controls: {
         paddingTop: 5,
-        paddingBottom:0,
+        paddingBottom: 0,
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'stretch',
         [theme.breakpoints.down('md')]: {
-            maxWidth:'90%',
+            maxWidth: '100%',
         }
 
     },
     button: {
-        width:'100%',
+        width: '100%',
         backgroundColor: theme.palette.grey[100],
         "&:hover": {
             backgroundColor: theme.palette.primary[200],
@@ -56,10 +64,10 @@ const useStyles = makeStyles((theme) => ({
             backgroundColor: theme.palette.primary[400],
         },
     },
-    icon:{
+    icon: {
         color: theme.palette.grey[700],
     },
-    link:{
+    link: {
         color: theme.palette.grey[700],
     },
     slider: {
