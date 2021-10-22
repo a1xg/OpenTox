@@ -8,7 +8,6 @@ import { Stack } from '@mui/material';
 import { getData } from '../ChartTools.js';
 
 const LegendHorizontal = (props) => {
-    console.log('LegendHorizontal props', props);
     const [legendData, setLegendData] = useState([{ value: null, id: null, label: null, color: 'white' }]);
     const classes = useStyles();
 

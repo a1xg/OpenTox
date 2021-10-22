@@ -14,7 +14,6 @@ import Breadcrumb from "../Breadcrumb/Breadcrumbs.jsx";
 import useStyles from "./styles.js";
 
 const PageDesctop = (props) => {
-    console.log('Desctop view')
     const classes = useStyles();
     return (
         <Container maxWidth={'lg'}>

@@ -3,7 +3,7 @@ import Container from '@material-ui/core/Container';
 import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
 import useStyles from './styles.js';
-
+// TODO сделать адаптивной длину сообщения об ошибке
 const ErrorMessage = (props) => {
     const classes = useStyles();
     return (

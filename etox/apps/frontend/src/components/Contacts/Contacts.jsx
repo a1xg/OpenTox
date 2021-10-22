@@ -27,7 +27,7 @@ const Contacts = (props) => {
             <ItemCard title='Contacts'>
                 <Box className={classes.content}>
                     <Stack direction='column' spacing={2} >
-                        <Link href='https://github.com/a1xg/etox'  >
+                        <Link href='https://github.com/a1xg/opentox'  >
                             Project page on github
                         </Link>
                         <Link href='https://www.linkedin.com/in/oleksandr-smirnov-383363150/'>

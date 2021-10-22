@@ -11,7 +11,6 @@ const SearchResults = (props) => {
 
     if (props.searchResults.loaded == true) {
         document.title = 'OpenTox - Search results';
-        console.log('SearchResults displayOption', displayOption)
         if (displayOption == 'desctop') {
             
             return <PageDesctop searchResults={props.searchResults} />

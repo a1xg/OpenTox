@@ -6,9 +6,14 @@ const useStyles = makeStyles((theme) => ({
         border: `1px solid ${theme.palette.grey[300]}`,
         borderRadius:'4px',
         alignItems: 'center',
-        width: 600,
+        maxWidth: 600,
+        marginLeft: theme.spacing(1),
+        marginRight:theme.spacing(1),
         textAlign: 'center',
-        padding: '10px'
+        padding: '10px',
+        [theme.breakpoints.down('md')]:{
+            width:'calc(100% - 16px)'
+        }
 
     },
     title: {
