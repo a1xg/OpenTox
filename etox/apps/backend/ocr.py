@@ -4,6 +4,7 @@ import cv2
 import pytesseract
 import pycountry
 from .ocr_settings import *
+import base64
 
 from langdetect import detect, DetectorFactory
 # Absolute path to tesseract.exe file if environment variable is not working correctly
@@ -33,6 +34,7 @@ pytesseract.pytesseract.tesseract_cmd = TESSERACT_PATH
 
 class ImageOCR:
     def __init__(self, img):
+        self.original = img
         self.img = self._decode_image(img)
         self.text = [] # output list of dictionaries with recognized text in the format {'lang':'text'}
         self._boxes = []
@@ -44,9 +46,14 @@ class ImageOCR:
 
     def _encode_image(self, input_img:np.ndarray):
         '''Encodes an np.ndarray into a JPG image'''
-        success, encoded_image = cv2.imencode('.jpg', input_img)
-        bytes_img = encoded_image.tostring()
-        return bytes_img
+        retval, buffer = cv2.imencode('output.jpg', input_img)
+
+        # Convert to base64 encoding and show start of data
+        base64_string = base64.b64encode(buffer)
+
+        #success, encoded_image = cv2.imencode('.jpg', input_img)
+        #bytes_img = encoded_image.tostring()
+        return base64_string
 
     def _image_preprocessing(self) -> np.ndarray:
         '''Flattening the image histogram'''
@@ -265,7 +272,7 @@ class ImageOCR:
         if binary_images == False:
             return False
         # Loop through images prepared for OCR
-        for image in binary_images:
+        for index, image in enumerate(binary_images):
             if text_lang == False:
 
                 # If the image language is unknown, then the tesseract will
@@ -281,31 +288,61 @@ class ImageOCR:
                 custom_config = (f'-l {recognized_lang} --oem 1 --psm 6')
                 text = self._recognize_text(custom_config, image)
                 self.text.append({
-                    recognized_lang: text,
-                    'image':self._encode_image(image)
+                    'lang':recognized_lang,
+                    'box_index':index,
+                    'text': text
                 })
             else:
                 # Recognition option if the language of the text is known
                 config = (f'-l {text_lang} --oem 1 --psm 6')
                 text = self._recognize_text(config, image)
                 self.text.append({
-                    text_lang:text,
-                    'image':self._encode_image(image)
+                    'lang': text_lang,
+                    'box_index': index,
+                    'text': text
                 })
         return self.text
 
-    def draw_boxes(self, max_resolution) -> np.ndarray:
+    def draw_boxes(self, **kwargs) -> np.ndarray:
         """
         Method for drawing bounding rectangles
         It is intended for debugging of the module or delivery to the
         user of the image with the selected text
+
+        :param index: (int) Index of the box text in the array self._boxes,
+        optional parameter to print one selected box.
+        :param max_resolution: (int) An optional parameter to scale the image
+        to a specified maximum measurement of height or width.
+        :param color: (tuple) color RGB for example (255,122,4)
+        :param thickness: (int) line thickness(pixels) of box
+        :param bytes: (bool) When specifying the parameter, truth will return
+        a byte-image, by default it will return an nd.array
         """
-        img_with_boxes = self.img
-        for box in self._boxes:
+
+        img = self._decode_image(self.original)
+
+        boxes = self._boxes # default value - all boxes
+        if kwargs.get('index'):
+            index = kwargs['index']
+            boxes = [self._boxes[index]]
+
+        line_color = (255, 0, 0) # default
+        if kwargs.get('color'):
+            line_color = kwargs['color']
+
+        line_thickness = 10 # default
+        if kwargs.get('thickness'):
+            line_thickness = kwargs['thickness']
+
+        for box in boxes:
             (x,y,w,h) = box
-            cv2.rectangle(img_with_boxes, (x, y), ((x + w), (y + h)), (255, 255, 0), 10)
+            cv2.rectangle(img, (x, y), ((x + w), (y + h)), line_color, line_thickness)
 
-        img_with_boxes = self._resize_image(img_with_boxes, max_resolution) if max_resolution != False else img_with_boxes
+        # If the maximum resolution is set, then the picture will be changed, otherwise return the original
+        if kwargs.get('max_resolution'):
+            img = self._resize_image(img, kwargs['max_resolution'])
 
-        return img_with_boxes
+        if kwargs.get('base64') == True:
+             return self._encode_image(img)
 
+        return img

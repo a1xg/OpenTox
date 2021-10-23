@@ -6,29 +6,52 @@ from .db_tools import DBQueries
 from .ocr_settings import *
 
 class Search:
-    # TODO отдать пользователю изображение с составом
-    def _get_text(self, **kwargs):
-        ocr = ImageOCR(img=kwargs['image'])
-        text = ocr.get_text(text_lang=DEFAULT_LANG, crop=kwargs['crop'], set_font=FONT_SIZE)
-        return text
+    # TODO отдать пользователю изображение с выделенным цветом составом продукта
+    def __init__(self):
+        self.box_index = None # Target block with text
+        self.queryset = None
+        self.output_image = None
 
-    def get_queryset(self, **kwargs):
-        if 'text' in kwargs:
-            return IngredientsBlockFinder(data=kwargs['text']).getData()
+    def _get_queryset(self, **kwargs):
+        if 'request_text' in kwargs:
+            finder = IngredientsBlockFinder(data=kwargs['request_text'])
+            self.queryset = finder.getData()
+            if finder.box_index != None:
+                self.box_index = finder.box_index
         elif 'pk' in kwargs:
-            return DBQueries().search_in_db(pk=kwargs['pk'])
+            self.queryset = DBQueries().search_in_db(pk=kwargs['pk'])
 
     def get_context(self, **kwargs):
         if 'image' in kwargs:
-            kwargs['text'] = self._get_text(**kwargs)
+            ocr = ImageOCR(img=kwargs['image'])
+            kwargs['request_text'] = ocr.get_text(
+                text_lang=DEFAULT_LANG,
+                crop=kwargs['crop'],
+                set_font=FONT_SIZE
+            )
         elif 'text' in kwargs:
-            kwargs['text'] = [{DEFAULT_LANG:kwargs['text']}]
+            kwargs['request_text'] = [{
+                'lang':DEFAULT_LANG,
+                'text':kwargs['text']
+            }]
 
-        queryset = self.get_queryset(**kwargs)
-        ingredients_data = IngredientsSerializer(queryset, many=True).data
+        self._get_queryset(**kwargs)
+
+        ingredients_data = IngredientsSerializer(self.queryset, many=True).data
         output_data = HazardMeter(data=ingredients_data, display_format=kwargs['display_format']).get_data()
+
+        output_data['image_with_ingredients'] = None
+        if self.box_index != None:
+            output_data['image_with_ingredients'] = ocr.draw_boxes(
+                index=self.box_index,
+                max_resolution=200,
+                color= (255,255,0),
+                base64=True
+            )
 
         if kwargs['display_format'] == 'list':
             return ProductSerializer(output_data, many=False).data
         elif kwargs['display_format'] == 'detail':
-            return {'ingredient': DetailsIngredientSerializer(output_data, many=False).data}
+            return {
+                'ingredient': DetailsIngredientSerializer(output_data, many=False).data
+            }

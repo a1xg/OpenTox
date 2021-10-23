@@ -159,4 +159,4 @@ class ProductSerializer(serializers.Serializer):
     product_ingredients = ListIngredientSerializer(many=True)
     detail_hazard_product = ProductHazardStatisticsSerializer(many=True)
     product_hazard_avg = serializers.IntegerField()
-    #image_with_ingredients = serializers.CharField() # not not implemented
+    image_with_ingredients = serializers.CharField() # not not implemented

@@ -1,6 +1,7 @@
 import re
 
 # The module sequentially processes the raw text received from the image recognition.
+# TODO Make a frequency analyzer to determine the type of separator (','|';'|'-'|'*' etc)
 
 class TextPostprocessing:
     def __init__(self):

@@ -20,12 +20,13 @@ class TextBlock:
         self.keywords = []        # all keywords except numbers
         self.results = []         # objects of search results
         self.count = int          # the number of keywords found in the database
-        self.image = bytes        # the output image
+        self.index = None          # the index of the textbox returned from the OCR
 
 class IngredientsBlockFinder:
     def __init__(self, data: list):
         self.data = data
         self._text_blocks = self._buildTextBlock()
+        self.box_index = None
 
     def _buildTextBlock(self) -> list:
         '''We accept dictionaries and form objects of text blocks.
@@ -33,9 +34,12 @@ class IngredientsBlockFinder:
          The values are an unnormalized string of keywords.'''
         text_blocks = []
         for dict in self.data:
-            key = list(dict.keys())[0]
-            string = dict.get(key)
-            text_block = TextBlock(text=string, lang=key)
+            string = dict.get('text')
+            lang = dict.get('lang')
+            box_index = dict.get('box_index')
+
+            text_block = TextBlock(text=string, lang=lang)
+            #if 'box_index' in
             # We look for E numbers and put them in order, if found, then remove them from the rest of the line.
             e_numbers = re.findall(RE_MASKS['eNumber'], string)
             if e_numbers:
@@ -50,29 +54,27 @@ class IngredientsBlockFinder:
                 text_block.colour_index = ci_nums
                 string = re.sub(RE_MASKS['colourIndex'], '', string)
 
-            # If the text was received from an image, then the image must be returned with anchor to the text block
-            image = dict.get('image')
-            text_block.image = image
-
             # the remaining keywords are cleared of extra characters and spaces, separated by comma
             cleared_string = TextPostprocessing().string_filter(input_string=string)
             keyword_list = cleared_string.split(',')
             keyword_list = [keyword for keyword in keyword_list if len(keyword) > 0]
             text_block.keywords = keyword_list
+            if box_index != None:
+                text_block.index = box_index
             text_blocks.append(text_block)
 
         return text_blocks
 
-    def getData(self) -> list:
+    def getData(self) -> None:
         '''Looping through text blocks'''
-        # TODO make asynchronous
         for text_block in self._text_blocks:
             results = DBQueries().search_in_db(text_block=text_block, update_statistics=True)
             text_block.results = results
             text_block.count = results.count()
         ingredients_block = self._selectIngredientBlock()
 
-        return ingredients_block.results # ingredients_block.image
+        self.box_index = ingredients_block.index
+        return ingredients_block.results
 
     def _selectIngredientBlock(self) -> TextBlock:
         '''Select the block of text for which the most matches were found in the database'''

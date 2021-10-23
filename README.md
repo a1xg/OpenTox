@@ -1,1 +1,1 @@
-# etox
+# OpenTox
