@@ -52,12 +52,11 @@ const PageDesctop = (props) => {
                         }
                     </Grid>
                     <Grid item>
-                        {/*
-                        props.searchResults.data.image_with_ingredients != null &&
+                        {props.searchResults.data.image_with_ingredients != null &&
                             <ItemCard title='Your product image'>
                                 <ProductPhoto image={props.searchResults.data.image_with_ingredients} />
                             </ItemCard>
-                        */}
+                        }
                     </Grid>
                 </Grid>
             </Grid>

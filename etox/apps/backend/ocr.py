@@ -45,14 +45,10 @@ class ImageOCR:
         return decoded_img
 
     def _encode_image(self, input_img:np.ndarray):
-        '''Encodes an np.ndarray into a JPG image'''
+        '''Encodes an np.ndarray into a base64 string'''
         retval, buffer = cv2.imencode('output.jpg', input_img)
-
         # Convert to base64 encoding and show start of data
         base64_string = base64.b64encode(buffer)
-
-        #success, encoded_image = cv2.imencode('.jpg', input_img)
-        #bytes_img = encoded_image.tostring()
         return base64_string
 
     def _image_preprocessing(self) -> np.ndarray:

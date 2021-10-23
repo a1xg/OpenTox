@@ -44,8 +44,8 @@ class Search:
         if self.box_index != None:
             output_data['image_with_ingredients'] = ocr.draw_boxes(
                 index=self.box_index,
-                max_resolution=200,
-                color= (255,255,0),
+                max_resolution=500,
+                color= (0,255,0),
                 base64=True
             )
 
