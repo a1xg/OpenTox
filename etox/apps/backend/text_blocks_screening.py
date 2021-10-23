@@ -74,6 +74,7 @@ class IngredientsBlockFinder:
         ingredients_block = self._selectIngredientBlock()
 
         self.box_index = ingredients_block.index
+
         return ingredients_block.results
 
     def _selectIngredientBlock(self) -> TextBlock:

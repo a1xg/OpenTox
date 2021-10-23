@@ -148,7 +148,7 @@ class ImageOCR:
         # If the list of bounding boxes is empty, then the entire image will be the bounding box
         self._boxes = [[0, 0, image.shape[1], image.shape[0]]] if len(self._boxes) <= 0 else self._boxes
         # Cut out blocks with text from the original image using bounding boxes
-        for box in self._boxes:
+        for index, box in enumerate(self._boxes):
             (x, y, w, h) = box
             cropped_img = image[y:y + h, x:x + w]
             num_lines = int(cropped_img.shape[0]/font_size) # count the number of lines in the image
@@ -177,7 +177,7 @@ class ImageOCR:
                 new_max_resolution = max_dimension/scale_coef
                 # Resize excessively large images based on the desired font size
                 scaled_binary_img = self._resize_image(img_binary, new_max_resolution)
-                binary_images.append(scaled_binary_img)
+                binary_images.append((index,scaled_binary_img))
         # return an array of binary images, if any.
         return binary_images if len(binary_images) > 0 else False
 
@@ -190,7 +190,7 @@ class ImageOCR:
         contours, hierarchy = cv2.findContours(mask_img, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_NONE)
         contours = sorted(contours, key=cv2.contourArea, reverse=True)
         img_area = mask_img.shape[0]*mask_img.shape[1]
-
+        boxes = []
         for cont in contours:
             # remove boxes whose area is less than the threshold value
             (x, y, w, h) = cv2.boundingRect(cont)
@@ -199,10 +199,10 @@ class ImageOCR:
             else:
                 # Expand the remaining boxes (%) using the coefficients by, bx so
                 # that the text is guaranteed to fit in them
-                by = int(h*0.02)
+                by = int(h*0.05)
                 bx = int(w*0.05)
                 x1, x2 = abs(x - bx), (x + w + bx)
-                y1, y2 = abs(y - by), (y + h + bx)
+                y1, y2 = abs(y - by), (y + h + by)
                 # We check if the coordinates x2, y2 go beyond the image and if they do,
                 # then the coordinates are equal to the maximum dimension of the image
                 if x2 > mask_img.shape[1]:
@@ -212,14 +212,14 @@ class ImageOCR:
 
                 new_W, new_H = (x2 - x1), (y2 - y1)
 
-                self._boxes.append([x1, y1, new_W, new_H])
+                boxes.append([x1, y1, new_W, new_H])
 
-        self._boxes = self._find_largest_boxes(quantity=quantity) if len(self._boxes) > quantity else self._boxes
+        self._boxes = self._find_largest_boxes(quantity=quantity, boxes=boxes) if len(boxes) > quantity else boxes
 
-    def _find_largest_boxes(self, quantity:int) -> list:
+    def _find_largest_boxes(self, quantity:int, boxes:np.array) -> list:
         '''The method takes a list of all found boxes and returns the given
         number (not more than: quantity :) of boxes with the largest area'''
-        boxes_array = np.array(self._boxes)
+        boxes_array = np.array(boxes)
         areas = np.prod(boxes_array[:,2:4], axis=1)
         max_areas_indises = np.argpartition(areas, -quantity)[-quantity:]
         bigest_boxes = [boxes_array[i].tolist() for i in max_areas_indises]
@@ -268,7 +268,7 @@ class ImageOCR:
         if binary_images == False:
             return False
         # Loop through images prepared for OCR
-        for index, image in enumerate(binary_images):
+        for index, image in binary_images:
             if text_lang == False:
 
                 # If the image language is unknown, then the tesseract will
@@ -298,7 +298,8 @@ class ImageOCR:
                     'text': text
                 })
         return self.text
-
+    # FIXME иногда печатается не один а два бокса, иногда печатается не тот бокс который нужен
+    # баг на картинках: eng-21
     def draw_boxes(self, **kwargs) -> np.ndarray:
         """
         Method for drawing bounding rectangles
@@ -314,20 +315,22 @@ class ImageOCR:
         :param bytes: (bool) When specifying the parameter, truth will return
         a byte-image, by default it will return an nd.array
         """
-
+        print(f'ocr.draw_boxes kwargs:\n[{kwargs}]')
         img = self._decode_image(self.original)
 
         boxes = self._boxes # default value - all boxes
-        if kwargs.get('index'):
+        print(f'DRAW BOXES boxes in:\n[{boxes}]')
+        if 'index' in kwargs:
             index = kwargs['index']
             boxes = [self._boxes[index]]
+            print(f'DRAW BOXES boxes out:\n[{boxes}]')
 
         line_color = (255, 0, 0) # default
-        if kwargs.get('color'):
+        if 'color' in kwargs:
             line_color = kwargs['color']
 
         line_thickness = 10 # default
-        if kwargs.get('thickness'):
+        if 'thickness' in kwargs:
             line_thickness = kwargs['thickness']
 
         for box in boxes:
@@ -335,7 +338,7 @@ class ImageOCR:
             cv2.rectangle(img, (x, y), ((x + w), (y + h)), line_color, line_thickness)
 
         # If the maximum resolution is set, then the picture will be changed, otherwise return the original
-        if kwargs.get('max_resolution'):
+        if 'max_resolution' in kwargs:
             img = self._resize_image(img, kwargs['max_resolution'])
 
         if kwargs.get('base64') == True:
