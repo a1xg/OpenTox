@@ -25,10 +25,10 @@ class TextBlock:
 class IngredientsBlockFinder:
     def __init__(self, data: list):
         self.data = data
-        self._text_blocks = self._buildTextBlock()
+        self._text_blocks = self._build_text_block()
         self.box_index = None
 
-    def _buildTextBlock(self) -> list:
+    def _build_text_block(self) -> list:
         '''We accept dictionaries and form objects of text blocks.
          Language codes in alpha3 format are specified as dictionary keys.
          The values are an unnormalized string of keywords.'''
@@ -65,19 +65,19 @@ class IngredientsBlockFinder:
 
         return text_blocks
 
-    def getData(self) -> None:
+    def get_data(self) -> None:
         '''Looping through text blocks'''
         for text_block in self._text_blocks:
             results = DBQueries().search_in_db(text_block=text_block, update_statistics=True)
             text_block.results = results
             text_block.count = results.count()
-        ingredients_block = self._selectIngredientBlock()
+        ingredients_block = self._select_ingredient_block()
 
         self.box_index = ingredients_block.index
 
         return ingredients_block.results
 
-    def _selectIngredientBlock(self) -> TextBlock:
+    def _select_ingredient_block(self) -> TextBlock:
         '''Select the block of text for which the most matches were found in the database'''
         result_count = [block.count for block in self._text_blocks]
         max_matches_idx = result_count.index(max(result_count))

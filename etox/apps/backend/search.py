@@ -15,7 +15,7 @@ class Search:
     def _get_queryset(self, **kwargs):
         if 'request_text' in kwargs:
             finder = IngredientsBlockFinder(data=kwargs['request_text'])
-            self.queryset = finder.getData()
+            self.queryset = finder.get_data()
             if finder.box_index != None:
                 self.box_index = finder.box_index
         elif 'pk' in kwargs:
