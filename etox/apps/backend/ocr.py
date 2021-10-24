@@ -138,13 +138,11 @@ class ImageOCR:
 
         return text_mask
 
-    def _get_binary_images(self, image:np.ndarray, font_size, new_font_size:int) -> list:
+    def _get_binary_images(self, image:np.ndarray, font_size) -> list:
         '''The method crops the text area of interest in the image, brings the 
         resolution of the cropped area to the new standard maximum resolution.
         '''
         binary_images = []
-        # Set the threshold for the number of lines in the image, images with fewer lines will be deleted
-        line_num_threshold = 2
         # If the list of bounding boxes is empty, then the entire image will be the bounding box
         self._boxes = [[0, 0, image.shape[1], image.shape[0]]] if len(self._boxes) <= 0 else self._boxes
         # Cut out blocks with text from the original image using bounding boxes
@@ -153,7 +151,7 @@ class ImageOCR:
             cropped_img = image[y:y + h, x:x + w]
             num_lines = int(cropped_img.shape[0]/font_size) # count the number of lines in the image
             # If the number of lines is more than the threshold value, then we process the image, otherwise we skip
-            if num_lines > line_num_threshold:
+            if num_lines > LINE_NUM_THRESHOLD:
                 # blur the image
                 blur_size = int(np.ceil(font_size*0.2))
                 blur_size = blur_size if blur_size % 2 != 0 else blur_size + 1
@@ -172,7 +170,7 @@ class ImageOCR:
                 img_binary = cv2.bitwise_not(test_thresh) if percent_zeros < 40 else test_thresh
 
                 # We calculate the ratio of the height of the image to the font and the number of lines
-                scale_coef = font_size/new_font_size
+                scale_coef = font_size/TARGET_FONT_SIZE
                 max_dimension = max(img_binary.shape[0:2])
                 new_max_resolution = max_dimension/scale_coef
                 # Resize excessively large images based on the desired font size
@@ -181,7 +179,7 @@ class ImageOCR:
         # return an array of binary images, if any.
         return binary_images if len(binary_images) > 0 else False
 
-    def _find_boxes(self, mask_img:np.ndarray, quantity:int) -> None:
+    def _find_boxes(self, mask_img:np.ndarray) -> None:
         """
         The method accepts a binary image mask that selects text blocks.
         The quantity parameter is intended to limit the number of boxes, remove duplicates and very small boxes.
@@ -199,8 +197,8 @@ class ImageOCR:
             else:
                 # Expand the remaining boxes (%) using the coefficients by, bx so
                 # that the text is guaranteed to fit in them
-                by = int(h*0.05)
-                bx = int(w*0.05)
+                by = int(h*TEXT_BOX_GAP_Y/100)
+                bx = int(w*TEXT_BOX_GAP_X/100)
                 x1, x2 = abs(x - bx), (x + w + bx)
                 y1, y2 = abs(y - by), (y + h + by)
                 # We check if the coordinates x2, y2 go beyond the image and if they do,
@@ -214,23 +212,23 @@ class ImageOCR:
 
                 boxes.append([x1, y1, new_W, new_H])
 
-        self._boxes = self._find_largest_boxes(quantity=quantity, boxes=boxes) if len(boxes) > quantity else boxes
+        self._boxes = self._find_largest_boxes(boxes=boxes) if len(boxes) > NUM_OF_LARGEST_BOXES else boxes
 
-    def _find_largest_boxes(self, quantity:int, boxes:np.array) -> list:
+    def _find_largest_boxes(self, boxes:np.array) -> list:
         '''The method takes a list of all found boxes and returns the given
-        number (not more than: quantity :) of boxes with the largest area'''
+        number (not more than: NUM_OF_LARGEST_BOXES :) of boxes with the largest area'''
         boxes_array = np.array(boxes)
         areas = np.prod(boxes_array[:,2:4], axis=1)
-        max_areas_indises = np.argpartition(areas, -quantity)[-quantity:]
+        max_areas_indises = np.argpartition(areas, -NUM_OF_LARGEST_BOXES)[-NUM_OF_LARGEST_BOXES:]
         bigest_boxes = [boxes_array[i].tolist() for i in max_areas_indises]
         return bigest_boxes
 
-    def _image_cropper(self, image:np.ndarray, crop_coef:float) -> np.ndarray:
+    def _image_cropper(self, image:np.ndarray) -> np.ndarray:
         """The method crops the image proportionally to the crop ratio (floating point numbers from 0 to 1)
         relative to the center of the image."""
         x, y, h, w = 0, 0, image.shape[0], image.shape[1]
         # For correct language recognition, the width is additionally multiplied by 1.5 (you can experiment)
-        new_w, new_h = (w*crop_coef*1.5), (h*crop_coef)
+        new_w, new_h = (w*CROP_FACTOR*1.5), (h*CROP_FACTOR)
         new_x, new_y = (w - new_w), (h - new_h)
         cropped_img = image[int(new_y):int(new_y+new_h), int(new_x):int(new_x+new_w)]
         return cropped_img
@@ -249,7 +247,7 @@ class ImageOCR:
         alpha_3_lang_code = langdict.alpha_3
         return alpha_3_lang_code
 
-    def get_text(self, text_lang:str, crop:bool, set_font:int) -> list:
+    def get_text(self, text_lang:str, crop:bool) -> list:
         """text_lang The language must be specified in alpha-3 format,
         if the language is unknown, then the text_lang parameter must be set to False.
         If the language is not specified, then it will be recognized automatically,
@@ -261,22 +259,18 @@ class ImageOCR:
         font_size, num_lines = self._measure_strings()
         mask_img = self._get_text_mask(self.img, font_size, num_lines)
         if crop == True:
-            self._find_boxes(mask_img=mask_img, quantity=3)
-            binary_images = self._get_binary_images(self.img, font_size, set_font)
+            self._find_boxes(mask_img=mask_img)
+            binary_images = self._get_binary_images(self.img, font_size)
         else:
-            binary_images = self._get_binary_images(self.img, font_size, set_font)
+            binary_images = self._get_binary_images(self.img, font_size)
         if binary_images == False:
             return False
         # Loop through images prepared for OCR
         for index, image in binary_images:
             if text_lang == False:
-
-                # If the image language is unknown, then the tesseract will
-                # make primary recognition in several languages, low quality
-                default_config = ('-l rus+deu+eng --oem 1 --psm 6')
                 # a cropped sample image is used to speed up language recognition.
-                sample_image = self._image_cropper(image, 0.6)
-                multilang_recog_text = self._recognize_text(default_config, sample_image)
+                sample_image = self._image_cropper(image)
+                multilang_recog_text = self._recognize_text(TESSERACT_DEFAULT_CONFIG, sample_image)
                 # Detect language
                 recognized_lang = self._detect_lang(multilang_recog_text)
                 # After the exact definition of the language, we make repeated
@@ -298,8 +292,7 @@ class ImageOCR:
                     'text': text
                 })
         return self.text
-    # FIXME иногда печатается не один а два бокса, иногда печатается не тот бокс который нужен
-    # баг на картинках: eng-21
+
     def draw_boxes(self, **kwargs) -> np.ndarray:
         """
         Method for drawing bounding rectangles
@@ -315,15 +308,12 @@ class ImageOCR:
         :param bytes: (bool) When specifying the parameter, truth will return
         a byte-image, by default it will return an nd.array
         """
-        print(f'ocr.draw_boxes kwargs:\n[{kwargs}]')
         img = self._decode_image(self.original)
 
         boxes = self._boxes # default value - all boxes
-        print(f'DRAW BOXES boxes in:\n[{boxes}]')
         if 'index' in kwargs:
             index = kwargs['index']
             boxes = [self._boxes[index]]
-            print(f'DRAW BOXES boxes out:\n[{boxes}]')
 
         line_color = (255, 0, 0) # default
         if 'color' in kwargs:

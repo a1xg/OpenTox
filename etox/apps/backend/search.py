@@ -18,7 +18,6 @@ class Search:
             self.queryset = finder.getData()
             if finder.box_index != None:
                 self.box_index = finder.box_index
-                print(f'Box with ingredients:\n[{finder.box_index}]')
         elif 'pk' in kwargs:
             self.queryset = DBQueries().search_in_db(pk=kwargs['pk'])
 
@@ -28,7 +27,7 @@ class Search:
             kwargs['request_text'] = ocr.get_text(
                 text_lang=DEFAULT_LANG,
                 crop=kwargs['crop'],
-                set_font=FONT_SIZE
+
             )
         elif 'text' in kwargs:
             kwargs['request_text'] = [{
