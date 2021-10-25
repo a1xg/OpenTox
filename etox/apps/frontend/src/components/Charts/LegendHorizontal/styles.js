@@ -2,7 +2,7 @@ import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles((theme) => ({
     grid:{
-        margin:5,
+        margin:0
     },    
     gridItem: {
         borderRadius: 4,
@@ -11,10 +11,10 @@ const useStyles = makeStyles((theme) => ({
     },    
     stack: {
         alignItems: 'center',
-        textAlign: 'left',
+        //textAlign: 'left',
     },
     stackWrapper:{
-        padding: 5
+        padding: 5,
     }
 }));
 

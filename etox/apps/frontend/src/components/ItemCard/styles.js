@@ -20,9 +20,17 @@ const useStyles = makeStyles((theme) => ({
     },
     caption: {
         color: theme.palette.grey[500],
+        [theme.breakpoints.down('md')]:{
+            paddingLeft: '10px',
+            paddingRight: '10px'
+        },
     },
     title: {
         color: theme.palette.grey[800],
+        [theme.breakpoints.down('md')]:{
+            paddingLeft: '10px',
+            paddingRight: '10px'
+        },
     }
 
 }));

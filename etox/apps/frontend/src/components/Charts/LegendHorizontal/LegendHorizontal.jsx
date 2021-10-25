@@ -27,15 +27,17 @@ const LegendHorizontal = (props) => {
         direction='row' 
         spacing={1} 
         className={classes.grid}
+        aria-label='grid'
         >
             {legendData.map(item => {
                 return (
                     <Grid item xs={3} key={item.id}>
-                        <Paper className={classes.gridItem} elevation={3}>
-                            <Box className={classes.stackWrapper}>
+                        <Paper className={classes.gridItem} elevation={3} aria-label='gridItem'>
+                            <Box className={classes.stackWrapper} aria-label='stackWrapper'>
                                 <Stack 
                                 direction='column' 
                                 className={classes.stack}
+                                aria-label='stack'
                                 >
                                     <svg width='100%' height='4' >
                                         <rect

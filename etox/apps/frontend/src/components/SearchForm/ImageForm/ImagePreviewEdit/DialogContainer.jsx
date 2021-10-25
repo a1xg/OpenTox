@@ -7,8 +7,6 @@ import ItemCard from '../../../ItemCard/ItemCard.jsx';
 import useStyles from './styles.js';
 import { MobileOrDesctop, base64decode } from '../../../tools.js';
 
-//TODO кнопки вылезают за пределы контейнера
-
 const UploadDialog = (props) => {
     const classes = useStyles();
     const [editPreviewSwitch, setEditPreviewSwitch] = useState(false);

@@ -38,7 +38,7 @@ const PageDesctop = (props) => {
                         </Grid>
                     </Grid>
                     <Grid item >
-                        <ItemCard title='List of ingredients'>
+                        <ItemCard title='Ingredients'>
                             <IngredientsList data={props.searchResults.data} />
                         </ItemCard>
                     </Grid>

@@ -48,7 +48,7 @@ const PageMobile = (props) => {
                         }
                 </Grid>
                 <Grid item xs={12} className={classes.gridRow3} >
-                        <ItemCard title='List of ingredients' >
+                        <ItemCard title='Ingredients'>
                             <IngredientsList data={props.searchResults.data} />
                         </ItemCard>
                 </Grid>

@@ -1,9 +1,10 @@
 import React, {useState} from "react";
 import Card from "@material-ui/core/Card";
 import CardContent from '@material-ui/core/CardContent';
+import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
 import useStyles from './styles.js';
-
+//TODO сделать адаптивный отступ для тайтла
 const ItemCard = (props) => {
     const [state, setState] = useState({raised:false, shadow:1})
     const classes = useStyles();
