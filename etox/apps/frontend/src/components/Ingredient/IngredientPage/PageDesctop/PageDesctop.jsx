@@ -17,79 +17,79 @@ const PageDesctop = (props) => {
     const classes = useStyles();
     return (
         <Container maxWidth={'lg'}>
-            {props.backButton == true &&
+            {props.showBreadcrumbs == true &&
                 <Breadcrumb namePage={props.searchResults.data.ingredient.main_name} />
             }
             <Grid container direction="column" spacing={2} className={classes.root}>
-            <Grid item xs={12} container direction="row" spacing={0} className={classes.topGrid} >
-                <Grid item container xs={4} direction='column' spacing={2} className={classes.col1}>
-                    <Grid item>
-                        <ItemCard>
-                            <Title mainName={props.searchResults.data.ingredient.main_name} />
-                            <IngredientRatingBar
-                                rating={props.searchResults.data.ingredient.hazard.ingredient_hazard_avg}
-                                width={150}
-                                height={15}
-                            />
-                        </ItemCard>
-                    </Grid>
-                    <Grid item>
-                        <ItemCard title='Details'>
-                            <Details data={props.searchResults.data.ingredient} />
-                        </ItemCard>
-                    </Grid>
-                    {props.searchResults.data.ingredient.description != null &&
+                <Grid item xs={12} container direction="row" spacing={0} className={classes.topGrid} >
+                    <Grid item container xs={4} direction='column' spacing={2} className={classes.col1}>
                         <Grid item>
-                            <ItemCard title='Ingredient description'>
-                                <Description data={props.searchResults.data.ingredient.description} />
+                            <ItemCard>
+                                <Title mainName={props.searchResults.data.ingredient.main_name} />
+                                <IngredientRatingBar
+                                    rating={props.searchResults.data.ingredient.hazard.ingredient_hazard_avg}
+                                    width={150}
+                                    height={15}
+                                />
                             </ItemCard>
                         </Grid>
-                    }
-                </Grid>
-                <Grid item container xs={8} direction="column" spacing={2} className={classes.col2}>
-                    <Grid item container direction="row" spacing={2} className={classes.col2row}>
-                        {props.searchResults.data.ingredient.hazard.ingredient_hazard_avg > 0 &&
-                            <Grid item xs={6} >
-                                <ItemCard
-                                    title='Hazard level'
-                                    caption='Hazard level for each hazard class for the ingredient'
-                                >
-                                    <HazardLevel
-                                        data={props.searchResults.data.ingredient.hazard.hazard_ghs_set}
-                                    />
-                                </ItemCard>
-                            </Grid>
-                        }
-                        {props.searchResults.data.ingredient.hazard.hazard_ghs_set.length > 0 &&
-                            <Grid item xs={6} >
-                                <ItemCard
-                                    title='Data probability (%)'
-                                    caption='Probability based on the number of notifications in the system of CLP'
-                                >
-                                    <PercentNotifications
-                                        data={props.searchResults.data.ingredient.hazard.hazard_ghs_set}
-                                    />
+                        <Grid item>
+                            <ItemCard title='Details'>
+                                <Details data={props.searchResults.data.ingredient} />
+                            </ItemCard>
+                        </Grid>
+                        {props.searchResults.data.ingredient.description != null &&
+                            <Grid item>
+                                <ItemCard title='Ingredient description'>
+                                    <Description data={props.searchResults.data.ingredient.description} />
                                 </ItemCard>
                             </Grid>
                         }
                     </Grid>
-                    <Grid item >
-                        <ItemCard title='Chart description'>
-                            <ChartDescription data={props.searchResults.data.ingredient.hazard} />
-                        </ItemCard>
+                    <Grid item container xs={8} direction="column" spacing={2} className={classes.col2}>
+                        <Grid item container direction="row" spacing={2} className={classes.col2row}>
+                            {props.searchResults.data.ingredient.hazard.ingredient_hazard_avg > 0 &&
+                                <Grid item xs={6} >
+                                    <ItemCard
+                                        title='Hazard level'
+                                        caption='Hazard level for each hazard class for the ingredient'
+                                    >
+                                        <HazardLevel
+                                            data={props.searchResults.data.ingredient.hazard.hazard_ghs_set}
+                                        />
+                                    </ItemCard>
+                                </Grid>
+                            }
+                            {props.searchResults.data.ingredient.hazard.hazard_ghs_set.length > 0 &&
+                                <Grid item xs={6} >
+                                    <ItemCard
+                                        title='Data probability (%)'
+                                        caption='Probability based on the number of notifications in the system of CLP'
+                                    >
+                                        <PercentNotifications
+                                            data={props.searchResults.data.ingredient.hazard.hazard_ghs_set}
+                                        />
+                                    </ItemCard>
+                                </Grid>
+                            }
+                        </Grid>
+                        <Grid item >
+                            <ItemCard title='Chart description'>
+                                <ChartDescription data={props.searchResults.data.ingredient.hazard} />
+                            </ItemCard>
+                        </Grid>
                     </Grid>
                 </Grid>
-            </Grid>
-            {props.searchResults.data.ingredient.synonyms != null &&
+                {props.searchResults.data.ingredient.synonyms != null &&
                     props.searchResults.data.ingredient.synonyms.eng != null &&
-                        <Grid item container xs={12} direction="row" spacing={2} className={classes.bottomGrid}>
-                            <Grid item xs={12}>
+                    <Grid item container xs={12} direction="row" spacing={2} className={classes.bottomGrid}>
+                        <Grid item xs={12}>
                             <ItemCard title='Synonyms'>
                                 <Synonyms
                                     data={props.searchResults.data.ingredient.synonyms.eng}
                                 />
                             </ItemCard>
-                            </Grid>
+                        </Grid>
                     </Grid>
                 }
             </Grid>
