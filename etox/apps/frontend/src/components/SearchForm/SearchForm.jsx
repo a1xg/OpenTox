@@ -8,7 +8,7 @@ import Search from '@material-ui/icons/Search';
 import ImageForm from "./ImageForm/ImageForm.jsx";
 import CSRFtoken from './csrftoken.jsx';
 import useStyles from './styles.js';
-
+//TODO уменьшить отступы между иконками в мобильной версии
 const SearchForm = (props) => {
     const [formText, setFormText] = useState('')
     const form = useRef(undefined);

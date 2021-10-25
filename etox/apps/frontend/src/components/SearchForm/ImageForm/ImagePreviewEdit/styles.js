@@ -17,7 +17,7 @@ const useStyles = makeStyles((theme) => ({
         backgroundColor: theme.palette.grey[50],
     },
     gridWrapper:{
-        maxHeight:'80vh'
+        maxHeight:'70vh'
     },
     previewGrid:{
         alignItems: 'stretch',
@@ -52,7 +52,7 @@ const useStyles = makeStyles((theme) => ({
         background: theme.palette.grey[900],
         [theme.breakpoints.down('md')]: {
             width: '100%',
-            maxHeight:'60vh'
+            maxHeight:'40vh'
         }
     },
     sliderBox: {
@@ -63,7 +63,7 @@ const useStyles = makeStyles((theme) => ({
         }
     },
     image: {
-        maxHeight: '60vh',
+        maxHeight: '50vh',
         maxWidth:'100%',
     },
     button: {
