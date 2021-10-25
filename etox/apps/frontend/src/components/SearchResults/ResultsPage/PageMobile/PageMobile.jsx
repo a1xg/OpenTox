@@ -52,6 +52,13 @@ const PageMobile = (props) => {
                             <IngredientsList data={props.searchResults.data} />
                         </ItemCard>
                 </Grid>
+                <Grid item xs={12} className={classes.gridRow3} >
+                {props.searchResults.data.image_with_ingredients != null &&
+                            <ItemCard title='Your product image'>
+                                <ProductPhoto image={props.searchResults.data.image_with_ingredients} />
+                            </ItemCard>
+                        }
+                </Grid>
 
             </Grid>
         </Container>

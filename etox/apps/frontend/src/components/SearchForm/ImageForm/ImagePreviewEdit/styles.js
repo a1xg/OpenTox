@@ -16,12 +16,24 @@ const useStyles = makeStyles((theme) => ({
         paddingTop: theme.spacing(1),
         backgroundColor: theme.palette.grey[50],
     },
-    previewGrid:{
-        alignItems: 'center',
+    gridWrapper:{
+        maxHeight:'80vh'
     },
-
+    previewGrid:{
+        alignItems: 'stretch',
+        justifyContent: 'center'    
+    },
+    editGrid:{
+        alignItems: 'stretch',
+        justifyContent: 'center'    
+    },
     buttonGrid:{
-        width:'100%'
+        width:'100%',
+        justifyContent: 'space-around',  
+        alignItems: 'center',        
+        [theme.breakpoints.down('md')]:{
+            height:'4vh'
+        }
     },
     previewBox: {
         position: 'relative',
@@ -30,6 +42,7 @@ const useStyles = makeStyles((theme) => ({
         background: theme.palette.grey[900],
         [theme.breakpoints.down('md')]: {
             width: '100%', 
+            maxHeight: '60vh'
         }
     },
     cropBox: {
@@ -39,24 +52,22 @@ const useStyles = makeStyles((theme) => ({
         background: theme.palette.grey[900],
         [theme.breakpoints.down('md')]: {
             width: '100%',
+            maxHeight:'60vh'
+        }
+    },
+    sliderBox: {
+        height:'4vh',
+        [theme.breakpoints.down('md')]: {
+            maxWidth: '100%',
+            height:'4vh'
         }
     },
     image: {
-        maxHeight: '70vh',
+        maxHeight: '60vh',
         maxWidth:'100%',
     },
-    controls: {
-        paddingTop: 5,
-        paddingBottom: 0,
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'stretch',
-        [theme.breakpoints.down('md')]: {
-            maxWidth: '100%',
-        }
-    },
     button: {
-        width: '100%',
+        width:'calc(100% - 16px)',
         backgroundColor: theme.palette.grey[100],
         "&:hover": {
             backgroundColor: theme.palette.primary[200],
@@ -64,6 +75,7 @@ const useStyles = makeStyles((theme) => ({
         '&:active': {
             backgroundColor: theme.palette.primary[400],
         },
+
     },
     icon: {
         color: theme.palette.grey[700],

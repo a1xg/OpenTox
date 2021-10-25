@@ -16,38 +16,51 @@ const ImagePreview = (props) => {
     };
 
     return (
-        <Grid container direction='column' spacing={2} className={classes.previewGrid}>
-            <Grid item xs={12}>
-                <Box className={classes.previewBox}>
-                    <img src={props.base64Image} className={classes.image} />
-                </Box>
-            </Grid>
+        <Box className={classes.gridWrapper} aria-label='gridWrapper'>
+            <Grid container 
+            direction='column' 
+            spacing={2} 
+            className={classes.previewGrid} 
+            aria-label='previewGrid'
+            >
+                <Grid item xs={12}>
+                    <Box className={classes.previewBox} aria-label='previewBox'>
+                        <img src={props.base64Image} className={classes.image} />
+                    </Box>
+                </Grid>
 
-            <Grid item xs={12} container direction='row' spacing={2} className={classes.buttonGrid}>
-                <Grid item xs={6}>
-                    <Button
-                        onClick={editHandler}
-                        variant="contained"
-                        color="primary"
-                        className={classes.button}
-                        startIcon={<CropRotateIcon className={classes.icon} />}
-                    >
-                        <Typography className={classes.link}>Edit</Typography>
-                    </Button>
-                </Grid>
-                <Grid item xs={6}>
-                    <Button
-                        onClick={props.sendHandler}
-                        variant="contained"
-                        color="primary"
-                        className={classes.button}
-                        startIcon={<ImageSearchIcon className={classes.icon} />}
-                    >
-                        <Typography className={classes.link}>Search</Typography>
-                    </Button>
+                <Grid item container 
+                xs={12} 
+                direction='row' 
+                //spacing={2} 
+                className={classes.buttonGrid} 
+                aria-label='buttonGrid'
+                >
+                    <Grid item xs={6}>
+                        <Button
+                            onClick={editHandler}
+                            variant="contained"
+                            color="primary"
+                            className={classes.button}
+                            startIcon={<CropRotateIcon className={classes.icon} />}
+                        >
+                            <Typography className={classes.link}>Edit</Typography>
+                        </Button>
+                    </Grid>
+                    <Grid item xs={6}>
+                        <Button
+                            onClick={props.sendHandler}
+                            variant="contained"
+                            color="primary"
+                            className={classes.button}
+                            startIcon={<ImageSearchIcon className={classes.icon} />}
+                        >
+                            <Typography className={classes.link}>Search</Typography>
+                        </Button>
+                    </Grid>
                 </Grid>
             </Grid>
-        </Grid>
+        </Box>
     )
 };
 
