@@ -18,8 +18,6 @@ import { display } from "@mui/system";
 
 const IngredientsList = (props) => {
     const displayOption = MobileOrDesctop();
-    const ingredients = props.data.product_ingredients;
-
     return (
             <TableContainer>
                 <Table xs={12} >
@@ -40,7 +38,7 @@ const IngredientsList = (props) => {
 
                     </TableHead>
                     <TableBody>
-                        {ingredients.map((ingredient) => {
+                        {props.ingredients.map((ingredient) => {
                             return (
                                 <TableRow key={ingredient.id}>
 
@@ -78,7 +76,7 @@ const IngredientsList = (props) => {
                                             />
                                         </TableCell>
                                     }
-                                    <TableCell align="right">
+                                    <TableCell align={displayOption == 'desctop' ? 'left' : 'right'}>
                                         <IngredientRatingBar
                                             rating={ingredient.hazard.ingredient_hazard_avg}
                                             width={100}

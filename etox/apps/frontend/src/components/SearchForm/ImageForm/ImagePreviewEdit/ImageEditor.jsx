@@ -13,7 +13,7 @@ import ZoomInIcon from '@mui/icons-material/ZoomIn';
 import AspectRatioIcon from '@mui/icons-material/AspectRatio';
 import getCroppedImg from './cropTools.js';
 import useStyles from './styles.js';
-
+//TODO кнопки не помещаются в десктопной версии
 const ImageEditor = (props) => {
     const classes = useStyles();
     const [crop, setCrop] = useState({ x: 0, y: 0 });

@@ -48,7 +48,7 @@ const useStyles = makeStyles((theme) => ({
     cropBox: {
         position: 'relative',
         width: 500,
-        height: '50vh',
+        height: '40vh',
         background: theme.palette.grey[900],
         [theme.breakpoints.down('md')]: {
             width: '100%',

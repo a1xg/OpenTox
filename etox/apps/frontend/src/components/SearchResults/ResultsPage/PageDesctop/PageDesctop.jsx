@@ -38,8 +38,11 @@ const PageDesctop = (props) => {
                         </Grid>
                     </Grid>
                     <Grid item >
-                        <ItemCard title='Ingredients'>
-                            <IngredientsList data={props.searchResults.data} />
+                        <ItemCard 
+                        title='Ingredients' 
+                        caption={`Total: ${props.searchResults.data.product_ingredients.length}`}
+                        >
+                            <IngredientsList ingredients={props.searchResults.data.product_ingredients} />
                         </ItemCard>
                     </Grid>
                 </Grid>
