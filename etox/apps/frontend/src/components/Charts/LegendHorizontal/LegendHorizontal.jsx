@@ -6,9 +6,11 @@ import Box from '@material-ui/core/Box';
 import Paper from '@material-ui/core/Paper';
 import { Stack } from '@mui/material';
 import { getData } from '../ChartTools.js';
+import { MobileOrDesctop } from '../../tools.js';
 
 const LegendHorizontal = (props) => {
     const [legendData, setLegendData] = useState([{ value: null, id: null, label: null, color: 'white' }]);
+    const displayOption = MobileOrDesctop();
     const classes = useStyles();
 
     useEffect(() => {
@@ -31,7 +33,7 @@ const LegendHorizontal = (props) => {
         >
             {legendData.map(item => {
                 return (
-                    <Grid item xs={3} key={item.id}>
+                    <Grid item xs={displayOption == 'desctop' ? 3 : 4} key={item.id}>
                         <Paper className={classes.gridItem} elevation={3} aria-label='gridItem'>
                             <Box className={classes.stackWrapper} aria-label='stackWrapper'>
                                 <Stack 
