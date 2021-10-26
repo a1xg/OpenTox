@@ -6,7 +6,6 @@ from .db_tools import DBQueries
 from .ocr_settings import *
 
 class Search:
-    # TODO отдать пользователю изображение с выделенным цветом составом продукта
     def __init__(self):
         self.box_index = None # Target block with text
         self.queryset = None
@@ -44,7 +43,7 @@ class Search:
         if self.box_index != None:
             output_data['image_with_ingredients'] = ocr.draw_boxes(
                 index=self.box_index,
-                max_resolution=500,
+                max_resolution=700,
                 color= (0,255,0),
                 base64=True
             )

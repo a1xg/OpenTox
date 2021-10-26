@@ -36,7 +36,7 @@ class ImageOCR:
     def __init__(self, img):
         self.original = img
         self.img = self._decode_image(img)
-        self.text = [] # output list of dictionaries with recognized text in the format {'lang':'text'}
+        self.result = [] # output list of dictionaries with recognized text in the format {'lang':'text'}
         self._boxes = []
 
     def _decode_image(self, input_img) -> np.ndarray:
@@ -223,7 +223,7 @@ class ImageOCR:
         bigest_boxes = [boxes_array[i].tolist() for i in max_areas_indises]
         return bigest_boxes
 
-    def _image_cropper(self, image:np.ndarray) -> np.ndarray:
+    def _crop_image(self, image:np.ndarray) -> np.ndarray:
         """The method crops the image proportionally to the crop ratio (floating point numbers from 0 to 1)
         relative to the center of the image."""
         x, y, h, w = 0, 0, image.shape[0], image.shape[1]
@@ -269,29 +269,29 @@ class ImageOCR:
         for index, image in binary_images:
             if text_lang == False:
                 # a cropped sample image is used to speed up language recognition.
-                sample_image = self._image_cropper(image)
+                sample_image = self._crop_image(image)
                 multilang_recog_text = self._recognize_text(TESSERACT_DEFAULT_CONFIG, sample_image)
                 # Detect language
                 recognized_lang = self._detect_lang(multilang_recog_text)
                 # After the exact definition of the language, we make repeated
                 # recognition with the exact indication of the language
                 custom_config = (f'-l {recognized_lang} --oem 1 --psm 6')
-                text = self._recognize_text(custom_config, image)
-                self.text.append({
+                ocr_result = self._recognize_text(custom_config, image)
+                self.result.append({
                     'lang':recognized_lang,
                     'box_index':index,
-                    'text': text
+                    'text': ocr_result
                 })
             else:
                 # Recognition option if the language of the text is known
                 config = (f'-l {text_lang} --oem 1 --psm 6')
-                text = self._recognize_text(config, image)
-                self.text.append({
+                ocr_result = self._recognize_text(config, image)
+                self.result.append({
                     'lang': text_lang,
                     'box_index': index,
-                    'text': text
+                    'text': ocr_result
                 })
-        return self.text
+        return self.result
 
     def draw_boxes(self, **kwargs) -> np.ndarray:
         """
