@@ -9,7 +9,7 @@ import { getData } from '../ChartTools.js';
 import { MobileOrDesctop } from '../../tools.js';
 
 const LegendHorizontal = (props) => {
-    const [legendData, setLegendData] = useState([{ value: null, id: null, label: null, color: 'white' }]);
+    const [legendData, setLegendData] = useState([{ value: null, id: null, label: null, color: '#ffffff' }]);
     const displayOption = MobileOrDesctop();
     const classes = useStyles();
 

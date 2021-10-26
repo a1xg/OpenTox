@@ -49,7 +49,7 @@ const PageMobile = (props) => {
                         <Grid item xs={6} >
                             <ItemCard
                                 title='Hazard level'
-                                caption='Hazard level for each hazard class for the ingredient'
+                                caption='For each class'
                             >
                                 <HazardLevel
                                     data={props.searchResults.data.ingredient.hazard.hazard_ghs_set}
@@ -60,8 +60,8 @@ const PageMobile = (props) => {
                     {props.searchResults.data.ingredient.hazard.hazard_ghs_set.length > 0 &&
                         <Grid item xs={6} >
                             <ItemCard
-                                title='Data probability (%)'
-                                caption='Probability based on the number of notifications in the system of CLP'
+                                title='Credibility'
+                                caption='Based on CLP data (%)'
                             >
                                 <PercentNotifications
                                     data={props.searchResults.data.ingredient.hazard.hazard_ghs_set}

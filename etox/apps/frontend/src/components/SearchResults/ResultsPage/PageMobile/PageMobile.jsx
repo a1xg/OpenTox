@@ -21,8 +21,8 @@ const PageMobile = (props) => {
                     <Grid item xs={6} >
                         {props.searchResults.data.detail_hazard_product.length > 0 &&
                             <ItemCard
-                                title='Product hazard statistics'
-                                caption='Number of ingredients with hazard class'
+                                title='Product statistics'
+                                caption='Ingredients with hazard class'
                             >
                                 <ProductStatistics data={props.searchResults.data} />
                             </ItemCard>
@@ -32,7 +32,7 @@ const PageMobile = (props) => {
                         {props.searchResults.data.detail_hazard_product.length > 0 &&
                             <ItemCard
                                 title='Product hazard level'
-                                caption='Total hazard level for all ingredients'
+                                caption='Based on all ingredients'
                             >
                                 <HazardLevel data={props.searchResults.data.detail_hazard_product} />
                             </ItemCard>
