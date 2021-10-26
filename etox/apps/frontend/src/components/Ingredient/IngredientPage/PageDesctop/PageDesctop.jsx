@@ -3,7 +3,7 @@ import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
 import PercentNotifications from "../PercentNotifications/PercentNotifications.jsx";
 import IngredientRatingBar from '../../../Charts/IngredientRatingBar.jsx';
-import Description from "../Description/Description.jsx";
+import DescriptionDesctop from "../Description/DescriptionDesctop.jsx";
 import HazardLevel from "../HazardLevel/HazardLevel.jsx";
 import Details from "../Details/Details.jsx";
 import Title from "../Title/Title.jsx";
@@ -41,7 +41,7 @@ const PageDesctop = (props) => {
                         {props.searchResults.data.ingredient.description != null &&
                             <Grid item>
                                 <ItemCard title='Ingredient description'>
-                                    <Description data={props.searchResults.data.ingredient.description} />
+                                    <DescriptionDesctop data={props.searchResults.data.ingredient.description} />
                                 </ItemCard>
                             </Grid>
                         }

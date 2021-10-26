@@ -18,13 +18,13 @@ const useStyles = makeStyles((theme) => ({
         paddingBottom:'20px',
         paddingRight:'50px',
         paddingLeft:'50px',
-        position: "relative",
         [theme.breakpoints.down('md')]: {
             height: '170px',
             paddingTop:'10px',
             paddingBottom:'0px',
             paddingRight:'10px',
             paddingLeft:'10px',
+            bottom:0, 
         },
     }
 }));

@@ -10,7 +10,6 @@ import { capitalizeJoinItems } from '../../../tools.js';
 const pubchemURL = 'https://pubchem.ncbi.nlm.nih.gov/compound/'
 
 const Details = (props) => {
-    console.log('Details props', props)
     return (
         <TableContainer>
             <Table size="small" >

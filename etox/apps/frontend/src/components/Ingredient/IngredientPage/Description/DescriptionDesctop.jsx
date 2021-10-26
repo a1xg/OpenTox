@@ -1,7 +1,7 @@
 import React from 'react';
 import Typography from "@material-ui/core/Typography";
 
-const Description = (props) => {
+const DescriptionDesctop = (props) => {
     return (
         <Typography variant='body1'>
             {props.data}
@@ -9,5 +9,5 @@ const Description = (props) => {
     )
 };
 
-export default Description;
+export default DescriptionDesctop;
 
