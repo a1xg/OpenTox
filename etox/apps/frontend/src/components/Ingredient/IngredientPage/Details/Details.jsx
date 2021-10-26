@@ -17,7 +17,7 @@ const Details = (props) => {
                     {props.data.functions != null &&
                         <TableRow>
                             <TableCell component="th" scope="row">
-                                Functions:
+                                Functions
                             </TableCell>
                             <TableCell align="left">
                                 {
@@ -33,7 +33,7 @@ const Details = (props) => {
                     {props.data.e_number != null &&
                         <TableRow>
                             <TableCell component="th" scope="row">
-                                E-number:
+                                E-number
                             </TableCell>
                             <TableCell align="left">
                                 {props.data.e_number}
@@ -43,7 +43,7 @@ const Details = (props) => {
                     {props.data.colour_index != null &&
                         <TableRow>
                             <TableCell component="th" scope="row">
-                                Colour Index number:
+                                Colour Index number
                             </TableCell>
                             <TableCell align="left">
                                 {props.data.colour_index.join(', ')}
@@ -53,7 +53,7 @@ const Details = (props) => {
                     {props.data.cas_numbers != null &&
                         <TableRow>
                             <TableCell component="th" scope="row">
-                                CAS numbers:
+                                CAS numbers
                             </TableCell>
                             <TableCell align="left">
                                 {props.data.cas_numbers.join(', ')}
@@ -64,7 +64,7 @@ const Details = (props) => {
                     {props.data.ec_numbers != null &&
                         <TableRow>
                             <TableCell component="th" scope="row">
-                                EC numbers:
+                                EC numbers
                             </TableCell>
                             <TableCell align="left">
                                 {props.data.ec_numbers.join(', ')}
@@ -75,7 +75,7 @@ const Details = (props) => {
                     {props.data.pubchem_cid != null &&
                         <TableRow>
                             <TableCell component="th" scope="row">
-                                PubChem ID:
+                                PubChem ID
                             </TableCell>
                             <TableCell align="left">
                                 <Link href={`${pubchemURL}${props.data.pubchem_cid}`}>
@@ -86,7 +86,7 @@ const Details = (props) => {
                     }
                     <TableRow>
                         <TableCell component="th" scope="row">
-                            Request statistics:
+                            Request statistics
                         </TableCell>
                         <TableCell align="left">
                             {props.data.request_statistics}
