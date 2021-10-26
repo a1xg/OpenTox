@@ -5,7 +5,6 @@ const useStyles = makeStyles((theme) => ({
         paddingLeft:theme.spacing(1),
         paddingRight:theme.spacing(1)
     },
-
     box: {
         alignItems: 'center',
         padding: 50,
@@ -26,16 +25,12 @@ const useStyles = makeStyles((theme) => ({
             marginBottom: 5,
         }
     },
-    imgContainer: {
-        position: 'relative',
-        padding: 4,
-        borderRadius: 4,
-        width: '100%',
-        height: '100%'
-    },
-    image: {
-        maxWidth: '100%',
-        maxHeight: '100%'
+    galleryWrapper:{
+        width:'50vw',
+        height:100, 
+        [theme.breakpoints.down('md')]:{
+            width:'90vw',
+        }
     },
     iconRed: {
         opacity: 0.8,
@@ -44,6 +39,10 @@ const useStyles = makeStyles((theme) => ({
         right: 20,
         backgroundColor: 'transparency',
         color: '#ff0000',
+        [theme.breakpoints.down('md')]:{
+            top: 8,
+            right: 8,
+        }
     },
     iconGreen: {
         opacity: 0.8,
@@ -52,6 +51,10 @@ const useStyles = makeStyles((theme) => ({
         right: 20,
         backgroundColor: 'transparency',
         color: '#3afe03',
+        [theme.breakpoints.down('md')]:{
+            top: 8,
+            right: 8,
+        }
     },
 }));
 
