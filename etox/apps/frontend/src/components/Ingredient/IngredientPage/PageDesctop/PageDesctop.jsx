@@ -11,6 +11,7 @@ import ChartDescription from "../ChartDescription/ChartDescription.jsx";
 import Synonyms from "../Synonyms/Synonyms.jsx";
 import ItemCard from "../../../ItemCard/ItemCard.jsx";
 import Breadcrumb from "../Breadcrumb/Breadcrumbs.jsx";
+import BackToTopButton from '../../../BackToTopButton/BackToTopButton.jsx';
 import useStyles from "./styles.js";
 
 const PageDesctop = (props) => {
@@ -20,6 +21,7 @@ const PageDesctop = (props) => {
             {props.showBreadcrumbs == true &&
                 <Breadcrumb namePage={props.searchResults.data.ingredient.main_name} />
             }
+            <BackToTopButton>
             <Grid container direction="column" spacing={2} className={classes.root}>
                 <Grid item xs={12} container direction="row" spacing={0} className={classes.topGrid} >
                     <Grid item container xs={4} direction='column' spacing={2} className={classes.col1}>
@@ -93,6 +95,7 @@ const PageDesctop = (props) => {
                     </Grid>
                 }
             </Grid>
+            </BackToTopButton>
         </Container >
     )
 };

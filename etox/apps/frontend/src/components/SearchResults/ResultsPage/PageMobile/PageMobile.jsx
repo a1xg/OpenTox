@@ -9,13 +9,14 @@ import ProductPhoto from '../ProductPhoto/ProductPhoto.jsx';
 import ProductStatistics from '../ProductStatistics/ProductStatistics.jsx';
 import ItemCard from '../../../ItemCard/ItemCard.jsx';
 import useStyles from './styles.js';
-
+import BackToTopButton from '../../../BackToTopButton/BackToTopButton.jsx';
 
 const PageMobile = (props) => {
     const classes = useStyles();
     
     return (
         <Container maxWidth={'md'} className={classes.container} >
+            <BackToTopButton>
             <Grid container direction="column" spacing={2} className={classes.gridCol}>
                 <Grid item xs={12} container direction="row" spacing={2} className={classes.gridRow1}>
                     <Grid item xs={6} >
@@ -57,14 +58,15 @@ const PageMobile = (props) => {
                 </Grid>
                 <Grid item xs={12} className={classes.gridRow3} >
                 {props.searchResults.data.image_with_ingredients != null &&
-                            <ItemCard title='Your product image'>
+                            <ItemCard title='Product image'>
                                 <ProductPhoto image={props.searchResults.data.image_with_ingredients} />
                             </ItemCard>
                         }
                 </Grid>
-
             </Grid>
+            </BackToTopButton>
         </Container>
+       
     )
 };
 

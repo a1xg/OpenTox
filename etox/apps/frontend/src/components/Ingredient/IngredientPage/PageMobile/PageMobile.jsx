@@ -12,6 +12,7 @@ import Title from '../Title/Title.jsx';
 import IngredientRatingBar from '../../../Charts/IngredientRatingBar.jsx';
 import ItemCard from "../../../ItemCard/ItemCard.jsx";
 import Breadcrumb from "../Breadcrumb/Breadcrumbs.jsx";
+import BackToTopButton from '../../../BackToTopButton/BackToTopButton.jsx'
 import useStyles from './styles.js'
 
 const PageMobile = (props) => {
@@ -21,6 +22,7 @@ const PageMobile = (props) => {
             {props.showBreadcrumbs == true &&
                 <Breadcrumb namePage={props.searchResults.data.ingredient.main_name} />
             }
+            <BackToTopButton>
             <Grid container direction='column' spacing={2}>
                 <Grid item>
                     <ItemCard>
@@ -87,7 +89,7 @@ const PageMobile = (props) => {
                     </Grid>
                 }
             </Grid>
-
+            </BackToTopButton>
         </Container >
     )
 };

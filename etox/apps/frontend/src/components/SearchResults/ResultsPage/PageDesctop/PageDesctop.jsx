@@ -7,12 +7,15 @@ import LegendVertical from '../../../Charts/LegendVertical/LegendVertical.jsx';
 import ProductPhoto from '../ProductPhoto/ProductPhoto.jsx';
 import ProductStatistics from '../ProductStatistics/ProductStatistics.jsx';
 import ItemCard from '../../../ItemCard/ItemCard.jsx';
+import BackToTopButton from '../../../BackToTopButton/BackToTopButton.jsx';
+
 import useStyles from './styles.js';
 
 const PageDesctop = (props) => {
     const classes = useStyles();
     return (
         <Container maxWidth={'lg'}>
+            <BackToTopButton>
             <Grid container direction="row" spacing={0} className={classes.root}>
                 <Grid item xs={10} container direction="column" spacing={2} >
                     <Grid item container direction="row" spacing={2} >
@@ -56,13 +59,14 @@ const PageDesctop = (props) => {
                     </Grid>
                     <Grid item>
                         {props.searchResults.data.image_with_ingredients != null &&
-                            <ItemCard title='Your product image'>
+                            <ItemCard title='Product image'>
                                 <ProductPhoto image={props.searchResults.data.image_with_ingredients} />
                             </ItemCard>
                         }
                     </Grid>
                 </Grid>
             </Grid>
+            </BackToTopButton>
         </Container>
     )
 };
