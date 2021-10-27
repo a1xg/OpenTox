@@ -1,4 +1,4 @@
-import {capitalize} from '@material-ui/core';
+import { capitalize } from '@material-ui/core';
 import { useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
 
@@ -9,7 +9,7 @@ import useMediaQuery from '@mui/material/useMediaQuery';
  * @param {string} separator
  * @returns {Array}
  */
- const capitalizeJoinItems = ({ items, separator }) => {
+const capitalizeJoinItems = ({ items, separator }) => {
     let newItems = [];
     items.map((item) => {
         newItems.push(capitalize(item.toLowerCase()))
@@ -24,9 +24,9 @@ import useMediaQuery from '@mui/material/useMediaQuery';
  */
 const MobileOrDesctop = () => {
     const theme = useTheme();
-    const matches = useMediaQuery(theme.breakpoints.up('md'));  
-    return matches == true ? 'desctop' : 'mobile'    
-  };
+    const matches = useMediaQuery(theme.breakpoints.up('md'));
+    return matches == true ? 'desctop' : 'mobile'
+};
 
 /**
  * Converts base64 image to jpg file
@@ -47,9 +47,30 @@ const base64decode = (dataURL) => {
     return new File([u8arr], 'image.jpg', { type: mime });
 };
 
-  export {
-      capitalizeJoinItems, 
-      MobileOrDesctop,
-      base64decode
-    };
+/**
+ * Takes in the dimensions of the image and the parameter of the 
+ * maximum dimension. The image will be scaled keeping proportions 
+ * and any of its dimensions will be no more than the maximum
+ * @param {number} width
+ * @param {number} height
+ * @param {number} maxResolution
+ * @returns 
+ */
+const getPreviewSize = ({ width, height, maxResolution }) => {
+    const maxDimension = Math.max(width, height)
+    const scaleCoefficient = maxDimension / maxResolution
+    const newWidth = Math.ceil(width / scaleCoefficient)
+    const newHeight = Math.ceil(height / scaleCoefficient)
+    return {
+        width: newWidth,
+        height: newHeight
+    }
+};
+
+export {
+    capitalizeJoinItems,
+    MobileOrDesctop,
+    base64decode,
+    getPreviewSize
+};
 

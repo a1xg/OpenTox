@@ -16,13 +16,12 @@ import useStyles from './AppStyles.js';
 
 // * useScrollTrigger  для переключения строки поиска в appbar при скролле
 // TODO проверить правильность и грамматику title, tooltip итд
-// TODO сделать мобильную версию сайта, возможно придется написать отдельные гриды для мобильной версии
 
 const App = (props) => {
   const classes = useStyles();
   const [searchQuery, setQuery] = useState();
   const [searchResults, setSearchResults] = useState();
-  const [backButton, setBackButton] = useState(false);
+  const [showBreadcrumbs, setShowBreadcrumbs] = useState(false);
 
   useEffect(() => {
     document.title = 'OpenTox';
@@ -38,7 +37,7 @@ const App = (props) => {
               setSearchResults({ loaded: 'error', })
             } else {
               setSearchResults({ loaded: true, data: data });
-              setBackButton(true);
+              setShowBreadcrumbs(true);
             }
           }
         })
@@ -69,16 +68,14 @@ const App = (props) => {
               />
               <Route
                 path='/ingredient/:ingredientID'
-                component={(props) => <IngredientContainer data={props} backButton={backButton} />}
+                component={(props) => <IngredientContainer data={props} showBreadcrumbs={showBreadcrumbs} />}
               />
               <Route exact path='/about' component={About} />
               <Route exact path='/how-use' component={HowUse} />
-              <Route exact path='/contacts' component={Contacts} />           
+              <Route exact path='/contacts' component={Contacts} />  
           </Grid>
           <Grid item xs={12} className={classes.footerWrapper}>
-            <Container maxWidth={'lg'}>
               <Footer />
-            </Container>
           </Grid>
         </Grid>
       </Container>

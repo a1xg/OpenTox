@@ -1,7 +1,13 @@
 import {makeStyles} from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
-    root: {
+    container:{
+        padding:theme.spacing(3),
+        [theme.breakpoints.down('md')]:{
+            padding:theme.spacing(1)
+        }
+    },
+    box: {
         textAlign: 'center',
         display: 'flex-column',
         width: '100%',

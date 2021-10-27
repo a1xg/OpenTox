@@ -18,7 +18,7 @@ const About = (props) => {
                         <Typography variant='body1'>
                             OpenTox is a service for assessing the potential harm to human health of food additives and cosmetics components.
                             We recognize ingredients in English, as well as E### numbers and CI##### numbers.
-                            The Opentox database contains more than 28,000 ingredients.
+                            The Opentox database contains more than 28000 ingredients.
                         </Typography>
                     </Box>
 

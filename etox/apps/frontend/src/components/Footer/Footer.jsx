@@ -11,8 +11,8 @@ import useStyles from './styles.js';
 const Footer = (props) => {
     const classes = useStyles();
     return (
-        <Container maxWidth='lg' >
-            <Box className={classes.root}>
+        <Container maxWidth='lg' className={classes.container}>
+            <Box className={classes.box}>
                 <Box className={classes.item}>
                     <Divider orientation='horizontal' style={{ width: '100%' }} />
                 </Box>
