@@ -19,41 +19,20 @@ const useStyles = makeStyles((theme) => ({
         display: 'table',
         marginTop: 20,
         marginBottom: 20,
+        marginLeft:120,
+        marginRight:120,
         [theme.breakpoints.down('md')]: {
             padding: 5,
             marginTop: 5,
             marginBottom: 5,
+            marginLeft:0,
+            marginRight:0,
         }
     },
     galleryWrapper:{
-        width:'50vw',
-        height:100, 
+        width:'600px',
         [theme.breakpoints.down('md')]:{
             width:'90vw',
-        }
-    },
-    iconRed: {
-        opacity: 0.8,
-        position: 'absolute',
-        top: 20,
-        right: 20,
-        backgroundColor: 'transparency',
-        color: '#ff0000',
-        [theme.breakpoints.down('md')]:{
-            top: 8,
-            right: 8,
-        }
-    },
-    iconGreen: {
-        opacity: 0.8,
-        position: 'absolute',
-        top: 20,
-        right: 20,
-        backgroundColor: 'transparency',
-        color: '#3afe03',
-        [theme.breakpoints.down('md')]:{
-            top: 8,
-            right: 8,
         }
     },
 }));

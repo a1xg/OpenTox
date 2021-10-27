@@ -4,14 +4,11 @@ import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
 import ItemCard from '../ItemCard/ItemCard.jsx';
-import { Stack } from '@mui/material';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import CancelIcon from '@mui/icons-material/Cancel';
 import Gallery from "react-grid-gallery";
 import useStyles from './styles.js';
 import IMAGES from './images.js';
-
-// TODO поправить стили
 
 const HowUse = () => {
     const classes = useStyles();
