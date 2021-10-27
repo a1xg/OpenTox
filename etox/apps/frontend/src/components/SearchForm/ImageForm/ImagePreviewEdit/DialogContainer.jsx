@@ -6,7 +6,7 @@ import ImageEditor from './ImageEditor.jsx';
 import ItemCard from '../../../ItemCard/ItemCard.jsx';
 import useStyles from './styles.js';
 import { MobileOrDesctop, base64decode } from '../../../tools.js';
-
+ 
 const UploadDialog = (props) => {
     const classes = useStyles();
     const [editPreviewSwitch, setEditPreviewSwitch] = useState(false);
@@ -27,31 +27,36 @@ const UploadDialog = (props) => {
     }, [props.inputImage]);
 
     return (
-        <Dialog 
-        open={props.openDialog} 
-        onClose={props.closeHandler} 
-        className={classes.dialog}
-        fullWidth={displayOption == 'mobile' ? true : false}
+        <Dialog
+            open={props.openDialog}
+            onClose={props.closeHandler}
+            className={classes.dialog}
+            fullWidth={displayOption == 'mobile' ? true : false}
         >
-            <ItemCard>
-                <Container className={classes.dialogContainer}>
-                    {editPreviewSwitch == false &&
+            {editPreviewSwitch == false &&
+                <ItemCard title='Preview'>
+                    <Container className={classes.dialogContainer}>
                         <ImagePreview
                             base64Image={base64Image}
                             setEditPreviewSwitch={setEditPreviewSwitch}
                             sendHandler={sendHandler}
                         />
-                    }
-                    {editPreviewSwitch == true &&
+                    </Container>
+                </ItemCard>
+            }
+            {editPreviewSwitch == true &&
+                <ItemCard title='Editor'>
+                    <Container className={classes.dialogContainer}>
                         <ImageEditor
                             base64Image={base64Image}
                             setEditPreviewSwitch={setEditPreviewSwitch}
                             setBase64Image={setBase64Image}
                             setCropParam={props.setCropParam}
                         />
-                    }
-                </Container>
-            </ItemCard>
+                    </Container>
+                </ItemCard>
+            }
+
         </Dialog>
     )
 };

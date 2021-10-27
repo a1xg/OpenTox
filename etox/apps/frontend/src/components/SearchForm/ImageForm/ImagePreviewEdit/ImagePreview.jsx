@@ -2,9 +2,11 @@ import React from 'react';
 import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
-import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography';
-import Stack from '@mui/material/Stack';
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import ListItemText from '@mui/material/ListItemText'
 import ImageSearchIcon from '@mui/icons-material/ImageSearch';
 import CropRotateIcon from '@mui/icons-material/CropRotate';
 import useStyles from './styles.js';
@@ -17,11 +19,11 @@ const ImagePreview = (props) => {
 
     return (
         <Box className={classes.gridWrapper} aria-label='gridWrapper'>
-            <Grid container 
-            direction='column' 
-            spacing={2} 
-            className={classes.previewGrid} 
-            aria-label='previewGrid'
+            <Grid container
+                direction='column'
+                spacing={2}
+                className={classes.previewGrid}
+                aria-label='previewGrid'
             >
                 <Grid item xs={12}>
                     <Box className={classes.previewBox} aria-label='previewBox'>
@@ -29,12 +31,23 @@ const ImagePreview = (props) => {
                     </Box>
                 </Grid>
 
-                <Grid item container 
-                xs={12} 
-                direction='row' 
-                //spacing={2} 
-                className={classes.buttonGrid} 
-                aria-label='buttonGrid'
+                <Grid item xs={12}>
+                    <Box className={classes.instructionBox}>
+                        <Typography variant='body2' gap>
+                            * If the text in the picture is not horizontal, correct it.
+                        </Typography>
+                        <Typography variant='body2'>
+                            * Cropping the image will increase speed and quality, but is not required.
+                        </Typography>
+                    </Box>
+                </Grid>
+
+                <Grid item container
+                    xs={12}
+                    direction='row'
+                    //spacing={2} 
+                    className={classes.buttonGrid}
+                    aria-label='buttonGrid'
                 >
                     <Grid item xs={6}>
                         <Button

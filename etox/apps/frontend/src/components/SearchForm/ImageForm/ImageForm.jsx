@@ -60,7 +60,7 @@ const ImageForm = (props) => {
                 onChange={openHandler}
             />
             <label htmlFor="icon-button-file">
-                <IconButton
+            <IconButton
                     aria-label="upload picture"
                     className={classes.button}
                     component="span">

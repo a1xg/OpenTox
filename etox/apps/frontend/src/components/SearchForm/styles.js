@@ -2,20 +2,20 @@ import React from "react";
 import { makeStyles, alpha } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
-    formContainer:{
-        maxWidth:600,
-        paddingLeft:0,
-        paddingRight:0,
+    formContainer: {
+        maxWidth: 600,
+        paddingLeft: 0,
+        paddingRight: 0,
         justifyContent: 'center',
         width: '100%',
     },
     input: {
         margin: theme.spacing(1),
-        display: 'flex', 
+        display: 'flex',
 
         '& .MuiOutlinedInput-root': {
             overflow: 'hidden',
-            borderRadius: 4, 
+            borderRadius: 4,
             borderColor: theme.palette.primary[800],
             backgroundColor: theme.palette.grey[50],
             '&:hover fieldset': {
@@ -32,9 +32,10 @@ const useStyles = makeStyles((theme) => ({
         color: theme.palette.grey[500],
         "& :visited": { color: theme.palette.grey[200] },
         "& :hover": { color: theme.palette.primary[300] },
-        "& :active": { color: theme.palette.grey[400] }
-        
-    }
+        "& :active": { color: theme.palette.grey[400] },
+
+    },
+
 }));
 
 export default useStyles;

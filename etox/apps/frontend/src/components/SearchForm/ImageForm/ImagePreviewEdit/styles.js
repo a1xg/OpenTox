@@ -39,17 +39,24 @@ const useStyles = makeStyles((theme) => ({
         position: 'relative',
         width: 500,
         height:'100%',
-        background: theme.palette.grey[900],
+        background: theme.palette.grey[300],
         [theme.breakpoints.down('md')]: {
             width: '100%', 
-            maxHeight: '60vh'
+            maxHeight: '40vh'
+        }
+    },
+    instructionBox:{
+        width:500,
+        textAlign:'left',
+        [theme.breakpoints.down('md')]: {
+            width: '100%',
         }
     },
     cropBox: {
         position: 'relative',
         width: 500,
         height: '40vh',
-        background: theme.palette.grey[900],
+        background: theme.palette.grey[300],
         [theme.breakpoints.down('md')]: {
             width: '100%',
             maxHeight:'40vh'
@@ -63,7 +70,7 @@ const useStyles = makeStyles((theme) => ({
         }
     },
     image: {
-        maxHeight: '50vh',
+        maxHeight: '40vh',
         maxWidth:'100%',
     },
     button: {
