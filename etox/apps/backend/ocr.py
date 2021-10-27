@@ -49,7 +49,12 @@ class ImageOCR:
         retval, buffer = cv2.imencode('output.jpg', input_img)
         # Convert to base64 encoding and show start of data
         base64_string = base64.b64encode(buffer)
-        return base64_string
+        image = {
+            'height':input_img.shape[0],
+            'width':input_img.shape[1],
+            'image':base64.b64encode(buffer),
+        }
+        return image
 
     def _image_preprocessing(self) -> np.ndarray:
         '''Flattening the image histogram'''
