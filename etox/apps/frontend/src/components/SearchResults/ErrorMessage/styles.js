@@ -2,18 +2,21 @@ import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
     wrapper: {
+            width:600,
+            [theme.breakpoints.down('md')]:{
+                width:'calc(100% - 8px)'
+            },
+            paddingRight: '8px', 
+            paddingLeft:'8px'
+            
+       
+    },
+    box:{
         borderTop: `4px solid ${theme.palette.error.light}`,
         border: `1px solid ${theme.palette.grey[300]}`,
         borderRadius:'4px',
-        alignItems: 'center',
-        maxWidth: 600,
-        marginLeft: theme.spacing(1),
-        marginRight:theme.spacing(1),
-        textAlign: 'center',
-        padding: '10px',
-        [theme.breakpoints.down('md')]:{
-            width:'calc(100% - 16px)'
-        }
+        padding:'10px',
+        //width: '100%',
 
     },
     title: {

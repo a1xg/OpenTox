@@ -8,15 +8,17 @@ const ErrorMessage = (props) => {
     const classes = useStyles();
     return (
         <Container className={classes.wrapper}>
-            <Box>
-            <Typography variant='h6' className={classes.title}>
-                Error
-            </Typography>
-            </Box>
-            <Box>
-                <Typography variant='body1' className={classes.errormessage}>
-                    Sorry, ingredients not found...
-                </Typography>
+            <Box className={classes.box}>
+                <Box>
+                    <Typography variant='h6' className={classes.title}>
+                        Error
+                    </Typography>
+                </Box>
+                <Box>
+                    <Typography variant='body1' className={classes.errormessage}>
+                        Sorry, ingredients not found...
+                    </Typography>
+                </Box>
             </Box>
         </Container>
     )
