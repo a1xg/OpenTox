@@ -43,7 +43,7 @@ const PageMobile = (props) => {
                 
                 <Grid item xs={12} className={classes.gridRow2}>
                 {props.searchResults.data.detail_hazard_product.length > 0 &&
-                            <ItemCard title='Descripion'>
+                            <ItemCard title='Description'>
                                 <LegendHorizontal data={props.searchResults.data.detail_hazard_product} />
                             </ItemCard>
                         }

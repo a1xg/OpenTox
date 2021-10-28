@@ -52,7 +52,7 @@ const PageDesctop = (props) => {
                 <Grid item xs={2} container direction="column" spacing={2}>
                     <Grid item>
                         {props.searchResults.data.detail_hazard_product.length > 0 &&
-                            <ItemCard title='Descripion'>
+                            <ItemCard title='Description'>
                                 <LegendVertical data={props.searchResults.data.detail_hazard_product} />
                             </ItemCard>
                         }

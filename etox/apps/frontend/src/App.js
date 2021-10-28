@@ -20,7 +20,7 @@ import useStyles from './AppStyles.js';
 const App = (props) => {
   const classes = useStyles();
   const [searchQuery, setQuery] = useState();
-  const [searchResults, setSearchResults] = useState();
+  const [searchResults, setSearchResults] = useState(null);
   const [showBreadcrumbs, setShowBreadcrumbs] = useState(false);
 
   useEffect(() => {
@@ -41,9 +41,10 @@ const App = (props) => {
             }
           }
         })
-    } else {
-      setSearchResults({ loaded: false })
-    }
+    } 
+    // else {
+    // setSearchResults({ loaded: false })
+    // }
   }, [searchQuery]);
 
   return (
