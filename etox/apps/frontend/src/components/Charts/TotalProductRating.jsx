@@ -19,12 +19,14 @@ const useStyles = makeStyles((theme) => ({
         right:0
     },
     title: {
+        textShadow: `${theme.palette.grey[400]} 1px 1px 6px`,
         fontSize: '48px',
         [theme.breakpoints.down('md')]: {
             fontSize: '32px'
         },
     },
     subTitle: {
+        textShadow: `${theme.palette.grey[400]} 1px 1px 6px`,
         fontSize: '16px',
         [theme.breakpoints.down('md')]: {
             fontSize: '12px'
