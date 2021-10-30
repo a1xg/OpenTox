@@ -1,12 +1,11 @@
 import re
+import base64
 import numpy as np
 import cv2
 import pytesseract
 import pycountry
-from .ocr_settings import *
-import base64
-
 from langdetect import detect, DetectorFactory
+from .ocr_settings import *
 # Absolute path to tesseract.exe file if environment variable is not working correctly
 pytesseract.pytesseract.tesseract_cmd = TESSERACT_PATH
 
@@ -49,12 +48,12 @@ class ImageOCR:
         retval, buffer = cv2.imencode('output.jpg', input_img)
         # Convert to base64 encoding and show start of data
         base64_string = base64.b64encode(buffer)
-        image = {
+        output_image = {
             'height':input_img.shape[0],
             'width':input_img.shape[1],
             'image':base64.b64encode(buffer),
         }
-        return image
+        return output_image
 
     def _image_preprocessing(self) -> np.ndarray:
         '''Flattening the image histogram'''
@@ -82,11 +81,9 @@ class ImageOCR:
         '''
         num_lines = []
         font_size = []
-        # slices of the image along the X axis relative to the width of the image, to enhance
-        # counting accuracy for images with distorted perspective or with imperfect horizontal lines.
-        slices = ((0.35, 0.45), (0.5, 0.6), (0.65, 0.75))
+
         height, width = self.img.shape[0:2]
-        for slice in slices:
+        for slice in MEASURE_STRINGS_SLICES:
             newX = width*slice[0]
             newW = width*slice[1] - width*slice[0]
             crop = self.img[0:height, int(newX):int(newX+newW)]
@@ -94,9 +91,8 @@ class ImageOCR:
 
             # Reduce the 2D array along the X axis to a 1D array
             hist = cv2.reduce(crop, 1, cv2.REDUCE_AVG).reshape(-1)
-            th = 2
             H, W = crop.shape[:2]
-            lines = [y for y in range(H - 2) if hist[y] <= th and hist[y + 1] > th]
+            lines = [y for y in range(H - 2) if hist[y] <= MEASURE_TH and hist[y + 1] > MEASURE_TH]
             if len(lines) > 0:
                 font_size.extend([lines[i+1] - lines[i] for i in range(len(lines) - 1)])
                 num_lines.append(len(lines))
