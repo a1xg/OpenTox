@@ -1,4 +1,4 @@
-```text_preprocessing.py```
+```text_postprocessing.py```
 * Make a frequency analyzer to determine the type of separator (','|';'|'-'|'*' etc)
 
 ```admin.py```
