@@ -23,6 +23,7 @@
 * Substances Added to Food(U.S. Food and Drug Administration)
 * COSING(European Commission) 
 * EUCOSMETICS (NORMAN Suspect List Exchange)
+
 Качество исходных данных не всегда соответствовало единому стандарту и содержало лишние символы, ошибки, поэтому 
 данные предварительно обрабатывались Pandas/Regex. Некоторые данные (синонимы и идентификационные номера) 
 извлекались с помощью парсинга [PubChem](https://pubchem.ncbi.nlm.nih.gov/) с использованием requests и BeautifulSoup 
