@@ -12,10 +12,8 @@ const useStyles = makeStyles((theme) => ({
     input: {
         margin: theme.spacing(1),
         display: 'flex',
-
+        borderRadius: 4,
         '& .MuiOutlinedInput-root': {
-            overflow: 'hidden',
-            borderRadius: 4,
             borderColor: theme.palette.primary[800],
             backgroundColor: theme.palette.grey[50],
             '&:hover fieldset': {
@@ -23,7 +21,7 @@ const useStyles = makeStyles((theme) => ({
             },
             '&.Mui-focused': {
                 backgroundColor: theme.palette.grey[50],
-                boxShadow: `${alpha(theme.palette.primary.main, 0.25)} 0 0 0 2px`,
+                boxShadow: `${alpha(theme.palette.primary[400], 0.2)} 0 0 0 3px`,
                 borderColor: theme.palette.primary[100],
             },
         },
