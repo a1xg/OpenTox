@@ -56,7 +56,7 @@ class IngredientsBlockFinder:
 
             # the remaining keywords are cleared of extra characters and spaces, separated by comma
             cleared_string = TextPostprocessing().string_filter(input_string=string)
-            keyword_list = cleared_string.split(',')
+            keyword_list = cleared_string.split(', ')
             keyword_list = [keyword for keyword in keyword_list if len(keyword) > 0]
             text_block.keywords = keyword_list
             if box_index != None:
