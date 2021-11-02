@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import IconButton from '@material-ui/core/IconButton';
-import ImageSearchIcon from '@material-ui/icons/ImageSearch';
+//import ImageSearchIcon from '@material-ui/icons/ImageSearch';
+import CameraAltIcon from '@mui/icons-material/CameraAlt';
 import Box from '@material-ui/core/Box';
 import CSRFToken from "../csrftoken.jsx";
 import DialogContainer from "./ImagePreviewEdit/DialogContainer.jsx";
@@ -64,7 +65,7 @@ const ImageForm = (props) => {
                     aria-label="upload picture"
                     className={classes.button}
                     component="span">
-                    <ImageSearchIcon />
+                    <CameraAltIcon />
                 </IconButton>
             </label>
             {inputImage != null && 

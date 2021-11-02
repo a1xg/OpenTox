@@ -34,7 +34,7 @@ const SearchForm = (props) => {
                 <TextField
                     className={classes.input}
                     variant="outlined"
-                    placeholder='Ingredients separated by commas'
+                    placeholder='Comma-space separated ingredients'
                     name="text"
                     type="text"
                     onChange={(event) => { setFormText(event.target.value) }}

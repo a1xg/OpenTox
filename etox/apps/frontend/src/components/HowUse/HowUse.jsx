@@ -47,7 +47,7 @@ const HowUse = () => {
                     </Paper>
                     <Typography variant='h5'>Upload to the site</Typography>
                     <Typography variant='body2'>
-                        To speed up the search and the most accurate recognition result, we recommend cropping the image.
+                        To speed up the search and the most accurate recognition result, we recommend to crop the image.
                         Our algorithms recognize ingredients even in uncropped photos, but this will take a little longer.
                     </Typography>
                     <Typography variant='body2'>
