@@ -8,9 +8,26 @@ from .models import *
 
 
 class IngredientsAdmin(admin.ModelAdmin):
-    actions = ('drop_keyword','concatenate_objects',)
-    raw_id_fields = ('hazard',)
-    list_display = ('main_name','description','id','hazard_id','request_statistics','pubchem_cid','cas_numbers','ec_numbers','e_number','functions','colour_index')
+    actions = (
+        'drop_keyword',
+        'concatenate_objects',
+    )
+    raw_id_fields = (
+        'hazard',
+    )
+    list_display = (
+        'main_name',
+        'description',
+        'id',
+        'hazard_id',
+        'request_statistics',
+        'pubchem_cid',
+        'cas_numbers',
+        'ec_numbers',
+        'e_number',
+        'functions',
+        'colour_index'
+    )
     search_fields = (
         'main_name',
         'data__synonyms__eng__contains',
@@ -20,7 +37,9 @@ class IngredientsAdmin(admin.ModelAdmin):
         'data__colourIndex__contains'
     )
     formfield_overrides = {
-        models.JSONField: {'widget': JSONEditorWidget},
+        models.JSONField: {
+            'widget': JSONEditorWidget
+        },
     }
 
     @admin.action(description='Удалить ключевое слово из выбранных ингридиентов')
@@ -45,7 +64,15 @@ class HazardAdmin(admin.ModelAdmin):
     formfield_overrides = {
         models.JSONField: {'widget': JSONEditorWidget},
     }
-    list_display = ('__str__', 'id', 'cl_inventory_id', 'cas_number', 'ec_number','sourse','total_notifications',)
+    list_display = (
+        '__str__',
+        'id',
+        'cl_inventory_id',
+        'cas_number',
+        'ec_number',
+        'sourse',
+        'total_notifications',
+    )
     search_fields = (
         'substance__substanceNames__contains',
         'ec_number__contains',
@@ -62,16 +89,36 @@ class HazardAdmin(admin.ModelAdmin):
 
 
 class GHSAdmin(admin.ModelAdmin):
-    list_display = ('id', 'abbreviation', 'hazard_category', 'code', 'description','hazard_class','hazard_subclass','hazard_scale_score', 'active_status')
+    list_display = (
+        'id',
+        'abbreviation',
+        'hazard_category',
+        'code',
+        'description',
+        'hazard_class',
+        'hazard_subclass',
+        'hazard_scale_score',
+        'active_status'
+    )
 
 
-class Hazard_GHSAdmin(admin.ModelAdmin):
-    raw_id_fields = ('hazard','ghs')
-    list_display = ('id','hazard','ghs','number_of_notifiers',)
-    search_fields = ('hazard__id',)
+class HazardGHSAdmin (admin.ModelAdmin):
+    raw_id_fields = (
+        'hazard',
+        'ghs'
+    )
+    list_display = (
+        'id',
+        'hazard',
+        'ghs',
+        'number_of_notifiers',
+    )
+    search_fields = (
+        'hazard__id',
+    )
+
 
 admin.site.register(Ingredients, IngredientsAdmin)
 admin.site.register(Hazard, HazardAdmin)
 admin.site.register(GHS, GHSAdmin)
-admin.site.register(Hazard_GHS, Hazard_GHSAdmin)
-
+admin.site.register(Hazard_GHS, HazardGHSAdmin)

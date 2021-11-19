@@ -31,34 +31,35 @@ pytesseract.pytesseract.tesseract_cmd = TESSERACT_PATH
 #  Process langdetect exception in case of image without text.
 #  Transfer the ocr module to the client side and rewrite it to JavaScript accordingly.
 
+
 class ImageOCR:
     def __init__(self, img):
         self.original = img
         self.img = self._decode_image(img)
-        self.result = [] # output list of dictionaries with recognized text in the format {'lang':'text'}
+        self.result = []  # output list of dictionaries with recognized text in the format {'lang':'text'}
         self._boxes = []
 
     def _decode_image(self, input_img) -> np.ndarray:
-        '''Decode bytes image to numpy format'''
+        """Decode bytes image to numpy format"""
         decoded_img = cv2.imdecode(np.fromstring(input_img, np.uint8), cv2.IMREAD_UNCHANGED)
         return decoded_img
 
     def _encode_image(self, input_img:np.ndarray):
-        '''Encodes an np.ndarray into a base64 string'''
+        """Encodes an np.ndarray into a base64 string"""
         retval, buffer = cv2.imencode('output.jpg', input_img)
         # Convert to base64 encoding and show start of data
-        base64_string = base64.b64encode(buffer)
+        base64.b64encode(buffer)
         output_image = {
-            'height':input_img.shape[0],
-            'width':input_img.shape[1],
-            'image':base64.b64encode(buffer),
+            'height': input_img.shape[0],
+            'width': input_img.shape[1],
+            'image': base64.b64encode(buffer),
         }
         return output_image
 
-    def _image_preprocessing(self) -> np.ndarray:
-        '''Flattening the image histogram'''
+    def _image_preprocessing(self) -> None:
+        """Flattening the image histogram"""
         grayscale = cv2.cvtColor(self.img, cv2.COLOR_BGR2GRAY)
-        clahe = cv2.createCLAHE(clipLimit=2.0, tileGridSize= (8,8))
+        clahe = cv2.createCLAHE(clipLimit=2.0, tileGridSize=(8, 8))
         normalised_img = clahe.apply(grayscale)
         self.img = normalised_img
 
@@ -75,10 +76,10 @@ class ImageOCR:
         return img_scaled
 
     def _measure_strings(self) -> tuple:
-        '''Method of counting text lines in an image and measuring the average font height
+        """Method of counting text lines in an image and measuring the average font height
         :param image:
         :return:
-        '''
+        """
         num_lines = []
         font_size = []
 
@@ -101,7 +102,7 @@ class ImageOCR:
         # Calculate the average number of text lines
         mean_num_lines = int(np.array(num_lines).mean()) if len(num_lines) > 1 else 0
 
-        return (mean_font_size, mean_num_lines)
+        return (mean_font_size, mean_num_lines, )
 
     def _get_text_mask(self, image:np.ndarray, font_size:int, num_lines:int) -> np.ndarray:
         """
@@ -140,9 +141,9 @@ class ImageOCR:
         return text_mask
 
     def _get_binary_images(self, image:np.ndarray, font_size) -> list:
-        '''The method crops the text area of interest in the image, brings the 
+        """The method crops the text area of interest in the image, brings the 
         resolution of the cropped area to the new standard maximum resolution.
-        '''
+        """
         binary_images = []
         # If the list of bounding boxes is empty, then the entire image will be the bounding box
         self._boxes = [[0, 0, image.shape[1], image.shape[0]]] if len(self._boxes) <= 0 else self._boxes
@@ -180,7 +181,7 @@ class ImageOCR:
         # return an array of binary images, if any.
         return binary_images if len(binary_images) > 0 else False
 
-    def _find_boxes(self, mask_img:np.ndarray) -> None:
+    def _find_boxes(self, mask_img: np.ndarray) -> None:
         """
         The method accepts a binary image mask that selects text blocks.
         The quantity parameter is intended to limit the number of boxes, remove duplicates and very small boxes.
@@ -215,16 +216,16 @@ class ImageOCR:
 
         self._boxes = self._find_largest_boxes(boxes=boxes) if len(boxes) > NUM_OF_LARGEST_BOXES else boxes
 
-    def _find_largest_boxes(self, boxes:np.array) -> list:
-        '''The method takes a list of all found boxes and returns the given
-        number (not more than: NUM_OF_LARGEST_BOXES :) of boxes with the largest area'''
+    def _find_largest_boxes(self, boxes: np.array) -> list:
+        """The method takes a list of all found boxes and returns the given
+        number (not more than: NUM_OF_LARGEST_BOXES :) of boxes with the largest area"""
         boxes_array = np.array(boxes)
         areas = np.prod(boxes_array[:,2:4], axis=1)
         max_areas_indises = np.argpartition(areas, -NUM_OF_LARGEST_BOXES)[-NUM_OF_LARGEST_BOXES:]
         bigest_boxes = [boxes_array[i].tolist() for i in max_areas_indises]
         return bigest_boxes
 
-    def _crop_image(self, image:np.ndarray) -> np.ndarray:
+    def _crop_image(self, image: np.ndarray) -> np.ndarray:
         """The method crops the image proportionally to the crop ratio (floating point numbers from 0 to 1)
         relative to the center of the image."""
         x, y, h, w = 0, 0, image.shape[0], image.shape[1]
@@ -234,11 +235,11 @@ class ImageOCR:
         cropped_img = image[int(new_y):int(new_y+new_h), int(new_x):int(new_x+new_w)]
         return cropped_img
 
-    def _recognize_text(self, conf:str, image:np.ndarray) -> str:
+    def _recognize_text(self, conf: str, image:np.ndarray) -> str:
         """Text recognition method"""
         return pytesseract.image_to_string(image, config=conf)
 
-    def _detect_lang(self, text:str) -> str:
+    def _detect_lang(self, text: str) -> str:
         # remove all non-alphanumeric characters
         cleared_text = re.sub(r'[\W_0-9]+', ' ', text)
         DetectorFactory.seed = 0
@@ -248,7 +249,7 @@ class ImageOCR:
         alpha_3_lang_code = langdict.alpha_3
         return alpha_3_lang_code
 
-    def get_text(self, text_lang:str, crop:bool) -> list:
+    def get_text(self, text_lang: str, crop: bool) -> list:
         """text_lang The language must be specified in alpha-3 format,
         if the language is unknown, then the text_lang parameter must be set to False.
         If the language is not specified, then it will be recognized automatically,
@@ -279,8 +280,8 @@ class ImageOCR:
                 custom_config = (f'-l {recognized_lang} --oem 1 --psm 6')
                 ocr_result = self._recognize_text(custom_config, image)
                 self.result.append({
-                    'lang':recognized_lang,
-                    'box_index':index,
+                    'lang': recognized_lang,
+                    'box_index': index,
                     'text': ocr_result
                 })
             else:
@@ -294,7 +295,7 @@ class ImageOCR:
                 })
         return self.result
 
-    def draw_boxes(self, **kwargs) -> np.ndarray:
+    def draw_boxes(self, **kwargs):
         """
         Method for drawing bounding rectangles
         It is intended for debugging of the module or delivery to the
@@ -311,12 +312,12 @@ class ImageOCR:
         """
         img = self._decode_image(self.original)
 
-        boxes = self._boxes # default value - all boxes
+        boxes = self._boxes  # default value - all boxes
         if 'index' in kwargs:
             index = kwargs['index']
             boxes = [self._boxes[index]]
 
-        line_color = (255, 0, 0) # default
+        line_color = (255, 0, 0)  # default
         if 'color' in kwargs:
             line_color = kwargs['color']
 
@@ -325,7 +326,7 @@ class ImageOCR:
             line_thickness = kwargs['thickness']
 
         for box in boxes:
-            (x,y,w,h) = box
+            (x, y, w, h, ) = box
             cv2.rectangle(img, (x, y), ((x + w), (y + h)), line_color, line_thickness)
 
         # If the maximum resolution is set, then the picture will be changed, otherwise return the original

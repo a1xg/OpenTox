@@ -3,12 +3,13 @@ import re
 # The module sequentially processes the raw text received from the image recognition.
 # TODO Make a frequency analyzer to determine the type of separator (','|';'|'-'|'*' etc)
 
+
 class TextPostprocessing:
     def __init__(self):
         self._output_string = str
 
     def string_filter(self, input_string):
-        '''Cleaning text'''
+        """Cleaning text"""
         # cut out word break with line break
         string = re.sub(r'-\n', '', input_string)
         # replace the usual line break with a space
@@ -31,5 +32,5 @@ class TextPostprocessing:
         string = re.sub(r'(\s+,|,\s+)', ', ', string)
         # Replace multiple spaces with one space
         string = re.sub(r'\s+', ' ', string)
-        self._output_string = re.sub(r'(\s,|,\s)',', ', string)
-        return  self._output_string.lower()
+        self._output_string = re.sub(r'(\s,|,\s)', ', ', string)
+        return self._output_string.lower()

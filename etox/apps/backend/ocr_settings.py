@@ -21,9 +21,9 @@ LINE_NUM_THRESHOLD = 2
 # with imperfect horizontal lines. values: tuples like ((0...X, X...1),...)
 MEASURE_STRINGS_SLICES = ((0.35, 0.45), (0.5, 0.6), (0.65, 0.75))
 
-#A cut-off threshold for counting the number of white and black sequences in the
+# A cut-off threshold for counting the number of white and black sequences in the
 # array and determining what we count as white and what as black. Accepts values from 1 to 255.
-#For example, in the array [100,100,5,3,6,10,0,4,122,150,255,0,4,2,110,100,90]
+# For example, in the array [100,100,5,3,6,10,0,4,122,150,255,0,4,2,110,100,90]
 # with MEASURE_TH = 10, the white and black areas are switched at indices 7 and 13.
 MEASURE_TH = 2
 

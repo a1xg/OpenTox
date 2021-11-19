@@ -5,7 +5,8 @@ from .text_blocks_screening import IngredientsBlockFinder
 from .db_tools import DBQueries
 from .ocr_settings import *
 
-class Search:
+
+class SearchMixin:
     def __init__(self):
         self.box_index = None # Target block with text
         self.queryset = None

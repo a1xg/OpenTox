@@ -10,9 +10,12 @@ import time
 # The block with the largest number of matches found in the database
 # is the product composition.
 
+
 class TextBlock:
-    '''Text block class'''
-    def __init__(self, lang:str, text:str):
+    """
+    Text block class
+    """
+    def __init__(self, lang: str, text: str):
         self.lang = lang          # language of text
         self.text = text          # unnormalized text
         self.e_numbers = []       # present in the text E*** numbers
@@ -20,7 +23,8 @@ class TextBlock:
         self.keywords = []        # all keywords except numbers
         self.results = []         # objects of search results
         self.count = int          # the number of keywords found in the database
-        self.index = None          # the index of the textbox returned from the OCR
+        self.index = None         # the index of the textbox returned from the OCR
+
 
 class IngredientsBlockFinder:
     def __init__(self, data: list):
@@ -29,17 +33,19 @@ class IngredientsBlockFinder:
         self.box_index = None
 
     def _build_text_block(self) -> list:
-        '''We accept dictionaries and form objects of text blocks.
-         Language codes in alpha3 format are specified as dictionary keys.
-         The values are an unnormalized string of keywords.'''
+        """
+        We accept dictionaries and form objects of text blocks.
+        Language codes in alpha3 format are specified as dictionary keys.
+        The values are an unnormalized string of keywords.
+        """
         text_blocks = []
-        for dict in self.data:
-            string = dict.get('text')
-            lang = dict.get('lang')
-            box_index = dict.get('box_index')
+        for dictionary in self.data:
+            string = dictionary.get('text')
+            lang = dictionary.get('lang')
+            box_index = dictionary.get('box_index')
 
             text_block = TextBlock(text=string, lang=lang)
-            #if 'box_index' in
+            # if 'box_index' in
             # We look for E numbers and put them in order, if found, then remove them from the rest of the line.
             e_numbers = re.findall(RE_MASKS['eNumber'], string)
             if e_numbers:
@@ -66,7 +72,9 @@ class IngredientsBlockFinder:
         return text_blocks
 
     def get_data(self) -> None:
-        '''Looping through text blocks'''
+        """
+        Looping through text blocks
+        """
         for text_block in self._text_blocks:
             results = DBQueries().search_in_db(text_block=text_block, update_statistics=True)
             text_block.results = results
@@ -78,12 +86,15 @@ class IngredientsBlockFinder:
         return ingredients_block.results
 
     def _select_ingredient_block(self) -> TextBlock:
-        '''Select the block of text for which the most matches were found in the database'''
+        """
+        Select the block of text for which the most matches were found in the database
+        """
         result_count = [block.count for block in self._text_blocks]
         max_matches_idx = result_count.index(max(result_count))
         return self._text_blocks[max_matches_idx]
 
-'''
+
+"""
 Примеры запросов к полям jsonb
 Запрос слова из массива JSONB Ingredient.objects.filter(data__synonyms__eng__contains='dimethyl caproamide')
 Запрос слова из поля JSONB Ingredient.objects.filter(data__inchiKey='HNXNKTMIVROLTK-UHFFFAOYSA-N')
@@ -91,4 +102,4 @@ class IngredientsBlockFinder:
 Запрос по триграммам(выдает кучу результатов без ранжирования) Ingredient.objects.filter(main_name__trigram_similar="paraben")
 Неточный поиск по триграммам с ранжированием результата
 Ingredient.objects.annotate(similarity=TrigramSimilarity('main_name', 'propyiparaben'),).filter(similarity__gt=0.01).order_by('-similarity')
-'''
+"""

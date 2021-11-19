@@ -8,6 +8,7 @@ import json
 # Based on the data obtained, several ratings are calculated for
 # an ingredient and for the entire product based on these ingredients.
 
+
 class HazardMeter:
     def __init__(self, data: list, display_format: str):
         """
@@ -34,7 +35,7 @@ class HazardMeter:
                 'detail_hazard_product': self._product_hazard_aggregate(dataframes=all_ingredients_haz_detail)
             }
 
-    def _ingredients_hazard_filter(self) -> list:
+    def _ingredients_hazard_filter(self):
         """
         The method iterates over information about each ingredient in the search results
         """
@@ -113,21 +114,28 @@ class HazardMeter:
         return general_hazard
 
     def _product_hazard_aggregate(self, dataframes: list) -> list:
-        '''Method calculates the hazard of a product in several hazard classes based on its ingredients'''
+        """
+        Method calculates the hazard of a product in several hazard classes based on its ingredients
+        """
         if dataframes:
-            df = pd.concat(dataframes, ignore_index=True) # combine hazard data of all ingredients
-            df.drop(['ghs_code', 'confirmed_status','number_of_notifiers','percent_notifications'], axis=1, inplace=True)
+            df = pd.concat(dataframes, ignore_index=True)  # combine hazard data of all ingredients
+            df.drop([
+                'ghs_code', 
+                'confirmed_status', 
+                'number_of_notifiers', 
+                'percent_notifications'
+            ], axis=1, inplace=True)
             # FIXME в detail_hazard_product не попадает класс 'NO_DATA_AVAILABLE',
             #  а для большей понятности желательно его не выбрасывать
-            #df = df[df.hazard_class != self._NA]
-            same_classes = df.groupby(['hazard_class']) # grouping the same hazard classes
+            # df = df[df.hazard_class != self._NA]
+            same_classes = df.groupby(['hazard_class'])  # grouping the same hazard classes
         else:
             return []
 
         hazard_summary = []
         for hazard_class in same_classes.groups.keys():
             class_group = same_classes.get_group(hazard_class)
-            num_of_ingredients = len(class_group) # number of ingredients with hazard class
+            num_of_ingredients = len(class_group)  # number of ingredients with hazard class
             # looking for the value of the hazard scale within the class with the maximum number of occurrences
             most_common_hazard_score = class_group['hazard_scale_score'].value_counts().index[0]
             # leave in the dataframe only those data for which the value of the hazard scale is the same

@@ -3,8 +3,9 @@ from django.contrib.postgres.indexes import GinIndex, BTreeIndex, GistIndex
 
 # FIXME не работает поиск по main_name иногда не находятся синонимы в synonyms.eng, например 'advantame'
 
+
 class Ingredients(models.Model):
-    '''Table of ingredients'''
+    """Table of ingredients"""
     id = models.BigAutoField(primary_key=True)
     main_name = models.CharField(max_length=300, blank=True, null=False)
     hazard = models.ForeignKey('Hazard', models.DO_NOTHING, blank=True, null=False)
@@ -49,11 +50,11 @@ class Ingredients(models.Model):
             GinIndex(fields=["data"], name="colourindex_gin_idx",),
             GinIndex(fields=["data"], name="synonyms_eng_gin_idx",),
             BTreeIndex(fields=["main_name"], name="main_name_btree_idx",),
-            #GinIndex(fields=["main_name"], name="trgm_main_name_gin_idx", opclasses=['gin_trgm_ops'],),
+            # GinIndex(fields=["main_name"], name="trgm_main_name_gin_idx", opclasses=['gin_trgm_ops'],),
          ]
 
 
-class GHS(models.Model):
+class GHS (models.Model):
     id = models.BigAutoField(primary_key=True)
     hazard_class = models.CharField(max_length=100, blank=True, null=False)
     hazard_subclass = models.CharField(max_length=100, blank=True, null=False)
@@ -64,6 +65,7 @@ class GHS(models.Model):
     # user-defined hazard rating on a 10-point, ascending scale converted from 3-4 point ghs system
     hazard_scale_score = models.IntegerField(blank=True, null=False)
     active_status = models.BooleanField(default=True, null=False)
+
     def __str__(self):
         return f'{self.abbreviation} {self.hazard_category}'
 
@@ -75,7 +77,7 @@ class GHS(models.Model):
 
 
 class Hazard(models.Model):
-    '''The table safety data of ingredients'''
+    """The table safety data of ingredients"""
     id = models.BigAutoField(primary_key=True)
     substance = models.JSONField(blank=True, null=False)
     cas_number = models.CharField(max_length=12, blank=True, null=True)
@@ -95,7 +97,7 @@ class Hazard(models.Model):
         verbose_name_plural = 'Cards of hazard'
 
 
-class Hazard_GHS(models.Model):
+class Hazard_GHS (models.Model):
     id = models.BigAutoField(primary_key=True)
     hazard = models.ForeignKey(Hazard, on_delete=models.CASCADE, null=False)
     ghs = models.ForeignKey(GHS, on_delete=models.CASCADE, null=False)
