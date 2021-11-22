@@ -1,14 +1,14 @@
-from .hazard_assessor import HazardMeter
-from .ocr import ImageOCR
+from .services.hazard_assessor import HazardMeter
+from .services.ocr import ImageOCR
 from .serializers import IngredientsSerializer, ProductSerializer, DetailsIngredientSerializer
-from .text_blocks_screening import IngredientsBlockFinder
-from .db_tools import DBQueries
-from .ocr_settings import *
+from .services.text_blocks_screening import IngredientsBlockFinder
+from .services.db_tools import DBQueries
+from .services.ocr_settings import *
 
 
 class SearchMixin:
     def __init__(self):
-        self.box_index = None # Target block with text
+        self.box_index = None  # Target block with text
         self.queryset = None
         self.output_image = None
 

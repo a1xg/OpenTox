@@ -1,6 +1,6 @@
 # from django.contrib.postgres.search import SearchQuery, SearchVector, TrigramSimilarity
 from django.db.models import Q, F, Prefetch
-from .models import *
+from ..models import *
 
 # The module builds database queries based on delimited clean text.
 # Queries are written for various database fields - relational and non-relational fields.

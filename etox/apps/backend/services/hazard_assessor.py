@@ -1,6 +1,5 @@
-import pandas as pd
-from collections import OrderedDict
 import json
+import pandas as pd
 
 # The module filters and summarizes information about an ingredient,
 # based on data from the CLP system, removing information with
