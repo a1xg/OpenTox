@@ -1,3 +1,8 @@
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
+
 DEFAULT_LANG = 'eng'
 
 # The target font size(pix) to which the text will be scaled, this font size will
@@ -6,7 +11,7 @@ DEFAULT_LANG = 'eng'
 TARGET_FONT_SIZE = 40
 
 # Windows Tesseract path
-TESSERACT_PATH = 'D:/Program/Tesseract-OCR/tesseract.exe'
+TESSERACT_PATH = str(os.getenv('TESSERACT_PATH'))
 
 # text box border gap(%).
 TEXT_BOX_GAP_X = 5
