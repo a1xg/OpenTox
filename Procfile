@@ -1,1 +1,1 @@
-web: gunicorn --timeout 200 --workers 3 etox.wsgi --log-file -
+web: gunicorn etox.wsgi --timeout 200 --keep-alive 5 --log-level debug --log-file -
