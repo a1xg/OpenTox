@@ -1,1 +1,1 @@
-web: gunicorn etox.wsgi --log-file -
+web: gunicorn --timeout 120 etox.wsgi --log-file -
