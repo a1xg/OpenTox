@@ -93,13 +93,3 @@ class IngredientsBlockFinder:
         max_matches_idx = result_count.index(max(result_count))
         return self._text_blocks[max_matches_idx]
 
-
-"""
-Примеры запросов к полям jsonb
-Запрос слова из массива JSONB Ingredient.objects.filter(data__synonyms__eng__contains='dimethyl caproamide')
-Запрос слова из поля JSONB Ingredient.objects.filter(data__inchiKey='HNXNKTMIVROLTK-UHFFFAOYSA-N')
-Запрос к реляционным полям Ingredient.objects.filter(main_name='propylparaben')
-Запрос по триграммам(выдает кучу результатов без ранжирования) Ingredient.objects.filter(main_name__trigram_similar="paraben")
-Неточный поиск по триграммам с ранжированием результата
-Ingredient.objects.annotate(similarity=TrigramSimilarity('main_name', 'propyiparaben'),).filter(similarity__gt=0.01).order_by('-similarity')
-"""

@@ -4,9 +4,9 @@ from .serializers import IngredientsSerializer, ProductSerializer, DetailsIngred
 from .services.text_blocks_screening import IngredientsBlockFinder
 from .services.db_tools import DBQueries
 from .services.ocr_settings import *
+import logging
 
-
-class SearchMixin:
+class Search:
     def __init__(self):
         self.box_index = None  # Target block with text
         self.queryset = None
@@ -14,7 +14,9 @@ class SearchMixin:
 
     def _get_queryset(self, **kwargs):
         if 'request_text' in kwargs:
+            logging.info('Text processing started...')
             finder = IngredientsBlockFinder(data=kwargs['request_text'])
+            logging.info('Text processing completed...')
             self.queryset = finder.get_data()
             if finder.box_index != None:
                 self.box_index = finder.box_index
@@ -38,8 +40,9 @@ class SearchMixin:
         self._get_queryset(**kwargs)
 
         ingredients_data = IngredientsSerializer(self.queryset, many=True).data
+        logging.info('Hazard data processing started...')
         output_data = HazardMeter(data=ingredients_data, display_format=kwargs['display_format']).get_data()
-
+        logging.info('Hazard data processing completed')
         output_data['image_with_ingredients'] = None
         if self.box_index != None:
             output_data['image_with_ingredients'] = ocr.draw_boxes(
