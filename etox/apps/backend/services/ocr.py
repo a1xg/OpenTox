@@ -7,7 +7,7 @@ import pycountry
 from langdetect import detect, DetectorFactory
 from .ocr_settings import *
 # Absolute path to tesseract.exe file if environment variable is not working correctly
-pytesseract.pytesseract.tesseract_cmd = TESSERACT_PATH
+# pytesseract.pytesseract.tesseract_cmd = TESSERACT_PATH
 
 # The module is able to select a text scene in images containing foreign objects
 # and cut out text paragraphs separately. Unfortunately, the image skew compensation

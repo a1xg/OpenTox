@@ -25,7 +25,9 @@ class Search:
 
     def get_context(self, **kwargs):
         if 'image' in kwargs:
+            logging.info('Image processing started..')
             ocr = ImageOCR(img=kwargs['image'])
+            logging.info('Image processing completed.')
             kwargs['request_text'] = ocr.get_text(
                 text_lang=DEFAULT_LANG,
                 crop=kwargs['crop'],
