@@ -1,17 +1,17 @@
 const IMAGES = {
     flashlight: [
         {
-            src: "https://opentox.s3.eu-central-1.amazonaws.com/flashlight.jpg",
+            src: "/static/flashlight.jpg",
             thumbnail:
-                "https://opentox.s3.eu-central-1.amazonaws.com/flashlight.jpg",
+                "/static/flashlight.jpg",
             caption: "Flashlight",
             thumbnailWidth: 180,
             thumbnailHeight: 100,
         },
         {
-            src: "https://opentox.s3.eu-central-1.amazonaws.com/normal.JPG",
+            src: "/static/normal.jpeg",
             thumbnail:
-                "https://opentox.s3.eu-central-1.amazonaws.com/normal.JPG",
+                "/static/normal.jpeg",
             caption: "Good!",
             thumbnailWidth: 180,
             thumbnailHeight: 100,
@@ -19,16 +19,16 @@ const IMAGES = {
     ],
     unfocus: [
         {
-            src: 'https://opentox.s3.eu-central-1.amazonaws.com/unfocus2.JPG',
-            thumbnail: 'https://opentox.s3.eu-central-1.amazonaws.com/unfocus2.JPG',
+            src: '/static/unfocus2.jpeg',
+            thumbnail: '/static/unfocus2.jpeg',
             caption: "Unfocus",
             thumbnailWidth: 180,
             thumbnailHeight: 100,
         },
         {
-            src: "https://opentox.s3.eu-central-1.amazonaws.com/normal.JPG",
+            src: "/static/normal.jpeg",
             thumbnail:
-                "https://opentox.s3.eu-central-1.amazonaws.com/normal.JPG",
+                "/static/normal.jpeg",
             caption: "Good!",
             thumbnailWidth: 180,
             thumbnailHeight: 100,
@@ -36,17 +36,17 @@ const IMAGES = {
     ],
     horizontal: [
         {
-            src: "https://opentox.s3.eu-central-1.amazonaws.com/horizont_tilt.jpg",
+            src: "/static/horizont_tilt.jpg",
             thumbnail:
-                "https://opentox.s3.eu-central-1.amazonaws.com/horizont_tilt.jpg",
+                "/static/horizont_tilt.jpg",
             caption: "Horizon deviation",
             thumbnailWidth: 180,
             thumbnailHeight: 100,
         },
         {
-            src: "https://opentox.s3.eu-central-1.amazonaws.com/normal.JPG",
+            src: "/static/normal.jpeg",
             thumbnail:
-                "https://opentox.s3.eu-central-1.amazonaws.com/normal.JPG",
+                "/static/normal.jpeg",
             caption: "Good!",
             thumbnailWidth: 180,
             thumbnailHeight: 100,
@@ -54,15 +54,15 @@ const IMAGES = {
     ],
     crop: [
         {
-            src: "https://opentox.s3.eu-central-1.amazonaws.com/bad_crop.jpg",
-            thumbnail: "https://opentox.s3.eu-central-1.amazonaws.com/bad_crop.jpg",
+            src: "/static/bad_crop.jpg",
+            thumbnail: "/static/bad_crop.jpg",
             caption: "Bad crop",
             thumbnailWidth: 180,
             thumbnailHeight: 100,
         },
         {
-            src: "https://opentox.s3.eu-central-1.amazonaws.com/good_crop.jpg",
-            thumbnail: "https://opentox.s3.eu-central-1.amazonaws.com/good_crop.jpg",
+            src: "/static/good_crop.jpg",
+            thumbnail: "/static/good_crop.jpg",
             caption: "Good!",
             thumbnailWidth: 180,
             thumbnailHeight: 100,
